@@ -22,16 +22,16 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, onece argu
 
 Please cite **Qualia** if you use in your research.
 ```
-Kashu, Y., Qualia - deep learning framework, (2018), GitHub repository, https://github.com/Kashu7100/Qualia
+Kashu, Y., Qualia - deep learning framework, (2019), GitHub repository, https://github.com/Kashu7100/Qualia2.0
 ```
 BibTex
 ```bibtex
 @misc{qualia,
   author = {Kashu Yamazaki},
-  title = {{Q}ualia},
-  year = {2018},
+  title = {{Q}ualia2.0},
+  year = {2019},
   publisher = {GitHub},
-  howpublished = {\url{https://github.com/Kashu7100/Qualia}},
+  howpublished = {\url{https://github.com/Kashu7100/Qualia2.0}},
 }
 ```
 
