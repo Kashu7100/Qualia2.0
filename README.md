@@ -2,7 +2,7 @@
   <img src="https://kashu.ml/wp-content/uploads/2018/08/qualia-1-700x379.png?raw=true" alt="Qualia Logo"/>
 </p>
 
-Qualia is a deep learning framework deeply integrated with autograd designed for maximum flexibility. Qualia features in automatic differentiation and dynamic graphing with GPU acceleration. The previous version is available [here](https://github.com/Kashu7100/Qualia)
+Qualia is a deep learning framework deeply integrated with autograd designed for maximum flexibility. Qualia features in automatic differentiation and dynamic graphing with GPU acceleration. The previous version is available [here](https://github.com/Kashu7100/Qualia).
 
 ## Introduction
 
