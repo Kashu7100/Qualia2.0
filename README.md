@@ -17,3 +17,24 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, onece argu
 * [Python 3.x](https://www.python.org/)
 
 ## Installation
+
+## Citation
+
+Please cite **Qualia** if you use in your research.
+```
+Kashu, Y., Qualia - deep learning framework, (2018), GitHub repository, https://github.com/Kashu7100/Qualia
+```
+BibTex
+```bibtex
+@misc{qualia,
+  author = {Kashu Yamazaki},
+  title = {{Q}ualia},
+  year = {2018},
+  publisher = {GitHub},
+  howpublished = {\url{https://github.com/Kashu7100/Qualia}},
+}
+```
+
+## License
+
+Source codes in the repository follows [MIT](http://www.opensource.org/licenses/MIT) license.
