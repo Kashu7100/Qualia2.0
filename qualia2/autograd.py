@@ -133,7 +133,10 @@ class Function(object):
         self.output_shape = output_shape
         self.var = args
         self.kwargs = kwargs
-
+        
+    def __call__(self, *args, **kwargs):
+        return self.forward(*args, **kwargs)
+    
     @classmethod
     def prepare(cls, output_shape, *args, **kwargs):
         return cls(output_shape, *args, **kwargs)
@@ -173,6 +176,9 @@ class Slice(Function):
         return result
         
 class Neg(Function):
+    '''
+    Takes numerical negative elementwise.
+    '''
     @staticmethod
     def forward(a):
         result = Tensor(np.negative(a.data)) 
@@ -183,16 +189,22 @@ class Neg(Function):
         return np.negative(dx)
 
 class Add(Function):
+    '''
+    Adds two arrays elementwise.
+    '''
     @staticmethod
     def forward(a, b):
         result = Tensor(np.add(a.data, b.data)) 
-        result.set_creator(Add.prepare(result.shape, a, b)) 
+        result.set_creator(Add.prepare(result.shape, a, b))
         return result
     
     def calc_grad(self, dx):
         return dx, dx
     
 class Sub(Function):
+    '''
+    Subtracts arguments elementwise.
+    '''
     @staticmethod
     def forward(a, b):
         result = Tensor(np.subtract(a.data, b.data)) 
@@ -203,6 +215,9 @@ class Sub(Function):
         return dx, np.negative(dx)
 
 class Mul(Function):
+    '''
+    Multiplies two arrays elementwise.
+    '''
     @staticmethod
     def forward(a, b):
         result = Tensor(np.multiply(a.data, b.data)) 
@@ -213,6 +228,9 @@ class Mul(Function):
         return np.multiply(self.var[1].data, dx), np.multiply(self.var[0].data, dx)
     
 class Pow(Function):
+    '''
+    Computes x1 ** x2 elementwise.
+    '''
     @staticmethod
     def forward(a, b):
         result = Tensor(np.power(a.data, b.data)) 
@@ -223,6 +241,9 @@ class Pow(Function):
         return np.multiply(self.var[1].data, np.multiply(np.power(self.var[0].data, np.subtract(self.var[1].data, np.array([1]))), dx)), None
 
 class Div(Function):
+    '''
+    Elementwise true division
+    '''
     @staticmethod
     def forward(a, b):
         result = Tensor(np.divide(a.data, b.data)) 
