@@ -17,10 +17,9 @@ Qualia is a library that consists of the following components:
 | **qualia2.nn** | a neural networks library deeply integrated with autograd with CUDA acceleration |
 | **qualia2.data** | provides datasets for handy testing |
 | **qualia2.config** | select whether to use GPU |
-| **qualia2.core** | basic import |
 | **qualia2.functions** | predefined functions are presented |
 | **qualia2.kernels** | special kernels for GPU calculation |
-| **qualia2.util** | DataLoader, Trainer and other utility functions for convenience |
+| **qualia2.util** | utility functions for convenience |
 
 ## Requirements
 
