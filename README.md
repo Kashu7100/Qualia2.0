@@ -12,8 +12,8 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, onece argu
 
 ## Requirements
 
-* [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus) -- Compute Capability of the GPU must be at least 3.0.
-* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone) -- Supported Versions: 8.0, 9.0, 9.1, 9.2 and 10.0.
+* [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
+* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2 and 10.0.
 * [Python 3.6.0+](https://www.python.org/)
 
 ## Installation
