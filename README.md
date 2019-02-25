@@ -14,6 +14,7 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, onece argu
 
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
 * [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2 and 10.0.
+*you can still use Qualia2.0 without GPU*
 * [Python 3.6.0+](https://www.python.org/)
 
 ## Installation
