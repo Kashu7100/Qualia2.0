@@ -14,7 +14,7 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, onece argu
 
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus)
 * [CUDA Toolkit](https://developer.nvidia.com/cuda-zone)
-* [Python 3.x](https://www.python.org/)
+* [Python 3.6 >](https://www.python.org/)
 
 ## Installation
 
