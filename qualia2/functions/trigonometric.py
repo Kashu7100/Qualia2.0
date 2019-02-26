@@ -43,7 +43,7 @@ class Tan(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, np.power(np.cos(self.var[0].data),2))
+        return np.divide(dx, np.square(np.cos(self.var[0].data)))
 
 tan = Tan(None)
 
@@ -58,7 +58,7 @@ class Arcsin(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, np.sqrt(np.subtract(1,np.power(self.var[0].data,2))))
+        return np.divide(dx, np.sqrt(np.subtract(1,np.square(self.var[0].data))))
 
 arcsin = Arcsin(None)
 
@@ -74,7 +74,7 @@ class Arccos(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(-dx, np.sqrt(np.subtract(1,np.power(self.var[0].data,2))))
+        return np.divide(-dx, np.sqrt(np.subtract(1,np.square(self.var[0].data))))
 
 arccos = Arccos(None)
 
@@ -89,7 +89,7 @@ class Arctan(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, np.add(1,np.power(self.var[0].data,2)))
+        return np.divide(dx, np.add(1,np.square(self.var[0].data)))
 
 arctan = Arctan(None)
 
@@ -135,7 +135,7 @@ class Tanh(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.multiply(dx, np.subtract(1, np.power(self.kwargs['tmp'], 2)))
+        return np.multiply(dx, np.subtract(1, np.square(self.kwargs['tmp'])))
 
 tanh = Tanh(None)
 
@@ -150,7 +150,7 @@ class Arcsinh(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, np.sqrt(np.add(1, np.power(self.var[0].data,2))))
+        return np.divide(dx, np.sqrt(np.add(1, np.square(self.var[0].data))))
     
 arcsinh = Arcsinh(None)
 
@@ -165,7 +165,7 @@ class Arccosh(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, np.sqrt(np.subtract(np.power(self.var[0].data,2), 1)))
+        return np.divide(dx, np.sqrt(np.subtract(np.square(self.var[0].data), 1)))
 
 arccosh = Arccosh(None)
 
@@ -180,6 +180,6 @@ class Arctanh(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, np.subtract(1, np.power(self.var[0].data,2)))
+        return np.divide(dx, np.subtract(1, np.square(self.var[0].data)))
 
 arctanh = Arctanh(None)
