@@ -32,6 +32,10 @@ Qualia is a library that consists of the following components:
 
 ## Installation
 
+```bash
+UNDER DEV
+```
+
 ## Citation
 
 Please cite **Qualia** if you use in your research.
