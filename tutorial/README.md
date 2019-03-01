@@ -8,7 +8,7 @@ from qualia2.autograd import Tensor
 ```
 Qualia uses the so called “Define-by-Run” scheme, so forward computation itself defines the computational graph. By using a Tensor object, Qualia can keep track of every operation. Here, the resulting y is also a Tensor object, which points to its creator(s).
 ```python
-x = Tensor(np.array([5]))
+x = qualia2.array([5])
 y = x**2 - 2*x + 1
 # prints result of the computation: 
 # [16]
@@ -31,7 +31,7 @@ Note that this meets the result of symbolic differentiation.
 
 All these computations can be generalized to a multidimensional tensor input. When the output is not a scalar quantity, a tenspr  with the same dimentions as the output that is filled with ones will be given by default to start backward computation.
 ```python
-x = Variable(np.array([[1, 2, 3], [4, 5, 6]]))
+x = qualia2.array([[1, 2, 3], [4, 5, 6]])
 y = x**2 - 2*x + 1
 y.backward()
 # prints gradients of x:
