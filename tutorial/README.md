@@ -62,6 +62,9 @@ ax.grid()
 
 plt.show()
 ```
+<p align="center">
+  <img src="/assets/sin.png">
+</p>
 
 ## Model Summary
 Having a visualization of the model is very helpful while debugging your network. You can obtain a network summary by `your_model.summary(input_shape)`. Note that the `input_size` is required to make a forward pass through the network.
