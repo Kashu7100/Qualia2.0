@@ -183,3 +183,21 @@ class Arctanh(Function):
         return np.divide(dx, np.subtract(1, np.square(self.var[0].data)))
 
 arctanh = Arctanh(None)
+
+class Sinc(Function):
+    @staticmethod
+    def forward(a):
+        mask = (a.data == 0) 
+        tmp = a.data.copy() 
+        tmp[mask] = 1
+        tmp[np.logical_not(mask)] = np.divide(np.sin(a.data[np.logical_not(mask)]), a.data[np.logical_not(mask)]) 
+        result = Tensor(tmp) 
+        result.set_creator(Sinc.prepare(result.shape, a, mask=mask))
+        return result
+    
+    def calc_grad(self, dx):
+        dx[self.kwargs['mask']] = 0
+        dx[np.logical_not(self.kwargs['mask'])] = np.multiply(dx[np.logical_not(self.kwargs['mask'])] , np.subtract(np.divide(np.cos(self.var[0].data[np.logical_not(self.kwargs['mask'])]), self.var[0].data[np.logical_not(self.kwargs['mask'])]), np.divide(np.sin(self.var[0].data[np.logical_not(self.kwargs['mask'])]), np.square(self.var[0].data[np.logical_not(self.kwargs['mask'])])))) 
+        return dx
+
+sinc = Sinc(None)
