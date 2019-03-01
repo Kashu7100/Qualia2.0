@@ -45,8 +45,12 @@ from qualia2.functions import *
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
+
+# define domain
 x = qualia2.arange(-2*qualia2.pi,2*qualia2.pi,0.01)
+# let function of interest be sin(x)
 y = sin(x)
+
 y.backward()
 if qualia2.gpu:
     ax.plot(qualia2.to_cpu(x.data), qualia2.to_cpu(y.data))
