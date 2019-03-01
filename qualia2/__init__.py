@@ -6,7 +6,10 @@ from .autograd import *
 from .functions import * 
 
 def array(obj):
-    return Tensor(obj)
+    return Tensor(np.array(obj))
+
+def arange(*args):
+    return Tensor(np.arange(*args))
 
 def zeros(shape):
     return Tensor(np.zeros(shape))
