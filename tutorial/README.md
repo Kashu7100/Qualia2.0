@@ -10,7 +10,7 @@ Qualia uses the so called “Define-by-Run” scheme, so forward computation its
 x = qualia2.array([5])
 y = x**2 - 2*x + 1
 # prints result of the computation: 
-# [16]
+# [16] shape=(1,)
 print(y)
 ```
 At this moment we can compute the derivative.
