@@ -21,7 +21,7 @@ y.backward()
 # [8]
 print(x.grad)
 ```
-Note that this result meets the differential calculus.
+Note that this meets the result of symbolic differentiation.
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\mathrm{d}&space;y}{\mathrm{d}&space;x}&space;=&space;2x&space;-2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\mathrm{d}&space;y}{\mathrm{d}&space;x}&space;=&space;2x&space;-2" title="\frac{\mathrm{d} y}{\mathrm{d} x} = 2x -2" /></a>
 </p>
