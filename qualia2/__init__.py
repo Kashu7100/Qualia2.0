@@ -6,6 +6,7 @@ from .autograd import *
 from .functions import * 
 
 pi = np.pi
+e = np.e
 
 def array(obj):
     return Tensor(np.array(obj))
