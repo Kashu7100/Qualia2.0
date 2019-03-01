@@ -39,6 +39,26 @@ y.backward()
 print(x.grad)
 ```
 
+With the autograd feature of Qualia, one can plot the derivative curve of a given function very easily.
+```python
+from qualia2.functions import *
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+x = qualia2.arange(-2*qualia2.pi,2*qualia2.pi,0.01)
+y = sin(x)
+y.backward()
+if qualia2.gpu:
+    ax.plot(qualia2.to_cpu(x.data), qualia2.to_cpu(y.data))
+    ax.plot(qualia2.to_cpu(x.data), qualia2.to_cpu(x.grad))
+else:
+    ax.plot(x.data, y.data)
+    ax.plot(x.data, x.grad)
+ax.grid()
+
+plt.show()
+```
+
 ## Model Summary
 Having a visualization of the model is very helpful while debugging your network. You can obtain a network summary by `your_model.summary(input_shape)`. Note that the `input_size` is required to make a forward pass through the network.
 
