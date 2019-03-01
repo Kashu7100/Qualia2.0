@@ -5,6 +5,8 @@ from .kernels import *
 from .autograd import *
 from .functions import * 
 
+pi = np.pi
+
 def array(obj):
     return Tensor(np.array(obj))
 
