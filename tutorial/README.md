@@ -24,7 +24,8 @@ print(x.grad)
 Note that this result meets the differential calculus.
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\mathrm{d}&space;y}{\mathrm{d}&space;x}&space;=&space;2x&space;-2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\mathrm{d}&space;y}{\mathrm{d}&space;x}&space;=&space;2x&space;-2" title="\frac{\mathrm{d} y}{\mathrm{d} x} = 2x -2" /></a>
-
+</p>
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\therefore&space;y'(5)&space;=&space;8" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\therefore&space;y'(5)&space;=&space;8" title="\therefore y'(5) = 8" /></a>
 </p>
 
