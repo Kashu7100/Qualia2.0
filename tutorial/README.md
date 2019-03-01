@@ -60,8 +60,9 @@ ax.grid()
 
 plt.show()
 ```
+The following figure was obtained by the code above:
 <p align="center">
-  <img src="/assets/sin.png">
+  <img src="/assets/xsinx.png">
 </p>
 
 ## Model Summary
