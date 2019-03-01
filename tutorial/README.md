@@ -3,7 +3,7 @@ Fundamental of automatic differentiation [(AD)](https://en.wikipedia.org/wiki/Au
 
 In the example code of this tutorial, we assume for simplicity that the following symbols are already imported.
 ```python
-imoprt qualia2
+import qualia2
 ```
 Qualia uses the so called “Define-by-Run” scheme, so forward computation itself defines the computational graph. By using a Tensor object, Qualia can keep track of every operation. Here, the resulting y is also a Tensor object, which points to its creator(s).
 ```python
