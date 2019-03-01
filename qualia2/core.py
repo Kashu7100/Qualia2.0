@@ -11,5 +11,8 @@ if gpu:
 
     print('[*] GPU acceleration enabled.')
     os.system('nvcc --version')
+    
+    def to_cpu(obj):
+        return np.asnumpy(obj)
 else:
     import numpy as np 
