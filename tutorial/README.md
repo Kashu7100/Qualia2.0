@@ -76,6 +76,32 @@ check_function(sinc)
 #[*] measured error:  6.662620763892326e-18
 ```
 
+## Network Definition
+In order to define a network, one needs to inherit `nn.Module`.
+
+```python
+import qualia2
+import qualia2.nn as nn
+import qualia2.functions as F
+
+class Net(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
+        self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
+        self.fc1 = nn.Linear(320, 50)
+        self.fc2 = nn.Linear(50, 10)
+
+    def forward(self, x):
+        x = F.relu(F.max_pool2d(self.conv1(x), 2))
+        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
+        x = reshape(x,(-1, 320))
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+```
+If the model is sequential, there is another option to use `nn.Sequential`.
+
 ## Model Summary
 Having a visualization of the model is very helpful while debugging your network. You can obtain a network summary by `your_model.summary(input_shape)`. Note that the `input_size` is required to make a forward pass through the network.
 
@@ -86,7 +112,7 @@ import qualia2.functions as F
 
 class Net(nn.Module):
     def __init__(self):
-        super(Net, self).__init__()
+        super().__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
         self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
         self.fc1 = nn.Linear(320, 50)
