@@ -2,8 +2,7 @@
 from .core import *
 
 class Tensor(object):
-    '''
-    Wrapper class to execute automatic differentiation 
+    '''Wrapper class to execute automatic differentiation\n 
  
     Args: 
         data (ndarray|int|float): tensor to compute the automatic differentiation 
@@ -20,18 +19,14 @@ class Tensor(object):
     Examples:: 
         The following example will compute the Sum of Squared Error 
         >>> # Create Tensor objects 
-        >>> prediction = Tensor(np.random.rand(10,3)) 
-        >>> label = Tensor(np.random.rand(10,3),requires_grad=False) 
+        >>> x = qualia2.array([5])
         >>> # Write an equation 
-        >>> loss = sum((prediction-label)**2,axis=1)/2 
-        >>> # Print loss 
-        >>> print('loss is: \n{}'.format(loss)) 
+        >>> y = x**2 - 2*x + 1
+        >>> print(y)
         >>> # Calclate gradiant 
-        >>> loss.backward() 
+        >>> y.backward()
         >>> # Print gradient 
-        >>> print('gradiant for prediction is: \n{}'.format(prediction.grad)) 
-        >>> # When requires_grad is False, gradients will be zero 
-        >>> print('gradient for label is: \n{}'.format(label.grad)) 
+        >>> print(x.grad)
     ''' 
     def __init__(self, data, requires_grad=True):
         if type(data) is not np.ndarray: 
