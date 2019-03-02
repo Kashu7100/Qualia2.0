@@ -36,7 +36,10 @@ UNDER DEV
 ```
 
 ## Tutorial
-detailed tutorial of qualia can be found [here](/tutorial).
+Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
+
+## Examples
+Examples can be found [here](/examples).
 
 ## Citation
 
