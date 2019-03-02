@@ -39,7 +39,7 @@ y.backward()
 print(x.grad)
 ```
 
-With the autograd feature of Qualia, one can plot the derivative curve of a given function very easily. Let function of interest be `y = x*sin(x)`. 
+With the autograd feature of Qualia, one can plot the derivative curve of a given function very easily. For instance, let function of interest be `y = x*sin(x)`.
 ```python
 from qualia2.functions import *
 import matplotlib.pyplot as plt
