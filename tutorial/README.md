@@ -65,6 +65,17 @@ The following figure was obtained by the code above:
   <img src="/assets/xsinx.png">
 </p>
 
+## Validation of Automatic Differentiation 
+One can use `util.check_function()` to validate the gradient caluclation of a function.
+
+```python
+from qualia2.functions import *
+from qualia2.util import check_function
+
+check_function(sinc)
+#[*] measured error:  6.662620763892326e-18
+```
+
 ## Model Summary
 Having a visualization of the model is very helpful while debugging your network. You can obtain a network summary by `your_model.summary(input_shape)`. Note that the `input_size` is required to make a forward pass through the network.
 
