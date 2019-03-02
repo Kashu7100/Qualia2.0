@@ -35,6 +35,9 @@ Qualia is a library that consists of the following components:
 UNDER DEV
 ```
 
+## Tutorial
+detailed tutorial of qualia can be found [here](/tutorial).
+
 ## Citation
 
 Please cite **Qualia** if you use in your research.
