@@ -23,7 +23,7 @@ class Linear(Module):
         super().__init__() 
         self.in_features = in_features
         self.out_features = out_features
-        self.num_params = in_features*out_features
+        self.num_params += in_features*out_features
         self.weight = Tensor(np.random.normal(0, math.sqrt(1/in_features),(in_features, out_features))) 
         if bias: 
             self.bias = Tensor(np.zeros(out_features)) 
@@ -35,4 +35,9 @@ class Linear(Module):
         return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_features, self.out_features, str(self.bias is not None), id(self), 16)
     
     def forward(self, x): 
-        return linear(x, self.weight, self.bias)
+        result = linear(x, self.weight, self.bias)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
