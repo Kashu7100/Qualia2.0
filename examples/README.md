@@ -1,4 +1,5 @@
 ## Introduction
+Animals, including humans, change their behavior through experience. 
 The following diagram depicts the basic structure of learning in brains:
 
 <p align="center">
