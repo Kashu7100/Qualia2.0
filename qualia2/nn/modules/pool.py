@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import math 
 from .module import Module
 from ...core import * 
 from ...util import _single, _pair, _triple
