@@ -9,10 +9,10 @@ from ...autograd import Tensor
 class MaxPool1d(Module):
     '''Applies a 1D max pooling over an input signal composed of several input planes.\n
     Args:
-        kernel_size (int):
-        stride (int):
-        padding (int):
-        dilation (int):
+        kernel_size (int): the size of the window to take a max over
+        stride (int): the stride of the window. Default value is kernel_size
+        padding (int): implicit zero padding to be added on all three sides
+        dilation (int): a parameter that controls the stride of elements in the window
         return_indices (bool): if True, will return the max indices along with the outputs.
 
     Shape:
@@ -39,10 +39,10 @@ class MaxPool1d(Module):
 class MaxPool2d(Module):
     '''Applies a 2D max pooling over an input signal composed of several input planes.\n
     Args:
-        kernel_size (tuple of int):
-        stride (tuple of int):
-        padding (tuple of int):
-        dilation (tuple of int):
+        kernel_size (tuple of int): the size of the window to take a max over
+        stride (tuple of int): the stride of the window. Default value is kernel_size
+        padding (tuple of int): implicit zero padding to be added on all three sides
+        dilation (tuple of int): a parameter that controls the stride of elements in the window
         return_indices (bool): if True, will return the max indices along with the outputs.
 
     Shape:
@@ -70,10 +70,10 @@ class MaxPool2d(Module):
 class MaxPool3d(Module):
     '''Applies a 3D max pooling over an input signal composed of several input planes.\n
     Args:
-        kernel_size (tuple of int):
-        stride (tuple of int):
-        padding (tuple of int):
-        dilation (tuple of int):
+        kernel_size (tuple of int): the size of the window to take a max over
+        stride (tuple of int): the stride of the window. Default value is kernel_size
+        padding (tuple of int): implicit zero padding to be added on all three sides
+        dilation (tuple of int): a parameter that controls the stride of elements in the window
         return_indices (bool): if True, will return the max indices along with the outputs.
 
     Shape:
