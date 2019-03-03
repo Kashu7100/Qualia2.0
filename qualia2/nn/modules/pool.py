@@ -101,11 +101,11 @@ class MaxPool3d(Module):
 class AvgPool1d(Module):
     '''Applies a 1D average pooling over an input signal composed of several input planes.\n
     Args:
-        kernel_size (int):
-        stride (int):
-        padding (int):
-        dilation (int):
-
+        kernel_size (int): the size of the window to take a max over
+        stride (int): the stride of the window. Default value is kernel_size
+        padding (int): implicit zero padding to be added on all three sides
+        dilation (int): a parameter that controls the stride of elements in the window
+        
     Shape:
         - Input: [N,C,W]
         - Output: [N,C,W_out]
@@ -133,10 +133,10 @@ class AvgPool1d(Module):
 class AvgPool2d(Module):
     '''Applies a 2D average pooling over an input signal composed of several input planes.\n
     Args:
-        kernel_size (tuple of int):
-        stride (tuple of int):
-        padding (tuple of int):
-        dilation (tuple of int):
+        kernel_size (tuple of int): the size of the window to take a max over
+        stride (tuple of int): the stride of the window. Default value is kernel_size
+        padding (tuple of int): implicit zero padding to be added on all three sides
+        dilation (tuple of int): a parameter that controls the stride of elements in the window
 
     Shape:
         - Input: [N,C,H,W]
@@ -166,11 +166,11 @@ class AvgPool2d(Module):
 class AvgPool3d(Module):
     '''Applies a 3D average pooling over an input signal composed of several input planes.\n
     Args:
-        kernel_size (tuple of int):
-        stride (tuple of int):
-        padding (tuple of int):
-        dilation (tuple of int):
-
+        kernel_size (tuple of int): the size of the window to take a max over
+        stride (tuple of int): the stride of the window. Default value is kernel_size
+        padding (tuple of int): implicit zero padding to be added on all three sides
+        dilation (tuple of int): a parameter that controls the stride of elements in the window
+        
     Shape:
         - Input: [N,C,H,W,D]
         - Output: [N,C,H_out,W_out,D_out]
