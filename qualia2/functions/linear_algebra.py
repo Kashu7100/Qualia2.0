@@ -4,6 +4,20 @@ from ..autograd import *
 
 matmul = Matmul(None)
 
+class Dot(Function):
+    @staticmethod
+    def forward(a, b):
+        result = Tensor(np.dot(a.data, b.data)) 
+        result.set_creator(Dot.prepare(result.shape,a,b))
+        return result
+    
+    def calc_grad(self, dx):
+        da = np.dot(dx, self.var[1].data.T)
+        db = np.dot(self.var[0].data.T, dx)
+        return da, db
+
+dot = Dot(None)
+
 class Tensordot(Function):
     def __init__(self, output_shape, *args, **kwargs):
         super().__init__(output_shape, *args, **kwargs)
