@@ -26,7 +26,7 @@ class Conv1d(Module):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = _single(kernel_size)
-        self.num_params = out_channels*in_channels*self.kernel_size
+        self.num_params += out_channels*in_channels*self.kernel_size
         self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, self.kernel_size)))
         #self.kernel = Tensor(0.01*np.random.randn(out_channels, in_channels, self.kernel_size)) 
         if bias: 
@@ -43,7 +43,12 @@ class Conv1d(Module):
         return '{}({}, {}, {}, stride={}, padding={}, dilation={}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_channels, self.out_channels, self.kernel_size, self.stride, self.padding, self.dilation, str(self.bias is not None), id(self), 16)
 
     def forward(self, x):
-        return conv1d(x, self.kernel, self.bias, self.stride, self.padding, self.dilation)
+        result = conv1d(x, self.kernel, self.bias, self.stride, self.padding, self.dilation)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
 
 class Conv2d(Module):
     '''Applies a 2D convolution over an input signal composed of several input planes.\n 
@@ -68,7 +73,7 @@ class Conv2d(Module):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = _pair(kernel_size)
-        self.num_params = out_channels*in_channels*_mul(*self.kernel_size)
+        self.num_params += out_channels*in_channels*_mul(*self.kernel_size)
         self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, *self.kernel_size))) 
         #self.kernel = Tensor(0.01*np.random.randn(out_channels, in_channels, *self.kernel_size)) 
         if bias: 
@@ -85,7 +90,13 @@ class Conv2d(Module):
         return '{}({}, {}, {}, stride={}, padding={}, dilation={}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_channels, self.out_channels, self.kernel_size, self.stride, self.padding, self.dilation, str(self.bias is not None), id(self), 16)
 
     def forward(self, x):
-        return conv2d(x, self.kernel, self.bias, self.stride, self.padding, self.dilation)
+        result = conv2d(x, self.kernel, self.bias, self.stride, self.padding, self.dilation)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
+
 
 class Conv3d(Module):
     '''Applies a 3D convolution over an input signal composed of several input planes.\n 
@@ -107,7 +118,7 @@ class Conv3d(Module):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = _triple(kernel_size)
-        self.num_params = out_channels*in_channels*_mul(*self.kernel_size)
+        self.num_params += out_channels*in_channels*_mul(*self.kernel_size)
         self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, *self.kernel_size))) 
         #self.kernel = Tensor(0.01*np.random.randn(out_channels, in_channels, *self.kernel_size)) 
         if bias: 
@@ -124,4 +135,9 @@ class Conv3d(Module):
         return '{}({}, {}, {}, stride={}, padding={}, dilation={}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_channels, self.out_channels, self.kernel_size, self.stride, self.padding, self.dilation, str(self.bias is not None), id(self), 16)
 
     def forward(self, x):
-        return conv3d(x, self.kernel, self.bias, self.stride, self.padding, self.dilation)
+        result = conv3d(x, self.kernel, self.bias, self.stride, self.padding, self.dilation)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
