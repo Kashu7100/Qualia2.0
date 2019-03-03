@@ -26,14 +26,18 @@ class MaxPool1d(Module):
         self.stride = _single(stride)
         self.padding = _single(padding)
         self.dilation = _single(dilation)
-        self.num_params = 0
         self.return_indices = return_indices
     
     def __repr__(self):
         return '{}({}, stride={}, padding={}, dilation={}, return_indices={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.kernel_size, self.stride, self.padding, self.dilation, str(self.return_indices), id(self), 16)
 
     def forward(self, x):
-        return maxpool1d(x, self.kernel_size, self.stride, self.padding, self.dilation, self.return_indices)
+        result = maxpool1d(x, self.kernel_size, self.stride, self.padding, self.dilation, self.return_indices)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
         
 class MaxPool2d(Module):
     '''Applies a 2D max pooling over an input signal composed of several input planes.\n
@@ -57,14 +61,18 @@ class MaxPool2d(Module):
         self.stride = _pair(stride)
         self.padding = _pair(padding)
         self.dilation = _pair(dilation)
-        self.num_params = 0
         self.return_indices = return_indices
 
     def __repr__(self):
         return '{}({}, stride={}, padding={}, dilation={}, return_indices={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.kernel_size, self.stride, self.padding, self.dilation, str(self.return_indices), id(self), 16)
 
     def forward(self, x):
-        return maxpool2d(x, self.kernel_size, self.stride, self.padding, self.dilation, self.return_indices)
+        result = maxpool2d(x, self.kernel_size, self.stride, self.padding, self.dilation, self.return_indices)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
 
 class MaxPool3d(Module):
     '''Applies a 3D max pooling over an input signal composed of several input planes.\n
@@ -89,14 +97,18 @@ class MaxPool3d(Module):
         self.stride = _triple(stride)
         self.padding = _triple(padding)
         self.dilation = _triple(dilation)
-        self.num_params = 0
         self.return_indices = return_indices
 
     def __repr__(self):
         return '{}({}, stride={}, padding={}, dilation={}, return_indices={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.kernel_size, self.stride, self.padding, self.dilation, str(self.return_indices), id(self), 16)
 
     def forward(self, x):
-        return maxpool3d(x, self.kernel_size, self.stride, self.padding, self.dilation, self.return_indices)
+        result = maxpool3d(x, self.kernel_size, self.stride, self.padding, self.dilation, self.return_indices)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
     
 class AvgPool1d(Module):
     '''Applies a 1D average pooling over an input signal composed of several input planes.\n
