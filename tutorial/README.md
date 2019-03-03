@@ -145,3 +145,6 @@ total params: 30840
 training mode: True
 ------------------------------------------------------------------
 ```
+
+## Example with Spiral Dataset
+Neural networks can be viewed as a universal approximation function. 
