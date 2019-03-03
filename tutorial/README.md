@@ -129,7 +129,7 @@ class Net(nn.Module):
 model = Net()
 model.summary((1, 1, 28, 28))
 ```
-
+following is the output: 
 ```
 ------------------------------------------------------------------
                             Model: Net
