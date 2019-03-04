@@ -147,4 +147,11 @@ training mode: True
 ```
 
 ## Example with Spiral Dataset
-Neural networks can be viewed as a universal approximation function. 
+Neural networks can be viewed as a universal approximation function. Let's use a simple dataset called Spiral to see how neural net can obtain the non-linear decision boundary. To visualize the dataset, one can use the `Spiral.show()` method as follows: 
+
+```python
+from qualia2.data.basic import Spiral
+
+data = Spiral()
+data.show()
+```
