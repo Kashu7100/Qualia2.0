@@ -4,6 +4,7 @@ from .core import *
 from .kernels import * 
 from .autograd import *
 from .functions import * 
+from .data import *
 
 pi = np.pi
 e = np.e
