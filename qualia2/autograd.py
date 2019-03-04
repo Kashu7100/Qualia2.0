@@ -145,8 +145,10 @@ class Function(object):
 
     def backward(self, *args):
         grads = self.calc_grad(*args)
+        if type(grads) is list:
+            grads = tuple(grads)
         if type(grads) is not tuple:
-            grads = [grads]
+            grads = (grads,)
         for dx, var in zip(grads, self.var):
             if var.grad is None:
                 var.grad = dx
