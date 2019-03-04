@@ -155,3 +155,6 @@ from qualia2.data.basic import Spiral
 data = Spiral()
 data.show()
 ```
+<p align="center">
+  <img src="/assets/spiral.png">
+</p>
