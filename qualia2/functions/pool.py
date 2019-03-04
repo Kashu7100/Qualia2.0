@@ -7,10 +7,10 @@ class MaxPool1d(Function):
     def forward(x, kernel_width=2, stride=2, padding=0, dilation=1, return_indices=False):
         '''Applies a 1D max pooling over an input signal composed of several input planes.\n
         Args:
-            kernel_width (int):
-            stride (int):
-            padding (int):
-            dilation (int):
+            kernel_size (int): the size of the window to take a max over
+            stride (int): the stride of the window. Default value is kernel_size
+            padding (int): implicit zero padding to be added on all three sides
+            dilation (int): a parameter that controls the stride of elements in the window
             return_indices (bool): if True, will return the max indices along with the outputs.
 
         Shape:
@@ -66,10 +66,10 @@ class MaxPool2d(Function):
     def forward(x, kernel_size=(2,2), stride=(2,2), padding=(0,0), dilation=(1,1), return_indices=False): 
         '''Applies a 2D max pooling over an input signal composed of several input planes.\n
         Args:
-            kernel_size (tuple of int):
-            stride (tuple of int):
-            padding (tuple of int):
-            dilation (tuple of int):
+            kernel_size (tuple of int): the size of the window to take a max over
+            stride (tuple of int): the stride of the window. Default value is kernel_size
+            padding (tuple of int): implicit zero padding to be added on all three sides
+            dilation (tuple of int): a parameter that controls the stride of elements in the window
             return_indices (bool): if True, will return the max indices along with the outputs.
 
         Shape:
@@ -131,10 +131,10 @@ class MaxPool3d(Function):
     def forward(x, kernel_size=(2,2,2), stride=(2,2,2), padding=(0,0,0), dilation=(1,1,1), return_indices=False): 
         '''Applies a 3D max pooling over an input signal composed of several input planes.\n
         Args:
-            kernel_size (tuple of int):
-            stride (tuple of int):
-            padding (tuple of int):
-            dilation (tuple of int):
+            kernel_size (tuple of int): the size of the window to take a max over
+            stride (tuple of int): the stride of the window. Default value is kernel_size
+            padding (tuple of int): implicit zero padding to be added on all three sides
+            dilation (tuple of int): a parameter that controls the stride of elements in the window
             return_indices (bool): if True, will return the max indices along with the outputs.
 
         Shape:
@@ -201,10 +201,10 @@ class AvePool1d(Function):
     def forward(x, kernel_width=2, stride=2, padding=0, dilation=1):
         '''Applies a 1D average pooling over an input signal composed of several input planes.\n
         Args:
-            kernel_width (int):
-            stride (int):
-            padding (int):
-            dilation (int):
+            kernel_size (int): the size of the window to take a max over
+            stride (int): the stride of the window. Default value is kernel_size
+            padding (int): implicit zero padding to be added on all three sides
+            dilation (int): a parameter that controls the stride of elements in the window
 
         Shape:
             - Input: [N,C,W]
@@ -255,10 +255,10 @@ class AvePool2d(Function):
     def forward(x, kernel_size=(2,2), stride=(2,2), padding=(0,0), dilation=(1,1)): 
         '''Applies a 2D average pooling over an input signal composed of several input planes.\n
         Args:
-            kernel_size (tuple of int):
-            stride (tuple of int):
-            padding (tuple of int):
-            dilation (tuple of int):
+            kernel_size (tuple of int): the size of the window to take a max over
+            stride (tuple of int): the stride of the window. Default value is kernel_size
+            padding (tuple of int): implicit zero padding to be added on all three sides
+            dilation (tuple of int): a parameter that controls the stride of elements in the window
 
         Shape:
             - Input: [N,C,H,W]
@@ -312,14 +312,13 @@ avepool2d = AvePool2d(None)
 
 class AvePool3d(Function):
     @staticmethod
-    def forward(x, kernel_size=(2,2,2), stride=(2,2,2), padding=(0,0,0), dilation=(1,1,1), return_indices=False): 
+    def forward(x, kernel_size=(2,2,2), stride=(2,2,2), padding=(0,0,0), dilation=(1,1,1)): 
         '''Applies a 3D max pooling over an input signal composed of several input planes.\n
         Args:
-            kernel_size (tuple of int):
-            stride (tuple of int):
-            padding (tuple of int):
-            dilation (tuple of int):
-            return_indices (bool): if True, will return the max indices along with the outputs.
+            kernel_size (tuple of int): the size of the window to take a max over
+            stride (tuple of int): the stride of the window. Default value is kernel_size
+            padding (tuple of int): implicit zero padding to be added on all three sides
+            dilation (tuple of int): a parameter that controls the stride of elements in the window
 
         Shape:
             - Input: [N,C,H,W,D]
