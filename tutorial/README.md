@@ -186,6 +186,8 @@ optim = Adadelta(net.params)
 data = Spiral()
 data.batch = 100
 
+losses=[]
+
 for _ in range(3000):
     for feature, target in data:
         out = net(feature)
@@ -193,9 +195,17 @@ for _ in range(3000):
         optim.zero_grad()
         loss.backward()
         optim.step()
-        
+
+plt.plot([i for i in range(len(losses))], losses)
+plt.show()
+
 data.plot_decision_boundary(net)
 ```
+The following plot show the change in loss over iterations.
+<p align="center">
+  <img src="/assets/spiral_loss.png">
+</p>
+
 <p align="center">
   <img src="/assets/spiral_boundary.png">
 </p>
