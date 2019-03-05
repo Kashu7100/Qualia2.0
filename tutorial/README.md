@@ -159,17 +159,16 @@ data.show()
   <img src="/assets/spiral.png">
 </p>
 
+The following network was used for the Spiral dataset. One can use `Spiral.plot_decision_boundary(model)` to visualize the decision boundary attained by the model.
+
 ```python
 import qualia2
-from qualia2.core import *
-from qualia2.autograd import Tensor
 from qualia2.data.basic import Spiral
 from qualia2.nn.modules import Module, Linear
 from qualia2.functions import sigmoid, mse_loss
 from qualia2.nn.optim import Adadelta
 import matplotlib.pyplot as plt
 
-data = Spiral()
 class Net(Module):
     def __init__(self):
         super().__init__()
@@ -180,19 +179,22 @@ class Net(Module):
         x = sigmoid(self.l1(x))
         x = sigmoid(self.l2(x))
         return x
+        
 net = Net()
 optim = Adadelta(net.params)
+
+data = Spiral()
 data.batch = 100
-losses=[]
-for i in range(3000):
+
+for _ in range(3000):
     for feature, target in data:
         out = net(feature)
         loss = mse_loss(out, target)
-        losses.append(qualia2.to_cpu(loss.data))
         optim.zero_grad()
         loss.backward()
         optim.step()
-data.show_decision_boundary(net)
+        
+data.plot_decision_boundary(net)
 ```
 <p align="center">
   <img src="/assets/spiral_boundary.png">
