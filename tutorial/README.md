@@ -159,6 +159,41 @@ data.show()
   <img src="/assets/spiral.png">
 </p>
 
+```python
+import qualia2
+from qualia2.core import *
+from qualia2.autograd import Tensor
+from qualia2.data.basic import Spiral
+from qualia2.nn.modules import Module, Linear
+from qualia2.functions import sigmoid, mse_loss
+from qualia2.nn.optim import Adadelta
+import matplotlib.pyplot as plt
+
+data = Spiral()
+class Net(Module):
+    def __init__(self):
+        super().__init__()
+        self.l1 = Linear(2, 15)
+        self.l2 = Linear(15, 3)
+
+    def forward(self, x):
+        x = sigmoid(self.l1(x))
+        x = sigmoid(self.l2(x))
+        return x
+net = Net()
+optim = Adadelta(net.params)
+data.batch = 100
+losses=[]
+for i in range(3000):
+    for feature, target in data:
+        out = net(feature)
+        loss = mse_loss(out, target)
+        losses.append(qualia2.to_cpu(loss.data))
+        optim.zero_grad()
+        loss.backward()
+        optim.step()
+data.show_decision_boundary(net)
+```
 <p align="center">
   <img src="/assets/spiral_boundary.png">
 </p>
