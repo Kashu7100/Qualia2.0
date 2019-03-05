@@ -192,6 +192,7 @@ for _ in range(3000):
     for feature, target in data:
         out = net(feature)
         loss = mse_loss(out, target)
+        losses.append(qualia2.to_cpu(loss.data))
         optim.zero_grad()
         loss.backward()
         optim.step()
@@ -205,7 +206,7 @@ The following plot show the change in loss over iterations.
 <p align="center">
   <img src="/assets/spiral_loss.png">
 </p>
-
+Following is the decision boundary obtained. We can observe that the network could fit the non-linear dataset.
 <p align="center">
   <img src="/assets/spiral_boundary.png">
 </p>
