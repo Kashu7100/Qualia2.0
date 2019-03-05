@@ -2,6 +2,7 @@
 from .. import to_cpu
 from ..core import *
 from ..config import gpu
+from ..autograd import Tensor
 from .dataloader import DataLoader
 import matplotlib.pyplot as plt
 
@@ -26,7 +27,26 @@ class Spiral(DataLoader):
         fig, ax = plt.subplots()
         for c in range(self.num_class):
             if gpu:
-                ax.scatter(to_cpu(self.data[c*self.num_data:(c+1)*self.num_data,0]),to_cpu(self.data[c*self.num_data:(c+1)*self.num_data,1]))
+                ax.scatter(to_cpu(self.data[(self.label[:,c]>0)][:,0]),to_cpu(self.data[(self.label[:,c]>0)][:,1]))
             else:
-                ax.scatter(self.data[c*self.num_data:(c+1)*self.num_data,0],self.data[c*self.num_data:(c+1)*self.num_data,1])
+                ax.scatter(self.data[(self.label[:,c]>0)][:,0],self.data[(self.label[:,c]>0)][:,1])
+        plt.xlim(-1,1)
+        plt.ylim(-1,1)
+        plt.show()
+    
+    def show_decision_boundary(self, model):
+        h = 0.001
+        x, y = np.meshgrid(np.arange(-1, 1, h), np.arange(-1, 1, h))
+        out = model(Tensor(np.c_[x.ravel(), y.ravel()]))
+        pred = np.argmax(out.data, axis=1)
+        if gpu:
+            plt.contourf(to_cpu(x), to_cpu(y), to_cpu(pred.reshape(x.shape)))
+            for c in range(self.num_class):
+                plt.scatter(to_cpu(self.data[(self.label[:,c]>0)][:,0]),to_cpu(self.data[(self.label[:,c]>0)][:,1]))
+        else:
+            plt.contourf(x, y, pred.reshape(x.shape))
+            for c in range(self.num_class):
+                plt.scatter(self.data[(self.label[:,c]>0)][:,0],self.data[(self.label[:,c]>0)][:,1])
+        plt.xlim(-1,1)
+        plt.ylim(-1,1)
         plt.show()
