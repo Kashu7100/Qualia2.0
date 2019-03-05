@@ -158,3 +158,7 @@ data.show()
 <p align="center">
   <img src="/assets/spiral.png">
 </p>
+
+<p align="center">
+  <img src="/assets/spiral_boundary.png">
+</p>
