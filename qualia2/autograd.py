@@ -3,7 +3,6 @@ from .core import *
 
 class Tensor(object):
     '''Wrapper class to execute automatic differentiation\n 
- 
     Args: 
         data (ndarray|int|float): tensor to compute the automatic differentiation 
         requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. 
@@ -34,11 +33,11 @@ class Tensor(object):
                 self.data = np.array(data)
             else: 
                 self.data = np.array([data]) 
-        else: 
+        else:
             self.data = data 
         self.grad = None
         self.creator = None
-        self.requires_grad = True
+        self.requires_grad = requires_grad
 
     def backward(self, *args):
         if not bool(args):
@@ -143,6 +142,23 @@ class Function(object):
     def calc_grad(self, *args):
         raise NotImplementedError
 
+    @staticmethod
+    def handle_broadcast(arg, trg):
+        if arg.shape != trg.shape:
+            if arg.ndim == trg.ndim:
+                axis = [i for i in range(arg.ndim) if arg.shape[i] != trg.shape[i]]
+                arg = np.sum(arg, axis=tuple(axis)) 
+                return np.reshape(arg, trg.shape)
+            elif arg.ndim > trg.ndim:
+                tmp = [1 for _ in range(arg.ndim-trg.ndim)]
+                tmp += list(trg.shape)
+                axis = [i for i in range(arg.ndim) if tmp[i] != arg.shape[i]]
+                arg = np.sum(arg, axis=tuple(axis)) 
+                return np.reshape(arg, trg.shape)
+            else:
+                raise ValueError
+        return arg    
+
     def backward(self, *args):
         grads = self.calc_grad(*args)
         if type(grads) is list:
@@ -196,7 +212,7 @@ class Add(Function):
         return result
     
     def calc_grad(self, dx):
-        return dx, dx
+        return Add.handle_broadcast(dx, self.var[0]), Add.handle_broadcast(dx, self.var[1])
     
 class Sub(Function):
     '''
@@ -209,7 +225,7 @@ class Sub(Function):
         return result
 
     def calc_grad(self, dx):
-        return dx, np.negative(dx)
+        return Sub.handle_broadcast(dx, self.var[0]), np.negative(Sub.handle_broadcast(dx, self.var[1]))
 
 class Mul(Function):
     '''
