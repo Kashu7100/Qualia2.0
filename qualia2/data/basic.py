@@ -34,7 +34,7 @@ class Spiral(DataLoader):
         plt.ylim(-1,1)
         plt.show()
     
-    def show_decision_boundary(self, model):
+    def plot_decision_boundary(self, model):
         h = 0.001
         x, y = np.meshgrid(np.arange(-1, 1, h), np.arange(-1, 1, h))
         out = model(Tensor(np.c_[x.ravel(), y.ravel()]))
