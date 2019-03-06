@@ -9,7 +9,7 @@ Qualia is a deep learning framework deeply integrated with autograd designed for
 David J. Chalmers, an Australian philosopher and cognitive scientist, onece argued that if a system reproduces the functional organization of the brain, it will also reproduce the qualia associated with the brain in the paper "[Absent Qualia, Fading Qualia, Dancing Qualia](http://consc.net/papers/qualia.html)." This library "Qualia" named after the series of arguments in philosophy of mind associated with the qualia, hoping for the creation of a system with subjective consciousness. 
 
 ## Overview
-Qualia is a library that consists of the following components:
+Qualia2.0 is a library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
