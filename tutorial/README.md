@@ -146,7 +146,7 @@ training mode: True
 ------------------------------------------------------------------
 ```
 
-## Example with Spiral Dataset
+## Example with Spiral Dataset - Decision Boundary
 Neural networks can be viewed as a universal approximation function. Let's use a simple dataset called Spiral to see how neural net can obtain a non-linear decision boundary. To visualize the dataset, one can use the `Spiral.show()` method as follows: 
 
 ```python
@@ -210,3 +210,5 @@ Following is the decision boundary obtained. We can observe that the network cou
 <p align="center">
   <img src="/assets/spiral_boundary.png">
 </p>
+
+## Example with Swiss Roll Dataset - Dimensionality Reduction
