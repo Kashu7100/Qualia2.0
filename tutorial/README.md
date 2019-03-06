@@ -212,6 +212,7 @@ Following is the decision boundary obtained. We can observe that the network cou
 </p>
 
 ## Example with Swiss Roll Dataset - Dimensionality Reduction
+Neural networks can be used in dimensionality reduction since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use Swiss roll dataset. One can visualize the data as following: 
 ```python
 from qualia2.data.basic import SwissRoll
 
