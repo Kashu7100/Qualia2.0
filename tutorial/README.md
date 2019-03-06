@@ -212,3 +212,12 @@ Following is the decision boundary obtained. We can observe that the network cou
 </p>
 
 ## Example with Swiss Roll Dataset - Dimensionality Reduction
+```python
+from qualia2.data.basic import SwissRoll
+
+data = SwissRoll()
+data.show()
+```
+<p align="center">
+  <img src="/assets/swiss_roll.png">
+</p>
