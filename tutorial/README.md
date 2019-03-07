@@ -211,14 +211,7 @@ Following is the decision boundary obtained. We can observe that the network cou
   <img src="/assets/spiral_boundary.png">
 </p>
 
-## Example with Swiss Roll Dataset - Dimensionality Reduction
-Neural networks can be used in dimensionality reduction since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use Swiss roll dataset. One can visualize the data as following: 
-```python
-from qualia2.data.basic import SwissRoll
+## Example with MNIST Dataset - PCA
+Neural networks can be used in dimensionality reduction (PCA) since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use MNIST dataset.
 
-data = SwissRoll()
-data.show()
-```
-<p align="center">
-  <img src="/assets/swiss_roll.png">
-</p>
+
