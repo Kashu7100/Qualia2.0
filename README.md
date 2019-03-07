@@ -45,16 +45,17 @@ Examples can be found [here](/examples).
 
 Please cite **Qualia** if you use in your research.
 ```
-Kashu, Y., Qualia - deep learning framework, (2019), GitHub repository, https://github.com/Kashu7100/Qualia2.0
+Kashu Y., Qualia2.0 (2019). Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application, <https://github.com/Kashu7100/Qualia2.0>
 ```
 BibTex
 ```bibtex
-@misc{qualia,
-  author = {Kashu Yamazaki},
+@software{qualia,
   title = {{Q}ualia2.0},
+  author = {Kashu Yamazaki},
   year = {2019},
+  keywords = {Python, Automatic Differentiation, Dynamic Graphing, CUDA, Deep Learning}
   publisher = {GitHub},
-  howpublished = {\url{https://github.com/Kashu7100/Qualia2.0}},
+  url = {\url{https://github.com/Kashu7100/Qualia2.0}},
 }
 ```
 
