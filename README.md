@@ -43,7 +43,7 @@ Examples can be found [here](/examples).
 
 ## Citation
 
-Please cite **Qualia** if you use in your research.
+Please cite **Qualia** if you use in your research or in a scientific publication.
 ```
 Kashu Y., Qualia2.0 (2019). Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application, <https://github.com/Kashu7100/Qualia2.0>
 ```
