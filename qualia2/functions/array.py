@@ -2,16 +2,6 @@
 from ..core import *
 from ..autograd import *
 
-class Reshape(Function):
-    @staticmethod
-    def forward(a, shape):
-        result = Tensor(np.reshape(a.data, shape)) 
-        result.set_creator(Reshape.prepare(result.shape, a))
-        return result
-
-    def calc_grad(self, dx):
-        return np.reshape(dx, self.var[0].shape) 
-
 reshape = Reshape(None)
 
 class Transpose(Function):
