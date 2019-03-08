@@ -17,7 +17,7 @@ class MSELoss(Function):
         - Input: [N, C] 
         - Target: [N, C] 
         - Output: [1] by default 
-                  [N] if not reduc
+                  [N] if not reduce
     '''
     @staticmethod
     def forward(input, target, reduce=True, size_average=True):
