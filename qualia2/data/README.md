@@ -12,8 +12,10 @@ The MNIST database of handwritten digits, available from this page, has a traini
 Fashion-MNIST is a dataset of Zalando's article images—consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. 
 
 ## CIFAR10
+The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
 
 ## CIFAR100
+he CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. 
 
 # Acknowledgements
 The original datasets were obtained from following resources:
