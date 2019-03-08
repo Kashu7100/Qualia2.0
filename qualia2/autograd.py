@@ -155,10 +155,10 @@ class Function(object):
                 arg = np.sum(arg, axis=tuple(axis)) 
                 return np.reshape(arg, trg.shape)
             elif arg.ndim > trg.ndim:
-                tmp = [1 for _ in range(arg.ndim-trg.ndim)]
-                tmp += list(trg.shape)
+                assert trg.ndim == 1
+                tmp = [i if i == trg.shape[0] else 1 for i in arg.shape]
                 axis = [i for i in range(arg.ndim) if tmp[i] != arg.shape[i]]
-                arg = np.sum(arg, axis=tuple(axis)) 
+                arg = np.sum(arg, axis=tuple(axis))
                 return np.reshape(arg, trg.shape)
             else:
                 raise ValueError
