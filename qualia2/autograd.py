@@ -52,6 +52,11 @@ class Tensor(object):
             return Tensor(obj, requires_grad=False)
         return obj
     
+    def reshape(self, *args):
+        result = Tensor(np.reshape(self.data, args)) 
+        result.set_creator(Reshape.prepare(result.shape, self))
+        return result
+    
     def __str__(self):
         return f'{self.data} shape={self.shape}'
     
@@ -187,7 +192,17 @@ class Slice(Function):
         result = np.zeros_like(self.var[0].data)
         result[self.kwargs['slice']] = dx
         return result
-        
+
+class Reshape(Function):
+    @staticmethod
+    def forward(a, shape):
+        result = Tensor(np.reshape(a.data, shape)) 
+        result.set_creator(Reshape.prepare(result.shape, a))
+        return result
+
+    def calc_grad(self, dx):
+        return np.reshape(dx, self.var[0].shape)
+
 class Neg(Function):
     '''
     Takes numerical negative elementwise.
