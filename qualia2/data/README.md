@@ -11,6 +11,9 @@ The MNIST database of handwritten digits, available from this page, has a traini
 ## FashionMNIST
 Fashion-MNIST is a dataset of Zalando's article images—consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. 
 
+## CIFAR10
+
+## CIFAR100
 
 # Acknowledgements
 The original datasets were obtained from following resources:
@@ -30,3 +33,6 @@ The original datasets were obtained from following resources:
 * Roland Vollgraf, Zalando Research, Berlin
 
 **Fashion-MNIST**: *a Novel Image Dataset for Benchmarking Machine Learning Algorithms*. Han Xiao, Kashif Rasul, Roland Vollgraf. [arXiv:1708.07747](http://arxiv.org/abs/1708.07747)
+
+### [CIFAR-10 & CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html)
+* Alex Krizhevsky, Google in Mountain View, California
