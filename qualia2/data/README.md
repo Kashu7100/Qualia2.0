@@ -7,9 +7,15 @@
 
 ### MNIST
 The MNIST database of handwritten digits, available from this page, has a training set of 60,000 examples, and a test set of 10,000 examples. It is a subset of a larger set available from NIST. The digits have been size-normalized and centered in a fixed-size image. 
+<p align="center">
+  <img src="/assets/mnist_data.png">
+</p>
 
 ### FashionMNIST
 Fashion-MNIST is a dataset of Zalando's article images—consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. 
+<p align="center">
+  <img src="/assets/fashion_mnist_data.png">
+</p>
 
 ### CIFAR10
 The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
