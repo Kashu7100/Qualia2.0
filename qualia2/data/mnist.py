@@ -69,5 +69,14 @@ class MNIST(DataLoader):
             else:
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
-        
-        
+
+    def show(self):
+        for i in range(10):
+            for j in range(10):
+                plt.subplot(10,10,i+j*10+1)
+                plt.xticks([]) 
+                plt.yticks([]) 
+                plt.grid(False)
+                img = self.train_data[(self.train_label[:,j]>0)][i*10+j].reshape(28,28)
+                plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
+        plt.show()        
