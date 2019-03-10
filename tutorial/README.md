@@ -222,3 +222,37 @@ data.show()
 <p align="center">
   <img src="/assets/mnist_data.png">
 </p>
+
+```python
+from qualia2.core import *
+from qualia2.data import MNIST
+from qualia2.nn.modules import Module, Conv2d, Linear
+from qualia2.functions import leakyrelu, reshape, maxpool2d, mse_loss
+from qualia2.nn.optim import Adadelta
+from qualia2.util import trainer, tester
+import os.path
+path = os.path.dirname(os.path.abspath(__file__))
+
+class Classifier(Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = Conv2d(1, 32, 5, padding=2)
+        self.conv2 = Conv2d(32, 32, 5, padding=2)
+        self.linear1 = Linear(32*7*7, 512)
+        self.linear2 = Linear(512, 10)
+    
+    def forward(self, x):
+        x = maxpool2d(leakyrelu(self.conv1(x)))
+        x = maxpool2d(leakyrelu(self.conv2(x)))
+        x = reshape(x, (-1, 32*7*7))
+        x = leakyrelu(self.linear1(x))
+        x = leakyrelu(self.linear2(x))
+        return x
+
+mnist = MNIST()
+model = Classifier()
+optim = Adadelta(model.params)
+trainer(model, mse_loss, optim, mnist, 10, 100, path+'/qualia2_mnist')
+tester(model, mnist, 50, path+'/qualia2_mnist')
+```
+With the CUDA acceleration, this simple model can achieve about 97% accuracy on the testing data in tens of minutes.
