@@ -213,5 +213,12 @@ Following is the decision boundary obtained. We can observe that the network cou
 
 ## Example with MNIST Dataset - PCA
 Neural networks can be used in dimensionality reduction (PCA) since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use MNIST dataset.
+```python
+from qualia2.data.basic import MNIST
 
-
+data = MNIST()
+data.show()
+```
+<p align="center">
+  <img src="/assets/mnist_data.png">
+</p>
