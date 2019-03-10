@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*- 
 from .config import * 
 from .core import * 
-from .kernels import * 
+from .util import * 
 from .autograd import *
 from .functions import * 
+from .nn import * 
 from .data import *
 
 pi = np.pi
