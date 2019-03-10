@@ -21,6 +21,9 @@ Fashion-MNIST is a dataset of Zalando's article images—consisting of a trainin
   <img src="/assets/fashion_mnist_data.png">
 </p>
 
+### EMNIST
+The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19  and converted to a 28x28 pixel image format and dataset.
+
 ### CIFAR10
 The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
 
@@ -45,6 +48,9 @@ The original datasets were obtained from following resources:
 * Roland Vollgraf, Zalando Research, Berlin
 
 **Fashion-MNIST**: *a Novel Image Dataset for Benchmarking Machine Learning Algorithms*. Han Xiao, Kashif Rasul, Roland Vollgraf. [arXiv:1708.07747](http://arxiv.org/abs/1708.07747)
+
+### [EMNIST](https://www.nist.gov/itl/iad/image-group/emnist-dataset)
+Cohen, G., Afshar, S., Tapson, J., & van Schaik, A. (2017). **EMNIST**: *an extension of MNIST to handwritten letters*. Retrieved from http://arxiv.org/abs/1702.05373
 
 ### [CIFAR-10 & CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html)
 * Alex Krizhevsky, Google in Mountain View, California
