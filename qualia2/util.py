@@ -59,9 +59,7 @@ def progressbar(progress, process, text_before='', text_after=''):
     sys.stdout.flush()
 
 def trainer(model, criterion, optimizer, dataloader, epochs, minibatch, save_filename, load_filename=None): 
-    ''' 
-    This trainer helps the training process of supervised learning
- 
+    '''trainer helps the training process of supervised learning
     Args: 
         model (Module): model to train 
         criterion (Function): loss function to use 
@@ -99,6 +97,13 @@ def trainer(model, criterion, optimizer, dataloader, epochs, minibatch, save_fil
     print('\n[*] training completed.')
 
 def tester(model, dataloader, minibatch, filename):
+    ''' tester helps the testing process of supervised learning
+    Args: 
+        model (Module): model to train 
+        dataloader (DataLoader): dataloader to use 
+        minibatch (int): number of batch to use for testing 
+        filename (string): specify the filename as well as the loading path without the file extension. (ex) path/to/filename
+    ''' 
     if os.path.exists(filename+'.hdf5'):
         model.load(filename)
         print('[*] weights loaded.') 
