@@ -54,12 +54,12 @@ def _mul(*args):
 def progressbar(progress, process, text_before='', text_after=''):
     bar_length = 40
     block = int(round(bar_length*progress/process))
+    sys.stdout.flush()
     text = '\r[*]{}progress: [{:.0f}%] |{}| {}/{} {}'.format(' '+text_before, progress/process*100, '#'*block + "-"*(bar_length-block), progress, process, text_after)
     sys.stdout.write(text)
-    sys.stdout.flush()
-
+    
 def trainer(model, criterion, optimizer, dataloader, epochs, minibatch, save_filename, load_filename=None): 
-    '''trainer helps the training process of supervised learning
+    ''' trainer helps the training process of supervised learning
     Args: 
         model (Module): model to train 
         criterion (Function): loss function to use 
@@ -106,7 +106,9 @@ def tester(model, dataloader, minibatch, filename):
     ''' 
     if os.path.exists(filename+'.hdf5'):
         model.load(filename)
-        print('[*] weights loaded.') 
+        print('[*] weights loaded for testing.')
+    else:
+        raise Exception('[*] File not found: weights cannot be loaded.') 
     dataloader.batch = minibatch
     dataloader.training = False
     model.training = False
@@ -117,4 +119,5 @@ def tester(model, dataloader, minibatch, filename):
         out = np.argmax(output.data, axis=1) 
         ans = np.argmax(label.data, axis=1)
         acc += sum(out == ans)/label.shape[0]
-    print('[*] test acc: {:.2f}%'.format(float(acc/len(dataloader)*100)))
+        progressbar(i, len(dataloader))
+    print('\n[*] test acc: {:.2f}%'.format(float(acc/len(dataloader)*100)))
