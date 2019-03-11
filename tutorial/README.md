@@ -255,4 +255,25 @@ optim = Adadelta(model.params)
 trainer(model, mse_loss, optim, mnist, 10, 100, path+'/qualia2_mnist')
 tester(model, mnist, 50, path+'/qualia2_mnist')
 ```
-With the CUDA acceleration, this simple model can achieve about 97% accuracy on the testing data in tens of minutes.
+With the CUDA acceleration, this simple model can achieve about 97% accuracy on the testing data in tens of minutes. Then we utilize this network to conduct the principal component analysis.
+
+```python
+class PCA(Module):
+    def __init__(self):
+        super().__init__()
+        self.linear1 = Linear(10, 2)
+        self.linear2 = Linear(2, 10)
+        
+    def forward(self, x):
+        if self.training:
+            x = leakyrelu(self.linear1(x))
+            x = leakyrelu(self.linear2(x))
+            return x
+        else:
+            x = leakyrelu(self.linear1(x))
+            return x
+
+model1 = Classifier()
+model2 = PCA()
+optim = Adadelta(model.params)
+```
