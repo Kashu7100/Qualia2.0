@@ -2,7 +2,7 @@
 from .module import Module
 from ...core import * 
 from ...util import _single, _pair, _triple
-from ...functions import maxpool1d, maxpool2d, maxpool3d
+from ...functions import maxpool1d, maxpool2d, maxpool3d, avepool1d, avepool2d, avepool3d
 from ...autograd import Tensor 
 
 class MaxPool1d(Module):
@@ -109,7 +109,7 @@ class MaxPool3d(Module):
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
-    
+
 class AvgPool1d(Module):
     '''Applies a 1D average pooling over an input signal composed of several input planes.\n
     Args:
@@ -117,7 +117,7 @@ class AvgPool1d(Module):
         stride (int): the stride of the window. Default value is kernel_size
         padding (int): implicit zero padding to be added on all three sides
         dilation (int): a parameter that controls the stride of elements in the window
-        
+
     Shape:
         - Input: [N,C,W]
         - Output: [N,C,W_out]
@@ -182,7 +182,7 @@ class AvgPool3d(Module):
         stride (tuple of int): the stride of the window. Default value is kernel_size
         padding (tuple of int): implicit zero padding to be added on all three sides
         dilation (tuple of int): a parameter that controls the stride of elements in the window
-        
+
     Shape:
         - Input: [N,C,H,W,D]
         - Output: [N,C,H_out,W_out,D_out]
