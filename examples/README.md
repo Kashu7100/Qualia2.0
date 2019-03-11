@@ -15,7 +15,7 @@ In *supervised learning*, a teacher shows the desired solution or points out the
 <p align="center">
   <img src="https://www.simplypsychology.org/skinner%20box.jpg"/>
   <br>
-  <b> Figure: </b> Skinner Box (retrieved from Simply Psychology)
+  <b> Figure: </b> Skinner Box (retrieved from <a href="https://www.simplypsychology.org/operant-conditioning.html">Simply Psychology</a>)
 </p>
 
 
