@@ -11,9 +11,12 @@ In *supervised learning*, a teacher shows the desired solution or points out the
 
 ## Reinforcement Learning
 *Reinforcement Learning* named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B.F. Skinner. Skinner studied operant conditioning by conducting animal experiments using a 'Skinner Box' shown in the figure below.
+
 <p align="center">
   <img src="https://www.simplypsychology.org/skinner%20box.jpg"/>
+  <b> Figure: </b> Skinner Box (retrieved from Simply Psychology)
 </p>
+
 
 ## Unsupervised Learning
 
