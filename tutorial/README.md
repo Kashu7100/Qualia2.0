@@ -261,19 +261,58 @@ With the CUDA acceleration, this simple model can achieve about 97% accuracy on 
 class PCA(Module):
     def __init__(self):
         super().__init__()
-        self.linear1 = Linear(10, 2)
-        self.linear2 = Linear(2, 10)
+        self.linear1 = Linear(10, 32)
+        self.linear2 = Linear(32, 2)
+        self.linear3 = Linear(2, 32)
+        self.linear4 = Linear(32, 10)
         
     def forward(self, x):
         if self.training:
-            x = leakyrelu(self.linear1(x))
-            x = leakyrelu(self.linear2(x))
+            x = tanh(self.linear1(x))
+            x = tanh(self.linear2(x))
+            x = tanh(self.linear3(x))
+            x = self.linear4(x)
             return x
         else:
-            x = leakyrelu(self.linear1(x))
+            x = tanh(self.linear1(x))
+            x = tanh(self.linear2(x))
             return x
 
 model1 = Classifier()
+model1.training = False
 model2 = PCA()
-optim = Adadelta(model.params)
+optim = Adadelta(model2.params)
+
+losses = []
+
+for i in range(10):
+    for feature, _ in mnist:
+        tmp = model1(feature)
+        tmp.creator = None
+        out = model2(tmp)
+        loss = mse_loss(out, tmp)
+        losses.append(qualia2.to_cpu(loss.data))
+        optim.zero_grad()
+        loss.backward()
+        optim.step()
+        print(losses[-1])
 ```
+With the following code, we will visualize the result.
+```python
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+fig, ax = plt.subplots()
+plt.xlim(-1,1)
+plt.ylim(-1,1)
+
+for feature, _ in mnist:
+    tmp = model1(feature)
+    out = model2(tmp)
+    img = OffsetImage(qualia2.to_cpu(1-feature.data[0].reshape(28,28)), cmap='gray', interpolation='nearest', zoom=0.5)
+    ab = AnnotationBbox(img, (qualia2.to_cpu(out.data[0,0]), qualia2.to_cpu(out.data[0,1])), frameon=False) 
+    ax.add_artist(ab)
+plt.show()
+```
+<p align="center">
+  <img src="/assets/mnist_map_colored.png">
+</p>
+
