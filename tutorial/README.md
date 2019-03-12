@@ -1,10 +1,10 @@
 ## Table of Contents
-1. [Automatic Differentiation](#automatic_differentiation)
-2. [Validation of Automatic Differentiation](#Validation of Automatic Differentiation)
-3. [Network Definition](#Network Definition)
-4. [Model Summary](#Model Summary)
-5. [Example with Spiral Dataset - Decision Boundary](#Example with Spiral Dataset - Decision Boundary)
-6. [Example with MNIST Dataset - PCA](#Example with MNIST Dataset - PCA)
+### 1. [Automatic Differentiation](#automatic_differentiation)
+### 2. [Validation of Automatic Differentiation](#valid_automatic_differentiation)
+### 3. [Network Definition](#network_definition)
+### 4. [Model Summary](#model_summary)
+### 5. [Example with Spiral Dataset - Decision Boundary](#ex1)
+### 6. [Example with MNIST Dataset - PCA](#ex2)
 
 <div id='automatic_differentiation'/>
 
@@ -75,6 +75,8 @@ The following figure was obtained by the code above:
   <img src="/assets/xsinx.png">
 </p>
 
+<div id='valid_automatic_differentiation'/>
+
 ## Validation of Automatic Differentiation 
 One can use `util.check_function()` to validate the gradient caluclation of a function.
 
@@ -85,6 +87,8 @@ from qualia2.util import check_function
 check_function(sinc)
 #[*] measured error:  6.662620763892326e-18
 ```
+
+<div id='network_definition'/>
 
 ## Network Definition
 In order to define a network, one needs to inherit `nn.Module`.
@@ -111,6 +115,8 @@ class Net(nn.Module):
         return x
 ```
 If the model is sequential, there is another option to use `nn.Sequential`.
+
+<div id='model_summary'/>
 
 ## Model Summary
 Having a visualization of the model is very helpful while debugging your network. You can obtain a network summary by `your_model.summary(input_shape)`. Note that the `input_size` is required to make a forward pass through the network.
@@ -155,6 +161,8 @@ total params: 30840
 training mode: True
 ------------------------------------------------------------------
 ```
+
+<div id='ex1'/>
 
 ## Example with Spiral Dataset - Decision Boundary
 Neural networks can be viewed as a universal approximation function. Let's use a simple dataset called Spiral to see how neural net can obtain a non-linear decision boundary. To visualize the dataset, one can use the `Spiral.show()` method as follows: 
@@ -220,6 +228,8 @@ Following is the decision boundary obtained. We can observe that the network cou
 <p align="center">
   <img src="/assets/spiral_boundary.png">
 </p>
+
+<div id='ex2'/>
 
 ## Example with MNIST Dataset - PCA
 Neural networks can be used in dimensionality reduction (PCA) since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use MNIST dataset.
