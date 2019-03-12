@@ -7,10 +7,10 @@ The following diagram depicts the basic structure of learning in brains:
 </p>
 
 ## Supervised Learning 
-In *supervised learning*, a teacher shows the desired solution or points out the mistake in order to help a learner to obtain the solution for a given task.
+
 
 ## Reinforcement Learning
-*Reinforcement Learning* named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B.F. Skinner. Skinner studied operant conditioning by conducting animal experiments using a 'Skinner Box' shown in the figure below.
+*Reinforcement Learning* named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner. Skinner studied operant conditioning by conducting animal experiments using a 'Skinner Box' shown in the figure below.
 
 <p align="center">
   <img src="https://www.simplypsychology.org/skinner%20box.jpg"/>
@@ -18,7 +18,5 @@ In *supervised learning*, a teacher shows the desired solution or points out the
   <b> Figure: </b> Skinner Box (retrieved from <a href="https://www.simplypsychology.org/operant-conditioning.html">Simply Psychology</a>)
 </p>
 
-
 ## Unsupervised Learning
-
-
+Among these three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been utilized the  most by creatures autonomously. 
