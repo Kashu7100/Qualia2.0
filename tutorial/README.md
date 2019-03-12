@@ -1,10 +1,10 @@
 ## Table of Contents
-### 1. [Automatic Differentiation](#automatic_differentiation)
-### 2. [Validation of Automatic Differentiation](#valid_automatic_differentiation)
-### 3. [Network Definition](#network_definition)
-### 4. [Model Summary](#model_summary)
-### 5. [Example with Spiral Dataset - Decision Boundary](#ex1)
-### 6. [Example with MNIST Dataset - PCA](#ex2)
+- [Automatic Differentiation](#automatic_differentiation)
+- [Validation of Automatic Differentiation](#valid_automatic_differentiation)
+- [Network Definition](#network_definition)
+- [Model Summary](#model_summary)
+- [Example with Spiral Dataset - Decision Boundary](#ex1)
+- [Example with MNIST Dataset - PCA](#ex2)
 
 <div id='automatic_differentiation'/>
 
