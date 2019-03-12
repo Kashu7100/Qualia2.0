@@ -7,6 +7,7 @@
 6. [Example with MNIST Dataset - PCA](#Example with MNIST Dataset - PCA)
 
 <div id='automatic_differentiation'/>
+
 ## Automatic Differentiation
 Fundamental of automatic differentiation [(AD)](https://en.wikipedia.org/wiki/Automatic_differentiation) is the decomposition of differentials based on the chain rule. Qualia implements the reverse accumulation AD in qualia2.autograd.
 
