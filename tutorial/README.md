@@ -297,7 +297,7 @@ for i in range(10):
         optim.step()
         print(losses[-1])
 ```
-With the following code, we will visualize the result.
+With the following code, we will visualize the result. Note that since we used tanh as the activation function, we can set the limits of the figure to [-1, 1]. 
 ```python
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 fig, ax = plt.subplots()
