@@ -1,11 +1,12 @@
 ## Table of Contents
-1. [Automatic Differentiation](#Automatic Differentiation)
+1. [Automatic Differentiation](#automatic_differentiation)
 2. [Validation of Automatic Differentiation](#Validation of Automatic Differentiation)
 3. [Network Definition](#Network Definition)
 4. [Model Summary](#Model Summary)
 5. [Example with Spiral Dataset - Decision Boundary](#Example with Spiral Dataset - Decision Boundary)
 6. [Example with MNIST Dataset - PCA](#Example with MNIST Dataset - PCA)
 
+<div id='automatic_differentiation'/>
 ## Automatic Differentiation
 Fundamental of automatic differentiation [(AD)](https://en.wikipedia.org/wiki/Automatic_differentiation) is the decomposition of differentials based on the chain rule. Qualia implements the reverse accumulation AD in qualia2.autograd.
 
