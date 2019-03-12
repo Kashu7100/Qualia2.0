@@ -312,6 +312,7 @@ for feature, _ in mnist:
     ax.add_artist(ab)
 plt.show()
 ```
+The figure below suggests that the internal state of the neural network distinguishes the handwritten digits to some extent. Interestingly, the digits with similar portions, such as '8' and '3,' are tend to be closer each other.
 <p align="center">
   <img src="/assets/mnist_map_colored.png">
 </p>
