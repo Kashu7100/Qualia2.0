@@ -37,6 +37,48 @@ class MSELoss(Function):
 
 mse_loss = MSELoss(None)
 
+class HuberLoss(Function):
+    '''
+    Args:
+        input (Tensor): output of the network
+        target (Tensor): label of the dataset
+        reduce (bool): the losses are averaged or summed over observations for each minibatch depending on size_average. 
+        size_average (bool): the losses are averaged over each loss element in the batch.
+
+    Model:
+        l_n = sum((y_n - x_n)^2/2) for |y_n - x_n| < 1
+              sum(|y_n - x_n|) otherwise
+    
+    Shape:
+        - Input: [N, C] 
+        - Target: [N, C] 
+        - Output: [1] by default 
+                  [N] if not reduce
+    '''
+    @staticmethod
+    def forward(input, target, reduce=True, size_average=True):
+        mask = (np.absolute(np.subtract(input.data, target.data)) < 1)
+        tmp = np.absolute(np.subtract(input.data, target.data))
+        tmp[mask] = np.divide(np.power(np.subtract(input.data, target.data), 2), 2)[mask]
+        tmp = np.sum(tmp, axis=1)
+        if reduce:
+            if size_average:
+                result = Tensor(np.mean(tmp,axis=0))
+            else:
+                result = Tensor(np.sum(tmp,axis=0))
+        else:
+            result = Tensor(tmp)
+        result.set_creator(HuberLoss.prepare(result.shape, input, target, mask=mask))
+        return result
+
+    def calc_grad(self, dx):
+        result = np.divide(np.absolute(np.subtract(self.var[0].data, self.var[1].data)), np.subtract(self.var[0].data, self.var[1].data))
+        result[self.kwargs['mask']] = np.subtract(self.var[0].data, self.var[1].data)[self.kwargs['mask']]
+        return result, np.negative(result)
+
+smooth_l1_loss = HuberLoss(None)
+huber_loss = HuberLoss(None)
+
 class BinaryCrossEntropy(Function):
     '''Creates a criterion that measures the Binary Cross Entropy between the target and the output\n
     Args:
