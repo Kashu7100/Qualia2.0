@@ -16,5 +16,17 @@ if gpu:
     
     def to_cpu(obj):
         return np.asnumpy(obj)
+    
+    def to_gpu(obj):
+        return np.asarray(obj)
+
 else:
     import numpy as np 
+
+    def to_cpu(obj):
+        return obj
+
+    def to_gpu(obj):
+        raise 
+
+dtype = np.float32
