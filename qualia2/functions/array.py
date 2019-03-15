@@ -2,6 +2,7 @@
 from ..core import *
 from ..autograd import *
 
+gather = Gather(None)
 reshape = Reshape(None)
 
 class Transpose(Function):
