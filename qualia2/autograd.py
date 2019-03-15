@@ -56,6 +56,9 @@ class Tensor(object):
         result = Tensor(np.reshape(self.data, args)) 
         result.set_creator(Reshape.prepare(result.shape, self))
         return result
+   
+    def gather(self, dim, idx):
+        return Gather.forward(self, dim, idx)
     
     def __str__(self):
         return f'{self.data} shape={self.shape}'
@@ -203,6 +206,43 @@ class Reshape(Function):
     def calc_grad(self, dx):
         return np.reshape(dx, self.var[0].shape)
 
+class Gather(Function):
+    '''
+    Gathers values along an axis specified by dim.
+    '''
+    @staticmethod
+    def forward(a, dim, idx):
+        input_valid_dim = a.shape[:dim] + a.shape[dim+1:]
+        idx_valid_dim = idx.shape[:dim] + idx.shape[dim+1:]
+        if input_valid_dim != idx_valid_dim:
+            raise ValueError('[*] All dimensions of index and input should be the same except for dimension dim={}, got: {} and {}.'.format(str(dim), str(a.shape), str(idx.shape)))
+        gathered = np.choose(np.swapaxes(idx, 0, dim), np.swapaxes(a.data, 0, dim))
+        result = Tensor(np.swapaxes(gathered, 0, dim))
+        result.set_creator(Gather.prepare(result.shape, a, dim=dim, idx=idx))
+        return result
+    
+    def calc_grad(self, dx):
+        result = np.zeros_like(self.var[0].data)
+        def make_slice(arr, dim, i):
+            slc = [slice(None)] * arr.ndim
+            slc[dim] = i
+            return slc
+        idx_xsection_shape = self.kwargs['idx'].shape[:self.kwargs['dim']] + self.kwargs['idx'].shape[self.kwargs['dim']+1:]
+
+        idx = [[np.indices(idx_xsection_shape).reshape(self.kwargs['idx'].ndim-1, -1), self.kwargs['idx'][make_slice(self.kwargs['idx'], self.kwargs['dim'], i)].reshape(1, -1)] for i in range(self.kwargs['idx'].shape[self.kwargs['dim']])]
+        idx = list(np.concatenate(tuple(idx[0]), axis=0))
+        idx.insert(self.kwargs['dim'], idx.pop())
+
+        if not np.isscalar(dx):
+            src_xsection_shape = dx.shape[:self.kwargs['dim']] + dx.shape[self.kwargs['dim'] + 1:]
+            src_idx = list(idx)
+            src_idx.pop(self.kwargs['dim'])
+            src_idx.insert(self.kwargs['dim'], np.repeat(np.arange(self.kwargs['idx'].shape[self.kwargs['dim']]), reduce(lambda a, b: a*b, idx_xsection_shape)))
+            result[idx] = dx[src_idx]
+        else:
+            result[idx] = dx
+        return result    
+    
 class Neg(Function):
     '''
     Takes numerical negative elementwise.
