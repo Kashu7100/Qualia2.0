@@ -337,3 +337,5 @@ The figure below suggests that the internal state of the neural network distingu
   <img src="/assets/mnist_map_colored.png">
 </p>
 
+## Example with Cart-Pole - DQN
+DQN is Q-Learning with a Deep Neural Network as a function approximator.  
