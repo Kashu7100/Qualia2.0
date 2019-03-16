@@ -19,4 +19,4 @@ The following diagram depicts the basic structure of learning in brains:
 </p>
 
 ## Unsupervised Learning
-Among these three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been utilized the  most by creatures autonomously. 
+Among these three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been utilized the  most by creatures autonomously. Networks learn external signals from unsupervised learning to prepare for the external environment or information. 
