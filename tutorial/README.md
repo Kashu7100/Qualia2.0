@@ -338,4 +338,50 @@ The figure below suggests that the internal state of the neural network distingu
 </p>
 
 ## Example with Cart-Pole - DQN
-DQN is Q-Learning with a Deep Neural Network as a function approximator.  
+DQN is Q-Learning with a Deep Neural Network as a function approximator. Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym.
+```python
+from qualia2.environment.cartpole import CartPole
+from qualia2.applications.dqn import DQN
+from qualia2.nn.modules import Module, Linear
+from qualia2.functions import tanh, sigmoid
+from qualia2.nn.optim import Adadelta
+import os
+path = os.path.dirname(os.path.abspath(__file__))
+
+class Network(Module):
+    def __init__(self):
+        super().__init__()
+        self.linear1 = Linear(4, 100)
+        self.linear2 = Linear(100, 100)
+        self.linear3 = Linear(100, 2)
+
+    def forward(self, x):
+        x = tanh(self.linear1(x))
+        x = tanh(self.linear2(x))
+        x = sigmoid(self.linear3(x))
+        return x
+
+model = Network()
+optim = Adadelta(model.params)
+agent = DQN(model, optim, 10000, 50)
+env = CartPole(agent, 200, 50)
+env.run()
+env.animate(path+'/dqn_cartpole')
+```
+Within 50 episodes in this case, the model could achive 200 steps. Try running the code several times in case of not achieving 200 steps in 50 episodes since the leaning depends on the initial weights of the network.
+```bash
+...
+[*] episode 34: finished after 172 steps
+[*] episode 35: finished after 108 steps
+[*] episode 36: finished after 200 steps
+[*] episode 37: finished after 200 steps
+[*] episode 38: finished after 200 steps
+[*] episode 39: finished after 200 steps
+[*] episode 40: finished after 200 steps
+[*] episode 41: finished after 200 steps
+[*] episode 42: finished after 200 steps
+[*] episode 43: finished after 200 steps
+[*] episode 44: finished after 200 steps
+[*] episode 45: finished after 200 steps
+...
+```
