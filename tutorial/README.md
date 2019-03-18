@@ -364,9 +364,7 @@ class Network(Module):
         x = sigmoid(self.linear3(x))
         return x
 
-model = Network()
-optim = Adadelta(model.params)
-agent = DQN(model, optim, 10000, 50)
+agent = DQN(Network, Adadelta, 10000, 50)
 env = CartPole(agent, 200, 50)
 env.show()
 ```
