@@ -159,7 +159,11 @@ class Function(object):
                 return np.reshape(arg, trg.shape)
             elif arg.ndim > trg.ndim:
                 assert trg.ndim == 1
-                tmp = [i if i == trg.shape[0] else 1 for i in arg.shape]
+                tmp = [1 for _ in range(len(arg.shape))]
+                for i, s in enumerate(reversed(arg.shape)):
+                    if s == trg.shape[0]:
+                        tmp[len(tmp)-1-i] = s
+                        break
                 axis = [i for i in range(arg.ndim) if tmp[i] != arg.shape[i]]
                 arg = np.sum(arg, axis=tuple(axis))
                 return np.reshape(arg, trg.shape)
