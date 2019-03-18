@@ -341,7 +341,7 @@ The figure below suggests that the internal state of the neural network distingu
 <div id='ex3'/>
 
 ## Example with Cart-Pole - DQN
-DQN is Q-Learning with a Deep Neural Network as a function approximator. Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym.
+DQN is Q-Learning with a Deep Neural Network as a function approximator. Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Environment.show()` method.
 ```python
 from qualia2.environment.cartpole import CartPole
 from qualia2.applications.dqn import DQN
@@ -368,6 +368,15 @@ model = Network()
 optim = Adadelta(model.params)
 agent = DQN(model, optim, 10000, 50)
 env = CartPole(agent, 200, 50)
+env.show()
+```
+
+<p align="center">
+  <img src="/assets/cartpole_random.gif">
+</p>
+
+In order to execute experience replay to train the neural network, simply use `Environment.run()` method.
+```
 env.run()
 env.animate(path+'/dqn_cartpole')
 ```
