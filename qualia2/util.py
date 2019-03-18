@@ -139,6 +139,9 @@ class ReplayMemory(object):
     def __len__(self):
         return self.capacity if self.is_full else self.idx
     
+    def type(self):
+        return self.__class__.__name__
+    
     def sample(self):
         if self.transitions is None:
             raise Exception('[*] Cannot sample from empty memory.')
