@@ -388,3 +388,8 @@ Within 50 episodes in this case, the model could achive 200 steps. Try running t
 [*] episode 45: finished after 200 steps
 ...
 ```
+Following is the animated result:
+<p align="center">
+  <img src="/assets/cartpole_dqn.gif">
+</p>
+
