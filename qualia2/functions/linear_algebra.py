@@ -63,8 +63,21 @@ class Tensordot(Function):
 
 tensordot = Tensordot(None)
 
-def linear(x, weight, bias=None): 
-    tmp = tensordot(x, weight, axes=1) 
-    if bias is not None:
-        return tmp + bias
-    return tmp 
+class Linear(Function):
+    @staticmethod
+    def forward(x, weight, bias=None):
+        if bias is None:
+            result = Tensor(np.dot(x.data, weight.data))
+            result.set_creator(Dot.prepare(result.shape, x, weight))
+        else:
+            result = Tensor(np.add(np.dot(x.data, weight.data), bias.data))
+            result.set_creator(Linear.prepare(result.shape, x, weight, bias))
+        return result
+    
+    def calc_grad(self, dx):
+        db = Linear.handle_broadcast(dx, self.var[2])
+        din = np.dot(dx, self.var[1].data.T)
+        dw = np.dot(self.var[0].data.T, dx)
+        return din, dw, db
+
+linear = Linear(None)
