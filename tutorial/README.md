@@ -5,6 +5,7 @@
 - [Model Summary](#model_summary)
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
+- [Example with Cart-Pole - DQN](#ex3)
 
 <div id='automatic_differentiation'/>
 
@@ -336,6 +337,8 @@ The figure below suggests that the internal state of the neural network distingu
 <p align="center">
   <img src="/assets/mnist_map_colored.png">
 </p>
+
+<div id='ex3'/>
 
 ## Example with Cart-Pole - DQN
 DQN is Q-Learning with a Deep Neural Network as a function approximator. Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym.
