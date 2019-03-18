@@ -12,9 +12,9 @@ class DQN(object):
     DQN class incopolates the model (Module) and the optim (Optimizer).
     The model learns with experience replay, which is implemented in replay() method.
     '''
-    def __init__(self, model, optim, capacity, batch, gamma=0.99):
-        self.model = model
-        self.optim = optim
+    def __init__(self, model, optim, capacity, batch, gamma=0.99, **kwargs):
+        self.model = model()
+        self.optim = optim(self.model.params, **kwargs)
         self.batch = batch
         self.capacity = capacity
         self.memory = ReplayMemory(self.capacity)
