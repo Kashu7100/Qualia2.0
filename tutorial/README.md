@@ -79,7 +79,7 @@ The following figure was obtained by the code above:
 <div id='valid_automatic_differentiation'/>
 
 ## Validation of Automatic Differentiation 
-One can use `util.check_function()` to validate the gradient caluclation of a function.
+One can use `util.check_function()` to validate the gradient caluclation of a function. `util.check_function()` internally calculates the gradient using numerical method and compares the result with automatic differentiation. 
 
 ```python
 from qualia2.functions import *
@@ -87,6 +87,13 @@ from qualia2.util import check_function
 
 check_function(sinc)
 #[*] measured error:  6.662620763892326e-18
+```
+
+One can specify the domain to avoid null value for the function that has not defined region.
+
+```python
+check_function(tan, domain=(-np.pi/4, np.pi/4))
+#[*] measured error:  1.0725402527904689e-12
 ```
 
 <div id='network_definition'/>
