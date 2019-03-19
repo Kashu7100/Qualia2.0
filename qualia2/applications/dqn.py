@@ -81,12 +81,3 @@ class DQN(object):
     
     def load(self, filename):
         self.model.load(filename)
-
-class DDQN(object):
-    pass
-
-class DeulingNetwork(object):
-    pass
-
-class A2C(object):
-    pass
