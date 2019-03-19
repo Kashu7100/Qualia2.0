@@ -3,6 +3,7 @@
 - [Validation of Automatic Differentiation](#valid_automatic_differentiation)
 - [Network Definition](#network_definition)
 - [Model Summary](#model_summary)
+- [Saving/Loading a Trained Weights](#save_load)
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
 - [Example with Cart-Pole - DQN](#ex3)
@@ -168,6 +169,20 @@ following is the output:
 total params: 30840
 training mode: True
 ------------------------------------------------------------------
+```
+
+
+<div id='save_load'/>
+
+## Saving/Loading a Trained Weights
+In order to save the trained weights of a model, one can simply use `Module.save(filename)` method. The weights are saved in [hdf5](https://support.hdfgroup.org/HDF5/whatishdf5.html) format. To load the saved weights, use `Module.load(filename)` method.
+```python
+import os
+path = os.path.dirname(os.path.abspath(__file__)
+
+# assume model has been defined
+model.save(path+'/weights')
+model.load(path+'/weights')
 ```
 
 <div id='ex1'/>
