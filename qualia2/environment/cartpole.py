@@ -21,9 +21,15 @@ class CartPole(Environment):
         Num	Action
         0	Push cart to the left
         1	Push cart to the right
+
+    Reward:
+        0 for each step
+        -1 if terminate condition meet before max_steps-10
+        1 if terminate condition meet after max_steps-10
+        (Note: original reward with the gym environment is not used)
     
     Reference:
-        https://github.com/openai/gym/blob/master/gym/envs/classic_control/cartpole.py
+        https://github.com/openai/gym/wiki/CartPole-v0
     '''
     def __init__(self, agent, max_step, max_episodes):
         super().__init__('CartPole-v0', agent, max_step, max_episodes)
