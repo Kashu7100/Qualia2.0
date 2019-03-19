@@ -400,3 +400,6 @@ Following is the animated result:
   <img src="/assets/cartpole_dqn.gif">
 </p>
 
+<div id='ex4'/>
+
+## Example with Mountain Car Continuous - A2C
