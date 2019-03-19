@@ -40,6 +40,14 @@ UNDER DEV
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
+- [Automatic Differentiation](/tutorial/#automatic_differentiation)
+- [Validation of Automatic Differentiation](/tutorial/#valid_automatic_differentiation)
+- [Network Definition](/tutorial/#network_definition)
+- [Model Summary](/tutorial/#model_summary)
+- [Saving/Loading a Trained Weights](/tutorial/#save_load)
+- [Example with Spiral Dataset - Decision Boundary](/tutorial/#ex1)
+- [Example with MNIST Dataset - PCA](/tutorial/#ex2)
+- [Example with Cart-Pole - DQN](/tutorial/#ex3)
 
 ## Examples
 Examples can be found [here](/examples).
