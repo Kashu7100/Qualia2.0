@@ -7,6 +7,7 @@
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
 - [Example with Cart-Pole - DQN](#ex3)
+- [Example with MountainCar - Dueling Network](#ex4)
 
 <div id='automatic_differentiation'/>
 
@@ -423,6 +424,52 @@ Following is the animated result:
 </p>
 
 <div id='ex4'/>
+
+## Example with Mountain Car - Dueling Network
+The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN. As an example, let's use [MountainCar](https://gym.openai.com/envs/MountainCar-v0/) task from Gym.
+```python
+# -*- coding: utf-8 -*- 
+from qualia2.environment.mountaincar import MountainCar
+from qualia2.applications.dqn import DDQN
+from qualia2.nn.modules import Module, Linear
+from qualia2.functions import tanh, mean
+from qualia2.nn.optim import Adadelta
+import os
+path = os.path.dirname(os.path.abspath(__file__))
+
+class Model(Module):
+    def __init__(self):
+        super().__init__()
+        self.linear1 = Linear(2, 64)
+        self.linear2 = Linear(64, 64)
+        self.linear_adv = Linear(64, 3)
+        self.linear_val = Linear(64, 1)
+
+    def forward(self, x):
+        x = tanh(self.linear1(x))
+        x = tanh(self.linear2(x))
+        adv = self.linear_adv(x)
+        val = self.linear_val(x)
+        # subtract mean of adv to cancel out the effect of bias
+        result = val + adv - mean(adv, axis=1).reshape(-1,1) 
+        return result
+
+agent = DDQN(Network, Adadelta, 10000, 80)
+env = MountainCar(agent, 200, 300)
+env.show()
+```
+
+
+
+```python
+env.run()
+agent.save(path+'/duelingnet_weight')
+env.animate(path+'/mountaincar')
+```
+Following is the animated result:
+<p align="center">
+  <img src="/assets/mountaincar_duelingnet.gif">
+</p>
 
 ## Example with Mountain Car Continuous - A2C
 writing...
