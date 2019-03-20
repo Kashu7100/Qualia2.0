@@ -56,4 +56,7 @@ class CartPole(Environment):
                     self.frames.append(self.env.render(mode='rgb_array'))
                 if done:
                     print('[*] episode {}: finished after {} steps'.format(episode+1, step+1))
+                    if self.agent.target_model is not None:
+                        if(episode%2==0):
+                            self.agent.update_target_model()
                     break
