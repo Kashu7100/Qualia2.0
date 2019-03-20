@@ -1,5 +1,6 @@
 ## Introduction
-Animals, including humans, change their behavior through experience. 
+Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.
+
 The following diagram depicts the basic structure of learning in brains:
 
 <p align="center">
