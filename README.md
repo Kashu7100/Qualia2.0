@@ -48,6 +48,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 - [Example with Spiral Dataset - Decision Boundary](/tutorial/#ex1)
 - [Example with MNIST Dataset - PCA](/tutorial/#ex2)
 - [Example with Cart-Pole - DQN](/tutorial/#ex3)
+- [Example with MountainCar - Dueling Network](/tutorial/#ex4)
 
 ## Examples
 Examples can be found [here](/examples).
