@@ -5,7 +5,7 @@ from ..autograd import *
 class ReLU(Function):
     @staticmethod
     def forward(a):
-        mask = (a.data <= 0) 
+        mask = (a.data < 0) 
         tmp = a.data.copy() 
         tmp[mask] = 0
         result = Tensor(tmp) 
@@ -21,7 +21,7 @@ relu = ReLU(None)
 class LeakyReLU(Function):
     @staticmethod
     def forward(a):
-        mask = (a.data <= 0) 
+        mask = (a.data < 0) 
         tmp = a.data.copy() 
         tmp[mask] = np.multiply(0.01,tmp[mask]) 
         result = Tensor(tmp) 
@@ -37,7 +37,7 @@ leakyrelu = LeakyReLU(None)
 class ELU(Function):
     @staticmethod
     def forward(a, k):
-        mask = (a.data <= 0) 
+        mask = (a.data < 0) 
         tmp = a.data.copy() 
         tmp[mask] = np.multiply(k, (np.exp(tmp[mask])-1)) 
         result = Tensor(tmp) 
