@@ -459,8 +459,11 @@ env = MountainCar(agent, 200, 300)
 env.show()
 ```
 
+<p align="center">
+  <img src="/assets/mountaincar_random.gif">
+</p>
 
-
+In order to execute experience replay to train the model, use `Environment.run()` method.
 ```python
 env.run()
 agent.save(path+'/duelingnet_weight')
