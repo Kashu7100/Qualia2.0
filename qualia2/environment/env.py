@@ -22,10 +22,12 @@ class Environment(object):
         raise NotImplementedError
     
     def show(self):
+        self.frames = []
         self.env.reset()
         for _ in range(200):
             self.env.render()
             self.env.step(self.env.action_space.sample())
+            self.frames.append(self.env.render(mode='rgb_array'))
     
     def animate(self, filename):
         plt.figure(figsize=(self.frames[0].shape[1]/72.0, self.frames[0].shape[0]/72.0), dpi=72)
