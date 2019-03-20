@@ -6,7 +6,7 @@
 - [Saving/Loading a Trained Weights](#save_load)
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
-- [Example with Cart-Pole - DQN](#ex3)
+- [Example with CartPole - DQN](#ex3)
 - [Example with MountainCar - Dueling Network](#ex4)
 
 <div id='automatic_differentiation'/>
