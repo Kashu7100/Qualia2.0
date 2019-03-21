@@ -27,6 +27,6 @@ else:
         return obj
 
     def to_gpu(obj):
-        raise 
+        raise Exception('[*] GPU acceleration is disabled.')
 
 dtype = np.float32
