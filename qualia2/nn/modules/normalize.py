@@ -40,8 +40,8 @@ class BatchNorm1d(Module):
             if self.track_running_stats:
                 self.mean = Tensor(np.zeros((1,self.num_features,1)), requires_grad=False)
                 self.std = Tensor(np.zeros((1,self.num_features,1)), requires_grad=False) 
+        axis = 0 if x.ndim == 2 else (0, 2)
         if self.training:
-            axis = 0 if x.ndim == 2 else (0, 2)
             mean = np.mean(x.data, axis=axis, keepdims=True)
             std = np.std(x.data, axis=axis, keepdims=True)
             if self.track_running_stats:
@@ -52,7 +52,6 @@ class BatchNorm1d(Module):
             if self.track_running_stats:
                 result = batch_norm(x, self.mean.data, self.std.data, self.weight, self.bias, axis, self.eps)
             else:
-                axis = 0 if x.ndim == 2 else (0, 2)
                 mean = np.mean(x.data, axis=axis, keepdims=True)
                 std = np.std(x.data, axis=axis, keepdims=True)
                 result = batch_norm(x, mean, std, self.weight, self.bias, axis, self.eps)
@@ -90,8 +89,8 @@ class BatchNorm2d(Module):
         return '{}({}, eps={}, momentum={}, track_running_stats={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.num_features, self.eps, self.momentum, self.track_running_stats, id(self), 16)
 
     def forward(self, x):
+        axis = (0,2,3)
         if self.training:
-            axis = (0,2,3)
             mean = np.mean(x.data, axis=axis, keepdims=True)
             std = np.std(x.data, axis=axis, keepdims=True)
             if self.track_running_stats:
@@ -102,7 +101,6 @@ class BatchNorm2d(Module):
             if self.track_running_stats:
                 result = batch_norm(x, self.mean.data, self.std.data, self.weight, self.bias, axis, self.eps)
             else:
-                axis = (0,2,3)
                 mean = np.mean(x.data, axis=axis, keepdims=True)
                 std = np.std(x.data, axis=axis, keepdims=True)
                 result = batch_norm(x, mean, std, self.weight, self.bias, axis, self.eps)
@@ -140,8 +138,8 @@ class BatchNorm3d(Module):
         return '{}({}, eps={}, momentum={}, track_running_stats={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.num_features, self.eps, self.momentum, self.track_running_stats, id(self), 16)
 
     def forward(self, x):
+        axis = (0,2,3,4)
         if self.training:
-            axis = (0,2,3,4)
             mean = np.mean(x.data, axis=axis, keepdims=True)
             std = np.std(x.data, axis=axis, keepdims=True)
             if self.track_running_stats:
@@ -152,7 +150,6 @@ class BatchNorm3d(Module):
             if self.track_running_stats:
                 result = batch_norm(x, self.mean.data, self.std.data, self.weight, self.bias, axis, self.eps)
             else:
-                axis = (0,2,3,4)
                 mean = np.mean(x.data, axis=axis, keepdims=True)
                 std = np.std(x.data, axis=axis, keepdims=True)
                 result = batch_norm(x, mean, std, self.weight, self.bias, axis, self.eps)
