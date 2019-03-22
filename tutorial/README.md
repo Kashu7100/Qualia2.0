@@ -12,7 +12,7 @@
 <div id='automatic_differentiation'/>
 
 ## Automatic Differentiation
-Fundamental of automatic differentiation [(AD)](https://en.wikipedia.org/wiki/Automatic_differentiation) is the decomposition of differentials based on the chain rule. Qualia implements the reverse accumulation AD in qualia2.autograd.
+Fundamental of automatic differentiation [(AD)](https://en.wikipedia.org/wiki/Automatic_differentiation) is the decomposition of differentials based on the chain rule. Qualia implements the reverse accumulation AD in `qualia2.autograd`.
 
 In the example code of this tutorial, we assume for simplicity that the following symbols are already imported.
 ```python
