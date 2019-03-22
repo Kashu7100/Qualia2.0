@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import sys
-sys.path.append('..')
-from nn.modules.module import Module, Sequential
-from nn.modules import Linear, Conv2d, MaxPool2d, AvgPool2d, ReLU, Dropout, BatchNorm2d
+from ..nn.modules.module import Module, Sequential
+from ..nn.modules import Linear, Conv2d, MaxPool2d, AvgPool2d, ReLU, Dropout, BatchNorm2d
 from functions import reshape
 
 cfg = {
