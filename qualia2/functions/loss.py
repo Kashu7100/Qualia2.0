@@ -152,3 +152,41 @@ class CrossEntropy(Function):
         return dx, dt
     
 cross_entropy = CrossEntropy(None)
+
+class SoftmaxCrossEntropy(Function):
+    ''''Creates a criterion that measures the Cross Entropy between the target and the output\n
+    Args:
+        input (Tensor): output of the network
+        target (Tensor): one-hot representation of label for the dataset
+        reduce (bool): the losses are averaged or summed over observations for each minibatch depending on size_average. 
+        size_average (bool): the losses are averaged over each loss element in the batch.
+        
+    Model: 
+        l_n = -sum_over_classes(y_n*log(softmax(x_n)))
+
+    Shape:
+        - Input: [N, num_class]
+        - Target: [N, num_class]
+        - Output: [1] by default
+                  [N] if not reduce
+    '''
+    @staticmethod
+    def forward(input, target, reduce=True, size_average=True):
+        const = np.max(input.data, axis=1, keepdims=True)
+        exp = np.exp(np.subtract(input.data, const))
+        softmax = np.divide(exp, np.sum(exp, axis=1, keepdims=True))
+        tmp = -np.sum(np.multiply(target.data, np.log(softmax)), axis=1)
+        if reduce:
+            if size_average:
+                result = Tensor(np.mean(tmp,axis=0))
+            else:
+                result = Tensor(np.sum(tmp,axis=0))
+        else:
+            result = Tensor(tmp)
+        result.set_creator(SoftmaxCrossEntropy.prepare(result.shape, input, target, tmp=softmax))
+        return result
+    
+    def calc_grad(self, dx):
+        return np.subtract(self.kwargs['tmp'], self.var[1].data), -np.log(self.kwargs['tmp'])
+
+softmax_cross_entropy = SoftmaxCrossEntropy(None)
