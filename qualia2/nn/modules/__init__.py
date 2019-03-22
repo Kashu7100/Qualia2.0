@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*- 
-from .conv import *
-from .linear import *
-from .module import *
-from .pool import *
-from .recurrent import *
+from .module import * 
+from .activation import *
+from .linear import * 
+from .conv import * 
+from .pool import * 
 from .dropout import *
-from .normalize import *
+from .normalize import * 
+from .recurrent import *
