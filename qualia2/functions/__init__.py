@@ -9,3 +9,4 @@ from .conv import *
 from .pool import *
 from .recurrent import *
 from .dropout import *
+from .normalize import *
