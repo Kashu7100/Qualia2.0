@@ -11,6 +11,12 @@ class DQN(object):
     This implementation uses single network for learning. 
     DQN class incopolates the model (Module) and the optim (Optimizer).
     The model learns with experience replay, which is implemented in replay() method.
+    Args:
+        model (Module): internal model
+        optim (Optimizer): optimizer to train the model
+        capacity (int): capacity of the ReplayMemory
+        batch (int): size of the minibatch
+        gamma (float): discount factor
     '''
     def __init__(self, model, optim, capacity, batch, gamma=0.99, **kwargs):
         self.model = model()
