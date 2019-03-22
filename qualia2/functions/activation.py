@@ -87,3 +87,21 @@ class SoftSign(Function):
 
 softsign = SoftSign(None)
 elliotsig = SoftSign(None)
+
+class SoftMax(Function):
+    @staticmethod
+    def forward(a):
+        assert a.ndim == 2
+        const = np.max(a.data, axis=1, keepdims=True)
+        exp = np.exp(np.subtract(a.data, const))
+        result = Tensor(np.divide(exp, np.sum(exp, axis=1, keepdims=True)))
+        result.set_creator(SoftMax.prepare(result.shape, a, tmp=result.data))
+        return result
+
+    def calc_grad(self, dx):
+        result = self.kwargs['tmp']
+        tmp = dx*np.multiply(self.kwargs['tmp'], np.subtract(1, self.kwargs['tmp']))
+        result[dx!=0] = tmp[dx!=0]
+        return result
+
+softmax = SoftMax(None)
