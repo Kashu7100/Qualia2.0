@@ -116,6 +116,42 @@ class BinaryCrossEntropy(Function):
 
 binary_cross_entropy = BinaryCrossEntropy(None)
 
+class LogisticBinaryCrossEntropy(Function):
+    '''Creates a criterion that measures the Binary Cross Entropy between the target and the logistic of output\n
+    Args:
+        input (Tensor): output of the network
+        target (Tensor): label of the dataset
+        reduce (bool): the losses are averaged or summed over observations for each minibatch depending on size_average. 
+        size_average (bool): the losses are averaged over each loss element in the batch.
+
+    Model: 
+        l_n = y_n*log(sigmoid(x_n))+(1-y_n)*log(1-sigmoid(x_n))
+
+    Shape:
+        - Input: [N, 1]
+        - Target: [N, 1]
+        - Output: [1] by default
+                  [N] if not reduce
+    '''
+    @staticmethod
+    def forward(input, target, reduce=True, size_average=True):
+        sigmoid = np.divide(1, np.add(1, np.exp(np.negative(input.data))))
+        tmp = np.add(np.multiply(target.data, np.log(sigmoid)), np.multiply((1-target.data), np.log(1-sigmoid)))
+        if reduce:
+            if size_average:
+                result = Tensor(np.mean(tmp,axis=0))
+            else:
+                result = Tensor(np.sum(tmp,axis=0))
+        else:
+            result = Tensor(tmp)
+        result.set_creator(BinaryCrossEntropy.prepare(result.shape, input, target, tmp=sigmoid))
+        return result
+    
+    def calc_grad(self, dx):
+        return np.subtract(self.kwargs['tmp'], self.var[1].data), np.subtract(np.log(self.kwargs['tmp']), np.log(np.subtract(1, self.kwargs['tmp'])))
+
+logistic_binary_cross_entropy = LogisticBinaryCrossEntropy(None)
+
 class CrossEntropy(Function):
     ''''Creates a criterion that measures the Cross Entropy between the target and the output\n
     Args:
@@ -154,7 +190,7 @@ class CrossEntropy(Function):
 cross_entropy = CrossEntropy(None)
 
 class SoftmaxCrossEntropy(Function):
-    ''''Creates a criterion that measures the Cross Entropy between the target and the output\n
+    ''''Creates a criterion that measures the Cross Entropy between the target and the softmax of output\n
     Args:
         input (Tensor): output of the network
         target (Tensor): one-hot representation of label for the dataset
