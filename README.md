@@ -29,14 +29,19 @@ Qualia2.0 is a library that consists of the following components:
 
     (*Note: you can still use Qualia2.0 without GPU*)
 
-* [Python 3.6.0+](https://www.python.org/)
-* [Anaconda](https://www.anaconda.com/distribution/)
+* [Python 3.6](https://www.python.org/)
 
 ## Installation
+### Ubuntu
 
 ```bash
 UNDER DEV
 ```
+### Windows
+
+in case pip from source did not work, use wheel from following links:
+[atari-py](https://github.com/Kojoley/atari-py/releases)
+[pybox2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
