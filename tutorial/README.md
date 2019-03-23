@@ -466,7 +466,7 @@ env.show()
 In order to execute experience replay to train the model, use `Environment.run()` method.
 ```python
 env.run()
-agent.save(path+'/duelingnet_weight')
+env.plot_rewards()
 env.animate(path+'/mountaincar')
 ```
 <p align="center">
