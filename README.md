@@ -39,9 +39,13 @@ UNDER DEV
 ```
 ### Windows
 
+```bash
+UNDER DEV
+```
+
 in case pip from source did not work, use wheel from following links:
-[atari-py](https://github.com/Kojoley/atari-py/releases)
-[pybox2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
+[ atari-py](https://github.com/Kojoley/atari-py/releases)
+[ pybox2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
