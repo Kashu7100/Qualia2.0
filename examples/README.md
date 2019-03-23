@@ -10,7 +10,7 @@ The following diagram depicts the basic structure of learning in brains:
 ## Supervised Learning 
 
 
-## Reinforcement Learning
+## [Reinforcement Learning](/examples/reinforcement_learning)
 *Reinforcement Learning* named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner. Skinner studied operant conditioning by conducting animal experiments using a 'Skinner Box' shown in the figure below.
 
 <p align="center">
