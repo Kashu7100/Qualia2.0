@@ -469,6 +469,9 @@ env.run()
 agent.save(path+'/duelingnet_weight')
 env.animate(path+'/mountaincar')
 ```
+<p align="center">
+  <img src="/assets/mountaincar_loss.png">
+</p>
 Following is the animated result:
 <p align="center">
   <img src="/assets/mountaincar_duelingnet.gif">
