@@ -54,6 +54,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 - [Network Definition](/tutorial/#network_definition)
 - [Model Summary](/tutorial/#model_summary)
 - [Saving/Loading a Trained Weights](/tutorial/#save_load)
+- [Setting up Optimizer](/tutorial/#optim_setup)
 - [Example with Spiral Dataset - Decision Boundary](/tutorial/#ex1)
 - [Example with MNIST Dataset - PCA](/tutorial/#ex2)
 - [Example with CartPole - DQN](/tutorial/#ex3)
