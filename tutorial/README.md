@@ -4,6 +4,7 @@
 - [Network Definition](#network_definition)
 - [Model Summary](#model_summary)
 - [Saving/Loading a Trained Weights](#save_load)
+- [Setting up Optimizer](#optim_setup)
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
 - [Example with CartPole - DQN](#ex3)
@@ -101,14 +102,14 @@ check_function(tan, domain=(-np.pi/4, np.pi/4))
 <div id='network_definition'/>
 
 ## Network Definition
-In order to define a network, one needs to inherit `nn.Module`.
+In order to define a network, `nn.Module` needs to be inherited. Note that a user-defined model must have `super().__init__()` in the `__init__` of the model. 
 
 ```python
 import qualia2
 import qualia2.nn as nn
 import qualia2.functions as F
 
-class Net(nn.Module):
+class Model(nn.Module):
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
@@ -136,7 +137,7 @@ import qualia2
 import qualia2.nn as nn
 import qualia2.functions as F
 
-class Net(nn.Module):
+class Model(nn.Module):
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
@@ -152,7 +153,7 @@ class Net(nn.Module):
         x = self.fc2(x)
         return x
 
-model = Net()
+model = Model()
 model.summary((1, 1, 28, 28))
 ```
 following is the output: 
@@ -184,6 +185,14 @@ path = os.path.dirname(os.path.abspath(__file__)
 # assume model has been defined
 model.save(path+'/weights')
 model.load(path+'/weights')
+```
+
+<div id='optim_setup'/>
+
+## Setting up Optimizer
+Optimizers require the model parameters. Put `Module.params` as the first argument for the optimizer. Other arguments such as learning rate are optional. 
+```python
+optim = Optimizer(model.params)
 ```
 
 <div id='ex1'/>
