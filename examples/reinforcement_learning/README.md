@@ -19,6 +19,12 @@ DQN is Q-Learning with a deep neural network as a Q function approximator. DQN l
   <img src="/assets/dqn.PNG"/>
 </p>
 
+DQN updates the parameters θ according to the following gradient:
+
+<p align="center">
+  <img src="/assets/dqn_grad.PNG"/>
+</p>
+
 ## DDQN
 
 ## Dueling Network
