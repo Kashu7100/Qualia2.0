@@ -2,7 +2,7 @@
   <img src="https://kashu.ml/wp-content/uploads/2018/08/qualia-1-700x379.png?raw=true" alt="Qualia Logo"/>
 </p>
 
-Qualia is a deep learning framework deeply integrated with autograd designed for maximum flexibility. Qualia features in automatic differentiation and dynamic graphing with CUDA acceleration. Qualia was designed from scratch to have similar interface as PyTorch or Chainer.
+Qualia is a deep learning framework deeply integrated with automatic differentiation designed for maximum flexibility. Qualia features in automatic differentiation and dynamic graphing with CUDA acceleration. Qualia was designed from scratch to have similar interface as PyTorch or Chainer.
 
 ## Introduction
 
