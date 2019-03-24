@@ -26,6 +26,11 @@ DQN updates the parameters θ according to the following gradient:
 </p>
 
 ## DDQN
+It is known that it will degrade the learning stability if the target Q value is calculated with the same parameters θ as the updating parameters. In order to stablize the learning process, two networks, main network Qm and target network Qt, are introduced. The updating equation will be:
+
+<p align="center">
+  <img src="/assets/ddqn.PNG"/>
+</p>
 
 ## Dueling Network
 
