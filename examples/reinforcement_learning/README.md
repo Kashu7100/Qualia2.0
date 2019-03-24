@@ -40,5 +40,5 @@ The information within a Q function can be divided into two: a part determined m
 </p>
 
 ## A2C
-
+A2C stands for Advantage Actor-Critic. 
 ## TD3
