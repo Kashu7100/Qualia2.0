@@ -44,8 +44,13 @@ class MountainCar(Environment):
                 if episode == self.max_episodes-1:
                     self.frames.append(self.env.render(mode='rgb_array'))
                 if done:
+                    if len(self.rewards) > 0:
+                        if max(self.rewards) < -step-1 or episode == self.max_episodes-1:
+                            self.agent.save(self.path+'/tmp/{}-ep{}-sc{}'.format(self.__class__.__name__, episode+1, step+1))
+                    self.rewards.append(-step-1)
                     print('[*] episode {}: finished after {} steps'.format(episode+1, step+1))
                     if self.agent.target_model is not None:
                         if(episode%2==0):
                             self.agent.update_target_model()
                     break
+        print('[*] training finished. best score: {}'.format(max(self.rewards)))
