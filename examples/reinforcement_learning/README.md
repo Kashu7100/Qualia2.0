@@ -41,4 +41,8 @@ The information within a Q function can be divided into two: a part determined m
 
 ## A2C
 A2C stands for Advantage Actor-Critic. 
+
+## DDPG
+
 ## TD3
+TD3 stabds for Twin Delayed DDPG. 
