@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*- 
 from .core import *
+from functools import reduce
 
 class Tensor(object):
     '''Wrapper class to execute automatic differentiation\n 
@@ -32,16 +33,16 @@ class Tensor(object):
             if type(data) is list:
                 self.data = np.array(data)
             else: 
-                self.data = np.array([data]) 
+                self.data = np.array([data], dtype=dtype)
         else:
-            self.data = data 
+            self.data = data.astype(dtype)
         self.grad = None
         self.creator = None
         self.requires_grad = requires_grad
 
     def backward(self, *args):
         if not bool(args):
-            args = [np.ones_like(self.data)]     
+            args = [np.ones_like(self.data, dtype=dtype)]     
         self.creator.backward(*args) 
 
     def set_creator(self, obj): 
@@ -56,7 +57,7 @@ class Tensor(object):
         result = Tensor(np.reshape(self.data, args)) 
         result.set_creator(Reshape.prepare(result.shape, self))
         return result
-   
+    
     def gather(self, dim, idx):
         return Gather.forward(self, dim, idx)
     
@@ -155,7 +156,7 @@ class Function(object):
         if arg.shape != trg.shape:
             if arg.ndim == trg.ndim:
                 axis = [i for i in range(arg.ndim) if arg.shape[i] != trg.shape[i]]
-                arg = np.sum(arg, axis=tuple(axis)) 
+                arg = np.sum(arg, axis=tuple(axis))
                 return np.reshape(arg, trg.shape)
             elif arg.ndim > trg.ndim:
                 assert trg.ndim == 1
@@ -245,8 +246,8 @@ class Gather(Function):
             result[idx] = dx[src_idx]
         else:
             result[idx] = dx
-        return result    
-    
+        return result
+
 class Neg(Function):
     '''
     Takes numerical negative elementwise.
