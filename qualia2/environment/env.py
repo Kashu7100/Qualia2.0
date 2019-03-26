@@ -4,6 +4,8 @@ import gym
 import os
 import matplotlib.pyplot as plt
 from matplotlib import animation 
+from logging import getLogger
+logger = getLogger('QualiaLogger').getChild('env')
 
 class Environment(object):
     '''Environment\n
