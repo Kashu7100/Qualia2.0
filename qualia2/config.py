@@ -3,7 +3,7 @@
 gpu = True
 
 # Data type
-dtype = 'float32'
+dtype = 'float64'
 
 # System logger settings 
 # level    value
