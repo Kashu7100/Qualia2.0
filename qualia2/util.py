@@ -9,6 +9,8 @@ import random
 import time
 from datetime import timedelta
 import matplotlib.pyplot as plt
+from logging import getLogger
+logger = getLogger('QualiaLogger').getChild('util')
 
 def numerical_grad(fn, tensor, *args, **kwargs):
     delta = 1e-4
@@ -74,15 +76,16 @@ def trainer(model, criterion, optimizer, dataloader, epochs, minibatch, save_fil
     if load_filename is not None:
         if os.path.exists(load_filename+'.hdf5'):
             model.load(load_filename)
-            print('[*] weights loaded.') 
+            logger.info('[*] weights loaded.') 
         else:
-            raise Exception('[*] File not found: weights cannot be loaded.')
+            logger.error('[*] File not found: weights cannot be loaded.')
+            raise Exception
     dataloader.batch = minibatch
     dataloader.training = True
     model.training = True
     losses = []
     start = time.time()
-    print('[*] training started.')
+    logger.info('[*] training started.')
     for epoch in range(epochs):
         for i, (data, label) in enumerate(dataloader): 
             output = model(data) 
@@ -95,7 +98,7 @@ def trainer(model, criterion, optimizer, dataloader, epochs, minibatch, save_fil
         model.save(save_filename) 
     plt.plot([i for i in range(len(losses))], losses)
     plt.show()
-    print('\n[*] training completed.')
+    logger.info('[*] training completed.')
 
 def tester(model, dataloader, minibatch, filename):
     ''' tester helps the testing process of supervised learning
@@ -107,13 +110,14 @@ def tester(model, dataloader, minibatch, filename):
     ''' 
     if os.path.exists(filename+'.hdf5'):
         model.load(filename)
-        print('[*] weights loaded for testing.')
+        logger.info('[*] weights loaded for testing.')
     else:
-        raise Exception('[*] File not found: weights cannot be loaded.') 
+        logger.error('[*] File not found: weights cannot be loaded.') 
+        raise Exception
     dataloader.batch = minibatch
     dataloader.training = False
     model.training = False
-    print('[*] testing started.')
+    logger.info('[*] testing started.')
     acc = 0
     for i, (data, label) in enumerate(dataloader): 
         output = model(data) 
@@ -121,7 +125,7 @@ def tester(model, dataloader, minibatch, filename):
         ans = np.argmax(label.data, axis=1)
         acc += sum(out == ans)/label.shape[0]
         progressbar(i, len(dataloader))
-    print('\n[*] test acc: {:.2f}%'.format(float(acc/len(dataloader)*100)))
+    logger.info('\n[*] test acc: {:.2f}%'.format(float(acc/len(dataloader)*100)))
 
 class ReplayMemory(object):
     '''Replay Memory\n
@@ -144,7 +148,8 @@ class ReplayMemory(object):
     
     def sample(self):
         if self.transitions is None:
-            raise Exception('[*] Cannot sample from empty memory.')
+            logger.error('[*] Cannot sample from empty memory.')
+            raise Exception
         if not self.is_full:
             assert self.idx > self.batch
         i = random.sample(list(range(self.capacity)), self.batch) if self.is_full else random.sample(list(range(self.idx)), self.batch)
@@ -156,7 +161,8 @@ class ReplayMemory(object):
 
     def shuffle(self):
         if not self.is_full:
-            raise Exception('[*] shuffle of non-full memory is prohibited.')
+            logger.error('[*] shuffle of non-full memory is prohibited.')
+            raise Exception
         i = np.random.permutation(self.capacity)
         self.transitions = self.transitions[i]
 
@@ -179,7 +185,7 @@ class ReplayMemory(object):
             self.states = ReplayMemory.get_len(state)
             self.actions = ReplayMemory.get_len(action)
             self.rewards = ReplayMemory.get_len(reward)
-            self.transitions = np.zeros((self.capacity, 2*self.states+self.actions+self.rewards))
+            self.transitions = np.zeros((self.capacity, 2*self.states+self.actions+self.rewards), dtype=dtype)
         if len(self) < self.capacity // self.batch:
             if (self.idx+1)//self.capacity > 0:
                 self.is_full = True
