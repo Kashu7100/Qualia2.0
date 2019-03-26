@@ -25,7 +25,7 @@ if gpu:
     import cupy as np
     if not np.cuda.is_available():
         logger.error('[*] CUDA device is not available.')
-        raise Exception('[*] CUDA device is not available.')
+        raise Exception
     np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
     np.add.at = np.scatter_add
 
@@ -49,4 +49,5 @@ else:
         return obj
 
     def to_gpu(obj):
-        raise Exception('[*] GPU acceleration is disabled.')
+        logger.error('[*] GPU acceleration is disabled.')
+        raise Exception
