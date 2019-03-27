@@ -2,19 +2,18 @@
   <img src="https://kashu.ml/wp-content/uploads/2018/08/qualia-1-700x379.png?raw=true" alt="Qualia Logo"/>
 </p>
 
-------
-
-[![Build](https://img.shields.io/badge/build-passing-success.svg)](https://github.com/Kashu7100/Qualia2.0/)
-[![Version](https://img.shields.io/badge/package-v0.0.1-informational.svg)](https://github.com/Kashu7100/Qualia2.0/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](/LICENSE.md)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Qualia2)
-
 Qualia is a deep learning framework deeply integrated with automatic differentiation designed for maximum flexibility. Qualia features in automatic differentiation and dynamic graphing with CUDA acceleration. Qualia was designed from scratch to have similar interface as PyTorch or Chainer.
 
 ## Introduction
 David J. Chalmers, an Australian philosopher and cognitive scientist, onece argued that if a system reproduces the functional organization of the brain, it will also reproduce the qualia associated with the brain in the paper "[Absent Qualia, Fading Qualia, Dancing Qualia](http://consc.net/papers/qualia.html)." This library "Qualia" named after the series of arguments in philosophy of mind associated with the qualia, hoping for the creation of a system with subjective consciousness. 
 
 ## Overview
+
+[![Build](https://img.shields.io/badge/build-passing-success.svg)](https://github.com/Kashu7100/Qualia2.0/)
+[![Version](https://img.shields.io/badge/package-v0.0.1-informational.svg)](https://github.com/Kashu7100/Qualia2.0/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](/LICENSE.md)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Qualia2)
+
 Qualia2.0 is a library that consists of the following components:
 
 | Component | Description |
