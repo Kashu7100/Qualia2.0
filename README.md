@@ -4,8 +4,9 @@
 
 ------
 
-[![Build](https://img.shields.io/badge/build-passing-success.svg)](/)
+[![Build](https://img.shields.io/badge/build-passing-success.svg)](https://github.com/Kashu7100/Qualia2.0/blob/master/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](/LICENSE.md)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Qualia2)
 
 Qualia is a deep learning framework deeply integrated with automatic differentiation designed for maximum flexibility. Qualia features in automatic differentiation and dynamic graphing with CUDA acceleration. Qualia was designed from scratch to have similar interface as PyTorch or Chainer.
 
