@@ -2,9 +2,10 @@
   <img src="https://kashu.ml/wp-content/uploads/2018/08/qualia-1-700x379.png?raw=true" alt="Qualia Logo"/>
 </p>
 
-------
+====
 
-[![Build](https://img.shields.io/badge/build-passing-success.svg)](https://github.com/Kashu7100/Qualia2.0/blob/master/)
+[![Build](https://img.shields.io/badge/build-passing-success.svg)](https://github.com/Kashu7100/Qualia2.0/)
+[![Version](https://img.shields.io/badge/package-v0.0.1-informational.svg)](https://github.com/Kashu7100/Qualia2.0/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](/LICENSE.md)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Qualia2)
 
