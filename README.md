@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://kashu.ml/wp-content/uploads/2018/08/qualia-1-700x379.png?raw=true" alt="Qualia Logo"/>
 </p>
-##
+## 
 [![Build](https://img.shields.io/badge/build-passing-success.svg)](/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-informational.svg)](/LICENSE.md)
 
