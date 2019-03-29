@@ -2,7 +2,7 @@
 import math 
 from .module import Module
 from ...core import * 
-from ...functions import rnncell, rnn
+from ...functions import rnncell, rnn, grucell, gru
 from ...autograd import Tensor 
 
 class RNN(Module):
