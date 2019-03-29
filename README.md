@@ -54,16 +54,15 @@ in case pip from source did not work, use wheel from following links:
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
-- [Automatic Differentiation](/tutorial/#automatic_differentiation)
-- [Validation of Automatic Differentiation](/tutorial/#valid_automatic_differentiation)
-- [Network Definition](/tutorial/#network_definition)
-- [Model Summary](/tutorial/#model_summary)
-- [Saving/Loading a Trained Weights](/tutorial/#save_load)
-- [Setting up Optimizer](/tutorial/#optim_setup)
-- [Example with Spiral Dataset - Decision Boundary](/tutorial/#ex1)
-- [Example with MNIST Dataset - PCA](/tutorial/#ex2)
-- [Example with CartPole - DQN](/tutorial/#ex3)
-- [Example with MountainCar - Dueling Network](/tutorial/#ex4)
+| Component | Description |
+| ---- | --- |
+| [Automatic Differentiation](/tutorial/#automatic_differentiation) | usage of automatic differentiation with simple example |
+| [Validation of Automatic Differentiation](/tutorial/#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
+| [Network Definition](/tutorial/#network_definition) | the way to create a custom neural network model with Qualia |
+| [Model Summary](/tutorial/#model_summary) | a way to get the summary of the neural network model |
+| [Saving/Loading Weights](/tutorial/#save_load) | a way to save and load the trained weights |
+| [Setting up Optimizer](/tutorial/#optim_setup) | preparing optimizers to train a neural network |
+| [Learning Qualia with Examples](/tutorial/#ex) | examples that cover essentials of Qualia |
 
 ## Examples
 Examples can be found [here](/examples).
