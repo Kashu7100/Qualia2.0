@@ -199,7 +199,7 @@ optim = Optimizer(model.params)
 ## Leaning with Examples
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
-- [Example with FashionMNIST Dataset - Classification wirh RNN](#ex3)
+- [Example with FashionMNIST Dataset - Classification wirh GRU](#ex3)
 - [Example with CartPole Env - DQN](#ex4)
 - [Example with MountainCar Env - Dueling Network](#ex5)
 
@@ -274,6 +274,7 @@ Following is the decision boundary obtained. We can observe that the network cou
 
 ### Example with MNIST Dataset - PCA
 Neural networks can be used in dimensionality reduction (PCA) since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use MNIST dataset.
+
 ```python
 from qualia2.data.basic import MNIST
 
@@ -316,7 +317,7 @@ optim = Adadelta(model.params)
 trainer(model, mse_loss, optim, mnist, 10, 100, path+'/qualia2_mnist')
 tester(model, mnist, 50, path+'/qualia2_mnist')
 ```
-With the CUDA acceleration, this simple model can achieve about 97% accuracy on the testing data in tens of minutes. Then we utilize this network to conduct the principal component analysis.
+With the CUDA acceleration, this simple model can achieve more than 97% accuracy on the testing data in tens of minutes. Then we utilize this network to conduct the principal component analysis.
 
 ```python
 class PCA(Module):
@@ -380,8 +381,22 @@ The figure below suggests that the internal state of the neural network distingu
 
 <div id='ex3'/>
 
-### Example with FashionMNIST - Classification with RNN
+### Example with FashionMNIST - Classification with GRU
+RNNs are often utilized for language model or time series prediction; however, they can also be used for image recongnition tasks. We will demonstrate the classification task on FashionMNIST with GRU as an example.
 
+```python
+from qualia2.data.basic import FashionMNIST
+
+data = FashionMNIST()
+data.show()
+```
+<p align="center">
+  <img src="/assets/fashion_mnist_data.png">
+</p>
+
+```python
+
+```
 
 <div id='ex4'/>
 
