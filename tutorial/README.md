@@ -382,7 +382,7 @@ The figure below suggests that the internal state of the neural network distingu
 <div id='ex3'/>
 
 ### Example with FashionMNIST - Classification with GRU
-RNNs are often utilized for language model or time series prediction; however, they can also be used for image recongnition tasks. We will demonstrate the classification task on FashionMNIST with GRU as an example.
+RNNs are often utilized for language model or time series prediction; however, they can also be used for image recongnition tasks. We will demonstrate the classification task on FashionMNIST with GRU as an example. Below is the visualization for the dataset.
 
 ```python
 from qualia2.data.basic import FashionMNIST
