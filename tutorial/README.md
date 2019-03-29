@@ -1,10 +1,11 @@
 ## Table of Contents
-- [Automatic Differentiation](#automatic_differentiation)
+### [Automatic Differentiation](#automatic_differentiation)
 - [Validation of Automatic Differentiation](#valid_automatic_differentiation)
 - [Network Definition](#network_definition)
 - [Model Summary](#model_summary)
 - [Saving/Loading a Trained Weights](#save_load)
 - [Setting up Optimizer](#optim_setup)
+- [Learning Qualia with Examples](#ex)
 - [Example with Spiral Dataset - Decision Boundary](#ex1)
 - [Example with MNIST Dataset - PCA](#ex2)
 - [Example with CartPole - DQN](#ex3)
