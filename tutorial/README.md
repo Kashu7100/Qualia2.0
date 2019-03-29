@@ -1,8 +1,8 @@
 ## Table of Contents
 | Component | Description |
 | ---- | --- |
-| [Automatic Differentiation](#automatic_differentiation) | usage with simple example of automatic differentiation |
-| [Validation of Automatic Differentiation](#valid_automatic_differentiation) | a way to validate automatic differentiation |
+| [Automatic Differentiation](#automatic_differentiation) | usage of automatic differentiation with simple example |
+| [Validation of Automatic Differentiation](#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
 | [Network Definition](#network_definition) | the way to create a custom neural network model with Qualia |
 | [Model Summary](#model_summary) | a way to get the summary of the neural network model |
 | [Saving/Loading Weights](#save_load) | a way to save and load the trained weights |
