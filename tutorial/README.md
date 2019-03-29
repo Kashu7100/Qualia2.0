@@ -6,12 +6,8 @@
 | [Network Definition](#network_definition) | the way to create a custom neural network model with Qualia |
 | [Model Summary](#model_summary) | a way to get the summary of the neural network model |
 | [Saving/Loading Weights](#save_load) | a way to save and load the trained weights |
-| [Setting up Optimizer](#optim_setup) |  |
+| [Setting up Optimizer](#optim_setup) | preparing optimizers to train a neural network |
 | [Learning Qualia with Examples](#ex) | examples that cover essentials of Qualia |
-- [Example with Spiral Dataset - Decision Boundary](#ex1)
-- [Example with MNIST Dataset - PCA](#ex2)
-- [Example with CartPole - DQN](#ex3)
-- [Example with MountainCar - Dueling Network](#ex4)
 
 <div id='automatic_differentiation'/>
 
@@ -198,9 +194,17 @@ Optimizers require the model parameters. Put `Module.params` as the first argume
 optim = Optimizer(model.params)
 ```
 
+<div id='ex'/>
+
+## Leaning with Examples
+- [Example with Spiral Dataset - Decision Boundary](#ex1)
+- [Example with MNIST Dataset - PCA](#ex2)
+- [Example with CartPole - DQN](#ex3)
+- [Example with MountainCar - Dueling Network](#ex4)
+
 <div id='ex1'/>
 
-## Example with Spiral Dataset - Decision Boundary
+### Example with Spiral Dataset - Decision Boundary
 Neural networks can be viewed as a universal approximation function. Let's use a simple dataset called Spiral to see how neural net can obtain a non-linear decision boundary. To visualize the dataset, one can use the `Spiral.show()` method as follows: 
 
 ```python
@@ -267,7 +271,7 @@ Following is the decision boundary obtained. We can observe that the network cou
 
 <div id='ex2'/>
 
-## Example with MNIST Dataset - PCA
+### Example with MNIST Dataset - PCA
 Neural networks can be used in dimensionality reduction (PCA) since the internal state of the hourglass neural networks can be regarded as the lower dimensional representation of the input. Let's use MNIST dataset.
 ```python
 from qualia2.data.basic import MNIST
@@ -375,7 +379,7 @@ The figure below suggests that the internal state of the neural network distingu
 
 <div id='ex3'/>
 
-## Example with Cart-Pole - DQN
+### Example with Cart-Pole - DQN
 DQN is Q-Learning with a Deep Neural Network as a function approximator. Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Environment.show()` method.
 ```python
 from qualia2.environment.cartpole import CartPole
@@ -437,7 +441,7 @@ Following is the animated result:
 
 <div id='ex4'/>
 
-## Example with Mountain Car - Dueling Network
+### Example with Mountain Car - Dueling Network
 The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN. As an example, let's use [MountainCar](https://gym.openai.com/envs/MountainCar-v0/) task from Gym.
 ```python
 # -*- coding: utf-8 -*- 
