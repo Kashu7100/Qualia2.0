@@ -91,3 +91,41 @@ class RNNCell(Module):
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
+
+class GRUCell(Module):
+    '''A gated recurrent unit\n
+    Args:
+        input_size (int): The number of expected features in the input
+        hidden_size (int): The number of features in the hidden state
+        bias (bool):adds a learnable bias to the output. Default: True 
+    
+    Shape:
+        - Input: [N, input_size]
+        - Hidden: [N, hidden_size]
+        - Output: [N, hidden_size]
+    '''
+    def __init__(self, input_size, hidden_size, bias=True):
+        super().__init__()
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.num_params += (3*input_size*hidden_size + 3*hidden_size*hidden_size)
+        self.weight_x = Tensor(np.random.uniform(-math.sqrt(1/hidden_size),math.sqrt(1/hidden_size),(input_size, 3*hidden_size)))
+        self.weight_h = Tensor(np.random.uniform(-math.sqrt(1/hidden_size),math.sqrt(1/hidden_size),(hidden_size, 3*hidden_size)))
+        if bias:
+            self.bias_x = Tensor(np.random.uniform(-math.sqrt(1/hidden_size),math.sqrt(1/hidden_size),(3*hidden_size)))
+            self.bias_h = Tensor(np.random.uniform(-math.sqrt(1/hidden_size),math.sqrt(1/hidden_size),(3*hidden_size)))
+            self.num_params += 2*3*hidden_size
+        else:
+            self.bias_x = None
+            self.bias_h = None
+    
+    def __repr__(self):
+        return '{}({}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, str(self.bias is not None), id(self), 16)
+
+    def forward(self, x, h):
+        result = grucell(x, h, self.weight_x, self.weight_h, self.bias_x, self.bias_h)
+        if self.input_shape is None:
+            self.input_shape = [x.shape, h.shape]
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
