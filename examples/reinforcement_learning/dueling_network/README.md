@@ -6,6 +6,8 @@ Get an under powered car to the top of a hill (top = 0.5 position)
 </p>
 
 ## Usage
+Following are the commands used to train and test the model:
+
 To train the model:
 ```bash
 python dueling_network.py train --itr 1000 --capacity 10000 --batch 80 --save True --plot True
