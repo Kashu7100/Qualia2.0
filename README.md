@@ -54,6 +54,7 @@ in case pip from source did not work, use wheel from following links:
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
+
 | Component | Description |
 | ---- | --- |
 | [Automatic Differentiation](/tutorial/#automatic_differentiation) | usage of automatic differentiation with simple example |
