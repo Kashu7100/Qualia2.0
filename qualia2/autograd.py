@@ -29,6 +29,7 @@ class Tensor(object):
         >>> print(x.grad)
     ''' 
     def __init__(self, data, requires_grad=True):
+        super().__setattr__('hook', None) 
         if type(data) is not np.ndarray: 
             if type(data) is list:
                 self.data = np.array(data)
@@ -66,6 +67,9 @@ class Tensor(object):
         '''
         return Tensor(self.data, requires_grad=False)
     
+    def register_hook(self, hook):
+        self.hook = hook
+    
     def __str__(self):
         return f'{self.data} shape={self.shape}'
     
@@ -73,10 +77,13 @@ class Tensor(object):
         return '{}({}, requires_grad={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.data, self.requires_grad, id(self), 16)
 
     def __setattr__(self, key, value):   
-        object.__setattr__(self, key, value)
+        super().__setattr__(key, value)
         if key == 'data':
-            object.__setattr__(self, 'shape', self.data.shape)
-            object.__setattr__(self, 'ndim', self.data.ndim) 
+            super().__setattr__('shape', self.data.shape)
+            super().__setattr__('ndim', self.data.ndim) 
+        if self.hook is not None:
+            if key == 'grad':
+                super().__setattr__('grad', self.hook(value))
 
     def __getitem__(self, slice):
         return Slice.forward(self, slice)
