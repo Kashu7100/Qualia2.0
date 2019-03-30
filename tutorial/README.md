@@ -350,8 +350,7 @@ losses = []
 for i in range(10):
     for feature, _ in mnist:
         tmp = model1(feature)
-        tmp.creator = None
-        out = model2(tmp)
+        out = model2(tmp.detach())
         loss = mse_loss(out, tmp)
         losses.append(qualia2.to_cpu(loss.data))
         optim.zero_grad()
@@ -441,8 +440,7 @@ for epoch in range(epochs):
     for i, (data, label) in enumerate(mnist):
         data = reshape(data, (-1,28,28))
         data = transpose(data, (1,0,2))
-        data.creator = None
-        output = model(data, h0) 
+        output = model(data.detach(), h0) 
         loss = softmax_cross_entropy(output, label)
         model.zero_grad()
         loss.backward()
@@ -463,7 +461,6 @@ acc = 0
 for i, (data, label) in enumerate(mnist): 
     data = reshape(data, (-1,28,28))
     data = transpose(data, (1,0,2))
-    data.creator = None
     output = model(data, h0) 
     out = np.argmax(output.data, axis=1) 
     ans = np.argmax(label.data, axis=1)
