@@ -401,6 +401,7 @@ According to [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist), 
  	
 > **MNIST can not represent modern CV tasks**, as noted in this April 2017 Twitter thread, deep learning expert/Keras author François Chollet.
 
+The following model assumes that final hidden states of the GRU embraces the input features. The model can be also implemented using the last output from GRU; however, backpropagation is much slower if implemented in this manner.
 
 ```python
 from qualia2.functions import tanh, softmax_cross_entropy, transpose, reshape
@@ -416,20 +417,23 @@ path = os.path.dirname(os.path.abspath(__file__))
 class Reccurent(Module):
     def __init__(self):
         super().__init__()
-        self.gru = GRU(28,128,1)
-        self.linear = Linear(128, 10)
+        self.gru = GRU(28,256,1)
+        self.linear = Linear(256, 10)
         
     def forward(self, x, h0):
-        out = self.gru(x, h0)
-        out = reshape(out[-1], (-1,128))
-        out = self.linear(out)
+        _, hx = self.gru(x, h0)
+        out = self.linear(hx[-1])
+        """ same but slower
+        out, _ = self.gru(x, h0)
+        out = self.linear(out[-1])
+        """
         return out
 
 model = Reccurent()
 optim = Adadelta(model.params)
 mnist = FashionMNIST()
 mnist.batch = 100
-h0 = qualia2.zeros((1,100,128))
+h0 = qualia2.zeros((1,100,256))
 
 epochs = 100
 
@@ -439,8 +443,8 @@ print('[*] training started.')
 for epoch in range(epochs):
     for i, (data, label) in enumerate(mnist):
         data = reshape(data, (-1,28,28))
-        data = transpose(data, (1,0,2))
-        output = model(data.detach(), h0) 
+        data = transpose(data, (1,0,2)).detach()
+        output = model(data, h0) 
         loss = softmax_cross_entropy(output, label)
         model.zero_grad()
         loss.backward()
@@ -468,6 +472,10 @@ for i, (data, label) in enumerate(mnist):
     progressbar(i, len(mnist))
 print('\n[*] test acc: {:.2f}%'.format(float(acc/len(mnist)*100)))
 ```
+
+<p align="center">
+  <img src="/assets/fashion_mnist_gru_loss.png">
+</p>
 
 <div id='ex4'/>
 
