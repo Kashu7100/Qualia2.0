@@ -472,6 +472,7 @@ for i, (data, label) in enumerate(mnist):
     progressbar(i, len(mnist))
 print('\n[*] test acc: {:.2f}%'.format(float(acc/len(mnist)*100)))
 ```
+The following plot show the change in loss over epochs.
 
 <p align="center">
   <img src="/assets/fashion_mnist_gru_loss.png">
