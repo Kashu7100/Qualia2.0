@@ -61,6 +61,11 @@ class Tensor(object):
     def gather(self, dim, idx):
         return Gather.forward(self, dim, idx)
     
+    def detach(self):
+        '''Returns a new Tensor, detached from the current graph.
+        '''
+        return Tensor(self.data, requires_grad=False)
+    
     def __str__(self):
         return f'{self.data} shape={self.shape}'
     
