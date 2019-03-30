@@ -394,7 +394,7 @@ data.show()
   <img src="/assets/fashion_mnist_data.png">
 </p>
 
-According to [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist), here are some reasons that FashionMNIST is preffered over MNIST:   	
+According to [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist), here are some reasons that FashionMNIST is preffered over MNIST for testing classifier:   	
 
 > **MNIST is too easy.** Convolutional nets can achieve 99.7% on MNIST. Classic machine learning algorithms can also achieve 97% easily.
  	
