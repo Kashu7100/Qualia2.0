@@ -417,8 +417,8 @@ path = os.path.dirname(os.path.abspath(__file__))
 class Reccurent(Module):
     def __init__(self):
         super().__init__()
-        self.gru = GRU(28,256,1)
-        self.linear = Linear(256, 10)
+        self.gru = GRU(28,128,1)
+        self.linear = Linear(128, 10)
         
     def forward(self, x, h0):
         _, hx = self.gru(x, h0)
@@ -433,7 +433,7 @@ model = Reccurent()
 optim = Adadelta(model.params)
 mnist = FashionMNIST()
 mnist.batch = 100
-h0 = qualia2.zeros((1,100,256))
+h0 = qualia2.zeros((1,100,128))
 
 epochs = 100
 
