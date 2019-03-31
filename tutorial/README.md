@@ -478,7 +478,7 @@ The following plot show the change in loss over epochs.
   <img src="/assets/fashion_mnist_gru_loss.png">
 </p>
 
-With this model, 89.95% accuracy on test dataset was achieved.
+With this model, `89.95%` accuracy on test dataset was achieved.
 
 <div id='ex4'/>
 
