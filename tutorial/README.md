@@ -98,6 +98,10 @@ check_function(tan, domain=(-np.pi/4, np.pi/4))
 #[*] measured error:  1.0725402527904689e-12
 ```
 
+<div id='qualia_tensor'/>
+
+
+
 <div id='network_definition'/>
 
 ## Network Definition
