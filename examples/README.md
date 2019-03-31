@@ -16,7 +16,9 @@ The following diagram depicts the basic structure of learning in brains:
   <b> Figure: </b> Skinner Box (retrieved from <a href="https://www.simplypsychology.org/operant-conditioning.html">Simply Psychology</a>)
 </p>
 
-## Unsupervised Learning
-Among these three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been utilized the  most by creatures autonomously. Networks learn external signals from unsupervised learning to prepare for the external environment or information. 
+
+
+## [Unsupervised Learning](/examples/unsupervised_learning)
+Among the three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been utilized the  most by creatures autonomously. Networks learn external signals from unsupervised learning to prepare for the external environment or information. In general, unsupervised system is better than supervised system in finding new patterns or features in inputs.
 
 ## Supervised Learning 
