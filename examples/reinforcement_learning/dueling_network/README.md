@@ -7,6 +7,7 @@ The objective is to get an under powered car to the top of a hill (top = 0.5 pos
 
 ## Details
 The agent only knows his `position` and `velocity` in evry step.
+
 The agent can take one action from three: `push left`, `no push`, and `push right`   
 
 ## Usage
