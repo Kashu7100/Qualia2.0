@@ -44,7 +44,10 @@ class Tensor(object):
     def backward(self, *args):
         if not bool(args):
             args = [np.ones_like(self.data, dtype=dtype)]     
-        self.creator.backward(*args) 
+        if self.creator is None:
+            self.grad = args[0]
+        else:
+            self.creator.backward(*args) 
 
     def set_creator(self, obj): 
         self.creator = obj     
