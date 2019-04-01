@@ -3,7 +3,8 @@
 | ---- | --- |
 | [Automatic Differentiation](#automatic_differentiation) | usage of automatic differentiation with simple example |
 | [Validation of Automatic Differentiation](#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
-| [Network Definition](#network_definition) | the way to create a custom neural network model with Qualia |
+| [Qualia Tensor](#qualia_tensor) | Tensor class in Qualia |
+| [Network Definition](#network_definition) | a way to create a custom neural network model with Qualia |
 | [Model Summary](#model_summary) | a way to get the summary of the neural network model |
 | [Saving/Loading Weights](#save_load) | a way to save and load the trained weights |
 | [Setting up Optimizer](#optim_setup) | preparing optimizers to train a neural network |
@@ -22,16 +23,16 @@ Qualia uses the so called “Define-by-Run” scheme, so forward computation its
 ```python
 x = qualia2.array([5])
 y = x**2 - 2*x + 1
+print(y)
 # prints result of the computation: 
 # [16] shape=(1,)
-print(y)
 ```
 At this moment we can compute the derivative.
 ```python
 y.backward()
+print(x.grad)
 # prints gradient of x:
 # [8]
-print(x.grad)
 ```
 Note that this meets the result of symbolic differentiation.
 <p align="center">
@@ -46,10 +47,10 @@ All these computations can be generalized to a multidimensional tensor input. Wh
 x = qualia2.array([[1, 2, 3], [4, 5, 6]])
 y = x**2 - 2*x + 1
 y.backward()
+print(x.grad)
 # prints gradients of x:
 # [[ 0  2  4]
 #  [ 6  8 10]]
-print(x.grad)
 ```
 
 With the autograd feature of Qualia, one can plot the derivative curve of a given function very easily. For instance, let function of interest be `y = x*sin(x)`.
@@ -88,19 +89,44 @@ from qualia2.functions import *
 from qualia2.util import check_function
 
 check_function(sinc)
-#[*] measured error:  6.662620763892326e-18
+# [*] measured error:  6.662620763892326e-18
 ```
 
 One can specify the domain to avoid null value for the function that has not defined region.
 
 ```python
 check_function(tan, domain=(-np.pi/4, np.pi/4))
-#[*] measured error:  1.0725402527904689e-12
+# [*] measured error:  1.0725402527904689e-12
 ```
 
 <div id='qualia_tensor'/>
 
+## Qualia Tensor
+Every tensor calculation and automatic differentiation are done by the `Tensor` onject in Qualia. `Tensor` onject wraps `ndarray` objects along `creator` onject to perform automatic differentiation. A computational graph for a differentiation is defined dynamically as program runs. 
 
+```python
+x = qualia2.array([[1, 2, 3], [4, 5, 6]])
+print(type(x))
+# <class 'qualia2.autograd.Tensor'>
+```
+
+The gradient for a `Tensor` can be optionally replaced by a new gradient, which is additionally calculated by a hooked function.
+```python
+a = qualia2.rand(5,6)
+a.backward()
+print(a.grad)
+# array([[1., 1., 1.],
+#        [1., 1., 1.]])
+```
+If `lambda grad: 2*grad` is registered as a hook, the gradient will be doubled.
+```python
+a = qualia2.rand(5,6)
+a.register_hook(lambda grad: 2*grad)
+a.backward()
+print(a.grad)
+# array([[2., 2., 2.],
+#        [2., 2., 2.]])
+```
 
 <div id='network_definition'/>
 
