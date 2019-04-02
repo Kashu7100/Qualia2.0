@@ -4,9 +4,9 @@
 | [Automatic Differentiation](#automatic_differentiation) | usage of automatic differentiation with simple example |
 | [Validation of Automatic Differentiation](#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
 | [Qualia Tensor](#qualia_tensor) | Tensor class in Qualia |
-| [Network Definition](#network_definition) | a way to create a custom neural network model with Qualia |
-| [Model Summary](#model_summary) | a way to get the summary of the neural network model |
-| [Saving/Loading Weights](#save_load) | a way to save and load the trained weights |
+| [Network Definition](#network_definition) | create a custom neural network model with Qualia |
+| [Model Summary](#model_summary) | get the summary of the neural network model |
+| [Saving/Loading Weights](#save_load) | save and load the trained weights |
 | [Setting up Optimizer](#optim_setup) | preparing optimizers to train a neural network |
 | [Learning Qualia with Examples](#ex) | examples that cover essentials of Qualia |
 
