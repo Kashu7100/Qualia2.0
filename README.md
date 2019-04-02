@@ -60,9 +60,9 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 | [Automatic Differentiation](/tutorial/#automatic_differentiation) | usage of automatic differentiation with simple example |
 | [Validation of Automatic Differentiation](/tutorial/#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
 | [Qualia Tensor](#qualia_tensor) | Tensor class in Qualia |
-| [Network Definition](/tutorial/#network_definition) | a way to create a custom neural network model with Qualia |
-| [Model Summary](/tutorial/#model_summary) | a way to get the summary of the neural network model |
-| [Saving/Loading Weights](/tutorial/#save_load) | a way to save and load the trained weights |
+| [Network Definition](/tutorial/#network_definition) | create a custom neural network model with Qualia |
+| [Model Summary](/tutorial/#model_summary) | get the summary of the neural network model |
+| [Saving/Loading Weights](/tutorial/#save_load) | save and load the trained weights |
 | [Setting up Optimizer](/tutorial/#optim_setup) | preparing optimizers to train a neural network |
 | [Learning Qualia with Examples](/tutorial/#ex) | examples that cover essentials of Qualia |
 
