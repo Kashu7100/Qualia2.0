@@ -3,6 +3,7 @@ GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 20
 
 <p align="center">
   <img src="/assets/gan_diagram.PNG"/>
+  <img src="/assets/gan.PNG"/>
 </p>
 
 ## DCGAN
@@ -10,3 +11,8 @@ DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. 
 
 ## LSGAN
 LSGAN - Least Square GANs - 
+
+
+<p align="center">
+  <img src="/assets/lsgan.PNG"/>
+</p>
