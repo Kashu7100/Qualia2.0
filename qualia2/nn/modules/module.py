@@ -5,6 +5,8 @@ from ...core import *
 from ...autograd import Tensor
 from collections import OrderedDict 
 import h5py as h5 
+from logging import getLogger
+logger = getLogger('QualiaLogger').getChild('module')
 
 class Module(object):
     '''Base class for all neural network modules in qualia.\n 
@@ -26,27 +28,27 @@ class Module(object):
         return ') at 0x{:0{}X}'.format(id(self), 16)
 
     def summary(self, input_shape):
-        print('-'*71)
-        print('{:^71}'.format('Model: ' + self.__class__.__name__))
+        logger.info('-'*76)
+        logger.info('{:^76}'.format('Model: ' + self.__class__.__name__))
         if type(input_shape) is list:
             raise NotImplementedError
 
         elif type(input_shape) is tuple:
             x = Tensor(np.zeros(input_shape), requires_grad=False)
             if self._modules: 
-                print('{}\n| {:15}|{:^20}|{:^20}|{:^10}|\n{}'.format('-'*71, 'layers', 'input shape', 'output shape', 'params #', '='*71))
+                logger.info('{}\n| {:20}|{:^20}|{:^20}|{:^10}|\n{}'.format('-'*76, 'layers', 'input shape', 'output shape', 'params #', '='*76))
                 for _, module in self._modules.items():
                     module.input_shape = None
                     module.output_shape = None
                 total_params = 0
                 _ = self.forward(x)
                 for i, (_, module) in enumerate(self._modules.items()):
-                    print('| {:15}|{:^20}|{:^20}|{:^10}|'.format(module.__class__.__name__+'-'+str(i), str(module.input_shape), str(module.output_shape), str(module.num_params)))
+                    logger.info('| {:20}|{:^20}|{:^20}|{:^10}|'.format(module.__class__.__name__+'-'+str(i), str(module.input_shape), str(module.output_shape), str(module.num_params)))
                     total_params += module.num_params
-        print('='*71)
-        print('total params: {}'.format(total_params))
-        print('training mode: {}'.format(self.training))
-        print('-'*71)
+        logger.info('='*76)
+        logger.info('total params: {}'.format(total_params))
+        logger.info('training mode: {}'.format(self.training))
+        logger.info('-'*76)
     
     def __setattr__(self, key, value): 
         if isinstance(value, Module):
