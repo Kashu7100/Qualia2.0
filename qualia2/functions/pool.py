@@ -364,6 +364,41 @@ class AvePool3d(Function):
 
 avepool3d = AvePool3d(None)
 
+class MaxUnpool1d(Function):
+    @staticmethod
+    def forward(x, indices, kernel_size=2, stride=2, padding=0, dilation=1):
+        '''Computes a partial inverse of MaxPool2d.
+        Args:
+            x (Tensor): the input Tensor to invertc
+            indices (ndarray): the indices given out by MaxPool2d
+            kernel_size (tuple of int): the size of the window to take a max over
+            stride (tuple of int): the stride of the window. Default value is kernel_size
+            padding (tuple of int): implicit zero padding to be added on all three sides
+            dilation (tuple of int): a parameter that controls the stride of elements in the window
+        Shape:
+            - Input: [N,C,W]
+            - Output: [N,C,W_out]
+            W_out = (W-1)*stride+dilation*(kernel_size-1)+1-2*padding
+        '''
+        b, c, w = x.shape
+        ow = (w-1)*stride+dilation*(kernel_size-1)+1-2*padding
+        out_shape = (b, c, ow)
+        padded_shape = (b, c, ow+2*padding)
+        result = Tensor(MaxPool1d.fold(x.data, kernel_size, indices, w, out_shape, padded_shape, stride, dilation))
+        result.set_creator(MaxUnpool1d.prepare(result.shape, x, idx=indices, padded_shape=padded_shape, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation))
+        return result
+    
+    def calc_grad(self, dx):
+        b, c, w = dx.shape
+        _, _, ow = self.var[0].shape
+        padded = np.zeros(self.kwargs['padded_shape'])
+        padded[:,:,self.kwargs['padding']:w+self.kwargs['padding']] = dx
+        reshaped = MaxPool1d.unfold(padded, b, ow, c, self.kwargs['kernel_size'], self.kwargs['stride'], self.kwargs['dilation'])
+        idx = self.kwargs['idx'].reshape(b,c,-1,1)
+        return np.choose(np.swapaxes(idx, 0, 3), np.swapaxes(reshaped, 0, 3)).reshape(b, c, ow)
+        
+maxunpool1d = MaxUnpool1d(None)
+
 class MaxUnpool2d(Function):
     @staticmethod
     def forward(x, indices, kernel_size=(2,2), stride=(2,2), padding=(0,0), dilation=(1,1)):
