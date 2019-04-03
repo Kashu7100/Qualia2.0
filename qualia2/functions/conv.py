@@ -40,10 +40,13 @@ class Conv1d(Function):
 
     @staticmethod
     def unfold(x, batch, ow, kernel_shape, stride, dilation): 
+        _, _, xw = x.shape
         _, channel, kernel_width = kernel_shape 
         fw = (kernel_width-1)*dilation+1
         result = np.zeros((batch, ow, channel, kernel_width)) 
-        for j in range(ow): 
+        for j in range(ow):
+            if j*stride+fw > xw:
+                continue
             tmp = x[:, :, j*stride:j*stride+fw] 
             result[:, j, :, :] = tmp[:, :, ::dilation] 
         return result 
@@ -56,11 +59,13 @@ class Conv1d(Function):
         fw = (kernel_width-1)*dilation+1
         result = np.zeros(padded_shape)
         for j in range(ow): 
+            if j*stride+fw > pw:
+                continue
             tmp = np.zeros((batch, channel, fw))
             tmp[:, :, ::dilation] = delta[:, j, :, :] 
             result[:, :, j*stride:j*stride+fw] += tmp
         return result[:,:,int((pw-width)/2):pw-int((pw-width)/2)]
-
+    
     def calc_grad(self, dx):
         batch, patch, _ = dx.shape 
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.var[1].data, (1,0))
