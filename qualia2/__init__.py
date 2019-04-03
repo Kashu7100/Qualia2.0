@@ -14,31 +14,34 @@ pi = np.pi
 e = np.e
 
 def array(obj):
-    return Tensor(np.array(obj))
+    return Tensor(np.array(obj, dtype=dtype))
 
 def arange(*args):
-    return Tensor(np.arange(*args))
+    return Tensor(np.arange(*args, dtype=dtype))
 
 def zeros(shape):
-    return Tensor(np.zeros(shape))
+    return Tensor(np.zeros(shape, dtype=dtype))
 
 def zeros_like(obj):
-    return Tensor(np.zeros(obj.shape))
+    return Tensor(np.zeros(obj.shape, dtype=dtype))
 
 def ones(shape):
-    return Tensor(np.ones(shape))
+    return Tensor(np.ones(shape, dtype=dtype))
 
 def ones_like(obj):
-    return Tensor(np.ones(obj.shape))
+    return Tensor(np.ones(obj.shape, dtype=dtype))
 
 def rand(*args):
-    return Tensor(np.random.rand(*args))
+    return Tensor(np.random.rand(*args, dtype=dtype))
 
 def rand_like(obj):
-    return Tensor(np.random.rand(*obj.shape))
+    return Tensor(np.random.rand(*obj.shape, dtype=dtype))
 
 def randn(*args):
-    return Tensor(np.random.randn(*args))
+    return Tensor(np.random.randn(*args, dtype=dtype))
 
 def randn_like(obj):
-    return Tensor(np.random.randn(*obj.shape))
+    return Tensor(np.random.randn(*obj.shape, dtype=dtype))
+
+def uniform(*args):
+    return Tensor(np.random.uniform(*args, dtype=dtype))
