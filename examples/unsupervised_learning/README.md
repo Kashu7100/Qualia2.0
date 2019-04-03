@@ -16,6 +16,8 @@ GANs had problem that learning is unstable. LSGAN - Least Square GANs, which emp
   <img src="/assets/lsgan.PNG"/>
 </p>
 
+## Conditional GAN
+
 ## BEGAN
 
 ## Disco GAN
