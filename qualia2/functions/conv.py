@@ -113,12 +113,15 @@ class Conv2d(Function):
         return result 
     
     @staticmethod
-    def unfold(x, batch, oh, ow, kernel_shape, stride, dilation): 
+    def unfold(x, batch, oh, ow, kernel_shape, stride, dilation):
+        _, _, xh, xw = x.shape 
         _, channel, kernel_height, kernel_width = kernel_shape 
         fh, fw = ((kernel_height-1)*dilation[0]+1, (kernel_width-1)*dilation[1]+1) 
         result = np.zeros((batch, oh*ow, channel, kernel_height, kernel_width)) 
         for i in range(oh): 
             for j in range(ow): 
+                if i*stride[0]+fh > xh or j*stride[1]+fw > xh:
+                    continue
                 tmp = x[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw] 
                 result[:, i*ow+j, :, :, :] = tmp[:, :, ::dilation[0], ::dilation[1]] 
         return result 
@@ -132,6 +135,8 @@ class Conv2d(Function):
         result = np.zeros(padded_shape)
         for i in range(oh): 
             for j in range(ow): 
+                if i*stride[0]+fh > ph or j*stride[1]+fw > pw:
+                    continue
                 tmp = np.zeros((batch, channel, fh, fw))
                 tmp[:, :, ::dilation[0], ::dilation[1]] = delta[:, i*ow+j, :, :, :] 
                 result[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw] += tmp
