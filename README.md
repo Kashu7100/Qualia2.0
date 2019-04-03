@@ -18,13 +18,13 @@ Qualia2.0 is a library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
+| **qualia2.config** | configurations of Qualia; select whether to use GPU here |
 | **qualia2.autograd** | supports a dynamic automatic differentiation |
-| **qualia2.applications** | provides implemented models for handy testing |
+| **qualia2.functions** | pre-defined functions capable of automatic differentiation |
 | **qualia2.nn** | a neural networks library deeply integrated with autograd with CUDA acceleration |
+| **qualia2.applications** | provides implemented deep leaning models for handy testing |
 | [**qualia2.data**](/qualia2/data) | provides datasets for handy testing |
 | **qualia2.environment** | provides environments for handy testing of reinforcement learning |
-| **qualia2.config** | configurations of Qualia; select whether to use GPU here |
-| **qualia2.functions** | pre-defined functions capable of automatic differentiation |
 | **qualia2.util** | utility functions for convenience |
 
 ## Requirements
