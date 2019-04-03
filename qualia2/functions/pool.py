@@ -432,6 +432,45 @@ class MaxUnpool2d(Function):
         padded[:,:,self.kwargs['padding'][0]:h+self.kwargs['padding'][0],self.kwargs['padding'][1]:w+self.kwargs['padding'][1]] = dx
         reshaped = MaxPool2d.unfold(padded, b, oh, ow, c, self.kwargs['kernel_size'][0], self.kwargs['kernel_size'][1], self.kwargs['stride'], self.kwargs['dilation'])
         idx = self.kwargs['idx'].reshape(b,c,-1,1)
-        return np.choose(np.swapaxes(idx, 0, 3), np.swapaxes(reshaped, 0, 3)).reshape(b, c,  oh, ow)
+        return np.choose(np.swapaxes(idx, 0, 3), np.swapaxes(reshaped, 0, 3)).reshape(b, c, oh, ow)
         
 maxunpool2d = MaxUnpool2d(None)
+
+class MaxUnpool3d(Function):
+    @staticmethod
+    def forward(x, indices, kernel_size=(2,2,2), stride=(2,2,2), padding=(0,0,0), dilation=(1,1,1)):
+        '''Computes a partial inverse of MaxPool2d.
+        Args:
+            x (Tensor): the input Tensor to invertc
+            indices (ndarray): the indices given out by MaxPool2d
+            kernel_size (tuple of int): the size of the window to take a max over
+            stride (tuple of int): the stride of the window. Default value is kernel_size
+            padding (tuple of int): implicit zero padding to be added on all three sides
+            dilation (tuple of int): a parameter that controls the stride of elements in the window
+        Shape:
+            - Input: Input: [N,C,H,W,D]
+            - Output: [N,C,H_out,W_out,D_out]
+            H_out = (H-1)*stride[0]+dilation[0]*(kernel_size[0]-1)+1-2*padding[0]
+            W_out = (W-1)*stride[1]+dilation[1]*(kernel_size[1]-1)+1-2*padding[1]
+            D_out = (D-1)*stride[2]+dilation[2]*(kernel_size[2]-1)+1-2*padding[2]
+        '''
+        b, c, h, w, d = x.shape
+        oh = (h-1)*stride[0]+dilation[0]*(kernel_size[0]-1)+1-2*padding[0]
+        ow = (w-1)*stride[1]+dilation[1]*(kernel_size[1]-1)+1-2*padding[1]
+        od = (d-1)*stride[2]+dilation[2]*(kernel_size[2]-1)+1-2*padding[2]
+        out_shape = (b, c, oh, ow, od)
+        padded_shape = (b, c, oh+2*padding[0], ow+2*padding[1], od+2*padding[2])
+        result = Tensor(MaxPool3d.fold(x.data, kernel_size, indices, h, w, d, out_shape, padded_shape, stride, dilation))
+        result.set_creator(MaxUnpool3d.prepare(result.shape, x, idx=indices, padded_shape=padded_shape, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation))
+        return result
+    
+    def calc_grad(self, dx):
+        b, c, h, w, d = dx.shape
+        _, _, oh, ow, od = self.var[0].shape
+        padded = np.zeros(self.kwargs['padded_shape'])
+        padded[:,:,self.kwargs['padding'][0]:h+self.kwargs['padding'][0],self.kwargs['padding'][1]:w+self.kwargs['padding'][1],self.kwargs['padding'][2]:d+self.kwargs['padding'][2]] = dx
+        reshaped = MaxPool3d.unfold(padded, b, oh, ow, od, c, self.kwargs['kernel_size'][0], self.kwargs['kernel_size'][1], self.kwargs['kernel_size'][2], self.kwargs['stride'], self.kwargs['dilation'])
+        idx = self.kwargs['idx'].reshape(b,c,-1,1)
+        return np.choose(np.swapaxes(idx, 0, 3), np.swapaxes(reshaped, 0, 3)).reshape(b, c, oh, ow, od)
+
+maxunpool3d = MaxUnpool3d(None)
