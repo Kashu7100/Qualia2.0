@@ -15,3 +15,7 @@ GANs had problem that learning is unstable. LSGAN - Least Square GANs, which emp
 <p align="center">
   <img src="/assets/lsgan.PNG"/>
 </p>
+
+## BEGAN
+
+## Disco GAN
