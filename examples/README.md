@@ -21,4 +21,4 @@ The following diagram depicts the basic structure of learning in brains:
 ## [Unsupervised Learning](/examples/unsupervised_learning)
 Among the three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been autonomously  utilized the most by creatures. Models learn external signals from unsupervised learning to prepare for the external environment or information. In general, unsupervised system is better than supervised system in finding new patterns or features in inputs.
 
-## Supervised Learning 
+## [Supervised Learning](/examples/supervised_learning) 
