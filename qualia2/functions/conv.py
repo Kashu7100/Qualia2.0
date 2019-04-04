@@ -64,7 +64,7 @@ class Conv1d(Function):
             tmp = np.zeros((batch, channel, fw))
             tmp[:, :, ::dilation] = delta[:, j, :, :] 
             result[:, :, j*stride:j*stride+fw] += tmp
-        return result[:,:,int((pw-width)/2):pw-int((pw-width)/2)]
+        return result[:,:,int((pw-width)/2):int((pw-width)/2)+width]
 
     def calc_grad(self, dx):
         batch, patch, _ = dx.shape 
@@ -145,7 +145,7 @@ class Conv2d(Function):
                 tmp = np.zeros((batch, channel, fh, fw))
                 tmp[:, :, ::dilation[0], ::dilation[1]] = delta[:, i*ow+j, :, :, :] 
                 result[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw] += tmp
-        return result[:,:,int((ph-height)/2):ph-int((ph-height)/2),int((pw-width)/2):pw-int((pw-width)/2)]
+        return result[:,:,int((ph-height)/2):int((ph-height)/2)+height,int((pw-width)/2):int((pw-width)/2)+width]
 
     def calc_grad(self, dx):
         batch, patch, _, _ = dx.shape 
@@ -230,7 +230,7 @@ class Conv3d(Function):
                     tmp = np.zeros((batch, channel, fh, fw, fd))
                     tmp[:, :, ::dilation[0], ::dilation[1], ::dilation[2]] = delta[:, i*ow*od+j*od+k, :, :, :, :] 
                     result[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw, k*stride[2]:k*stride[2]+fd] += tmp
-        return result[:,:,int((ph-height)/2):ph-int((ph-height)/2),int((pw-width)/2):pw-int((pw-width)/2),int((pd-depth)/2):pd-int((pd-depth)/2)]
+        return result[:,:,int((ph-height)/2):int((ph-height)/2)+height,int((pw-width)/2):int((pw-width)/2)+width,int((pd-depth)/2):int((pd-depth)/2)+depth]
 
     def calc_grad(self, dx):
         batch, patch, _, _, _ = dx.shape 
@@ -274,7 +274,7 @@ class ConvTranspose1d(Function):
         oh = int((height-1)*stride-2*padding+dilation*(kernel_height-1)+1)
 
         offset_h = dilation*(kernel_height-1)-padding
-        padded = np.zeros((batch, channel, (height-1)*stride+1+offset_h*2))
+        padded = np.zeros((batch, channel, (height-1)*stride+offset_h*2))
         padded[:,:,offset_h:(height-1)*stride+1+offset_h][:,:, ::stride] = x.data
         reshaped = Conv1d.unfold(padded, batch, oh, kernel.shape, stride, dilation)
         if bias is None: 
@@ -337,7 +337,7 @@ class ConvTranspose2d(Function):
 
         offset_h = dilation[0]*(kernel_height-1)-padding[0]
         offset_w = dilation[1]*(kernel_width-1)-padding[1]
-        padded = np.zeros((batch, channel, (height-1)*stride[0]+1+offset_h*2, (width-1)*stride[1]+1+offset_w*2))
+        padded = np.zeros((batch, channel, (height-1)*stride[0]+offset_h*2, (width-1)*stride[1]+offset_w*2))
         padded[:,:,offset_h:(height-1)*stride[0]+1+offset_h,offset_w:(width-1)*stride[1]+1+offset_w][:,:, ::stride[0], ::stride[1]] = x.data
         reshaped = Conv2d.unfold(padded, batch, oh, ow, kernel.shape, stride, dilation)
         if bias is None: 
@@ -403,7 +403,7 @@ class ConvTranspose3d(Function):
         offset_h = dilation[0]*(kernel_height-1)-padding[0]
         offset_w = dilation[1]*(kernel_width-1)-padding[1]
         offset_d = dilation[2]*(kernel_depth-1)-padding[2]
-        padded = np.zeros((batch, channel, (height-1)*stride[0]+1+offset_h*2, (width-1)*stride[1]+1+offset_w*2, (depth-1)*stride[2]+1+offset_d*2))
+        padded = np.zeros((batch, channel, (height-1)*stride[0]+offset_h*2, (width-1)*stride[1]+offset_w*2, (depth-1)*stride[2]+offset_d*2))
         padded[:,:,offset_h:(height-1)*stride[0]+1+offset_h,offset_w:(width-1)*stride[1]+1+offset_w,offset_d:(depth-1)*stride[2]+1+offset_d][:,:, ::stride[0], ::stride[1], ::stride[2]] = x.data
         reshaped = Conv3d.unfold(padded, batch, oh, ow, od, kernel.shape, stride, dilation)
         if bias is None: 
