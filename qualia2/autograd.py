@@ -194,6 +194,8 @@ class Function(object):
         if type(grads) is not tuple:
             grads = (grads,)
         for dx, var in zip(grads, self.var):
+            if not var.requires_grad:
+                continue
             if var.grad is None:
                 var.grad = dx
             else:
@@ -201,8 +203,6 @@ class Function(object):
         for var in self.var:
             if var.creator is not None:
                 var.backward(var.grad)
-            if not var.requires_grad:
-                var.grad = None
 
 class Slice(Function):
     @staticmethod
