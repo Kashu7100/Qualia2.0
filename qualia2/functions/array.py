@@ -32,3 +32,19 @@ class ListConcat(Function):
         return [np.squeeze(r, axis=0) for r in result]
 
 listconcat = ListConcat(None)
+
+class Concat(Function):
+    @staticmethod
+    def forward(*args, axis=1):
+        result = Tensor(np.concatenate(tuple(i.data for i in args), axis)) 
+        result.set_creator(Concat.prepare(result.shape, *args, axis=axis))
+        return result
+
+    def calc_grad(self, dx):
+        s = [i.shape[self.kwargs['axis']] for i in self.var]
+        split = [sum([s[n] for n in range(i+1)]) for i in range(len(s)-1)]
+        result = np.split(dx, split, axis=self.kwargs['axis'])
+        return result
+
+concat = Concat(None)
+concatenate = Concat(None)
