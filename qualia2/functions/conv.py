@@ -200,14 +200,17 @@ class Conv3d(Function):
             result.set_creator(Conv3d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, stride=stride, dilation=dilation))
         return result 
     
-    @staticmethod
+@staticmethod
     def unfold(x, batch, oh, ow, od, kernel_shape, stride, dilation): 
+        _, _, xh, xw, xd = x.shape 
         _, channel, kernel_height, kernel_width, kernel_depth = kernel_shape 
         fh, fw, fd = ((kernel_height-1)*dilation[0]+1, (kernel_width-1)*dilation[1]+1, (kernel_depth-1)*dilation[2]+1) 
         result = np.zeros((batch, oh*ow*od, channel, kernel_height, kernel_width, kernel_depth)) 
         for i in range(oh): 
             for j in range(ow): 
                 for k in range(od):
+                    if i*stride[0]+fh > xh or j*stride[1]+fw > xw or k*stride[2]+fd > xd:
+                        continue
                     tmp = x[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw, k*stride[2]:k*stride[2]+fd] 
                     result[:, i*ow*od+j*ow+k, :, :, :, :] = tmp[:, :, ::dilation[0], ::dilation[1], ::dilation[2]] 
         return result 
@@ -222,11 +225,13 @@ class Conv3d(Function):
         for i in range(oh): 
             for j in range(ow): 
                 for k in range(od):
+                    if i*stride[0]+fh > ph or j*stride[1]+fw > pw or k*stride[2]+fd > pd:
+                        continue
                     tmp = np.zeros((batch, channel, fh, fw, fd))
                     tmp[:, :, ::dilation[0], ::dilation[1], ::dilation[2]] = delta[:, i*ow*od+j*ow+k, :, :, :, :] 
                     result[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw, k*stride[2]:k*stride[2]+fd] += tmp
         return result[:,:,int((ph-height)/2):ph-int((ph-height)/2),int((pw-width)/2):pw-int((pw-width)/2),int((pd-depth)/2):pd-int((pd-depth)/2)]
-
+    
     def calc_grad(self, dx):
         batch, patch, _, _, _ = dx.shape 
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.var[1].data, (1,0))
