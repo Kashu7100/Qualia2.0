@@ -368,7 +368,6 @@ class ConvTranspose2d(Function):
 
 convtranspose2d = ConvTranspose2d(None)
 
-# TODO
 class ConvTranspose3d(Function):
     @staticmethod
     def forward(x, kernel, bias=None, stride=(1,1,1), padding=(1,1,1), output_padding=(0,0,0), dilation=(1,1,1)):
