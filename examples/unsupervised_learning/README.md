@@ -19,6 +19,10 @@ GANs had problem that learning is unstable. LSGAN - Least Square GANs, which emp
 ## Conditional GAN
 GANs or DCGAN could not specify the class when generating image, since the generator totally depends on the random noise. In conditional GAN, generator gets noise as well as a label as an input; the desired output is to be the one corresponds to the label.  Also, discriminator gets the label along the real or generated image.
 
+<p align="center">
+  <img src="/assets/conditional_gan.PNG"/>
+</p>
+
 ## BEGAN
 
 ## Disco GAN
