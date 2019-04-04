@@ -6,8 +6,6 @@ from ...util import _single, _pair, _triple, _mul
 from ...functions import conv1d, conv2d, conv3d, convtranspose1d, convtranspose2d, convtranspose3d
 from ...autograd import Tensor 
 
-# https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md 
-
 class Conv1d(Module):
     ''''Applies a 1D convolution over an input signal composed of several input planes.\n 
     Args: 
