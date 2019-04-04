@@ -6,6 +6,8 @@ from ...util import _single, _pair, _triple, _mul
 from ...functions import conv1d, conv2d, conv3d, convtranspose1d, convtranspose2d, convtranspose3d
 from ...autograd import Tensor 
 
+# https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md 
+
 class Conv1d(Module):
     ''''Applies a 1D convolution over an input signal composed of several input planes.\n 
     Args: 
@@ -59,7 +61,7 @@ class Conv2d(Module):
         stride (tuple of int): Stride of the convolution. Default: 1 
         padding (tuple of int):  Zero-padding added to both sides of the input. Default: 0 
         dilation (tuple of int): Spacing between kernel elements. Default: 1 
-        bias (bool):  adds a learnable bias to the output. Default: True 
+        bias (bool): adds a learnable bias to the output. Default: True 
      
     Shape: 
         - Input: [N, in_channels, H, W] 
@@ -96,7 +98,6 @@ class Conv2d(Module):
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
-
 
 class Conv3d(Module):
     '''Applies a 3D convolution over an input signal composed of several input planes.\n 
@@ -163,7 +164,7 @@ class ConvTranspose1d(Module):
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = _single(kernel_size)
-        self.num_params += out_channels*in_channels*_mul(*self.kernel_size)
+        self.num_params += out_channels*in_channels*self.kernel_size
         self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, self.kernel_size))) 
         if bias: 
             self.bias = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),out_channels))
