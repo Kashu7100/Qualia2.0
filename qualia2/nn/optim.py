@@ -32,6 +32,8 @@ class SGD(Optimizer):
     def step(self):
         for i, var in enumerate(self.params()): 
             assert var.data.shape == var.grad.shape
+            if not var.requires_grad:
+                continue
             if i not in self.v:  
                 self.v[i] = np.zeros_like(var.grad) 
             self.v[i] = self.m * self.v[i] + (1 - self.m) * var.grad 
@@ -61,7 +63,9 @@ class Adadelta(Optimizer):
      
     def step(self): 
         for i, var in enumerate(self.params()): 
-            if i not in self.g:  
+            if not var.requires_grad:
+                continue
+            if i not in self.g:
                 self.g[i] = np.zeros_like(var.grad) 
             if i not in self.u: 
                 self.u[i] = np.zeros_like(var.grad) 
@@ -88,6 +92,8 @@ class AdaGrad(Optimizer):
     
     def step(self): 
         for i, var in enumerate(self.params()): 
+            if not var.requires_grad:
+                continue
             if i not in self.h:  
                 self.h[i] = np.zeros_like(var.grad) 
             self.h[i] += var.grad**2
@@ -113,6 +119,8 @@ class RMSProp(Optimizer):
      
     def step(self): 
         for i, var in enumerate(self.params()): 
+            if not var.requires_grad:
+                continue
             if i not in self.h:  
                 self.h[i] = np.zeros_like(var.grad) 
             self.h[i] = self.alpha * self.h[i] + (1-self.alpha) * var.grad**2 
