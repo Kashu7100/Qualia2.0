@@ -31,9 +31,9 @@ class SGD(Optimizer):
 
     def step(self):
         for i, var in enumerate(self.params()): 
-            assert var.data.shape == var.grad.shape
             if not var.requires_grad:
                 continue
+            assert var.data.shape == var.grad.shape
             if i not in self.v:  
                 self.v[i] = np.zeros_like(var.grad) 
             self.v[i] = self.m * self.v[i] + (1 - self.m) * var.grad 
