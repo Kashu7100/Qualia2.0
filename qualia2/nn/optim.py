@@ -44,7 +44,7 @@ class Adadelta(Optimizer):
     '''Implements Adadelta algorithm.\n
     Args:
         parameters (iterable): iterable of parameters to optimize
-        lr (float): Default: coefficient that scale delta before it is applied to the parameters. Default: 1.0
+        lr (float): coefficient that scale delta before it is applied to the parameters. Default: 1.0
         decay_rate (float): coefficient used for computing a running average of squared gradients. Default: 0.9
         eps (flaot): for numerical stability Default: 1e-06
         weight_decay (float): weight decay (L2 penalty) Default: 0
