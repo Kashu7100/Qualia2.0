@@ -273,29 +273,29 @@ class ConvTranspose1d(Function):
         # output padding term is purposely dropped from oh and oh calculation below.
         oh = int((height-1)*stride-2*padding+dilation*(kernel_height-1)+1)
 
-        offset_h = dilation*(kernel_height-1)-padding
-        padded = np.zeros((batch, channel, (height-1)*stride+offset_h*2))
+        offset_h = dilation*(kernel_height-1)+1-padding
+        padded = np.zeros((batch, channel, (height-1)*stride1+1+offset_h*2))
         padded[:,:,offset_h:(height-1)*stride+1+offset_h][:,:, ::stride] = x.data
-        reshaped = Conv1d.unfold(padded, batch, oh, kernel.shape, stride, dilation)
+        reshaped = Conv1d.unfold(padded, batch, oh, kernel.shape, 1, dilation)
         if bias is None: 
             tmp = np.tensordot(reshaped, kernel.data, ((2,3),(1,2))).transpose(0,2,1).reshape(-1,patch,oh)
             out = np.zeros((batch, patch, oh+2*output_padding))
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
-            result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias=False, oh=oh, reshaped=reshaped, padded_shape=padded.shape, stride=stride, output_padding=output_padding, dilation=dilation)) 
+            result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias=False, oh=oh, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
         else:
             tmp = np.add(np.tensordot(reshaped, kernel.data, ((2,3),(1,2))).transpose(0,2,1).reshape(-1,patch,oh), np.reshape(bias.data, (1,-1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding))
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
-            result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, reshaped=reshaped, padded_shape=padded.shape, stride=stride, output_padding=output_padding, dilation=dilation))
+            result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation))
         return result 
 
     def calc_grad(self, dx):
         batch, patch, _ = dx.shape 
         dx = dx[:,:,self.kwargs['output_padding']:self.kwargs['oh']+self.kwargs['output_padding']]
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.var[1].data, (1,0))
-        delta = Conv1d.fold(delta, self.kwargs['oh'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], self.kwargs['stride'], self.kwargs['dilation'])
+        delta = Conv1d.fold(delta, self.kwargs['oh'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], 1, self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
         if not self.kwargs['bias']:
             return delta, dk
@@ -335,30 +335,31 @@ class ConvTranspose2d(Function):
         oh = int((height-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_height-1)+1) 
         ow = int((width-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_width-1)+1)
 
-        offset_h = dilation[0]*(kernel_height-1)-padding[0]
-        offset_w = dilation[1]*(kernel_width-1)-padding[1]
-        padded = np.zeros((batch, channel, (height-1)*stride[0]+offset_h*2, (width-1)*stride[1]+offset_w*2))
+        offset_h = dilation[0]*(kernel_height-1)+1-padding[0]
+        offset_w = dilation[1]*(kernel_width-1)+1-padding[1]
+        padded = np.zeros((batch, channel, (height-1)*stride[0]+1+offset_h*2, (width-1)*stride[1]+1+offset_w*2))
         padded[:,:,offset_h:(height-1)*stride[0]+1+offset_h,offset_w:(width-1)*stride[1]+1+offset_w][:,:, ::stride[0], ::stride[1]] = x.data
-        reshaped = Conv2d.unfold(padded, batch, oh, ow, kernel.shape, stride, dilation)
+        reshaped = Conv2d.unfold(padded, batch, oh, ow, kernel.shape, (1,1), dilation)
+
         if bias is None: 
             tmp = np.tensordot(reshaped, kernel.data, ((2,3,4),(1,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow)
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1]] = tmp
             result = Tensor(out) 
-            result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, stride=stride, output_padding=output_padding, dilation=dilation)) 
+            result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
         else:
             tmp = np.add(np.tensordot(reshaped, kernel.data, ((2,3,4),(1,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow), np.reshape(bias.data, (1,-1,1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1]] = tmp
             result = Tensor(out) 
-            result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, stride=stride, output_padding=output_padding, dilation=dilation))
+            result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation))
         return result 
 
     def calc_grad(self, dx):
         batch, patch, _, _ = dx.shape 
         dx = dx[:,:,self.kwargs['output_padding'][0]:self.kwargs['oh']+self.kwargs['output_padding'][0], self.kwargs['output_padding'][1]:self.kwargs['ow']+self.kwargs['output_padding'][1]]
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.var[1].data, (1,0))
-        delta = Conv2d.fold(delta, self.kwargs['oh'], self.kwargs['ow'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], self.kwargs['stride'], self.kwargs['dilation'])
+        delta = Conv2d.fold(delta, self.kwargs['oh'], self.kwargs['ow'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], (1,1), self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
         if not self.kwargs['bias']:
             return delta, dk
@@ -400,31 +401,31 @@ class ConvTranspose3d(Function):
         ow = int((width-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_width-1)+1)
         od = int((depth-1)*stride[2]-2*padding[2]+dilation[2]*(kernel_depth-1)+1)
 
-        offset_h = dilation[0]*(kernel_height-1)-padding[0]
-        offset_w = dilation[1]*(kernel_width-1)-padding[1]
-        offset_d = dilation[2]*(kernel_depth-1)-padding[2]
-        padded = np.zeros((batch, channel, (height-1)*stride[0]+offset_h*2, (width-1)*stride[1]+offset_w*2, (depth-1)*stride[2]+offset_d*2))
+        offset_h = dilation[0]*(kernel_height-1)+1-padding[0]
+        offset_w = dilation[1]*(kernel_width-1)+1-padding[1]
+        offset_d = dilation[2]*(kernel_depth-1)+1-padding[2]
+        padded = np.zeros((batch, channel, (height-1)*stride[0]+1+offset_h*2, (width-1)*stride[1]+1+offset_w*2, (depth-1)*stride[2]+1+offset_d*2))
         padded[:,:,offset_h:(height-1)*stride[0]+1+offset_h,offset_w:(width-1)*stride[1]+1+offset_w,offset_d:(depth-1)*stride[2]+1+offset_d][:,:, ::stride[0], ::stride[1], ::stride[2]] = x.data
-        reshaped = Conv3d.unfold(padded, batch, oh, ow, od, kernel.shape, stride, dilation)
+        reshaped = Conv3d.unfold(padded, batch, oh, ow, od, kernel.shape, (1,1,1), dilation)
         if bias is None: 
             tmp = np.tensordot(reshaped, kernel.data, ((2,3,4,5),(1,2,3,4))).transpose(0,2,1).reshape(-1,patch,oh,ow,od)
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1], od+2*output_padding[2]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1],output_padding[2]:od+output_padding[2]] = tmp
             result = Tensor(out) 
-            result.set_creator(ConvTranspose3d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, stride=stride, output_padding=output_padding, dilation=dilation)) 
+            result.set_creator(ConvTranspose3d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
         else:
             tmp = np.add(np.tensordot(reshaped, kernel.data, ((2,3,4,5),(1,2,3,4))).transpose(0,2,1).reshape(-1,patch,oh,ow,od), np.reshape(bias.data, (1,-1,1,1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1], od+2*output_padding[2]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1],output_padding[2]:od+output_padding[2]] = tmp
             result = Tensor(out) 
-            result.set_creator(ConvTranspose3d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, stride=stride, output_padding=output_padding, dilation=dilation))
+            result.set_creator(ConvTranspose3d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation))
         return result 
 
     def calc_grad(self, dx):
         batch, patch, _, _, _ = dx.shape 
         dx = dx[:,:,self.kwargs['output_padding'][0]:self.kwargs['oh']+self.kwargs['output_padding'][0], self.kwargs['output_padding'][1]:self.kwargs['ow']+self.kwargs['output_padding'][1], self.kwargs['output_padding'][2]:self.kwargs['od']+self.kwargs['output_padding'][2]]
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.var[1].data, (1,0))
-        delta = Conv3d.fold(delta, self.kwargs['oh'], self.kwargs['ow'], self.kwargs['od'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], self.kwargs['stride'], self.kwargs['dilation'])
+        delta = Conv3d.fold(delta, self.kwargs['oh'], self.kwargs['ow'], self.kwargs['od'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], (1,1,1), self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
         if not self.kwargs['bias']:
             return delta, dk
