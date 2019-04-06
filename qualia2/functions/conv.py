@@ -274,8 +274,8 @@ class ConvTranspose1d(Function):
         oh = int((height-1)*stride-2*padding+dilation*(kernel_height-1)+1)
 
         offset_h = dilation*(kernel_height-1)+1-padding
-        padded = np.zeros((batch, channel, (height-1)*stride1+1+offset_h*2))
-        padded[:,:,offset_h:(height-1)*stride+1+offset_h][:,:, ::stride] = x.data
+        padded = np.zeros((batch, channel, (height-1)*stride1-1+offset_h*2))
+        padded[:,:,offset_h-1:(height-1)*stride+offset_h][:,:, ::stride] = x.data
         reshaped = Conv1d.unfold(padded, batch, oh, kernel.shape, 1, dilation)
         if bias is None: 
             tmp = np.tensordot(reshaped, kernel.data, ((2,3),(1,2))).transpose(0,2,1).reshape(-1,patch,oh)
@@ -337,10 +337,9 @@ class ConvTranspose2d(Function):
 
         offset_h = dilation[0]*(kernel_height-1)+1-padding[0]
         offset_w = dilation[1]*(kernel_width-1)+1-padding[1]
-        padded = np.zeros((batch, channel, (height-1)*stride[0]+1+offset_h*2, (width-1)*stride[1]+1+offset_w*2))
-        padded[:,:,offset_h:(height-1)*stride[0]+1+offset_h,offset_w:(width-1)*stride[1]+1+offset_w][:,:, ::stride[0], ::stride[1]] = x.data
+        padded = np.zeros((batch, channel, (height-1)*stride[0]-1+offset_h*2, (width-1)*stride[1]-1+offset_w*2))
+        padded[:,:,offset_h-1:(height-1)*stride[0]+offset_h,offset_w-1:(width-1)*stride[1]+offset_w][:,:, ::stride[0], ::stride[1]] = x.data
         reshaped = Conv2d.unfold(padded, batch, oh, ow, kernel.shape, (1,1), dilation)
-
         if bias is None: 
             tmp = np.tensordot(reshaped, kernel.data, ((2,3,4),(1,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow)
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1]))
@@ -404,8 +403,8 @@ class ConvTranspose3d(Function):
         offset_h = dilation[0]*(kernel_height-1)+1-padding[0]
         offset_w = dilation[1]*(kernel_width-1)+1-padding[1]
         offset_d = dilation[2]*(kernel_depth-1)+1-padding[2]
-        padded = np.zeros((batch, channel, (height-1)*stride[0]+1+offset_h*2, (width-1)*stride[1]+1+offset_w*2, (depth-1)*stride[2]+1+offset_d*2))
-        padded[:,:,offset_h:(height-1)*stride[0]+1+offset_h,offset_w:(width-1)*stride[1]+1+offset_w,offset_d:(depth-1)*stride[2]+1+offset_d][:,:, ::stride[0], ::stride[1], ::stride[2]] = x.data
+        padded = np.zeros((batch, channel, (height-1)*stride[0]-1+offset_h*2, (width-1)*stride[1]-1+offset_w*2, (depth-1)*stride[2]-1+offset_d*2))
+        padded[:,:,offset_h-1:(height-1)*stride[0]+offset_h,offset_w-1:(width-1)*stride[1]+offset_w,offset_d-1:(depth-1)*stride[2]+offset_d][:,:, ::stride[0], ::stride[1], ::stride[2]] = x.data
         reshaped = Conv3d.unfold(padded, batch, oh, ow, od, kernel.shape, (1,1,1), dilation)
         if bias is None: 
             tmp = np.tensordot(reshaped, kernel.data, ((2,3,4,5),(1,2,3,4))).transpose(0,2,1).reshape(-1,patch,oh,ow,od)
