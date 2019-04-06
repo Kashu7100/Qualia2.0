@@ -126,3 +126,37 @@ class RMSProp(Optimizer):
             self.h[i] = self.alpha * self.h[i] + (1-self.alpha) * var.grad**2 
             var.data -= self.l2 * var.data
             var.data -= self.lr * var.grad / np.sqrt(self.h[i]+self.eps) 
+
+class Adam(Optimizer):
+    '''Implements Adam algorithm.\n
+    Args: 
+        parameters (iterable): iterable of parameters to optimize
+        lr (float): learning rate Default: 1e-02
+        betas (tuple of float): coefficients used for computing running averages of gradient and its square Default: (0.9, 0.999)
+        eps (float): for numerical stability Default: 1e-08
+        weight_decay (float): weight decay (L2 penalty) Default: 0
+    '''
+    def __init__(self, parameters, lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0):
+        super().__init__(parameters)
+        self.lr = lr 
+        self.betas = betas 
+        self.eps = eps 
+        self.m = {}
+        self.v = {} 
+        self.l2 = weight_decay
+     
+    def step(self): 
+        for i, var in enumerate(self.params()): 
+            if not var.requires_grad:
+                continue
+            if i not in self.m:  
+                self.m[i] = np.zeros_like(var.grad) 
+            if i not in self.v:  
+                self.v[i] = np.zeros_like(var.grad) 
+            self.m[i] = self.betas[0] * self.m[i] + (1-self.betas[0]) * var.grad
+            self.v[i] = self.betas[1] * self.v[i] + (1-self.betas[1]) * var.grad**2
+            m = self.m[i] / (1-self.betas[0])
+            v = self.v[i] / (1-self.betas[1])
+            var.data -= self.l2 * var.data
+            var.data -= self.lr * m / np.sqrt(v+self.eps) 
+            
