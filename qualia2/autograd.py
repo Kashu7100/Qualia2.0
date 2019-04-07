@@ -70,6 +70,9 @@ class Tensor(object):
         '''
         return Tensor(self.data, requires_grad=False)
     
+    def clamp(self, low, high):
+        return Clamp.forward(self, low, high)
+    
     def register_hook(self, hook):
         self.hook = hook
     
@@ -263,6 +266,16 @@ class Gather(Function):
             result[idx] = dx
         return result
 
+class Clamp(Function):
+    @staticmethod
+    def forward(x, low, high):
+        result = Tensor(np.clip(x.data, low, high))
+        result.set_creator(Clamp.prepare(result.shape, x))
+        return result
+    
+    def calc_grad(self, dx):
+        return dx
+    
 class Neg(Function):
     '''
     Takes numerical negative elementwise.
