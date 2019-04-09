@@ -232,6 +232,7 @@ optim = Optimizer(model.params)
 - [Example with FashionMNIST Dataset - Classification wirh GRU](#ex3)
 - [Example with CartPole Env - DQN](#ex4)
 - [Example with MountainCar Env - Dueling Network](#ex5)
+- [Example with BipedalWalker Env - TD3](ex6)
 
 <div id='ex1'/>
 
