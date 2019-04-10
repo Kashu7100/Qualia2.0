@@ -13,3 +13,14 @@ The agent can take one action from `push left` and `push right`.
 
 ## Usage
 Following are the commands used to train and test the model:
+
+## Results
+Reward Plot:
+<p align="center">
+  <img src="/assets/cartpole_loss.png">
+</p>
+
+The obtained result:
+<p align="center">
+  <img src="/assets/cartpole_dqn.gif">
+</p>
