@@ -11,5 +11,6 @@ setup(name='qualia2',
       install_requires=[
             'numpy',
             'matplotlib',
-            'h5py'
+            'h5py',
+            'gym'
       ],)
