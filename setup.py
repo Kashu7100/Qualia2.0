@@ -15,5 +15,5 @@ setup(name='qualia2',
             'h5py',
             'gym',
             'atari-py',
-            'pybox2d'
+            'box2d'
       ],)
