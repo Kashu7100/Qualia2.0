@@ -37,6 +37,11 @@ Qualia2.0 is a library that consists of the following components:
 * [Python 3.6](https://www.python.org/)
 
 ## Installation
+Upgrade of setuptools and pip is recommended before the installation:
+```bash
+$ pip install -U setuptools pip
+```
+
 ### Ubuntu
 
 ```bash
