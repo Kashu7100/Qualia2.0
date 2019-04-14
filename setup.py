@@ -9,8 +9,11 @@ setup(name='qualia2',
       url='https://github.com/Kashu7100/Qualia2.0',
       packages=find_packages(),
       install_requires=[
+            'cupy',
             'numpy',
             'matplotlib',
             'h5py',
-            'gym'
+            'gym',
+            'atari-py',
+            'pybox2d'
       ],)
