@@ -45,17 +45,22 @@ $ pip install -U setuptools pip
 ### Ubuntu
 
 ```bash
-UNDER DEV
+$ pip install -v git+https://github.com/Kashu7100/Qualia2.0.git
 ```
 ### Windows
 
 ```bash
-UNDER DEV
+$ pip install -v git+https://github.com/Kashu7100/Qualia2.0.git
 ```
 
-in case pip from source did not work, use wheel from following links:
+in case pip from the source did not work, use the wheel files from the following links:
 [ atari-py](https://github.com/Kojoley/atari-py/releases)
-[ pybox2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
+[ box2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
+
+```bash
+$ pip install wheel
+$ pip install /path/to/wheel_file.whl
+```
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
