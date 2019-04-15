@@ -31,16 +31,16 @@ def ones_like(obj):
     return Tensor(np.ones(obj.shape, dtype=dtype))
 
 def rand(*args):
-    return Tensor(np.random.rand(*args, dtype=dtype))
+    return Tensor(np.random.rand(*args).astype(dtype))
 
 def rand_like(obj):
-    return Tensor(np.random.rand(*obj.shape, dtype=dtype))
+    return Tensor(np.random.rand(*obj.shape).astype(dtype))
 
 def randn(*args):
-    return Tensor(np.random.randn(*args, dtype=dtype))
+    return Tensor(np.random.randn(*args).astype(dtype))
 
 def randn_like(obj):
-    return Tensor(np.random.randn(*obj.shape, dtype=dtype))
+    return Tensor(np.random.randn(*obj.shape).astype(dtype))
 
 def uniform(*args):
-    return Tensor(np.random.uniform(*args, dtype=dtype))
+    return Tensor(np.random.uniform(*args).astype(dtype))
