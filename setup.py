@@ -3,11 +3,16 @@ from setuptools import setup, find_packages
 import subprocess
 import sys
 
-if '--gpu' in sys.argv:
-      idx = sys.argv.index('--gpu')
+requires = ['numpy',
+            'matplotlib',
+            'h5py',
+            'gym']
+
+if '--cuda' in sys.argv:
+      idx = sys.argv.index('--cuda')
       sys.argv.pop(idx)
       cuda = sys.argv.pop(idx)
-      subprocess.run('pip install cupy-{}'.format(cuda))
+      requires.append('cupy-cuda{}'.format(cuda))            
 
 setup(name='qualia2',
       version='0.0.1',
@@ -16,11 +21,4 @@ setup(name='qualia2',
       author_email='echo_six0566@yahoo.co.jp',
       url='https://github.com/Kashu7100/Qualia2.0',
       packages=find_packages(),
-      install_requires=[
-            'numpy',
-            'matplotlib',
-            'h5py',
-            'gym',
-            'atari-py',
-            'box2d'
-      ],)
+      install_requires=requires,)
