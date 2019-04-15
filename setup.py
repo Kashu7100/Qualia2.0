@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
-import subprocess
 import sys
 
 requires = ['numpy',
@@ -20,5 +19,6 @@ setup(name='qualia2',
       author='Kashu',
       author_email='echo_six0566@yahoo.co.jp',
       url='https://github.com/Kashu7100/Qualia2.0',
+      license='MIT',
       packages=find_packages(),
       install_requires=requires,)
