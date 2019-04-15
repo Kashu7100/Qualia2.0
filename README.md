@@ -63,7 +63,7 @@ In order to utilize the full environment, `atari-py` and `box2d` should be insta
 ```bash
 $ pip install atari-py box2d
 ```
-in case pip from the source did not work, use the wheel files from the following links:
+In case pip from the source did not work, use the wheel files from the following links:
 [ atari-py](https://github.com/Kojoley/atari-py/releases)
 [ box2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
 
