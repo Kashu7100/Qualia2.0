@@ -33,8 +33,6 @@ Qualia2.0 is a library that consists of the following components:
 * [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2 and 10.0.
 
     (*Note: Qualia2.0 can be used without GPU*)
-
-* [SWIG](http://www.swig.org/download.html)
 * [Python 3.6](https://www.python.org/)
 
 ## Installation
@@ -49,15 +47,15 @@ $ nvcc --version
 Depending on the CUDA version you have installed on your host, choose the best option from following.
 ```bash
 (For CUDA 8.0)
-$ python setup.py install --gpu cuda80
+$ python setup.py install --cuda 80
 (For CUDA 9.0)
-$ python setup.py install --gpu cuda90
+$ python setup.py install --cuda 90
 (For CUDA 9.1)
-$ python setup.py install --gpu cuda91
+$ python setup.py install --cuda 91
 (For CUDA 9.2)
-$ python setup.py install --gpu cuda92
+$ python setup.py install --cuda 92
 (For CUDA 10.0)
-$ python setup.py install --gpu cuda100
+$ python setup.py install --cuda 100
 (For without CUDA)
 $ python setup.py install
 ```
