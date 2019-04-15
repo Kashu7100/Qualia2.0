@@ -42,7 +42,11 @@ Upgrade of setuptools and pip is recommended before the installation:
 ```bash
 $ pip install -U setuptools pip
 ```
-
+CUDA Toolkit version can be found by:
+```bash
+$ nvcc --version
+```
+Depending on the CUDA version you have installed on your host, choose the best option from following.
 ```bash
 (For CUDA 8.0)
 $ python setup.py install --gpu cuda80
