@@ -32,7 +32,7 @@ Qualia2.0 is a library that consists of the following components:
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
 * [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2 and 10.0.
 
-    (*Note: you can still use Qualia2.0 without GPU*)
+    (*Note: Qualia2.0 can be used without GPU*)
 
 * [SWIG](http://www.swig.org/download.html)
 * [Python 3.6](https://www.python.org/)
@@ -43,15 +43,19 @@ Upgrade of setuptools and pip is recommended before the installation:
 $ pip install -U setuptools pip
 ```
 
-### Ubuntu
-
 ```bash
-$ pip install -v git+https://github.com/Kashu7100/Qualia2.0.git
-```
-### Windows
-
-```bash
-$ pip install -v git+https://github.com/Kashu7100/Qualia2.0.git
+(For CUDA 8.0)
+$ python setup.py install --gpu cuda80
+(For CUDA 9.0)
+$ python setup.py install --gpu cuda90
+(For CUDA 9.1)
+$ python setup.py install --gpu cuda91
+(For CUDA 9.2)
+$ python setup.py install --gpu cuda92
+(For CUDA 10.0)
+$ python setup.py install --gpu cuda100
+(For without CUDA)
+$ python setup.py install
 ```
 
 in case pip from the source did not work, use the wheel files from the following links:
