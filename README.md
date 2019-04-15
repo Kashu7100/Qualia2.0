@@ -59,7 +59,10 @@ $ python setup.py install --cuda 100
 (For without CUDA)
 $ python setup.py install
 ```
-
+In order to utilize the full environment, `atari-py` and `box2d` should be installed.
+```bash
+$ pip install atari-py box2d
+```
 in case pip from the source did not work, use the wheel files from the following links:
 [ atari-py](https://github.com/Kojoley/atari-py/releases)
 [ box2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
