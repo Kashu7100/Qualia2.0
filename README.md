@@ -34,6 +34,7 @@ Qualia2.0 is a library that consists of the following components:
 
     (*Note: you can still use Qualia2.0 without GPU*)
 
+* [SWIG](http://www.swig.org/download.html)
 * [Python 3.6](https://www.python.org/)
 
 ## Installation
