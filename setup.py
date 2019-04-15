@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
+import subprocess
+import sys
+
+if '--gpu' in sys.argv:
+      idx = sys.argv.index('--gpu')
+      sys.argv.pop(idx)
+      cuda = sys.argv.pop(idx)
+      subprocess.run('pip install cupy-{}'.format(cuda))
 
 setup(name='qualia2',
       version='0.0.1',
@@ -9,7 +17,6 @@ setup(name='qualia2',
       url='https://github.com/Kashu7100/Qualia2.0',
       packages=find_packages(),
       install_requires=[
-            'cupy',
             'numpy',
             'matplotlib',
             'h5py',
