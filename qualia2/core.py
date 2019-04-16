@@ -27,7 +27,6 @@ if gpu:
         logger.error('[*] CUDA device is not available.')
         raise Exception
     np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
-    np.add.at = np.scatter_add
 
     logger.info('[*] GPU acceleration enabled.')
     logger.info('-'*71)
