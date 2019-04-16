@@ -19,6 +19,8 @@ The following diagram depicts the basic structure of learning in brains:
 
 
 ## [Unsupervised Learning](/examples/unsupervised_learning)
-Among the three learning structures, *unsupervised learning* such as Hebbian leaning or self-organization have been autonomously  utilized the most by creatures. Models learn external signals from unsupervised learning to prepare for the external environment or information. In general, unsupervised system is better than supervised system in finding new patterns or features in inputs.
+Among the three learning schemes, *unsupervised learning* such as Hebbian learning or self-organization have been autonomously  utilized the most by creatures. Models learn external signals from unsupervised learning to prepare for the external environment or information. In general, unsupervised system is better than supervised system in finding new patterns or features in inputs.
+
+In 1949, Donald O. Hebb argued that "when an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased." This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in learning and memory.
 
 ## [Supervised Learning](/examples/supervised_learning) 
