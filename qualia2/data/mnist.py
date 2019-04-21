@@ -65,7 +65,7 @@ class MNIST(DataLoader):
         with gzip.open(filename, 'rb') as file: 
             if gpu:
                 import numpy
-                labels = np.asarray(numpy.frombuffer(file.read(), np.uint8, offset=8) )
+                labels = np.asarray(numpy.frombuffer(file.read(), np.uint8, offset=8))
             else:
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
