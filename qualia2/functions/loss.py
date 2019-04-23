@@ -98,7 +98,7 @@ class BinaryCrossEntropy(Function):
     '''
     @staticmethod
     def forward(input, target, reduce=True, size_average=True):
-        tmp = -np.add(np.multiply(target.data, np.log(input.data)), np.multiply((1-target.data), np.log(1-input.data)))
+        tmp = -np.add(np.multiply(target.data, np.log(input.data+1e-8)), np.multiply((1-target.data), np.log(1-input.data+1e-8)))
         if reduce:
             if size_average:
                 result = Tensor(np.mean(tmp,axis=0))
@@ -135,7 +135,8 @@ class LogisticBinaryCrossEntropy(Function):
     '''
     @staticmethod
     def forward(input, target, reduce=True, size_average=True):
-        tmp = np.add(np.multiply(target.data, np.log(1+np.exp(-input.data))), np.multiply((1-target.data), np.log(1+np.exp(input.data))))
+        sigmoid = np.divide(1, np.add(1, np.exp(np.negative(input.data))))
+        tmp = np.add(np.multiply(target.data, np.log(sigmoid+1e-8)), np.multiply((1-target.data), np.log(1-sigmoid+1e-8)))
         if reduce:
             if size_average:
                 result = Tensor(np.mean(tmp,axis=0))
