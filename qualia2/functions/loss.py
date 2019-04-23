@@ -88,7 +88,7 @@ class BinaryCrossEntropy(Function):
         size_average (bool): the losses are averaged over each loss element in the batch.
 
     Model: 
-        l_n = y_n*log(x_n)+(1-y_n)*log(1-x_n)
+        l_n = -y_n*log(x_n)-(1-y_n)*log(1-x_n)
 
     Shape:
         - Input: [N, 1]
@@ -98,7 +98,7 @@ class BinaryCrossEntropy(Function):
     '''
     @staticmethod
     def forward(input, target, reduce=True, size_average=True):
-        tmp = np.add(np.multiply(target.data, np.log(input.data)), np.multiply((1-target.data), np.log(1-input.data)))
+        tmp = -np.add(np.multiply(target.data, np.log(input.data)), np.multiply((1-target.data), np.log(1-input.data)))
         if reduce:
             if size_average:
                 result = Tensor(np.mean(tmp,axis=0))
@@ -125,7 +125,7 @@ class LogisticBinaryCrossEntropy(Function):
         size_average (bool): the losses are averaged over each loss element in the batch.
 
     Model: 
-        l_n = y_n*log(sigmoid(x_n))+(1-y_n)*log(1-sigmoid(x_n))
+        l_n = y_n*log(1+exp(-x_n))+(1-y_n)*log(1+exp(x_n))
 
     Shape:
         - Input: [N, 1]
@@ -135,8 +135,7 @@ class LogisticBinaryCrossEntropy(Function):
     '''
     @staticmethod
     def forward(input, target, reduce=True, size_average=True):
-        sigmoid = np.divide(1, np.add(1, np.exp(np.negative(input.data))))
-        tmp = np.add(np.multiply(target.data, np.log(sigmoid)), np.multiply((1-target.data), np.log(1-sigmoid)))
+        tmp = np.add(np.multiply(target.data, np.log(1+np.exp(-input.data))), np.multiply((1-target.data), np.log(1+np.exp(input.data))))
         if reduce:
             if size_average:
                 result = Tensor(np.mean(tmp,axis=0))
