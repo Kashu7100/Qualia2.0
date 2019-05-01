@@ -59,7 +59,7 @@ $ python setup.py install --cuda 100
 (For without CUDA)
 $ python setup.py install
 ```
-! For the installation on the windows, there might be an error installing `fastrlock`. 
+! For the installation on windows, there might be an error installing `fastrlock`. 
 If that is the case, use wheel from the following link:
 [fastrlock](https://www.lfd.uci.edu/~gohlke/pythonlibs/#fastrlock)
 
