@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-from .config import * 
 from .core import * 
 from .autograd import *
 from .functions import * 
