@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*- 
 import os
 import time
-from .config import *
+import configparser
 import subprocess
 from logging import getLogger, Formatter, FileHandler, StreamHandler
 
 path = os.path.dirname(os.path.abspath(__file__))
+
+inifile = configparser.ConfigParser()
+inifile.read(path+'/config.ini', 'UTF-8')
+
+gpu = True if inifile.get('settings', 'dtype') is 'enable' else False
+dtype = inifile.get('settings', 'dtype')
+level = int(inifile.get('logging', 'level'))
+fmt = inifile.get('logging', 'fmt', raw=True)
+datefmt = inifile.get('logging', 'datefmt', raw=True)
 
 if not os.path.exists(path + '/logs/'):
     os.makedirs(path + '/logs/') 
