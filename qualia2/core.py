@@ -10,7 +10,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 inifile = configparser.ConfigParser()
 inifile.read(path+'/config.ini', 'UTF-8')
 
-gpu = True if inifile.get('settings', 'dtype') is 'enable' else False
+gpu = True if inifile.get('settings', 'gpu') is 'enable' else False
 dtype = inifile.get('settings', 'dtype')
 level = int(inifile.get('logging', 'level'))
 fmt = inifile.get('logging', 'fmt', raw=True)
