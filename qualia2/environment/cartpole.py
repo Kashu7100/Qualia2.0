@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-from ..config import gpu
 from ..core import *
 from .env import *
 
