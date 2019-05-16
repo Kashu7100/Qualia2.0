@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*- 
 from . import to_cpu
-from .config import gpu
 from .core import *
 from .autograd import Tensor
 from functools import reduce
