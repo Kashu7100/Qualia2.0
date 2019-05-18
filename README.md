@@ -56,6 +56,8 @@ $ python setup.py install --cuda 91
 $ python setup.py install --cuda 92
 (For CUDA 10.0)
 $ python setup.py install --cuda 100
+(For CUDA 10.1)
+% python setup.py install --cuda 101
 (For without CUDA)
 $ python setup.py install
 ```
