@@ -30,7 +30,7 @@ Qualia2.0 is a library that consists of the following components:
 ## Requirements
 
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
-* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2 and 10.0.
+* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2, 10.0, and 10.1.
 
     (*Note: Qualia2.0 can be used without GPU*)
 * [Python 3.6](https://www.python.org/)
