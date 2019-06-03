@@ -72,6 +72,41 @@ class RNN(Function):
 
 rnn = RNN(None)
 
+#TODO
+class LSTMCell(Function):
+    @staticmethod
+    def forward(x, h, c, weight_x, weight_h, bias_x, bias_h, hidden_size):
+        '''
+        Shape:
+            - x: [N, input_size]
+            - h: [N, hidden_size]
+            - c: [N, hidden_size]
+            - weight_x: [input_size, 4*hidden_size]
+            - weight_h: [hidden_size, 4*hidden_size]
+            - bias_x: [4*hidden_size]
+            - bias_h: [4*hidden_size]
+            - Output_h: [N, hidden_size]
+            - Output_c: [N, hidden_size]
+        '''
+        if bias_x is None or bias_h is None:
+            tmp = np.add(np.dot(h.data, weight_h.data), np.dot(x.data, weight_x.data))
+        else:
+            tmp = np.add(np.add(np.dot(h.data, weight_h.data), bias_x.data), np.add(np.dot(x.data, weight_x.data), bias_h.data))
+        f = np.divide(1, np.add(1, np.exp(np.negative(tmp[:, :hidden_size]))))
+        g = np.tanh(tmp[:, hidden_size:2*hidden_size])
+        i = np.divide(1, np.add(1, np.exp(np.negative(tmp[:, 2*hidden_size:3*hidden_size]))))
+        o = np.divide(1, np.add(1, np.exp(np.negative(tmp[:, 3*hidden_size:4*hidden_size]))))
+        c_next = np.add(np.multiply(f, c), np.multiply(g, i))
+        h_next = np.multiply(o, np.tanh(c_next))
+        c_next = Tensor(c_next)
+        h_next = Tensor(h_next)
+        c_next.set_creator(LSTMCell.prepare(c_next.shape, ))
+        h_next.set_creator(LSTMCell.prepare(h_next.shape, ))
+        return h_next, c_next
+    
+    def calc_grad(self, dh_next, dc_next):
+        pass
+
 class GRUCell(Function):
     @staticmethod
     def forward(x, h, weight_x, weight_h, bias_x, bias_h):
