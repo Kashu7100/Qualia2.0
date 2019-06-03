@@ -61,22 +61,7 @@ $ python setup.py install --cuda 100
 (For without CUDA)
 $ python setup.py install
 ```
-! For the installation on windows, there might be an error installing `fastrlock`. 
-If that is the case, use wheel from the following link:
-[fastrlock](https://www.lfd.uci.edu/~gohlke/pythonlibs/#fastrlock)
-
-! In order to utilize the full environment, `atari-py` and `box2d` should be installed.
-```bash
-$ pip install atari-py box2d
-```
-In case pip from the source did not work, use the wheel files from the following links:
-[ atari-py](https://github.com/Kojoley/atari-py/releases)
-[ box2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
-
-```bash
-$ pip install wheel
-$ pip install /path/to/wheel_file.whl
-```
+See [more](https://github.com/Kashu7100/Qualia2.0/wiki/Installation-Guide) in wiki.
 
 ## Tutorial
 Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
