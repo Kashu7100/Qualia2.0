@@ -18,7 +18,6 @@ Qualia2.0 is a library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
-| **qualia2.config.ini** | configurations of Qualia; edit whether to use GPU here |
 | **qualia2.autograd** | supports a dynamic automatic differentiation |
 | **qualia2.functions** | pre-defined functions capable of automatic differentiation |
 | **qualia2.nn** | a neural networks library deeply integrated with autograd with CUDA acceleration |
