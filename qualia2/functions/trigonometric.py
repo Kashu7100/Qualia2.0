@@ -62,7 +62,6 @@ class Arcsin(Function):
 
 arcsin = Arcsin(None)
 
-
 class Arccos(Function):
     '''
     Elementwise inverse-cosine function
@@ -141,7 +140,7 @@ tanh = Tanh(None)
 
 class CTanh(Function):
     '''
-    Elementwise hyperbolic tangent function
+    Elementwise hyperbolic tangent function for complex neural networks
     '''
     @staticmethod
     def forward(a):
