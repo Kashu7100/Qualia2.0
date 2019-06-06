@@ -171,14 +171,14 @@ class Module(object):
                         grp = file.create_group(str(key)) 
                         for i, val in enumerate(value):
                             if gpu:
-                                grp.create_dataset(str(i), dtype='f8', data=to_cpu(val.data)) 
+                                grp.create_dataset(str(i), dtype=dtype, data=to_cpu(val.data)) 
                             else:
-                                grp.create_dataset(str(i), dtype='f8', data=val.data) 
+                                grp.create_dataset(str(i), dtype=dtype, data=val.data) 
                     else:
                         if gpu:
-                            file.create_dataset(str(key), dtype='f8', data=to_cpu(value.data)) 
+                            file.create_dataset(str(key), dtype=dtype, data=to_cpu(value.data)) 
                         else:
-                            file.create_dataset(str(key), dtype='f8', data=value.data) 
+                            file.create_dataset(str(key), dtype=dtype, data=value.data) 
             else: 
                 for name, module in self._modules.items(): 
                     grp = file.create_group(str(name)) 
@@ -187,14 +187,14 @@ class Module(object):
                             subgrp = grp.create_group(str(key)) 
                             for i, val in enumerate(value):
                                 if gpu:
-                                    subgrp.create_dataset(str(i), dtype='f8', data=to_cpu(val.data)) 
+                                    subgrp.create_dataset(str(i), dtype=dtype, data=to_cpu(val.data)) 
                                 else:
-                                    subgrp.create_dataset(str(i), dtype='f8', data=val.data) 
+                                    subgrp.create_dataset(str(i), dtype=dtype, data=val.data) 
                         else:
                             if gpu:
-                                grp.create_dataset(str(key), dtype='f8', data=to_cpu(value.data)) 
+                                grp.create_dataset(str(key), dtype=dtype, data=to_cpu(value.data)) 
                             else:
-                                grp.create_dataset(str(key), dtype='f8', data=value.data) 
+                                grp.create_dataset(str(key), dtype=dtype, data=value.data) 
      
     def load(self, filename): 
         '''Loads parameters saved in HDF5 format to the Module.\n 
