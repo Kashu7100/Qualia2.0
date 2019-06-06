@@ -28,7 +28,7 @@ class Tensor(object):
         >>> # Print gradient 
         >>> print(x.grad)
     ''' 
-    def __init__(self, data, requires_grad=True):
+    def __init__(self, data, requires_grad=True, dtype=dtype):
         super().__setattr__('hook', None) 
         if type(data) is not np.ndarray: 
             if type(data) is list:
