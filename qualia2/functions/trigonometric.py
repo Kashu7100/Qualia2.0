@@ -139,6 +139,25 @@ class Tanh(Function):
 
 tanh = Tanh(None)
 
+class CTanh(Function):
+    '''
+    Elementwise hyperbolic tangent function
+    '''
+    @staticmethod
+    def forward(a):
+        real = np.tanh(a.data.real)
+        imag = np.tanh(a.data.imag)
+        result = Tensor(real+1j*imag) 
+        result.set_creator(CTanh.prepare(result.shape, a, real=real, imag=imag))
+        return result
+
+    def calc_grad(self, dx):
+        real = dx.real*(1-np.square(self.kwargs['real']))
+        imag = dx.imag*(1-np.square(self.kwargs['imag']))
+        return real+1j*imag
+
+ctanh = CTanh(None)
+
 class Arcsinh(Function):
     '''
     Elementwise inverse of hyperbolic sine function
