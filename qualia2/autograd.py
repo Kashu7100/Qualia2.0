@@ -326,7 +326,7 @@ class Mul(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.multiply(self.var[1].data, dx), np.multiply(self.var[0].data, dx)
+        return Mul.handle_broadcast(np.multiply(self.var[1].data, dx),self.var[0]), Mul.handle_broadcast(np.multiply(self.var[0].data, dx),self.var[1])
     
 class Pow(Function):
     '''
