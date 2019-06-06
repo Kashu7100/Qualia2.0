@@ -80,4 +80,4 @@ class Linear(Function):
         dw = np.dot(self.var[0].data.T, dx)
         return din, dw, db
 
-linear = Linear(None)
+linear = Linear(None)    
