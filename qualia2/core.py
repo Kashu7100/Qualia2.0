@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*- 
 import os
 import time
-import configparser
 import subprocess
 from logging import getLogger, Formatter, FileHandler, StreamHandler
 
 path = os.path.dirname(os.path.abspath(__file__))
 
-inifile = configparser.ConfigParser()
-inifile.read(path+'/config.ini', 'UTF-8')
-
-gpu = True if inifile.get('settings', 'gpu') is 'enable' else False
-dtype = inifile.get('settings', 'dtype')
-level = int(inifile.get('logging', 'level'))
-fmt = inifile.get('logging', 'fmt', raw=True)
-datefmt = inifile.get('logging', 'datefmt', raw=True)
+gpu = True
+dtype = 'float64'
+level = 10
+fmt = '%(asctime)s - %(name)-20s: %(levelname)-8s %(message)s'
+datefmt = '%Y-%m-%d %H:%M:%S'
 
 if not os.path.exists(path + '/logs/'):
     os.makedirs(path + '/logs/') 
@@ -49,7 +45,7 @@ if gpu:
 
     def to_gpu(obj):
         return np.asarray(obj)
-        
+
 else:
     import numpy as np 
 
@@ -59,3 +55,34 @@ else:
     def to_gpu(obj):
         logger.error('[*] GPU acceleration is disabled.')
         raise Exception
+        
+def cpu():
+    global gpu, to_cpu, to_gpu, np
+    gpu = False
+    import numpy as np 
+
+    def to_cpu(obj):
+        return obj
+
+    def to_gpu(obj):
+        logger.error('[*] GPU acceleration is disabled.')
+        raise Exception
+    
+def gpu():
+    global gpu, to_cpu, to_gpu, np
+    gpu = True
+    import cupy as np
+    if not np.cuda.is_available():
+        logger.error('[*] CUDA device is not available.')
+        raise Exception
+    np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
+    
+    def to_cpu(obj):
+        return np.asnumpy(obj)
+
+    def to_gpu(obj):
+        return np.asarray(obj)
+
+def change_dtype(type):
+    global dtype
+    dtype = type
