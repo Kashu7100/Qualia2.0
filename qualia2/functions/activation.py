@@ -13,11 +13,33 @@ class ReLU(Function):
         return result
 
     def calc_grad(self, dx):
+        dx = dx.copy()
         dx[self.kwargs['mask']] = 0
         return dx
 
 relu = ReLU(None)
 
+class CReLU(Function):
+    @staticmethod
+    def forward(a):
+        mask_real = (a.data.real < 0) 
+        tmp_real = a.data.real.copy() 
+        tmp_real[mask_real] = 0
+        mask_imag = (a.data.imag < 0) 
+        tmp_imag = a.data.imag.copy() 
+        tmp_imag[mask_imag] = 0
+        result = Tensor(tmp_real+1j*tmp_imag) 
+        result.set_creator(CReLU.prepare(result.shape, a, mask_real=mask_real, mask_imag=mask_imag))
+        return result
+    
+    def calc_grad(self, dx):
+        dx = dx.copy()
+        dx.real[self.kwargs['mask_real']] = 0
+        dx.imag[self.kwargs['mask_imag']] = 0
+        return dx
+    
+crelu = CReLU(None)
+    
 class LeakyReLU(Function):
     @staticmethod
     def forward(a):
@@ -29,6 +51,7 @@ class LeakyReLU(Function):
         return result
 
     def calc_grad(self, dx):
+        dx = dx.copy()
         dx[self.kwargs['mask']] = np.multiply(0.01, dx[self.kwargs['mask']])
         return dx
 
@@ -45,6 +68,7 @@ class ELU(Function):
         return result
 
     def calc_grad(self, dx):
+        dx = dx.copy()
         dx[self.kwargs['mask']] = np.add(np.multiply(dx[self.kwargs['mask']], self.kwargs['tmp'][self.kwargs['mask']]), np.multiply(dx[self.kwargs['mask']], self.kwargs['const']))
         return dx
 
