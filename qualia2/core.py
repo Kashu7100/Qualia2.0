@@ -83,6 +83,6 @@ def gpu():
     def to_gpu(obj):
         return np.asarray(obj)
 
-def change_dtype(type):
+def set_dtype(type):
     global dtype
     dtype = type
