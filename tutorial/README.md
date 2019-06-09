@@ -516,13 +516,17 @@ With this model, `89.95%` accuracy on test dataset was achieved.
 
 ### Example with Lorenz system - Regression
 To explore the identification of chaotic dynamics evolving on a finite dimensional attractor, let's consider the nonlinear Lorenz system:
-
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\dot{x}&space;=&space;10(y-x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{x}&space;=&space;10(y-x)" title="\dot{x} = 10(y-x)" /></a>
-
+</p>
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\dot{y}&space;=&space;x(28-z)-y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{y}&space;=&space;x(28-z)-y" title="\dot{y} = x(28-z)-y" /></a>
-
+</p>
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\dot{z}&space;=&space;xy-(8/3)z" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{z}&space;=&space;xy-(8/3)z" title="\dot{z} = xy-(8/3)z" /></a>
+</p>
 
+Here is the code for Lorenz system simulation:
 ```python
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
@@ -546,6 +550,8 @@ t = np.arange(0,25, dt)
 u0 = np.array([-8.0, 7.0, 27])
 u = odeint(lorenz, u0, t)
 ```
+
+
 
 <div id='ex5'/>
 
