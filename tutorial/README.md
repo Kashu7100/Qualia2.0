@@ -553,6 +553,12 @@ The model will be trained so that the trapezoidal rule is satisfied:
 <a href="https://www.codecogs.com/eqnedit.php?latex=2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" title="2(y_n - y_n_-_1) = \Delta t(f(y_n)+f(y_n_-_1))" /></a>
 </p>
 
+It is the one of the numerical methods for ordinary differential equations that approximate solutions to initial value problems of the form: 
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dot{y}&space;=&space;f(t,y),&space;y_t_0&space;=&space;y_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{y}&space;=&space;f(t,y),&space;y_t_0&space;=&space;y_0" title="\dot{y} = f(t,y), y_t_0 = y_0" /></a>
+</p>
+
 ```python
 import qualia2
 from qualia2.util import progressbar
