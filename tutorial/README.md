@@ -549,7 +549,9 @@ u = odeint(lorenz, u0, t)
 ```
 The model will be trained so that the trapezoidal rule is satisfied:
 
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" title="2(y_n - y_n_-_1) = \Delta t(f(y_n)+f(y_n_-_1))" /></a>
+</p>
 
 ```python
 import qualia2
@@ -605,6 +607,11 @@ def f(u, t):
     
 learned_u = odeint(f, u0, t)
 ```
+
+Following is the obtained result:
+<p align="center">
+  <img src="/assets/lorenz_compare.png">
+</p>
 
 <div id='ex5'/>
 
