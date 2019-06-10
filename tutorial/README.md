@@ -593,8 +593,8 @@ def train(model, optim, criteria, u, dt=0.01, epochs=2000):
     for e in range(epochs):
         losses = []
         for b in range(len(u)//100):
-            target = qualia2.array(2*(u_t[b*100:(b+1)*100] - u_t1[b*100:(b+1)*100]))
-            output = dt*(model(qualia2.array(u_t[b*100:(b+1)*100])) + model(qualia2.array(u_t1[b*100:(b+1)*100])))
+            target = Tensor(2*(u_t[b*100:(b+1)*100] - u_t1[b*100:(b+1)*100]))
+            output = dt*(model(Tensor(u_t[b*100:(b+1)*100])) + model(Tensor(u_t1[b*100:(b+1)*100])))
             loss = criteria(output, target)
             model.zero_grad()
             loss.backward()
