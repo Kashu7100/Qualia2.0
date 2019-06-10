@@ -31,8 +31,9 @@ class Tensor(object):
     def __init__(self, data, requires_grad=True):
         super().__setattr__('hook', None) 
         if type(data) is not np.ndarray: 
-            if type(data) is list:
-                self.data = np.array(data)
+            import numpy
+            if type(data) is list or type(data) is numpy.ndarray:
+                self.data = np.array(data).astype(dtype)
             else: 
                 self.data = np.array([data], dtype=dtype)
         else:
