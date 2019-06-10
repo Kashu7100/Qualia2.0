@@ -529,10 +529,7 @@ To explore the identification of chaotic dynamics evolving on a finite dimension
 Here is the code for Lorenz system simulation:
 ```python
 from scipy.integrate import odeint
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-import matplotlib.gridspec as gridspec
 
 def lorenz(u, t):
     x, y, z = u
@@ -550,8 +547,64 @@ t = np.arange(0,25, dt)
 u0 = np.array([-8.0, 7.0, 27])
 u = odeint(lorenz, u0, t)
 ```
+The model will be trained so that the trapezoidal rule is satisfied:
 
+<a href="https://www.codecogs.com/eqnedit.php?latex=2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" title="2(y_n - y_n_-_1) = \Delta t(f(y_n)+f(y_n_-_1))" /></a>
 
+```python
+import qualia2
+from qualia2.util import progressbar
+from qualia2 import Tensor
+from qualia2.nn import Linear, Module
+from qualia2.functions import tanh,  mse_loss
+from qualia2.nn.optim import Adadelta
+from qualia2.core import *
+import os
+import time
+from datetime import timedelta
+import random
+
+path = os.path.dirname(os.path.abspath(__file__))
+
+class Model(Module):
+    def __init__(self):
+        super().__init__()
+        self.linear1 = Linear(3, 256)
+        self.linear2 = Linear(256, 3)
+    
+    def forward(self, s):
+        s = tanh(self.linear1(s))
+        return self.linear2(s)
+
+# train the net with trapezoidal rule
+# u_t = u_t1 + 1/2*dt*(f(u_t)+f(u_t1))
+def train(model, optim, criteria, u, dt=0.01, epochs=2000):
+    u_t1 = u[:-1]
+    u_t = u[1:]
+    start = time.time()
+    for e in range(epochs):
+        losses = []
+        for b in range(len(u)//100):
+            target = qualia2.array(2*(u_t[b*100:(b+1)*100] - u_t1[b*100:(b+1)*100]))
+            output = dt*(model(qualia2.array(u_t[b*100:(b+1)*100])) + model(qualia2.array(u_t1[b*100:(b+1)*100])))
+            loss = criteria(output, target)
+            model.zero_grad()
+            loss.backward()
+            optim.step()
+            losses.append(loss.data)
+        progressbar(e+1, epochs, 'loss: {}'.format(sum(losses)/len(losses)), '(time: {})'.format(str(timedelta(seconds=time.time()-start))))
+    model.save(path+'/lorenz')
+
+model = Model()
+optim = Adadelta(model.params)
+train(model, optim, mse_loss, u, dt)
+
+def f(u, t):
+    out = model(qualia2.array(u))
+    return qualia2.to_cpu(out.data)
+    
+learned_u = odeint(f, u0, t)
+```
 
 <div id='ex5'/>
 
