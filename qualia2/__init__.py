@@ -3,6 +3,7 @@ from .core import *
 from .autograd import *
 from .functions import * 
 from .util import *
+from .util import _mul
 from .nn import * 
 from .data import *
 from .applications import *
@@ -10,6 +11,9 @@ from .environment import *
 
 pi = np.pi
 e = np.e
+
+def numel(obj):
+    return _mul(*obj.shape)
 
 def array(obj, dtype='float64'):
     return Tensor(np.array(obj, dtype=dtype))
