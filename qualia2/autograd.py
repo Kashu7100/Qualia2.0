@@ -28,7 +28,7 @@ class Tensor(object):
         >>> # Print gradient 
         >>> print(x.grad)
     ''' 
-    def __init__(self, data, requires_grad=True):
+    def __init__(self, data, requires_grad=True, dtype='float64'):
         super().__setattr__('hook', None) 
         if type(data) is not np.ndarray: 
             import numpy
@@ -38,13 +38,14 @@ class Tensor(object):
                 self.data = np.array([data], dtype=dtype)
         else:
             self.data = data.astype(dtype)
+        self.dtype = dtype
         self.grad = None
         self.creator = None
         self.requires_grad = requires_grad
 
     def backward(self, *args):
         if not bool(args):
-            args = [np.ones_like(self.data, dtype=dtype)]     
+            args = [np.ones_like(self.data, dtype=self.dtype)]     
         if self.creator is None:
             self.grad = args[0]
         else:
