@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://kashu.ml/wp-content/uploads/2018/08/qualia-1-700x379.png?raw=true" alt="Qualia Logo"/>
+  <img src="/assets/qualia.png" alt="Qualia Logo"/>
 </p>
 
 Qualia is a deep learning framework deeply integrated with automatic differentiation and dynamic graphing with CUDA acceleration. 
