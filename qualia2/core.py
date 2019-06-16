@@ -6,8 +6,6 @@ from logging import getLogger, Formatter, FileHandler, StreamHandler
 
 path = os.path.dirname(os.path.abspath(__file__))
 
-gpu = True
-dtype = 'float64'
 level = 10
 fmt = '%(asctime)s - %(name)-20s: %(levelname)-8s %(message)s'
 datefmt = '%Y-%m-%d %H:%M:%S'
@@ -26,67 +24,43 @@ filehandler.setFormatter(formatter)
 logger.addHandler(filehandler)
 logger.addHandler(streamhandler)
 
-if gpu:
-    try:
-        import cupy as np
-        if np.cuda.is_available():
-            np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
-            logger.info('[*] GPU acceleration enabled.')
-            logger.info('-'*71)
-            nvcc = subprocess.check_output('nvcc --version', shell=True)
-            for line in nvcc.split(b'\n'):
-                logger.info(line.decode("utf-8"))
-            logger.info('-'*71)
-            
-            def to_cpu(obj):
-                return np.asnumpy(obj)
-
-            def to_gpu(obj):
-                return np.asarray(obj)
-            
-        else:
-            logger.error('[*] CUDA device is not available.')
-            import numpy as np
-    except:
-        import numpy as np
-        
-else:
-    import numpy as np 
-
-    def to_cpu(obj):
-        return obj
-
-    def to_gpu(obj):
-        logger.error('[*] GPU acceleration is disabled.')
-        raise Exception
-        
-def cpu():
-    global gpu, to_cpu, to_gpu, np
-    gpu = False
-    import numpy as np 
-
-    def to_cpu(obj):
-        return obj
-
-    def to_gpu(obj):
-        logger.error('[*] GPU acceleration is disabled.')
-        raise Exception
-    
-def gpu():
-    global gpu, to_cpu, to_gpu, np
-    gpu = True
+try:
     import cupy as np
-    if not np.cuda.is_available():
+    if np.cuda.is_available():
+        gpu = True
+        np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
+        logger.info('[*] GPU acceleration enabled.')
+        logger.info('-'*71)
+        nvcc = subprocess.check_output('nvcc --version', shell=True)
+        for line in nvcc.split(b'\n'):
+            logger.info(line.decode("utf-8"))
+        logger.info('-'*71)
+            
+        def to_cpu(obj):
+            return np.asnumpy(obj)
+
+        def to_gpu(obj):
+            return np.asarray(obj)
+            
+    else:
         logger.error('[*] CUDA device is not available.')
-        raise Exception
-    np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
-    
+        import numpy as np
+        gpu = False
+        
+        def to_cpu(obj):
+            return obj
+
+        def to_gpu(obj):
+            logger.error('[*] GPU acceleration is disabled.')
+            raise Exception
+
+except:
+    import numpy as np
+    gpu = False
+
     def to_cpu(obj):
-        return np.asnumpy(obj)
+        return obj
 
     def to_gpu(obj):
-        return np.asarray(obj)
-
-def set_dtype(type):
-    global dtype
-    dtype = type
+        logger.error('[*] GPU acceleration is disabled.')
+        raise Exception
