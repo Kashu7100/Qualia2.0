@@ -44,15 +44,7 @@ try:
             
     else:
         logger.error('[*] CUDA device is not available.')
-        import numpy as np
-        gpu = False
-        
-        def to_cpu(obj):
-            return obj
-
-        def to_gpu(obj):
-            logger.error('[*] GPU acceleration is disabled.')
-            raise Exception
+        raise Exception
 
 except:
     import numpy as np
@@ -63,4 +55,4 @@ except:
 
     def to_gpu(obj):
         logger.error('[*] GPU acceleration is disabled.')
-        raise Exception
+        raise Exception('[*] Cannot convert to GPU object.')
