@@ -360,7 +360,7 @@ class Div(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.divide(dx, self.var[1].data), np.negative(np.multiply(dx, np.divide(self.var[0].data, np.power(self.var[1].data, 2))))
+        return Div.handle_broadcast(np.divide(dx, self.var[1].data)), Div.handle_broadcast(np.negative(np.multiply(dx, np.divide(self.var[0].data, np.power(self.var[1].data, 2)))))
 
 class Matmul(Function):
     @staticmethod
