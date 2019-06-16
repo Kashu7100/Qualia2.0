@@ -53,6 +53,12 @@ class Tensor(object):
 
     def set_creator(self, obj): 
         self.creator = obj     
+        
+    def asnumpy(self):
+        if gpu:
+            return np.asnumpy(self.data)
+        else:
+            return self.data
     
     def handle_const(self, obj):
         if type(obj) is not Tensor:
