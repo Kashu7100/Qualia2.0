@@ -76,3 +76,14 @@ class DataLoader(object):
             return np.argmax(label.data, axis=1)
         else:
             return np.argmax(label, axis=1)
+        
+class ImageLoader(DataLoader):
+    @staticmethod
+    def horizontal_flip(image):
+        image = image[:, :, :, ::-1]
+        return image
+
+    @staticmethod
+    def vertical_flip(image):
+        image = image[:, :, ::-1, :]
+        return image
