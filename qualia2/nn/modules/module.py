@@ -26,7 +26,7 @@ class Module(object):
                 print('    [{}] {}: {}'.format(i, name, repr(module)))
         return ') at 0x{:0{}X}'.format(id(self), 16)
 
-    def summary(self, input_shape):
+    def summary(self, input_shape, *args):
         logger.info('-'*76)
         logger.info('{:^76}'.format('Model: ' + self.__class__.__name__))
         if type(input_shape) is list:
@@ -40,7 +40,7 @@ class Module(object):
                     module.input_shape = None
                     module.output_shape = None
                 total_params = 0
-                _ = self.forward(x)
+                _ = self.forward(x, *args)
                 for i, (_, module) in enumerate(self._modules.items()):
                     logger.info('| {:20}|{:^20}|{:^20}|{:^10}|'.format(module.__class__.__name__+'-'+str(i), str(module.input_shape), str(module.output_shape), str(module.num_params)))
                     total_params += module.num_params
