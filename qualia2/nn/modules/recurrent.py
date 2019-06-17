@@ -49,9 +49,9 @@ class RNN(Module):
     def forward(self, x, h0):
         result, hn = rnn(x, h0, self.weight_x, self.weight_h, self.bias_x, self.bias_h, self.num_layers)
         if self.input_shape is None:
-            self.input_shape = [x.shape, h0.shape]
+            self.input_shape = tuple([x.shape, h0.shape])
         if self.output_shape is None:
-            self.output_shape = [result.shape, hn.shape]
+            self.output_shape = tuple([result.shape, hn.shape])
         return result, hn
 
 class RNNCell(Module):
@@ -87,7 +87,7 @@ class RNNCell(Module):
     def forward(self, x, h):
         result = rnncell(x, h, self.weight_x, self.weight_h, self.bias_x, self.bias_h)
         if self.input_shape is None:
-            self.input_shape = [x.shape, h.shape]
+            self.input_shape = tuple([x.shape, h.shape])
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
@@ -136,9 +136,9 @@ class GRU(Module):
     def forward(self, x, h0):
         result, hn = gru(x, h0, self.weight_x, self.weight_h, self.bias_x, self.bias_h, self.num_layers)
         if self.input_shape is None:
-            self.input_shape = [x.shape, h0.shape]
+            self.input_shape = tuple([x.shape, h0.shape])
         if self.output_shape is None:
-            self.output_shape = [result.shape, hn.shape]
+            self.output_shape = tuple([result.shape, hn.shape])
         return result, hn    
     
 class GRUCell(Module):
@@ -174,7 +174,7 @@ class GRUCell(Module):
     def forward(self, x, h):
         result = grucell(x, h, self.weight_x, self.weight_h, self.bias_x, self.bias_h)
         if self.input_shape is None:
-            self.input_shape = [x.shape, h.shape]
+            self.input_shape = tuple([x.shape, h.shape])
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
