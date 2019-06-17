@@ -35,7 +35,7 @@ class Linear(Module):
         return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_features, self.out_features, str(self.bias is not None), id(self), 16)
     
     def forward(self, x): 
-        result = linear(x, self.weight, self.bias)
+        result = tensordot(x, self.weight) + self.bias
         if self.input_shape is None:
             self.input_shape = x.shape
         if self.output_shape is None:
