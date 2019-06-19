@@ -232,7 +232,7 @@ optim = Optimizer(model.params)
 - [Example with FashionMNIST Dataset - Classification wirh GRU](#ex3)
 - [Example with Lorenz System - Regression](#ex4)
 - [Example with CartPole Env - DQN](#ex5)
-- [Example with MountainCar Env - Dueling Network](ex6)
+- [Example with MountainCar Env - Dueling Network](#ex6)
 - [Example with BipedalWalker Env - TD3](#ex7)
 
 <div id='ex1'/>
@@ -762,5 +762,5 @@ Following is the animated result:
 
 <div id='ex7'/>
 
-## Example with Mountain Car Continuous - A2C
+## Example with BipedalWalker Env - TD3
 writing...
