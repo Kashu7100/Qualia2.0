@@ -622,7 +622,26 @@ Following is the obtained result:
 <div id='ex5'/>
 
 ### Example with Cart-Pole - DQN
-DQN is Q-Learning with a Deep Neural Network as a function approximator. Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Environment.show()` method.
+Q-learning updates the action value according to the following equation:
+
+<p align="center">
+  <img src="/assets/q-learning.PNG"/>
+</p>
+
+When the learning converges, the second term of the equation above approaches to zero.
+Note that when the policy that never takes some of the pairs of state and action, the action value function for the pair will never be learned, and learning will not properly converge. DQN is Q-Learning with a deep neural network as a Q function approximator. DQN learns to minimize the loss of the following function, where E indicates loss function:
+
+<p align="center">
+  <img src="/assets/dqn.PNG"/>
+</p>
+
+DQN updates the parameters θ according to the following gradient:
+
+<p align="center">
+  <img src="/assets/dqn_grad.PNG"/>
+</p>
+
+Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Environment.show()` method.
 ```python
 from qualia2.environment.cartpole import CartPole
 from qualia2.applications.dqn import DQN
