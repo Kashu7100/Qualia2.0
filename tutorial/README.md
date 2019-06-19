@@ -703,7 +703,13 @@ Following is the animated result:
 <div id='ex6'/>
 
 ### Example with Mountain Car - Dueling Network
-The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN. As an example, let's use [MountainCar](https://gym.openai.com/envs/MountainCar-v0/) task from Gym.
+The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN.
+
+<p align="center">
+  <img src="/assets/dueling_net.PNG"/>
+</p>
+
+As an example, let's use [MountainCar](https://gym.openai.com/envs/MountainCar-v0/) task from Gym.
 ```python
 # -*- coding: utf-8 -*- 
 from qualia2.environment.mountaincar import MountainCar
