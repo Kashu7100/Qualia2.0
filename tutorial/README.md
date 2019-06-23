@@ -552,11 +552,12 @@ The trapezoidal rule is a numerical method to solve ordinary differential equati
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\dot{y}&space;=&space;f(t,y)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{y}&space;=&space;f(t,y)" title="\dot{y} = f(t,y)" /></a>
-
+</p>
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=y(t_0)=y_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y(t_0)=y_0" title="y(t_0)=y_0" /></a>
 </p>
 
-The model will be trained so that the trapezoidal rule is satisfied:
+The model will be trained so that the trapezoidal rule is satisfied. LHS will be the target and the RHS will be the output of the model.
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(y_n)&plus;f(y_n_-_1))" title="2(y_n - y_n_-_1) = \Delta t(f(y_n)+f(y_n_-_1))" /></a>
