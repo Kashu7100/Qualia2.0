@@ -159,7 +159,7 @@ class Module(object):
                     else:
                         self._modules[name]._params[key].data = value.data
 
-    def save(self, filename): 
+    def save(self, filename, dtype='float64'): 
         '''Saves internal parameters of the Module in HDF5 format.\n 
         Args: 
             filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename 
