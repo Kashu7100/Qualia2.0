@@ -6,7 +6,7 @@ The objective is to get an under powered car to the top of a hill (top = 0.5 pos
 </p>
 
 ## Details
-The agent only knows his `position` and `velocity` in evry step. The agent can take one action from three: `push left`, `no push`, and `push right`.   
+The agent only knows his `position` and `velocity` in evry step. The agent can take one action from three: `push left`, `no push`, and `push right`. In this example, dueling network agent was used.  
 
 ## Usage
 Following are the commands used to train and test the model:
