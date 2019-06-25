@@ -10,11 +10,6 @@ The following diagram depicts the basic structure of learning in brains:
 ## [Reinforcement Learning](/examples/reinforcement_learning)
 *Reinforcement Learning* named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner. Skinner studied operant conditioning by conducting animal experiments using a Skinner Box.
 
-<p align="center">
-  <img src="/assets/reinforcement_learning_algorithm_map.png"/>
-</p>
-
-
 ## [Unsupervised Learning](/examples/unsupervised_learning)
 Among the three learning schemes, *unsupervised learning* such as Hebbian learning or self-organization have been autonomously  utilized the most by creatures. Models learn external signals from unsupervised learning to prepare for the external environment or information. In general, unsupervised system is better than supervised system in finding new patterns or features in inputs.
 
