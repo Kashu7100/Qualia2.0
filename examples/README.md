@@ -16,6 +16,9 @@ The following diagram depicts the basic structure of learning in brains:
   <b> Figure: </b> Skinner Box (retrieved from <a href="https://www.simplypsychology.org/operant-conditioning.html">Simply Psychology</a>)
 </p>
 
+<p align="center">
+  <img src="/assets/reinforcement_learning_algorithm_map.png"/>
+</p>
 
 
 ## [Unsupervised Learning](/examples/unsupervised_learning)
