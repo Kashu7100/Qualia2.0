@@ -3,6 +3,8 @@ Animals, including humans, change their behavior through experience. It is said 
 
 <p align="center">
   <img src="/assets/Brain_DL.PNG"/>
+  <br>
+  <b> Fig.1: </b> Learning scheme in the brain.
 </p>
 
 ## [Reinforcement Learning](/examples/reinforcement_learning)
