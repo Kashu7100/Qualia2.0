@@ -4,3 +4,11 @@ Fashion-MNIST is a dataset of Zalando's article images—consisting of a trainin
   <img src="/assets/fashion_mnist_data.png">
 </p>
 
+## Classification with GRU
+### Usage
+
+### Results
+Loss plot:
+<p align="center">
+  <img src="/assets/fashion_mnist_gru_loss.png">
+</p>
