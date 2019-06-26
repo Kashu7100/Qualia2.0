@@ -6,7 +6,17 @@ Fashion-MNIST is a dataset of Zalando's article images—consisting of a trainin
 
 ## Classification with GRU
 ### Usage
+Following are the commands used to train and test the model:
 
+To train the model:
+```bash
+python gru.py train --itr 200 --batch 100
+```
+
+To run with pre-trained weights:
+```bash
+python gru.py test 
+```
 ### Results
 Loss plot:
 <p align="center">
