@@ -28,7 +28,3 @@ GANs or DCGAN could not specify the class when generating image, since the gener
 <p align="center">
   <img src="/assets/conditional_gan.PNG"/>
 </p>
-
-## BEGAN
-
-## Disco GAN
