@@ -7,9 +7,9 @@ The MNIST database of handwritten digits, available from this page, has a traini
 
 ## Classification with GRU
 ### Details
-
+The model takes rows of the image as shown assuming the hidden state of GRU will contain a context of digits. 
 <p align="center">
-  <img src="/assets/mnist_gru.gif">
+  <img src="/assets/mnist-gru.gif">
 </p>
 
 ### Usage
