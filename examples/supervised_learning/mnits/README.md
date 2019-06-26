@@ -8,6 +8,10 @@ The MNIST database of handwritten digits, available from this page, has a traini
 ## Classification with GRU
 ### Details
 
+<p align="center">
+  <img src="/assets/mnist_gru.gif">
+</p>
+
 ### Usage
 
 ### Results
