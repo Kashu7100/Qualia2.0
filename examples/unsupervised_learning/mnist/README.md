@@ -25,7 +25,7 @@ To run with pre-trained weights:
 python gan.py test 
 ```
 ### Results
-
+The obtained result:
 <p align="center">
   <img src="/assets/gan_mnist.gif">
 </p>
