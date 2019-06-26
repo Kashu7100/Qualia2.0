@@ -54,6 +54,8 @@ d = Discriminator()
 optim_g = Adam(g.params, 0.0004, (0.5, 0.999))
 optim_d = Adam(d.params, 0.0002, (0.5, 0.999))
 
+criteria = mse_loss
+
 mnist = MNIST(flatten=True)
 mnist.batch = batch
 
@@ -73,10 +75,10 @@ for epoch in range(epochs):
         # update Discriminator
         # feed fake images
         output_fake = d(fake_img.detach())
-        loss_d_fake = mse_loss(output_fake, target_fake)
+        loss_d_fake = criteria(output_fake, target_fake)
         # feed real images
         output_real = d(data)
-        loss_d_real = mse_loss(output_real, target_real*(1-smooth))
+        loss_d_real = criteria(output_real, target_real*(1-smooth))
         loss_d = loss_d_fake + loss_d_real    
         #if i%2 == 0 and np.sum(loss_d.data)/batch > 0.0015:
         d.zero_grad()
@@ -86,14 +88,14 @@ for epoch in range(epochs):
         # update Generator
         d.eval()
         output = d(fake_img)
-        loss_g = mse_loss(output, target_real)
+        loss_g = criteria(output, target_real)
         g.zero_grad()
         loss_g.backward()
         optim_g.step()
         
         progressbar(i, len(mnist), 'epoch: {}/{} loss_D:{:.4f} loss_G:{:.4f}'.format(epoch+1, epochs, to_cpu(np.sum(loss_d.data)/batch) if gpu else np.sum(loss_d.data)/batch, to_cpu(np.sum(loss_g.data)/batch) if gpu else np.sum(loss_g.data)/batch), '(time: {})'.format(str(timedelta(seconds=time.time()-start))))
     g.eval()
-
+    
     fake_img = g(check_noise)
     for c in range(10):
         for r in range(10):
