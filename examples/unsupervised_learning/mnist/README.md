@@ -12,7 +12,6 @@ The MNIST database of handwritten digits, available from this page, has a traini
 ### Results
 
 ## GAN
-
 ### Usage
 Following are the commands used to train and test the model:
 
