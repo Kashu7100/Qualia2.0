@@ -3,8 +3,10 @@ Animals, including humans, change their behavior through experience. It is said 
 
 <p align="center">
   <img src="/assets/Brain_DL.PNG"/>
-  **Fig.** the basic structure of learning in brain.
 </p>
+<center>
+**Fig.** the basic structure of learning in brain.
+</center>
 
 ## [Reinforcement Learning](/examples/reinforcement_learning)
 *Reinforcement Learning* named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner. Skinner studied operant conditioning by conducting animal experiments using a Skinner Box.
