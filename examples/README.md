@@ -1,10 +1,9 @@
 ## Introduction
 Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.
 
-The following diagram depicts the basic structure of learning in brains:
-
 <p align="center">
   <img src="/assets/Brain_DL.PNG"/>
+  **Fig.** the basic structure of learning in brain.
 </p>
 
 ## [Reinforcement Learning](/examples/reinforcement_learning)
