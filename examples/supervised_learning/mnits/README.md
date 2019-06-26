@@ -5,4 +5,9 @@ The MNIST database of handwritten digits, available from this page, has a traini
   <img src="/assets/mnist_data.png">
 </p>
 
-## Classification 
+## Classification with GRU
+### Details
+
+### Usage
+
+### Results
