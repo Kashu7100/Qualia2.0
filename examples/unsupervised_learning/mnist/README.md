@@ -14,5 +14,15 @@ The MNIST database of handwritten digits, available from this page, has a traini
 ## GAN
 
 ### Usage
+Following are the commands used to train and test the model:
 
+To train the model:
+```bash
+python gan.py train --itr 200 --z_dim 50 --batch 100
+```
+
+To run with pre-trained weights:
+```bash
+python gan.py test 
+```
 ### Results
