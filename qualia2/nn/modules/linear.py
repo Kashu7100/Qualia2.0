@@ -2,7 +2,7 @@
 import math 
 from .module import Module
 from ...core import * 
-from ...functions import linear
+from ...functions import linear, tensordot
 from ...autograd import Tensor 
 
 class Linear(Module):
