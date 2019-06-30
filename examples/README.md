@@ -12,6 +12,8 @@ Animals, including humans, change their behavior through experience. It is said 
 
 <p align="center">
   <img src="/assets/reinforcement-learning.jpg"/>
+  <br>
+  <b> Fig.2: </b> Learning scheme for reinforcement learning.
 </p>  
 
 ## [Unsupervised Learning](/examples/unsupervised_learning)
