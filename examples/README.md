@@ -22,3 +22,7 @@ Among the three learning schemes, *unsupervised learning* such as Hebbian learni
 In 1949, Donald O. Hebb argued that "when an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased." This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in learning and memory.
 
 ## [Supervised Learning](/examples/supervised_learning) 
+Supervised learning problems can be grouped into regression and classification problems.
+
+- Classification: A classification problem is when the output variable is a category.
+- Regression: A regression problem is when the output variable is a real value.
