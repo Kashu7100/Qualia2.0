@@ -101,6 +101,9 @@ class Tensor(object):
 
     def __getitem__(self, slice):
         return Slice.forward(self, slice)
+    
+    def __setitem__(self, idx, obj):
+        self.data[idx] = obj
 
     def __len__(self): 
         return self.ndim
