@@ -14,7 +14,7 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, onece argu
 [![Size](https://img.shields.io/github/repo-size/Kashu7100/Qualia2.0.svg)](https://github.com/Kashu7100/Qualia2.0/)
 [![License: MIT](https://img.shields.io/github/license/Kashu7100/Qualia2.0.svg)](/LICENSE)
 
-Qualia2.0 is a library that consists of the following components:
+The main components of Qualia2.0 is listed below:
 
 | Component | Description |
 | ---- | --- |
