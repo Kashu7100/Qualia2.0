@@ -72,7 +72,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 | [Model Summary](/tutorial/#model_summary) | get the summary of the neural network model |
 | [Saving/Loading Weights](/tutorial/#save_load) | save and load the trained weights |
 | [Setting up Optimizer](/tutorial/#optim_setup) | preparing optimizers to train a neural network |
-| [Learning Qualia with Examples](/tutorial/#ex) | examples that cover essentials of Qualia |
+| [Learning Qualia with Examples](/tutorial/#ex) | introducing Qualia2.0 with some of the impremented examples |
 
 ## Examples
 Examples can be found [here](/examples).
