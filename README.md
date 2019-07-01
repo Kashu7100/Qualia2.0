@@ -65,7 +65,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 
 | Component | Description |
 | ---- | --- |
-| [Automatic Differentiation](/tutorial/#automatic_differentiation) | usage of automatic differentiation with simple example |
+| [Automatic Differentiation](/tutorial/#automatic_differentiation) | usage of automatic differentiation with a simple example |
 | [Validation of Automatic Differentiation](/tutorial/#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
 | [Qualia Tensor](/tutorial/#qualia_tensor) | Tensor class for automatic differentiation in Qualia |
 | [Network Definition](/tutorial/#network_definition) | create a custom neural network model with Qualia |
