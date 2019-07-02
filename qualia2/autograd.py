@@ -300,6 +300,18 @@ class Neg(Function):
     def calc_grad(self, dx):
         return np.negative(dx)
 
+class Abs(Function):
+    @staticmethod
+    def forward(a):
+        result = Tensor(np.absolute(a.data))
+        result.set_creator(Abs.prepare(result.shape, a))
+        return result
+
+    def calc_grad(self, dx):
+        result = dx
+        result[self.var[0].data < 0] = -dx[self.var[0].data < 0]
+        return result    
+    
 class Add(Function):
     '''
     Adds two arrays elementwise.
