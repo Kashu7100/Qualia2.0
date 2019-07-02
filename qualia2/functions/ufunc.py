@@ -3,6 +3,7 @@ from ..core import *
 from ..autograd import *
 import functools 
 
+absolute = Abs(None)
 add = Add(None)
 subtract = Sub(None)
 multiply = Mul(None)
