@@ -86,11 +86,10 @@ class Agent(object):
 
     def train_signal(self, experience, gamma):
         self.model.eval()
-        self.target.eval()
         state, next_state, reward, action, done = experience
         # get state action value
         action_value = self.model(state).gather(1, action) 
-        action_next = max(self.target(next_state), axis=1)
+        action_next = max(self.model(next_state), axis=1)
         action_next[np.all(next_state.data==0, axis=1)] = 0
         target_action_value = reward + gamma*action_next
         return action_value, target_action_value.detach()
