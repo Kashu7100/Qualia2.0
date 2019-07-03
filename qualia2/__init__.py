@@ -7,7 +7,7 @@ from .util import _mul
 from .nn import * 
 from .data import *
 from .applications import *
-from .environment import *
+from .rl import *
 
 pi = np.pi
 e = np.e
