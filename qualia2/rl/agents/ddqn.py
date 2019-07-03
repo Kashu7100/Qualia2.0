@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-from ..core import Agent, max, np
+from ..core import Agent, amax, np
 from ..util import Trainer
 
 class DDQN(Agent):
@@ -17,7 +17,7 @@ class DDQN(Agent):
         state, next_state, reward, action, done = experience
         # get state action value
         action_value = self.model(state).gather(1, action) 
-        action_next = max(self.target(next_state), axis=1)
+        action_next = amax(self.target(next_state), axis=1)
         action_next[np.all(next_state.data==0, axis=1)] = 0
         target_action_value = reward + gamma*action_next
         return action_value, target_action_value.detach()
