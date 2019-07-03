@@ -649,31 +649,29 @@ DQN updates the parameters θ according to the following gradient:
   <img src="/assets/dqn_grad.PNG"/>
 </p>
 
-Qualia2 provides `DQN` class and `Environment` class for handy testing for DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Environment.show()` method.
+Qualia2 provides `DQN` (`DQNTrainer`) class and `Env` class for handy testing of DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Env.show()` method.
 ```python
-from qualia2.environment.cartpole import CartPole
-from qualia2.applications.dqn import DQN
+from qualia2.rl.envs import CartPole
+from qualia2.rl import ReplayMemory
+from qualia2.rl.agents import DQNTrainer, DQN
 from qualia2.nn.modules import Module, Linear
-from qualia2.functions import tanh, sigmoid
+from qualia2.functions import tanh
 from qualia2.nn.optim import Adadelta
-import os
-path = os.path.dirname(os.path.abspath(__file__))
 
-class Network(Module):
+class Model(Module):
     def __init__(self):
         super().__init__()
-        self.linear1 = Linear(4, 100)
-        self.linear2 = Linear(100, 100)
-        self.linear3 = Linear(100, 2)
+        self.linear1 = Linear(4, 32)
+        self.linear2 = Linear(32, 32)
+        self.linear3 = Linear(32, 2)
 
     def forward(self, x):
         x = tanh(self.linear1(x))
         x = tanh(self.linear2(x))
-        x = sigmoid(self.linear3(x))
+        x = tanh(self.linear3(x))
         return x
 
-agent = DQN(Network, Adadelta, 10000, 50)
-env = CartPole(agent, 200, 50)
+env = CartPole()
 env.show()
 ```
 
@@ -681,26 +679,30 @@ env.show()
   <img src="/assets/cartpole_random.gif">
 </p>
 
-In order to execute experience replay to train the neural network, simply use `Environment.run()` method.
-```
-env.run()
-env.animate(path+'/dqn_cartpole')
+In order to execute experience replay to train the neural network, simply use `Trainer.train()` method.
+```python
+trainer = DDQNTrainer(ReplayMemory)
+agent = trainer.train(env, Model, Adadelta, filename=path+'/dqn_cartpole')
+trainer.plot()
+agent.play(env)
 ```
 Within 50 episodes in this case, the model could achive 200 steps. Try running the code several times in case of not achieving 200 steps in 50 episodes since the leaning depends on the initial weights of the network.
 ```bash
 ...
-[*] episode 34: finished after 172 steps
-[*] episode 35: finished after 108 steps
-[*] episode 36: finished after 200 steps
-[*] episode 37: finished after 200 steps
-[*] episode 38: finished after 200 steps
-[*] episode 39: finished after 200 steps
-[*] episode 40: finished after 200 steps
-[*] episode 41: finished after 200 steps
-[*] episode 42: finished after 200 steps
-[*] episode 43: finished after 200 steps
-[*] episode 44: finished after 200 steps
-[*] episode 45: finished after 200 steps
+[*] Episode: 28 - steps: 200 loss: 0.003701 reward: 1.0
+[*] Episode: 29 - steps: 110 loss: 0.005517 reward: -1.0
+[*] Episode: 30 - steps: 200 loss: 0.003471 reward: 1.0
+[*] Episode: 31 - steps: 200 loss: 0.003282 reward: 1.0
+[*] Episode: 32 - steps: 200 loss: 0.00372 reward: 1.0
+[*] Episode: 33 - steps: 200 loss: 0.003556 reward: 1.0
+[*] Episode: 34 - steps: 200 loss: 0.002909 reward: 1.0
+[*] Episode: 35 - steps: 200 loss: 0.00297 reward: 1.0
+[*] Episode: 36 - steps: 200 loss: 0.00303 reward: 1.0
+[*] Episode: 37 - steps: 200 loss: 0.003275 reward: 1.0
+[*] Episode: 38 - steps: 200 loss: 0.002473 reward: 1.0
+[*] Episode: 39 - steps: 200 loss: 0.002647 reward: 1.0
+[*] Episode: 40 - steps: 200 loss: 0.002749 reward: 1.0
+[*] Episode: 41 - steps: 200 loss: 0.002741 reward: 1.0
 ...
 ```
 Following is the animated result:
