@@ -137,6 +137,9 @@ class Tensor(object):
      
     def __neg__(self): 
         return Neg.forward(self) 
+   
+    def __abs__(self):
+        return Abs.forward(self)
  
     def __truediv__(self, other): 
         other = self.handle_const(other)
