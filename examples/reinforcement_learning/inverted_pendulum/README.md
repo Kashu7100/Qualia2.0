@@ -14,7 +14,7 @@ Following are the commands used to train and test the model:
 
 To train the model:
 ```bash
-python dqn.py train --itr 1000 --capacity 10000 --batch 80 --save True --plot True
+python dqn.py train --itr 100 --capacity 2048 --batch 64 --save True --plot True
 ```
 
 To run with pre-trained weights:
