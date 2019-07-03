@@ -45,6 +45,6 @@ if __name__ == '__main__':
         agent.load(path+'/dqn_example')
         
     if args.save:
-        agent.play(env, path+'/dqn_cartpole')
+        agent.play(env, filename=path+'/dqn_cartpole')
     else:
         agent.play(env)
