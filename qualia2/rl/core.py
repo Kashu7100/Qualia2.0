@@ -60,6 +60,7 @@ class Agent(object):
         self.target.load_state_dict(self.model.state_dict())
 
     def play(self, env, render=True, filename=None):
+        self.eps = 0.001
         frames = []
         state = env.reset()
         done = False
@@ -100,11 +101,6 @@ class Agent(object):
         return to_cpu(loss.data) if gpu else loss.data
     
 class Env(object):
-    ''' Env \n
-    Wrapper class of gym.env for reinforcement learning.
-    Args:
-        env (str): task name 
-    '''
     def __init__(self, env):
         self.env = gym.make(env)
         self.steps = 0
