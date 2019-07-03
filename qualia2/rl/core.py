@@ -14,6 +14,9 @@ logger = getLogger('QualiaLogger').getChild('rl')
 class Agent(object):
     ''' Agent \n
     Base class for all implemented agents. Some methods needs to be over ridden.
+    Args:
+        actions (list): list of actions
+        eps (float): epsilon value for the policy 
     '''
     def __init__(self, actions, eps):
         self.actions = actions
@@ -101,6 +104,11 @@ class Agent(object):
         return to_cpu(loss.data) if gpu else loss.data
     
 class Env(object):
+    ''' Env \n
+    Wrapper class of gym.env for reinforcement learning.
+    Args:
+        env (str): task name 
+    '''
     def __init__(self, env):
         self.env = gym.make(env)
         self.steps = 0
