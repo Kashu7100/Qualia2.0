@@ -137,7 +137,7 @@ class Max(Function):
             result[idx] = dx
         return result
 
-max = Max(None)
+amax = Max(None)
 
 class Min(Function):
     @staticmethod
@@ -169,4 +169,4 @@ class Min(Function):
             result[idx] = dx
         return result
 
-min = Min(None)
+amin = Min(None)
