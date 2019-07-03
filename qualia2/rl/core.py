@@ -2,7 +2,7 @@
 from .. import zeros, to_cpu
 from ..core import *
 from ..autograd import Tensor
-from ..functions import huber_loss, max
+from ..functions import huber_loss, amax
 import random
 import numpy
 import gym
@@ -47,7 +47,7 @@ class Agent(object):
     def policy(self, obs, *args):
         # returns action as numpy array
         if self.eps is None:
-            eps = 0.5*(1/(self.episode_count+1))
+            eps = max(0.5*(1/(self.episode_count+1)), 0.001)
         else:
             eps = self.eps
         if random.uniform(0,1) < eps:
@@ -89,7 +89,7 @@ class Agent(object):
         state, next_state, reward, action, done = experience
         # get state action value
         action_value = self.model(state).gather(1, action) 
-        action_next = max(self.model(next_state), axis=1)
+        action_next = amax(self.model(next_state), axis=1)
         action_next[np.all(next_state.data==0, axis=1)] = 0
         target_action_value = reward + gamma*action_next
         return action_value, target_action_value.detach()
