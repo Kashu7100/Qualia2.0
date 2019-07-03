@@ -44,7 +44,7 @@ class Agent(object):
     def set_optim(self, optim, **kwargs):
         self.optim = optim(self.model.params, **kwargs)
         
-    def policy(self, obs, *args):
+    def policy(self, observation, *args):
         # returns action as numpy array
         if self.eps is None:
             eps = max(0.5*(1/(self.episode_count+1)), 0.001)
@@ -53,7 +53,7 @@ class Agent(object):
         if random.uniform(0,1) < eps:
             return numpy.random.choice(self.actions)
         else:
-            return numpy.argmax(self.model(obs, *args).asnumpy())
+            return numpy.argmax(self.model(observation.reshape(1,-1), *args).asnumpy())
 
     def save(self, filename):
         self.model.save(filename)
@@ -85,7 +85,7 @@ class Agent(object):
             env.animate(frames, filename)
 
     def train_signal(self, experience, gamma):
-        self.model.eval()
+        self.model.train()
         state, next_state, reward, action, done = experience
         # get state action value
         action_value = self.model(state).gather(1, action) 
@@ -95,7 +95,6 @@ class Agent(object):
         return action_value, target_action_value.detach()
 
     def update(self, experience, gamma):
-        self.model.train()
         loss = huber_loss(*self.train_signal(experience, gamma))
         self.optim.zero_grad()
         loss.backward()
