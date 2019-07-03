@@ -28,7 +28,8 @@ class DDQNTrainer(Trainer):
 
     def after_episode(self, episode, steps, agent, loss, reward, filename=None):
         super().after_episode(episode, steps, agent, loss, reward, filename)
-        agent.target.load_state_dict(agent.model.state_dict())
+        if(episode%2==0):
+            agent.target.load_state_dict(agent.model.state_dict())
 
     def train(self, env, model, optim, episodes=200, render=False, filename=None):
         agent = DDQN.reload(env, model)
