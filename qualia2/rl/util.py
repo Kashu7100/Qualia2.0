@@ -48,6 +48,9 @@ class Trainer(object):
     def before_train(self, env, agent):
         self.env_name = str(env)
         self.agent_name = str(agent)
+    
+    def after_train(self):
+        logger.info('[*] training finished. best score: {}'.format(max(self.rewards)))
 
     def train_routine(self, env, agent, episodes=200, render=False, filename=None):
         for episode in range(episodes):
@@ -67,6 +70,7 @@ class Trainer(object):
                 state = next
                 steps += 1
             self.after_episode(episode+1, steps, agent, tmp_loss, tmp_reward, filename)
+        self.after_train()
 
     def experience_replay(self, episode, step_count, agent):
         return agent.update(self.memory.sample(self.batch), self.gamma)
