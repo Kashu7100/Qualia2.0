@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 from ..core import Agent
 from ..util import Trainer
 
@@ -14,10 +15,9 @@ class DQNTrainer(Trainer):
     def __init__(self, memory, batch=64, capacity=2048, gamma=0.9):
         super().__init__(memory, batch, capacity, gamma)    
 
-    def train(self, env, model, optim, episodes=50, render=False, filename=None):
+    def train(self, env, model, optim, episodes=150, render=False, filename=None):
         agent = DQN.reload(env, model)
         agent.set_optim(optim)
-        self.train_routine(env, agent, episodes=episodes, render=render)
-        if filename is not None:
-            agent.save(filename)
+        self.before_train(env, agent)
+        self.train_routine(env, agent, episodes=episodes, render=render, filename=filename)
         return agent
