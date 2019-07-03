@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*- 
 from .. import zeros, to_cpu
-from ..core import gpu
+from ..core import *
 from ..autograd import Tensor
 from ..functions import huber_loss, max
 import random
-import numpy as np
+import numpy
 import gym
 import matplotlib.pyplot as plt
 from matplotlib import animation 
+from logging import getLogger
+logger = getLogger('QualiaLogger').getChild('rl')
 
 class Agent(object):
     ''' Agent \n
@@ -20,6 +22,9 @@ class Agent(object):
         self.target = None
         self.optim = None
         self.episode_count = 0
+    
+    def __str__(self):
+        return str(self.__class__.__name__)
 
     def __call__(self, observation, *args):
         return self.policy(observation, *args)
@@ -43,9 +48,9 @@ class Agent(object):
         else:
             eps = self.eps
         if random.uniform(0,1) < eps:
-            return np.random.choice(self.actions)
+            return numpy.random.choice(self.actions)
         else:
-            return np.argmax(self.model(obs, *args).asnumpy())
+            return numpy.argmax(self.model(obs, *args).asnumpy())
 
     def save(self, filename):
         self.model.save(filename)
@@ -58,6 +63,7 @@ class Agent(object):
         frames = []
         state = env.reset()
         done = False
+        steps = 0
         episode_reward = 0
         while not done:
             if render:
@@ -65,9 +71,10 @@ class Agent(object):
             action = self.policy(state)
             next_state, reward, done, _ = env.step(action)
             frames.append(env.render(mode='rgb_array'))
-            episode_reward += reward.data
+            episode_reward += reward.data[0]
             state = next_state
-        print("[*] Episode end - Reward {}.".format(episode_reward))
+            steps += 1
+        logger.info("[*] Episode end - steps: {} reward: {}".format(steps, episode_reward))
         if render:
             env.close()
         if filename is not None:
@@ -93,9 +100,17 @@ class Agent(object):
         return to_cpu(loss.data) if gpu else loss.data
     
 class Env(object):
+    ''' Env \n
+    Wrapper class of gym.env for reinforcement learning.
+    Args:
+        env (str): task name 
+    '''
     def __init__(self, env):
         self.env = gym.make(env)
         self.steps = 0
+    
+    def __str__(self):
+        return str(self.__class__.__name__)
         
     @property
     def max_steps(self):
@@ -114,7 +129,7 @@ class Env(object):
         return self.state_transformer(self.env.reset())
 
     def render(self, **kwargs):
-        self.env.render(**kwargs)
+        return self.env.render(**kwargs)
 
     def close(self):
         self.env.close()
@@ -130,7 +145,7 @@ class Env(object):
         return Tensor(state)
 
     def reward_transformer(self, reward):
-        raise Tensor(reward)
+        return Tensor(reward)
 
     def show(self, filename=None):
         frames = []
