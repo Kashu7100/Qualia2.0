@@ -35,7 +35,7 @@ if __name__ == '__main__':
     env = CartPole()
     
     if args.mode == 'train':
-        trainer = DDQNTrainer(ReplayMemory,args.batch,args.capacity)
+        trainer = DQNTrainer(ReplayMemory,args.batch,args.capacity)
         agent = trainer.train(env, Model, Adadelta, episodes=args.itr, filename=path+'/dqn_example')
         if args.plot:
             trainer.plot()
