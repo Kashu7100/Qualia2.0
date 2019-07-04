@@ -39,10 +39,10 @@ The information within a Q function can be divided into two: a part determined m
   <img src="/assets/dueling_net.PNG"/>
 </p>
 
+## Rainbow
+
 ## A2C
 A2C stands for Advantage Actor-Critic. 
-
-## Rainbow
 
 ## DDPG
 
