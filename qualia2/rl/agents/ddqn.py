@@ -23,12 +23,21 @@ class DDQN(Agent):
         return action_value, target_action_value.detach()
 
 class DDQNTrainer(Trainer):
-    def __init__(self, memory, batch=64, capacity=2048, gamma=0.9):
-        super().__init__(memory, batch, capacity, gamma)    
+    '''DDQNTrainer \n
+    Args:
+        memory (deque): replay memory object
+        capacity (int): capacity of the memory
+        batch (int): batch size for training
+        gamma (int): gamma value
+        target_update_interval (int): interval for updating target network
+    '''
+    def __init__(self, memory, batch=100, capacity=5000, gamma=0.9, target_update_interval=3):
+        super().__init__(memory, batch, capacity, gamma)   
+        self.target_update_interval = target_update_interval 
 
     def after_episode(self, episode, steps, agent, loss, reward, filename=None):
         super().after_episode(episode, steps, agent, loss, reward, filename)
-        if(episode%2==0):
+        if(episode%self.target_update_interval==0):
             agent.target.load_state_dict(agent.model.state_dict())
 
     def train(self, env, model, optim, episodes=200, render=False, filename=None):
