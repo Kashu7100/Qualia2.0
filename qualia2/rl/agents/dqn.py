@@ -12,10 +12,17 @@ class DQN(Agent):
         super().__init__(eps, actions)
 
 class DQNTrainer(Trainer):
+    ''' DQNTrainer \n
+    Args:
+        memory (deque): replay memory object
+        capacity (int): capacity of the memory
+        batch (int): batch size for training
+        gamma (int): gamma value
+    '''
     def __init__(self, memory, batch=64, capacity=2048, gamma=0.9):
         super().__init__(memory, batch, capacity, gamma)    
 
-    def train(self, env, model, optim, episodes=150, render=False, filename=None):
+    def train(self, env, model, optim, episodes=100, render=False, filename=None):
         agent = DQN.reload(env, model)
         agent.set_optim(optim)
         self.before_train(env, agent)
