@@ -22,7 +22,7 @@ Animals, including humans, change their behavior through experience. It is said 
 In 1949, Donald O. Hebb argued that: 
 > "When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased." 
 
-This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in learning and memory.
+This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in our learning and memory.
 
 ## [Supervised Learning](/examples/supervised_learning) 
 *Supervised Learning* is a machine learning technique that expects a model to learn the input-to-label mapping of data where an input and a label associated with that input are given. Supervised learning problems can be grouped into regression and classification problems.
