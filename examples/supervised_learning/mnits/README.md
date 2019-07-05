@@ -5,13 +5,13 @@ The MNIST database of handwritten digits, available from this page, has a traini
   <img src="/assets/mnist_data.png">
 </p>
 
-## Classification with GRU
-### Details
-The model takes rows of the image as shown assuming the hidden state of GRU will contain a context of digits. 
+# Classification with GRU
+## Details
+The GRU model takes rows of the image as shown assuming the hidden state of GRU will contain a context of digits. 
 <p align="center">
   <img src="/assets/mnist-gru.gif" width="200">
 </p>
 
-### Usage
+## Usage
 
-### Results
+## Results
