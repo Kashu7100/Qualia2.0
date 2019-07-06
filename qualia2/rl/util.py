@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-from collections import namedtuple
+from .memory import Experience, PrioritizedMemory
 import matplotlib.pyplot as plt
 from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('rl')
-
-Experience = namedtuple('Experience', ['state','next','reward','action','done'])
 
 class Trainer(object):
     ''' Trainer \n
@@ -50,7 +48,7 @@ class Trainer(object):
         self.agent_name = str(agent)
     
     def after_train(self):
-        logger.info('[*] training finished. best score: {}'.format(max(self.rewards)))
+        logger.info('[*] training finished with best score: {}'.format(max(self.rewards)))
 
     def train_routine(self, env, agent, episodes=200, render=False, filename=None):
         for episode in range(episodes):
@@ -62,8 +60,7 @@ class Trainer(object):
                     env.render()
                 action = agent.policy(state)
                 next, reward, done, info = env.step(action)
-                experience = Experience(state, next, reward, action, done)
-                self.memory.append(experience)
+                self.memory.append(Experience(state, next, reward, action, done))
                 if len(self.memory) > self.batch:
                     tmp_loss.append(self.experience_replay(episode, steps, agent))
                 tmp_reward.append(reward.data[0])                
@@ -73,7 +70,15 @@ class Trainer(object):
         self.after_train()
 
     def experience_replay(self, episode, step_count, agent):
-        return agent.update(self.memory.sample(self.batch), self.gamma)
+        if isinstance(self.memory, PrioritizedMemory):
+            self.memory.beta = min(1.0, 0.4+step_count/100000)
+        batch, idx, weights = self.memory.sample(self.batch)
+        action_value, target_action_value = agent.get_train_signal(batch, self.gamma)
+        loss = agent.update(action_value, target_action_value)
+        if isinstance(self.memory, PrioritizedMemory):
+            priorities = weights * (action_value.data.reshape(-1) - target_action_value.data.reshape(-1))**2 + 1e-5
+            self.memory.update_priorities(idx, priorities)
+        return loss
     
     def plot(self, filename=None):
         plt.subplot(2, 1, 1)
