@@ -84,7 +84,7 @@ class Agent(object):
         if filename is not None:
             env.animate(frames, filename)
 
-    def train_signal(self, experience, gamma):
+    def get_train_signal(self, experience, gamma):
         self.model.train()
         state, next_state, reward, action, done = experience
         # get state action value
@@ -94,8 +94,8 @@ class Agent(object):
         target_action_value = reward + gamma*action_next
         return action_value, target_action_value.detach()
 
-    def update(self, experience, gamma):
-        loss = huber_loss(*self.train_signal(experience, gamma))
+    def update(self, action_value, target_action_value, loss_func=huber_loss):
+        loss = loss_func(action_value, target_action_value)
         self.optim.zero_grad()
         loss.backward()
         self.optim.step()
