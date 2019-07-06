@@ -11,7 +11,7 @@ class DDQN(Agent):
     def __init__(self, eps, actions):
         super().__init__(eps, actions)
 
-    def train_signal(self, experience, gamma):
+    def get_train_signal(self, experience, gamma):
         self.model.eval()
         self.target.eval()
         state, next_state, reward, action, done = experience
