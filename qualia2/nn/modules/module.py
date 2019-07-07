@@ -263,5 +263,5 @@ class Sequential(Module):
         for name, module in kwarg.items(): 
             if isinstance(module, Module): 
                 self._modules[name] = module 
-        else: 
-            raise Exception('Invalid argument was given. Failed to append.')
+            else: 
+                raise Exception('Invalid argument was given. Failed to append.')
