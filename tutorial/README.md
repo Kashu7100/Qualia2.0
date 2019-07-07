@@ -710,6 +710,8 @@ Following is the animated result:
   <img src="/assets/cartpole_dqn.gif">
 </p>
 
+find more in: [example page](https://github.com/Kashu7100/Qualia2.0/tree/master/examples/reinforcement_learning/inverted_pendulum)
+
 <div id='ex6'/>
 
 ### Example with Mountain Car - Dueling Network
