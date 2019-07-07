@@ -6,12 +6,13 @@ class Tensor(object):
     '''Wrapper class to execute automatic differentiation\n 
     Args: 
         data (ndarray|int|float): tensor to compute the automatic differentiation 
-        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. 
+        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. Default: True
+        dtype (str): data type of the tensor Default: 'float64'
      
     Attributes: 
         data (ndarray): Stores data of the Tensor 
         grad (ndarray): Stores gradients of the Tensor  
-        creator (Function obj): Stores the creator of the Tensor, which will be called at the backpropagation. 
+        creator (Function): Stores the creator of the Tensor, which will be called at the backpropagation. 
         requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. 
         shape (tuple): Stores the shape of Tensor's data 
         ndim (int): Stores the number of Tensor's data dimentions  
