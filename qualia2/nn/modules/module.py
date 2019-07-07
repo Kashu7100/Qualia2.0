@@ -34,12 +34,13 @@ class Module(object):
 
         elif type(input_shape) is tuple:
             x = Tensor(np.zeros(input_shape), requires_grad=False)
+            total_params = 0
             if self._modules: 
                 logger.info('{}\n| {:20}|{:^20}|{:^20}|{:^10}|\n{}'.format('-'*76, 'layers', 'input shape', 'output shape', 'params #', '='*76))
                 for _, module in self._modules.items():
                     module.input_shape = None
                     module.output_shape = None
-                total_params = 0
+    
                 _ = self.forward(x, *args)
                 for i, (_, module) in enumerate(self._modules.items()):
                     logger.info('| {:20}|{:^20}|{:^20}|{:^10}|'.format(module.__class__.__name__+'-'+str(i), str(module.input_shape), str(module.output_shape), str(module.num_params)))
@@ -258,8 +259,9 @@ class Sequential(Module):
     def append(self, *arg, **kwarg): 
         if len(arg) > 1 or len(kwarg) > 1: 
             raise Exception('Too much arguments were given.') 
-        if isinstance(arg, Module): 
-            self._modules[str(len(self._modules))] = arg 
+        for module in arg: 
+            if isinstance(module, Module): 
+                self._modules[str(len(self._modules))] = module
         for name, module in kwarg.items(): 
             if isinstance(module, Module): 
                 self._modules[name] = module 
