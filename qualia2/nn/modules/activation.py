@@ -69,3 +69,12 @@ class SoftMax(Module):
         if self.output_shape is None:
             self.output_shape = x.shape
         return softmax(x)
+    
+class Flatten(Module):
+    def forward(self, x):
+        result = x.reshape(x.shape[0],-1)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
