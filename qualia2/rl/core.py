@@ -143,9 +143,7 @@ class Env(object):
 
     def state_transformer(self, state):
         if state is None:
-            return zeros((1, self.observation_space.shape[0]))
-        if state.ndim == 1:
-            state = state.reshape(1,-1)
+            return zeros((self.observation_space.shape[0]))
         return Tensor(state)
 
     def reward_transformer(self, reward):
