@@ -125,7 +125,7 @@ class Env(object):
     @property
     def observation_space(self):
         return self.env.observation_space
-
+    
     def reset(self):
         self.steps = 0
         return self.state_transformer(self.env.reset())
@@ -143,7 +143,9 @@ class Env(object):
 
     def state_transformer(self, state):
         if state is None:
-            return zeros((self.observation_space()))
+            return zeros((1, self.observation_space.shape[0]))
+        if state.ndim == 1:
+            state = state.reshape(1,-1)
         return Tensor(state)
 
     def reward_transformer(self, reward):
