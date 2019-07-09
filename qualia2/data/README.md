@@ -45,3 +45,7 @@ LFWcrop is a cropped version of the Labeled Faces in the Wild (LFW) dataset. LFW
 
 ### EMNIST
 The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19  and converted to a 28x28 pixel image format and dataset.
+
+### [Speech Commands Dataset](https://storage.cloud.google.com/download.tensorflow.org/data/speech_commands_v0.02.tar.gz)
+Speech Commands Dataset consists of over 105,000 WAVE audio files of people saying thirty different words. This data was collected by Google and released under a CC BY license.
+
