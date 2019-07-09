@@ -61,6 +61,10 @@ class Tensor(object):
         else:
             return self.data
     
+    def fill(self, val):
+        self.data.fill(val)
+        self.creator = None
+    
     def handle_const(self, obj):
         if type(obj) is not Tensor:
             return Tensor(obj, requires_grad=False)
@@ -96,6 +100,8 @@ class Tensor(object):
         if key == 'data':
             super().__setattr__('shape', self.data.shape)
             super().__setattr__('ndim', self.data.ndim) 
+        if key == 'dtype':
+            super().__setattr__('data', self.data.astype(dtype)) 
         if self.hook is not None:
             if key == 'grad':
                 super().__setattr__('grad', self.hook(value))
