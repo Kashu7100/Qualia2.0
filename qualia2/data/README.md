@@ -14,6 +14,10 @@ Fashion-MNIST is a dataset of Zalando's article images—consisting of a trainin
 ### Kuzushiji-MNIST
 Kuzushiji-MNIST contains 70,000 28x28 grayscale images spanning 10 classes (one from each column of hiragana), and is perfectly balanced like the original MNIST dataset (6k/1k train/test for each class).
 
+<p align="center">
+  <img src="/assets/kuzushi_mnist_data.png">
+</p>
+
 ### EMNIST
 The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19  and converted to a 28x28 pixel image format and dataset.
 
