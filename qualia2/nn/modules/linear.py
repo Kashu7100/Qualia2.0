@@ -61,9 +61,9 @@ class CLinear(Module):
         self.in_features = in_features
         self.out_features = out_features
         self.num_params += in_features*out_features
-        self.weight = Tensor(np.random.normal(0, math.sqrt(1/in_features),(in_features, out_features))+1j*np.random.normal(0, math.sqrt(1/in_features),(in_features, out_features))) 
+        self.weight = Tensor(np.random.normal(0, math.sqrt(1/in_features),(in_features, out_features))+1j*np.random.normal(0, math.sqrt(1/in_features),(in_features, out_features)),dtype='complex128') 
         if bias: 
-            self.bias = Tensor(np.zeros(out_features)+1j*np.zeros(out_features)) 
+            self.bias = Tensor(np.zeros(out_features)+1j*np.zeros(out_features),dtype='complex128') 
             self.num_params += out_features
         else: 
             self.bias = None
@@ -72,7 +72,7 @@ class CLinear(Module):
         return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_features, self.out_features, str(self.bias is not None), id(self), 16)
     
     def forward(self, x): 
-        result = linear(x, self.weight, self.bias)
+        result = tensordot(x, self.weight) + self.bias
         if self.input_shape is None:
             self.input_shape = x.shape
         if self.output_shape is None:
