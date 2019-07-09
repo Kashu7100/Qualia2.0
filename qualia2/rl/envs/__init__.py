@@ -3,3 +3,4 @@ from .inverted_pendulum import  *
 from .mountain_car import *
 from .bipedal_walker import *
 from .pendulum import *
+from .toy_text import *
