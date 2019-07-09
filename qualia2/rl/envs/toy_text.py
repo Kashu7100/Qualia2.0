@@ -18,6 +18,17 @@ class FrozenLake(Env):
     '''
     def __init__(self):
         super().__init__('FrozenLake-v0')
+
+    def show(self, filename=None):
+        frames = []
+        self.env.reset()
+        for _ in range(self.max_steps):
+            self.env.render()
+            self.env.step(self.env.action_space.sample())
+            frames.append(self.env.render())
+        self.env.close()
+        if filename is not None:
+            self.animate(frames, filename)
     
 class FrozenLake8x8(Env):
     ''' FrozenLake8x8\n
@@ -36,3 +47,14 @@ class FrozenLake8x8(Env):
     '''
     def __init__(self):
         super().__init__('FrozenLake8x8-v0')
+
+    def show(self, filename=None):
+        frames = []
+        self.env.reset()
+        for _ in range(self.max_steps):
+            self.env.render()
+            self.env.step(self.env.action_space.sample())
+            frames.append(self.env.render())
+        self.env.close()
+        if filename is not None:
+            self.animate(frames, filename)
