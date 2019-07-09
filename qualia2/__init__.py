@@ -16,34 +16,40 @@ def numel(obj):
     return _mul(*obj.shape)
 
 def array(obj, dtype='float64'):
-    return Tensor(np.array(obj, dtype=dtype))
+    return Tensor(np.array(obj), dtype=dtype)
 
 def arange(*args, dtype='float64'):
-    return Tensor(np.arange(*args, dtype=dtype))
+    return Tensor(np.arange(*args), dtype=dtype)
+
+def empty(shape):
+    return Tensor(np.empty(shape), dtype=dtype)
+
+def empty_like(obj):
+    return Tensor(np.empty(obj.shape), dtype=dtype)
 
 def zeros(shape, dtype='float64'):
-    return Tensor(np.zeros(shape, dtype=dtype))
+    return Tensor(np.zeros(shape), dtype=dtype)
 
 def zeros_like(obj, dtype='float64'):
-    return Tensor(np.zeros(obj.shape, dtype=dtype))
+    return Tensor(np.zeros(obj.shape), dtype=dtype)
 
 def ones(shape, dtype='float64'):
-    return Tensor(np.ones(shape, dtype=dtype))
+    return Tensor(np.ones(shape), dtype=dtype)
 
 def ones_like(obj, dtype='float64'):
-    return Tensor(np.ones(obj.shape, dtype=dtype))
+    return Tensor(np.ones(obj.shape), dtype=dtype)
 
 def rand(*args, dtype='float64'):
-    return Tensor(np.random.rand(*args).astype(dtype))
+    return Tensor(np.random.rand(*args), dtype=dtype)
 
 def rand_like(obj, dtype='float64'):
-    return Tensor(np.random.rand(*obj.shape).astype(dtype))
+    return Tensor(np.random.rand(*obj.shape), dtype=dtype)
 
 def randn(*args, dtype='float64'):
-    return Tensor(np.random.randn(*args).astype(dtype))
+    return Tensor(np.random.randn(*args), dtype=dtype)
 
 def randn_like(obj, dtype='float64'):
-    return Tensor(np.random.randn(*obj.shape).astype(dtype))
+    return Tensor(np.random.randn(*obj.shape), dtype=dtype)
 
 def uniform(*args, dtype='float64'):
-    return Tensor(np.random.uniform(*args).astype(dtype))
+    return Tensor(np.random.uniform(*args), dtype=dtype)
