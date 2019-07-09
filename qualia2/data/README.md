@@ -18,6 +18,13 @@ Kuzushiji-MNIST contains 70,000 28x28 grayscale images spanning 10 classes (one 
   <img src="/assets/kuzushi_mnist_data.png">
 </p>
 
+### Kuzushi49
+Kuzushiji-49 contains 270,912 images spanning 49 classes, and is an extension of the Kuzushiji-MNIST dataset.
+
+<p align="center">
+  <img src="/assets/kuzushi49_data.png">
+</p>
+
 ### EMNIST
 The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19  and converted to a 28x28 pixel image format and dataset.
 
