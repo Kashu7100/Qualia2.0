@@ -11,6 +11,9 @@ class DataLoader(object):
         self.test_label = None
         self.batch = 1
 
+    def __repr__(self):
+        print('{}'.format(self.__class__.__name__))
+    
     def __len__(self):
         if self.training:
             return self.train_data.shape[0] // self.batch
