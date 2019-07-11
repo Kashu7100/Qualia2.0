@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*- 
-from ..core import Agent, amax, np
+from ..core import Agent, np
 from ..util import Trainer
 
 class DDQN(Agent):
@@ -15,12 +15,12 @@ class DDQN(Agent):
         self.model.eval()
         self.target.eval()
         state, next_state, reward, action, done = experience
-        # get state action value
-        action_value = self.model(state).gather(1, action) 
-        action_next = amax(self.target(next_state), axis=1)
-        action_next[np.all(next_state.data==0, axis=1)] = 0
-        target_action_value = reward + gamma*action_next
-        return action_value, target_action_value.detach()
+        state_action_value = self.model(state).gather(1, action) 
+        action_next = np.argmax(self.model(next_state).data, axis=1).reshape(-1,1)
+        next_state_action_value = self.target(next_state).gather(1, action_next) 
+        next_state_action_value[done] = 0
+        target_action_value = reward + gamma * next_state_action_value
+        return state_action_value, target_action_value.detach()
 
 class DDQNTrainer(Trainer):
     '''DDQNTrainer \n
@@ -31,18 +31,19 @@ class DDQNTrainer(Trainer):
         gamma (int): gamma value
         target_update_interval (int): interval for updating target network
     '''
-    def __init__(self, memory, batch=100, capacity=5000, gamma=0.9, target_update_interval=3):
+    def __init__(self, memory, batch=100, capacity=5000, gamma=0.99, target_update_interval=3):
         super().__init__(memory, batch, capacity, gamma)   
         self.target_update_interval = target_update_interval 
 
     def after_episode(self, episode, steps, agent, loss, reward, filename=None):
         super().after_episode(episode, steps, agent, loss, reward, filename)
         if(episode%self.target_update_interval==0):
-            agent.target.load_state_dict(agent.model.state_dict())
+            agent.update_target_model()
 
     def train(self, env, model, optim, episodes=200, render=False, filename=None):
         agent = DDQN.reload(env, model)
         agent.set_optim(optim)
         self.before_train(env, agent)
         self.train_routine(env, agent, episodes=episodes, render=render, filename=filename)
+        self.after_train()
         return agent
