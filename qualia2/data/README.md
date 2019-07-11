@@ -41,7 +41,7 @@ The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes conta
 </p>
 
 ### FIMLP
-FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint Detection dataset that contains 7049 facial images and up to 15 keypoints marked on them. 
+FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint Detection dataset that contains 7049 96x96 facial images and up to 15 keypoints marked on them. 
 
 <p align="center">
   <img src="/assets/fimlp_data.png">
