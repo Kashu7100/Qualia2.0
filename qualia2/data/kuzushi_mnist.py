@@ -142,7 +142,7 @@ class KuzushiMNIST(DataLoader):
 
     def show(self):
         for i in range(49):
-            plt.subplot(10,10,i+1)
+            plt.subplot(5,10,i+1)
             plt.xticks([]) 
             plt.yticks([]) 
             plt.grid(False)
