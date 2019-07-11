@@ -2,7 +2,7 @@
 from .. import zeros, to_cpu
 from ..core import *
 from ..autograd import Tensor
-from ..functions import huber_loss, amax
+from ..functions import huber_loss, amax, mse_loss
 import random
 import numpy
 import gym
@@ -34,11 +34,11 @@ class Agent(object):
 
     @classmethod
     def reload(cls, env, model, *args, eps=None):
-        actions = list(range(env.action_space.n))
+        actions = env.action_space.n
         agent = cls(actions, eps)
         agent.model = model(*args)
         agent.target = model(*args)
-        agent.target.load_state_dict(agent.model.state_dict())
+        agent.update_target_model()
         return agent
 
     def set_optim(self, optim, **kwargs):
@@ -50,9 +50,10 @@ class Agent(object):
             eps = max(0.5*(1/(self.episode_count+1)), 0.001)
         else:
             eps = self.eps
-        if random.uniform(0,1) < eps:
+        if random.random() < eps:
             return numpy.random.choice(self.actions)
         else:
+            self.model.eval()
             return numpy.argmax(self.model(observation.reshape(1,-1), *args).asnumpy())
 
     def save(self, filename):
@@ -61,7 +62,7 @@ class Agent(object):
     def load(self, filename):
         self.model.load(filename)
         self.target.load_state_dict(self.model.state_dict())
-
+    
     def play(self, env, render=True, filename=None):
         self.eps = 0.001
         frames = []
@@ -73,6 +74,7 @@ class Agent(object):
             if render:
                 env.render()
             action = self.policy(state)
+            print(action)
             next_state, reward, done, _ = env.step(action)
             frames.append(env.render(mode='rgb_array'))
             episode_reward += reward.data[0]
@@ -84,22 +86,25 @@ class Agent(object):
         if filename is not None:
             env.animate(frames, filename)
 
-    def get_train_signal(self, experience, gamma):
-        self.model.train()
+    def get_train_signal(self, experience, gamma=0.9):
+        self.model.eval()
         state, next_state, reward, action, done = experience
         # get state action value
-        action_value = self.model(state).gather(1, action) 
-        action_next = amax(self.model(next_state), axis=1)
-        action_next[np.all(next_state.data==0, axis=1)] = 0
-        target_action_value = reward + gamma*action_next
-        return action_value, target_action_value.detach()
+        state_action_value = self.model(state).gather(1, action) 
+        next_state_action_value = amax(self.model(next_state), axis=1)
+        next_state_action_value[done] = 0
+        target_action_value = reward + gamma * next_state_action_value
+        return state_action_value, target_action_value.detach()
 
-    def update(self, action_value, target_action_value, loss_func=huber_loss):
-        loss = loss_func(action_value, target_action_value)
+    def update(self, state_action_value, target_action_value, loss_func=mse_loss):
+        loss = loss_func(state_action_value, target_action_value)
         self.optim.zero_grad()
         loss.backward()
         self.optim.step()
         return to_cpu(loss.data) if gpu else loss.data
+    
+    def update_target_model(self):
+        self.target.load_state_dict(self.model.state_dict())
     
 class Env(object):
     ''' Env \n
@@ -152,7 +157,7 @@ class Env(object):
     def show(self, filename=None):
         frames = []
         self.env.reset()
-        for _ in range(200):
+        for _ in range(self.max_steps):
             self.env.render()
             self.env.step(self.env.action_space.sample())
             frames.append(self.env.render(mode='rgb_array'))
