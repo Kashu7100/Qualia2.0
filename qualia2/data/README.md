@@ -47,6 +47,13 @@ FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint De
   <img src="/assets/fimlp_data.png">
 </p>
 
+### ChestXRay
+The Chest X-Ray Images dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (Pneumonia/Normal). There are 5,863 X-Ray images (JPEG) and 2 categories (Pneumonia/Normal). 
+
+<p align="center">
+  <img src="/assets/chestxray_data.png">
+</p>
+
 ### LFWcrop
 LFWcrop is a cropped version of the Labeled Faces in the Wild (LFW) dataset. LFWcrop was created due to concern about the misuse of the original LFW dataset, where face matching accuracy can be unrealistically boosted through the use of background parts of images (i.e. exploitation of possible correlations between faces and backgrounds).
 
