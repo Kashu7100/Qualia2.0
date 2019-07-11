@@ -11,7 +11,7 @@ Fashion-MNIST is a dataset of Zalando's article images—consisting of a trainin
   <img src="/assets/fashion_mnist_data.png">
 </p>
 
-### Kuzushiji-MNIST
+### KuzushiMNIST
 Kuzushiji-MNIST contains 70,000 28x28 grayscale images spanning 10 classes (one from each column of hiragana), and is perfectly balanced like the original MNIST dataset (6k/1k train/test for each class).
 
 <p align="center">
@@ -40,8 +40,8 @@ The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes conta
   <img src="/assets/cifar100_data.png">
 </p>
 
-### Face Images with Marked Landmark Points (Kaggle)
-Kaggle's Facial Keypoint Detection dataset that contains 7049 facial images and up to 15 keypoints marked on them. 
+### FIMLP
+FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint Detection dataset that contains 7049 facial images and up to 15 keypoints marked on them. 
 
 
 ### LFWcrop
