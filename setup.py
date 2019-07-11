@@ -5,7 +5,9 @@ import sys
 requires = ['numpy',
             'matplotlib',
             'h5py',
-            'gym']
+            'gym',
+            'kaggle'
+           ]
 
 if '--cuda' in sys.argv:
       idx = sys.argv.index('--cuda')
