@@ -40,6 +40,10 @@ The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes conta
   <img src="/assets/cifar100_data.png">
 </p>
 
+### Face Images with Marked Landmark Points (Kaggle)
+Kaggle's Facial Keypoint Detection dataset that contains 7049 facial images and up to 15 keypoints marked on them. 
+
+
 ### LFWcrop
 LFWcrop is a cropped version of the Labeled Faces in the Wild (LFW) dataset. LFWcrop was created due to concern about the misuse of the original LFW dataset, where face matching accuracy can be unrealistically boosted through the use of background parts of images (i.e. exploitation of possible correlations between faces and backgrounds).
 
