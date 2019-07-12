@@ -40,6 +40,14 @@ The information within a Q function can be divided into two: a part determined m
 </p>
 
 ## Rainbow
+Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) that address the limitaions of the original DQN algorithm.
+### DQN
+### DDQN
+### Prioritized experience replay
+### Dueling network
+### Multi-step learning
+### Distributional RL
+### Noisy network
 
 ## A2C
 A2C stands for Advantage Actor-Critic. 
