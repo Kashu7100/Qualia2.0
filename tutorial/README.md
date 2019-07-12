@@ -681,8 +681,10 @@ env.show()
 
 In order to execute experience replay to train the neural network, simply use `Trainer.train()` method.
 ```python
-trainer = DDQNTrainer(ReplayMemory)
-agent = trainer.train(env, Model, Adadelta, filename=path+'/dqn_cartpole')
+agent = DQN.init(env, Model())
+agent.set_optim(Adadelta)
+trainer = DDQNTrainer(ReplayMemory, batch=80, capacity=10000)
+agent = trainer.train(env, agent, episodes=200, filename=path+'/dqn_cartpole')
 trainer.plot()
 agent.play(env)
 ```
