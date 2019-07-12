@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*- 
-from ..core import Agent, np
+from ..core import ValueAgent, np
 from ..util import Trainer
 
-class DDQN(Agent):
+class DDQN(ValueAgent):
     '''DQN 2015 implementation\n
     This implementation uses double networks for learning. 
     DQN class incopolates the model (Module) and the optim (Optimizer).
@@ -31,7 +31,7 @@ class DDQNTrainer(Trainer):
         gamma (int): gamma value
         target_update_interval (int): interval for updating target network
     '''
-    def __init__(self, memory, batch=100, capacity=5000, gamma=0.99, target_update_interval=3):
+    def __init__(self, memory, batch, capacity, gamma=0.99, target_update_interval=3):
         super().__init__(memory, batch, capacity, gamma)   
         self.target_update_interval = target_update_interval 
 
@@ -40,9 +40,7 @@ class DDQNTrainer(Trainer):
         if(episode%self.target_update_interval==0):
             agent.update_target_model()
 
-    def train(self, env, model, optim, episodes=200, render=False, filename=None):
-        agent = DDQN.reload(env, model)
-        agent.set_optim(optim)
+    def train(self, env, agent, episodes=200, render=True, filename=None):
         self.before_train(env, agent)
         self.train_routine(env, agent, episodes=episodes, render=render, filename=filename)
         self.after_train()
