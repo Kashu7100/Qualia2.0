@@ -39,14 +39,14 @@ if __name__ == '__main__':
     
     if args.mode == 'train':
         trainer = DQNTrainer(ReplayMemory,args.batch,args.capacity)
-        agent = trainer.train(env, agent, episodes=args.itr, filename=path+'/dueling_net_example')
+        agent = trainer.train(env, agent, episodes=args.itr, filename=path+'/dqn_example')
         if args.plot:
             trainer.plot()
     if args.mode == 'test':
-        agent = DDQN.init(env, Model())
-        agent.load(path+'/dueling_net_example')
+        agent = DQN.init(env, Model())
+        agent.load(path+'/dqn_example')
         
     if args.save:
-        agent.play(env, filename=path+'/dueling_net_cartpole_example')
+        agent.play(env, filename=path+'/cartpole_dqn_example')
     else:
         agent.play(env)
