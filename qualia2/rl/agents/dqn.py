@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*- 
-from ..core import Agent
+from ..core import ValueAgent
 from ..util import Trainer
 
-class DQN(Agent):
+class DQN(ValueAgent):
     '''DQN 2013 implementation\n
     This implementation uses single network for learning. 
     DQN class incopolates the model (Module) and the optim (Optimizer).
