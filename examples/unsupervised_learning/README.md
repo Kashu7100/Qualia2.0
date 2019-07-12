@@ -12,7 +12,7 @@ DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. 
 <p align="center">
   <img src="/assets/DCGAN.png"/>
   <br>
-  <b> Figure: </b> DCGAN generator used for LSUN scene modeling (retrieved from <a href="https://arxiv.org/abs/1511.06434">SUnsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</a>)
+  <b> Figure: </b> DCGAN generator used for LSUN scene modeling (retrieved from <a href="https://arxiv.org/abs/1511.06434">Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</a>)
 </p>
 
 ## LSGAN
