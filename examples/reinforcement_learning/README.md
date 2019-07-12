@@ -2,6 +2,7 @@
   <img src="/assets/reinforcement_learning_algorithm_map.png"/>
 </p>
 
+# Value Based
 ## Q-learning
 Q-learning updates the action value according to the following equation:
 
@@ -49,10 +50,16 @@ Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) t
 ### Distributional RL
 ### Noisy network
 
+# Actor-Critic
 ## A2C
 A2C stands for Advantage Actor-Critic. 
 
 ## DDPG
+Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and actor-critic algorithm. 
 
 ## TD3
-TD3 stabds for Twin Delayed DDPG. DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function.
+Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function.
+
+# Policy Based
+## PPO
+Proximal Policy Optimization (PPO) is a policy gradient based method. 
