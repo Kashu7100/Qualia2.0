@@ -25,10 +25,10 @@ class Model(Module):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Dueling Net example with Qualia2.0')
     parser.add_argument('mode', metavar='str', type=str, choices=['train', 'test'], help='select mode to run the model : train or test.')
-    parser.add_argument('-i', '--itr', type=int, default=200, help=' Number of iterations for the training. Default: 500')
+    parser.add_argument('-i', '--itr', type=int, default=200, help=' Number of iterations for the training. Default: 200')
     parser.add_argument('-c', '--capacity', type=int, default=10000, help='Capacity of the replay memory. Default: 10000')
-    parser.add_argument('-b', '--batch', type=int, default=80, help='Batch size to train the model. Default: 32')
-    parser.add_argument('-s', '--save', type=bool, default=False, help='Save mp4 video of the result. Default: True')
+    parser.add_argument('-b', '--batch', type=int, default=80, help='Batch size to train the model. Default: 80')
+    parser.add_argument('-s', '--save', type=bool, default=True, help='Save mp4 video of the result. Default: True')
     parser.add_argument('-p', '--plot', type=bool, default=True, help='Plot rewards over the training. Default: True')
     
     args = parser.parse_args()
