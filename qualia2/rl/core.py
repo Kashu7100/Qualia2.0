@@ -11,9 +11,9 @@ from matplotlib import animation
 from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('rl')
 
-class Agent(object):
+class ValueAgent(object):
     ''' Agent \n
-    Base class for all implemented agents. Some methods needs to be over ridden.
+    Base class for value based agents. Some methods needs to be over ridden.
     Args:
         actions (list): list of actions
         eps (float): epsilon value for the policy 
