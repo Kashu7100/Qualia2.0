@@ -19,12 +19,11 @@ class DQNTrainer(Trainer):
         batch (int): batch size for training
         gamma (int): gamma value
     '''
-    def __init__(self, memory, batch=64, capacity=2048, gamma=0.9):
+    def __init__(self, memory, batch, capacity, gamma=0.99):
         super().__init__(memory, batch, capacity, gamma)    
 
-    def train(self, env, model, optim, episodes=100, render=False, filename=None):
-        agent = DQN.reload(env, model)
-        agent.set_optim(optim)
+    def train(self, env, agent, episodes=200, render=False, filename=None):
         self.before_train(env, agent)
         self.train_routine(env, agent, episodes=episodes, render=render, filename=filename)
+        self.after_train()
         return agent
