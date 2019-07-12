@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-from .. import zeros, to_cpu
 from ..core import *
 from ..autograd import Tensor
 from ..functions import huber_loss, amax, mse_loss
@@ -12,50 +11,45 @@ from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('rl')
 
 class ValueAgent(object):
-    ''' Agent \n
+    ''' ValueAgent \n
     Base class for value based agents. Some methods needs to be over ridden.
     Args:
         actions (list): list of actions
         eps (float): epsilon value for the policy 
     '''
-    def __init__(self, actions, eps):
+    def __init__(self, actions, model):
         self.actions = actions
-        self.eps = eps
-        self.model = None
-        self.target = None
+        self.eps = 1
+        self.model = model
+        self.target = model
+        self.update_target_model()
         self.optim = None
         self.episode_count = 0
-    
-    def __str__(self):
-        return str(self.__class__.__name__)
-
-    def __call__(self, observation, *args):
-        return self.policy(observation, *args)
 
     @classmethod
-    def reload(cls, env, model, *args, eps=None):
+    def init(cls, env, model):
         actions = env.action_space.n
-        agent = cls(actions, eps)
-        agent.model = model(*args)
-        agent.target = model(*args)
-        agent.update_target_model()
-        return agent
+        return cls(actions, model)
 
     def set_optim(self, optim, **kwargs):
         self.optim = optim(self.model.params, **kwargs)
-        
-    def policy(self, observation, *args):
+    
+    def __str__(self):
+        return str('{}'.format(self.__class__.__name__))
+
+    def __call__(self, observation, *args):
+        return self.policy(observation, *args)
+    
+    def policy(self, observation, *args, eps=None):
         # returns action as numpy array
-        if self.eps is None:
-            eps = max(0.5*(1/(self.episode_count+1)), 0.001)
-        else:
-            eps = self.eps
+        if eps is None:
+            eps = max(0.5*(1/(self.episode_count+1)), 0.05)
         if random.random() < eps:
             return numpy.random.choice(self.actions)
         else:
             self.model.eval()
             return numpy.argmax(self.model(observation.reshape(1,-1), *args).asnumpy())
-
+        
     def save(self, filename):
         self.model.save(filename)
 
@@ -64,23 +58,20 @@ class ValueAgent(object):
         self.target.load_state_dict(self.model.state_dict())
     
     def play(self, env, render=True, filename=None):
-        self.eps = 0.001
         frames = []
         state = env.reset()
         done = False
         steps = 0
-        episode_reward = 0
+        episode_reward = []
         while not done:
             if render:
-                env.render()
-            action = self.policy(state)
-            print(action)
-            next_state, reward, done, _ = env.step(action)
-            frames.append(env.render(mode='rgb_array'))
-            episode_reward += reward.data[0]
-            state = next_state
+                frames.append(env.render(mode='rgb_array'))
+            action = self.policy(state, eps=0.001)
+            next, reward, done, _ = env.step(action)
+            episode_reward.append(reward.data[0])                
+            state = next
             steps += 1
-        logger.info("[*] Episode end - steps: {} reward: {}".format(steps, episode_reward))
+        logger.info("[*] Episode end - steps: {} reward: {}".format(steps, sum(episode_reward)))
         if render:
             env.close()
         if filename is not None:
@@ -97,6 +88,7 @@ class ValueAgent(object):
         return state_action_value, target_action_value.detach()
 
     def update(self, state_action_value, target_action_value, loss_func=mse_loss):
+        self.model.train()
         loss = loss_func(state_action_value, target_action_value)
         self.optim.zero_grad()
         loss.backward()
@@ -148,7 +140,7 @@ class Env(object):
 
     def state_transformer(self, state):
         if state is None:
-            return zeros((self.observation_space.shape[0]))
+            return Tensor(np.zeros((self.observation_space.shape[0])))
         return Tensor(state)
 
     def reward_transformer(self, reward):
