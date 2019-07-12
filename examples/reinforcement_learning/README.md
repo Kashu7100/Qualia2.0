@@ -42,13 +42,13 @@ The information within a Q function can be divided into two: a part determined m
 
 ## Rainbow
 Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) that address the limitaions of the original DQN algorithm.
-### DQN
-### DDQN
-### Prioritized experience replay
-### Dueling network
-### Multi-step learning
-### Distributional RL
-### Noisy network
+1. ### DQN
+2. ### DDQN
+3. ### Prioritized experience replay
+4. ### Dueling network
+5. ### Multi-step learning
+6. ### Distributional RL
+7. ### Noisy network
 
 # Actor-Critic
 ## A2C
