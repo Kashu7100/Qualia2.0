@@ -25,6 +25,17 @@ class MountainCar(Env):
     '''
     def __init__(self):
         super().__init__('MountainCar-v0')
+       
+    def step(self, action):
+        self.steps += 1
+        next_state, reward, done, info = self.env.step(action)
+        return self.state_transformer(next_state), self.reward_transformer(reward, done), done, info
+
+    def reward_transformer(self, reward, done):
+        if done:
+            return Tensor(1 if self.steps < self.max_steps else -1)
+        else:
+            return Tensor(0)
 
 class MountainCarContinuous(Env):
     ''' MountainCar\n
@@ -48,3 +59,14 @@ class MountainCarContinuous(Env):
     '''
     def __init__(self):
         super().__init__('MountainCarContinuous-v0')
+        
+    def step(self, action):
+        self.steps += 1
+        next_state, reward, done, info = self.env.step(action)
+        return self.state_transformer(next_state), self.reward_transformer(reward, done), done, info
+
+    def reward_transformer(self, reward, done):
+        if done:
+            return Tensor(1 if self.steps < self.max_steps else -1)
+        else:
+            return Tensor(0)
