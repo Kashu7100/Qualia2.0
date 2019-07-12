@@ -9,7 +9,7 @@ A pole is attached by an un-actuated joint to a cart, which moves along a fricti
 The agent only knows his `cart position`, `cart velocity`, `pole angle`, and `pole velocity` in evry step. The agent can take one action from `push left` and `push right`.
 
 
-## Usage
+## Solving with DQN
 Following are the commands used to train and test the model:
 
 To train the model:
