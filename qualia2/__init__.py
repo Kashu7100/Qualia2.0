@@ -21,10 +21,10 @@ def array(obj, dtype='float64'):
 def arange(*args, dtype='float64'):
     return Tensor(np.arange(*args), dtype=dtype)
 
-def empty(shape):
+def empty(shape, dtype='float64'):
     return Tensor(np.empty(shape), dtype=dtype)
 
-def empty_like(obj):
+def empty_like(obj, dtype='float64'):
     return Tensor(np.empty(obj.shape), dtype=dtype)
 
 def zeros(shape, dtype='float64'):
