@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*- 
-from .dqn import *
-from .ddqn import *
+from .alexnet import *
 from .vgg import *
