@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-from .. import to_cpu
 from ..autograd import Tensor
 from ..core import *
 from ..functions import listconcat, absolute
