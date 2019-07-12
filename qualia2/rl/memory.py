@@ -32,18 +32,23 @@ class ReplayMemory(deque):
             return Experience(*[listconcat(tmp[i]).detach() for i in range(3)],np.concatenate(tuple([np.asarray(i).reshape(1,-1) for i in tmp[3]]),axis=0),np.array(tmp[4])), None, None   
 
 class PrioritizedMemory(deque):
-    def __init__(self, maxlen, alpha=0.6, beta=0.4):
+    def __init__(self, maxlen, alpha=0.6, beta_start=0.4, beta_frames=100000):
         super().__init__(maxlen=maxlen)
         self.priorities = np.zeros((maxlen))
         self.alpha = alpha
-        self.beta = beta
+        self.beta_start = beta_start
+        self.beta_frames = beta_frames
         self.pos = 0
+        self.frame_idx = 1
+    
+    def beta(self):
+        return min(1.0, self.beta_start + self.frame_idx * (1.0 - self.beta_start) / self.beta_frames)
     
     def append(self, experience):
-        max_priority = np.max(self.priorities) if self else 1.0
-        super().append(experience)
+        max_priority = np.max(self.priorities) if len(self)>0 else 1.0
         self.priorities[self.pos] = max_priority
         self.pos = (self.pos + 1) % self.maxlen
+        super().append(experience)
  
     def update_priorities(self, idx, priorities):
         self.priorities[idx] = priorities
@@ -54,8 +59,9 @@ class PrioritizedMemory(deque):
             prob = self.priorities[:len(self)-steps]**self.alpha
             prob /= np.sum(prob)
             idx = np.random.choice(len(self)-steps, batch_size, p=prob)
-            weights = (len(self)*prob[idx])**(-self.beta)
+            weights = (len(self)*prob[idx])**(-self.beta())
             weights /= np.max(weights)
+            self.frame_idx += 1
             result = []
             for step in range(steps):
                 tmp = [*zip(*[self[i+step] for i in to_cpu(idx)])]
@@ -66,6 +72,7 @@ class PrioritizedMemory(deque):
             prob /= np.sum(prob)
             idx = np.random.choice(len(self), batch_size, p=prob)
             tmp = [*zip(*[self[i] for i in to_cpu(idx)])]
-            weights = (len(self)*prob[idx])**(-self.beta)
+            weights = (len(self)*prob[idx])**(-self.beta())
             weights /= np.max(weights)
+            self.frame_idx += 1
             return Experience(*[listconcat(tmp[i]).detach() for i in range(3)],np.concatenate(tuple([np.asarray(i).reshape(1,-1) for i in tmp[3]]),axis=0),np.array(tmp[4])), idx, weights
