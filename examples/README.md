@@ -16,6 +16,9 @@ Animals, including humans, change their behavior through experience. It is said 
   <b> Fig.2: </b> Learning scheme for reinforcement learning assuming MDP.
 </p>  
 
+### Markov property
+A stochastic process has the Markov property if the conditional probability distribution of future states of the process depends only upon the present state. That is, the state s(t+1) and reward r(t+1) at time t+1 depends on the present state s(t) and the action a(t). 
+
 ## [Unsupervised Learning](/examples/unsupervised_learning)
 *Unsupervised learning* is a machine learning technique that expects a model to learn patterns in the input data. Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.
 
