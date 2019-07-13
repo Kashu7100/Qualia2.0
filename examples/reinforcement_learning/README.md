@@ -61,5 +61,9 @@ Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and acto
 Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function.
 
 # Policy Based
+## TRPO
+Trust Region Policy Optimization (TRPO)
+
+
 ## PPO
 Proximal Policy Optimization (PPO) is a policy gradient based method. 
