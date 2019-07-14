@@ -7,6 +7,9 @@ import math
 
 class Embedding(Module):
     '''A simple lookup table that stores embeddings of a fixed dictionary and size.
+    Args:
+        num_embeddings (int): size of the dictionary of embeddings
+        embedding_dim (int): the size of each embedding vector
     '''
     def __init__(self, num_embeddings, embedding_dim):
         super().__init__()
