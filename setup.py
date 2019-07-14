@@ -9,6 +9,10 @@ requires = ['numpy',
             'kaggle'
            ]
 
+envs = ['atari-py',
+        'box2d-py'
+       ]
+
 if '--cuda' in sys.argv:
       idx = sys.argv.index('--cuda')
       sys.argv.pop(idx)
@@ -23,4 +27,4 @@ setup(name='qualia2',
       url='https://github.com/Kashu7100/Qualia2.0',
       license='MIT',
       packages=find_packages(),
-      install_requires=requires,)
+      install_requires=requires+envs,)
