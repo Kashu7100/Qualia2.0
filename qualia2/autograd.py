@@ -29,16 +29,16 @@ class Tensor(object):
         >>> # Print gradient 
         >>> print(x.grad)
     ''' 
-    def __init__(self, data, requires_grad=True, dtype='float64'):
+    def __init__(self, data, requires_grad=True, dtype=None):
         super().__setattr__('hook', None) 
         if type(data) is not np.ndarray: 
             import numpy
             if type(data) is list or type(data) is numpy.ndarray:
-                self.data = np.array(data).astype(dtype)
+                self.data = np.array(data) if dtype is None else np.array(data).astype(dtype)
             else: 
-                self.data = np.array([data], dtype=dtype)
+                self.data = np.array([data]) if dtype is None else np.array([data], dtype=dtype)
         else:
-            self.data = data.astype(dtype)
+            self.data = data if dtype is None else data.astype(dtype)
         self.dtype = dtype
         self.grad = None
         self.creator = None
