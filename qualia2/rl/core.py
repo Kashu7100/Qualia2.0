@@ -119,8 +119,10 @@ class ActorCriticAgent(BaseAgent):
         self.eps = 1
         self.actor = actor
         self.actor_target = actor
+        self.actor_target.load_state_dict(self.actor.state_dict())
         self.critic = critic
         self.critic_target = critic
+        self.critic_target.load_state_dict(self.critic.state_dict())
         self.actor_optim = None
         self.critic_optim = None
         self.episode_count = 0
@@ -129,9 +131,29 @@ class ActorCriticAgent(BaseAgent):
     def init(cls, env, actor, critic):
         actions = env.action_space.n
         return cls(actions, actor, critic)
+    
+    def set_actor_optim(self, optim, **kwargs):
+        self.actor_optim = optim(self.model.params, **kwargs)
+    
+    def set_critic_optim(self, optim, **kwargs):
+        self.critic_optim = optim(self.model.params, **kwargs)
 
     def policy(self, observation, *args, eps=None):
         return self.actor(observation).asnumpy()
+    
+    def save(self, filename):
+        self.actor.save(filename+'_actor')
+        self.critic.save(filename+'_critic')
+
+    def load(self, filename):
+        self.actor.load(filename+'_actor')
+        self.actor_target.load_state_dict(self.actor.state_dict())
+        self.critic.load(filename+'_critic')
+        self.critic_target.load_state_dict(self.critic.state_dict())
+    
+    def load_actor(self, filename):
+        self.actor.load(filename+'_actor')
+        self.actor_target.load_state_dict(self.actor.state_dict())
 
 class Env(object):
     ''' Env \n
