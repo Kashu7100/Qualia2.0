@@ -27,16 +27,16 @@ def empty(shape, dtype='float64'):
 def empty_like(obj, dtype='float64'):
     return Tensor(np.empty(obj.shape), dtype=dtype)
 
-def zeros(shape, dtype='float64'):
+def zeros(shape, dtype='int64'):
     return Tensor(np.zeros(shape), dtype=dtype)
 
-def zeros_like(obj, dtype='float64'):
+def zeros_like(obj, dtype='int64'):
     return Tensor(np.zeros(obj.shape), dtype=dtype)
 
-def ones(shape, dtype='float64'):
+def ones(shape, dtype='int64'):
     return Tensor(np.ones(shape), dtype=dtype)
 
-def ones_like(obj, dtype='float64'):
+def ones_like(obj, dtype='int64'):
     return Tensor(np.ones(obj.shape), dtype=dtype)
 
 def rand(*args, dtype='float64'):
