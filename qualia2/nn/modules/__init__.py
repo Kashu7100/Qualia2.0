@@ -7,3 +7,4 @@ from .pool import *
 from .dropout import *
 from .normalize import * 
 from .recurrent import *
+from .sparse import *
