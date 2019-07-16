@@ -37,6 +37,7 @@ A stochastic process has the Markov property if the conditional probability dist
   <br>
   <b> Fig.3: </b> Firing of dopamine neurons and its correspondence with the TD error [1,2]. 
 </p>  
+In the first case, an unpredicted reward (R) occurs, and a burst of dopamine firing follows. In the second case, a predicted reward occurs, and a burst follows the onset of the predictor (CS or conditioned stimulus), but there is no firing after the predicted reward. In the bottom case, a predicted reward is omitted, with a corresponding trough in dopamine responding.
 
 ---
 [1] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599 
