@@ -22,7 +22,7 @@ This rule is called Hebbian learning; and this synaptic plasticity is thought to
 *Reinforcement Learning* is a machine learning technique that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences assuming Markov Decision Process (MDP). Reinforcement Learning named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner.
 
 <p align="center">
-  <img src="/assets/reinforcement-learning.jpg"/>
+  <img src="/assets/reinforcement-learning.jpg" width="450"/>
   <br>
   <b> Fig.2: </b> Learning scheme for reinforcement learning assuming MDP.
 </p>  
@@ -33,7 +33,7 @@ A stochastic process has the Markov property if the conditional probability dist
 ### TD error 
 
 <p align="center">
-  <img src="/assets/TD_error.png"/>
+  <img src="/assets/TD_error.png" width="500"/>
   <br>
   <b> Fig.3: </b> Firing of dopamine neurons and its correspondence with the TD error [1,2]. 
 </p>  
