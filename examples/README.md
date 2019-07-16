@@ -30,6 +30,8 @@ This rule is called Hebbian learning; and this synaptic plasticity is thought to
 ### Markov property
 A stochastic process has the Markov property if the conditional probability distribution of future states of the process depends only upon the present state. That is, the state s(t+1) and reward r(t+1) at time t+1 depends on the present state s(t) and the action a(t). 
 
+### TD error 
+
 <p align="center">
   <img src="/assets/TD_error.png"/>
   <br>
