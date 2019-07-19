@@ -81,7 +81,10 @@ class Mean(Function):
 
     def calc_grad(self, dx):
         if type(self.kwargs['axis']) is not tuple: 
-            self.kwargs['axis'] = (self.kwargs['axis'],)  
+            if self.kwargs['axis'] is None:
+                self.kwargs['axis'] = tuple([i for i in range(self.var[0].ndim)])
+            else:   
+                self.kwargs['axis'] = (self.kwargs['axis'],)  
         shape = list(self.var[0].shape) 
         for i in self.kwargs['axis']: 
             dx = np.expand_dims(dx, axis=i) 
