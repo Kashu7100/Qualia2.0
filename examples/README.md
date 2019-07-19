@@ -41,4 +41,5 @@ In the first case, an unpredicted reward (R) occurs, and a burst of dopamine fir
 
 ---
 [1] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599 
+
 [2] Doya K. (2007). Reinforcement learning: Computational theory and biological mechanisms. HFSP journal, 1(1), 30–40. doi:10.2976/1.2732246/10.2976/1
