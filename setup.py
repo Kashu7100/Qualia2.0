@@ -6,14 +6,18 @@ requires = ['numpy',
             'matplotlib',
             'h5py',
             'gym',
-            'kaggle'
            ]
 
 envs = ['atari-py',
         'box2d-py'
        ]
 
+datasets = ['kaggle',
+            'Pillow'
+           ]
+
 requires += envs
+requires += datasets
 
 if '--cuda' in sys.argv:
       idx = sys.argv.index('--cuda')
