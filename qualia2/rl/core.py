@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 from ..core import *
 from ..autograd import Tensor
-from ..functions import huber_loss, amax
+from ..functions import huber_loss, amax, mse_loss
 import random
 import numpy
 import gym
@@ -11,11 +11,10 @@ from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('rl')
 
 class BaseAgent(object):
-    ''' BaseAgent \n
-    Base class for value based agents. Some methods needs to be over ridden.
+    '''
     Args:
         actions (list): list of actions
-        eps (float): epsilon value for the policy 
+        model (Module): model network 
     '''
     def __init__(self, actions, model):
         self.actions = actions
@@ -64,7 +63,7 @@ class BaseAgent(object):
             episode_reward.append(reward.data[0])                
             state = next
             steps += 1
-        logger.info("[*] Episode end - steps: {} reward: {}".format(steps, sum(episode_reward)))
+        logger.info('[*] Episode end - steps: {} reward: {}'.format(steps, sum(episode_reward)))
         if render:
             env.close()
         if filename is not None:
@@ -80,7 +79,7 @@ class BaseAgent(object):
         target_action_value = reward + gamma * next_state_action_value
         return state_action_value, target_action_value.detach()
 
-    def update(self, state_action_value, target_action_value, loss_func=huber_loss):
+    def update(self, state_action_value, target_action_value, loss_func=mse_loss):
         self.model.train()
         loss = loss_func(state_action_value, target_action_value)
         self.optim.zero_grad()
@@ -92,6 +91,9 @@ class BaseAgent(object):
         self.target.load_state_dict(self.model.state_dict())
 
 class ValueAgent(BaseAgent):
+    ''' ValueAgent \n
+    Base class for value based agents. Some methods needs to be over ridden.
+    '''
     def policy(self, observation, *args, eps=None):
         # returns action as numpy array
         if eps is None:
@@ -103,6 +105,9 @@ class ValueAgent(BaseAgent):
             return numpy.argmax(self.model(observation.reshape(1,-1), *args).asnumpy())
     
 class PolicyAgent(BaseAgent):
+    ''' PolicyAgent \n
+    Base class for policy based agents. Some methods needs to be over ridden.
+    '''
     def policy(self, observation, *args, eps=None):
         # returns action as numpy array
         if eps is None:
@@ -114,6 +119,13 @@ class PolicyAgent(BaseAgent):
             return numpy.random.choice(self.actions, p=self.model(observation.reshape(1,-1), *args).asnumpy())
 
 class ActorCriticAgent(BaseAgent):
+    ''' ActorCriticAgent \n
+    Base class for actor-critic based agents. Some methods needs to be over ridden.
+    Args:
+        actions (list): list of actions
+        actor (Module): actor network 
+        critic (Module): critic network 
+    '''
     def __init__(self, actions, actor, critic):
         self.actions = actions
         self.eps = 1
@@ -205,14 +217,18 @@ class Env(object):
 
     def show(self, filename=None):
         frames = []
-        self.env.reset()
-        for _ in range(self.max_steps):
-            self.env.render()
-            self.env.step(self.env.action_space.sample())
-            frames.append(self.env.render(mode='rgb_array'))
-        self.env.close()
-        if filename is not None:
-            self.animate(frames, filename)
+        try:
+            self.env.reset()
+            for _ in range(self.max_steps):
+                self.env.render()
+                self.env.step(self.env.action_space.sample())
+                frames.append(self.env.render(mode='rgb_array'))
+            self.env.close()
+            if filename is not None:
+                self.animate(frames, filename)
+        except:
+            self.env.close()
+            raise Exception('[*] Exception occurred during the show() process.')
 
     def animate(self, frames, filename):
         plt.clf()
