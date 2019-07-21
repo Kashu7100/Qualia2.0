@@ -2,6 +2,10 @@
 
 Get a 2D biped walker to walk through rough terrain by applying motor torque.
 
+<p align="center">
+  <img src="/assets/bipedal_walker_random.gif">
+</p>
+
 ## Solving with TD3
 Following are the commands used to train and test the model:
 
