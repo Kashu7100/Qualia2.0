@@ -11,7 +11,8 @@ from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('rl')
 
 class BaseAgent(object):
-    '''
+    '''BaseAgent \n
+    Base class for agents. Some methods needs to be over ridden.
     Args:
         actions (list): list of actions
         model (Module): model network 
@@ -145,10 +146,10 @@ class ActorCriticAgent(BaseAgent):
         return cls(actions, actor, critic)
     
     def set_actor_optim(self, optim, **kwargs):
-        self.actor_optim = optim(self.model.params, **kwargs)
+        self.actor_optim = optim(self.actor.params, **kwargs)
     
     def set_critic_optim(self, optim, **kwargs):
-        self.critic_optim = optim(self.model.params, **kwargs)
+        self.critic_optim = optim(self.critic.params, **kwargs)
 
     def policy(self, observation, *args, eps=None):
         return self.actor(observation).asnumpy()
@@ -191,7 +192,7 @@ class Env(object):
     @property
     def observation_space(self):
         return self.env.observation_space
-    
+
     def reset(self):
         self.steps = 0
         return self.state_transformer(self.env.reset())
@@ -228,7 +229,7 @@ class Env(object):
                 self.animate(frames, filename)
         except:
             self.env.close()
-            raise Exception('[*] Exception occurred during the show() process.')
+            raise Exception('[*] Exception occurred during the Env.show() process.')
 
     def animate(self, frames, filename):
         plt.clf()
