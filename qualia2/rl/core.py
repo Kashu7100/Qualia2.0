@@ -123,12 +123,10 @@ class ActorCriticAgent(BaseAgent):
     ''' ActorCriticAgent \n
     Base class for actor-critic based agents. Some methods needs to be over ridden.
     Args:
-        actions (list): list of actions
         actor (Module): actor network 
         critic (Module): critic network 
     '''
-    def __init__(self, actions, actor, critic):
-        self.actions = actions
+    def __init__(self, actor, critic):
         self.eps = 1
         self.actor = actor
         self.actor_target = actor
@@ -142,8 +140,7 @@ class ActorCriticAgent(BaseAgent):
 
     @classmethod
     def init(cls, env, actor, critic):
-        actions = env.action_space.n
-        return cls(actions, actor, critic)
+        return cls(actor, critic)
     
     def set_actor_optim(self, optim, **kwargs):
         self.actor_optim = optim(self.actor.params, **kwargs)
@@ -222,8 +219,10 @@ class Env(object):
             self.env.reset()
             for _ in range(self.max_steps):
                 self.env.render()
-                self.env.step(self.env.action_space.sample())
+                _, _, done, _ = self.env.step(self.env.action_space.sample())
                 frames.append(self.env.render(mode='rgb_array'))
+                if done:
+                    break
             self.env.close()
             if filename is not None:
                 self.animate(frames, filename)
