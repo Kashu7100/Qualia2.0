@@ -77,6 +77,8 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 ## Examples
 Examples can be found [here](/examples).
 
+<img src="/assets/mountaincar_duelingnet.gif" height="180"/><img src="/assets/bipedal_walker_td3.gif" height="180"/><img src="/assets/lunar_lander_cont_td3.gif" height="180"/>
+
 ## Citation
 Please cite **Qualia** if you use the contents in this repository for your research or in a scientific publication.
 ```
