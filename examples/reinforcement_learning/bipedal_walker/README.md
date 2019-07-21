@@ -1,6 +1,6 @@
 # [BipedalWalker-v2](https://gym.openai.com/envs/BipedalWalker-v2/)
 
-Get a 2D biped walker to walk through rough terrain by applying motor torque.
+Get a 2D bipedal walker to walk through rough terrain by applying motor torque.
 
 <p align="center">
   <img src="/assets/bipedal_walker_random.gif">
