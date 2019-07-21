@@ -57,7 +57,7 @@ A2C stands for Advantage Actor-Critic.
 ## DDPG
 Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and actor-critic algorithm. 
 
-## TD3
+## [TD3](/examples/reinforcement_learning/bipedal_walker)
 Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function.
 
 # Policy Based
