@@ -3,6 +3,10 @@ from ..core import Env, Tensor, np
 from PIL import Image
 
 class AtariBase(Env):
+    @property
+    def actions(self):
+        return self.env.unwrapped.get_action_meanings()
+        
     @staticmethod
     def state_to_image(state):
         return Image.fromarray(state)
