@@ -4,11 +4,11 @@ import sys
 
 requires = ['numpy',
             'matplotlib',
-            'h5py',
-            'gym',
+            'h5py'
            ]
 
-envs = ['atari-py',
+envs = ['gym',
+        'atari-py',
         'box2d-py'
        ]
 
