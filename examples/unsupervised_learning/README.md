@@ -1,7 +1,3 @@
-# Dimentionality Reduction
-
-# Autoencoders
-
 # Generative adversarial networks
 ## [GAN](/examples/unsupervised_learning/mnist)
 GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 2014. GANs can create new data by competing two neural networks: *generator* (G) and *discriminator* (D). 
@@ -33,3 +29,7 @@ GANs or DCGAN could not specify the class when generating image, since the gener
 <p align="center">
   <img src="/assets/conditional_gan.PNG"/>
 </p>
+
+# Dimentionality Reduction
+
+# Autoencoders
