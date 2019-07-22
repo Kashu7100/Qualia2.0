@@ -19,7 +19,12 @@ The objective of supervised learning is to estimate the data generation probabil
 This is done by minimizing the error between <a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a> and the output from the model <a href="https://www.codecogs.com/eqnedit.php?latex=M_\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M_\theta" title="M_\theta" /></a> with parameter <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a>. In practice, the experimental probability <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a> is used for train the model.
 
 <p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{L}(\hat{P}(x,l),M_\theta(x_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{L}(\hat{P}(x,l),M_\theta(x_i)" title="\mathfrak{L}(\hat{P}(x,l),M_\theta(x_i)" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(\hat{P}(x,l),M_\theta(x_i))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\hat{P}(x,l),M_\theta(x_i))" title="J(\hat{P}(x,l),M_\theta(x_i))" /></a>
+</p>
+
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;\leftarrow&space;\theta&space;&plus;\alpha&space;\triangledown_\theta&space;J(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;\leftarrow&space;\theta&space;&plus;\alpha&space;\triangledown_\theta&space;J(\theta)" title="\theta \leftarrow \theta +\alpha \triangledown_\theta J(\theta)" /></a>
 </p>
 
 ## [Unsupervised Learning](/examples/unsupervised_learning)
