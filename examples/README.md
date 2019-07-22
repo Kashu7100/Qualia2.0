@@ -98,7 +98,7 @@ The Bellman equation requires the knowledge of the transition probability P, whi
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" title="Q(S_t,A_t) = R_{t+1}+\gamma \, Q(S_{t+1},A_{t+1})-\delta" /></a>
 </p>
 
-The term <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a> is called Temporal Difference (TD) error.
+The term <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a> is called Temporal Difference (TD) error. When the training converges, the TD error is expected to approach to zero.
 
 ### Dopamine neurons and TD error signal
 <p align="center">
