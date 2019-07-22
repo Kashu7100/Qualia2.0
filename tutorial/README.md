@@ -633,20 +633,22 @@ Following is the obtained result:
 Q-learning updates the action value according to the following equation:
 
 <p align="center">
-  <img src="/assets/q-learning.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;1},a')-Q(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;1},a')-Q(S_t,A_t))" title="Q(S_t,A_t) \leftarrow Q(S_t,A_t)+\alpha (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q(S_{t+1},a')-Q(S_t,A_t))" /></a>
 </p>
 
 When the learning converges, the second term of the equation above approaches to zero.
-Note that when the policy that never takes some of the pairs of state and action, the action value function for the pair will never be learned, and learning will not properly converge. DQN is Q-Learning with a deep neural network as a Q function approximator. DQN learns to minimize the loss of the following function, where E indicates loss function:
+Note that when the policy that never takes some of the pairs of state and action, the action value function for the pair will never be learned, and learning will not properly converge. 
+
+DQN is Q-Learning with a deep neural network as a Q function approximator. DQN learns to minimize the TD error with some evaluation function <a href="https://www.codecogs.com/eqnedit.php?latex=J" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J" title="J" /></a>. 
 
 <p align="center">
-  <img src="/assets/dqn.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a'),Q_\theta(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a'),Q_\theta(S_t,A_t))" title="J(R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a'),Q_\theta(S_t,A_t))" /></a>
 </p>
 
-DQN updates the parameters θ according to the following gradient:
+Generally, the following error is used as the evaluation function.
 
 <p align="center">
-  <img src="/assets/dqn_grad.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(\theta)&space;=&space;\left\{&space;\begin{matrix}&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2&space;\;&space;\;&space;\;&space;\;&space;\;&space;|\delta&space;|\leq&space;1&space;\\&space;|R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t)|\;&space;\;&space;\;&space;\;&space;\;\;\;\;\;&space;|\delta&space;|>&space;1&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\theta)&space;=&space;\left\{&space;\begin{matrix}&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2&space;\;&space;\;&space;\;&space;\;&space;\;&space;|\delta&space;|\leq&space;1&space;\\&space;|R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t)|\;&space;\;&space;\;&space;\;&space;\;\;\;\;\;&space;|\delta&space;|>&space;1&space;\end{matrix}\right." title="J(\theta) = \left\{ \begin{matrix} \frac{1}{2} (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t))^2 \; \; \; \; \; |\delta |\leq 1 \\ |R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t)|\; \; \; \; \;\;\;\;\; |\delta |> 1 \end{matrix}\right." /></a>
 </p>
 
 Qualia2 provides `DQN` (`DQNTrainer`) class and `Env` class for handy testing of DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Env.show()` method.
@@ -720,7 +722,7 @@ find more in: [example page](https://github.com/Kashu7100/Qualia2.0/tree/master/
 The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN.
 
 <p align="center">
-  <img src="/assets/dueling_net.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q_\theta(S_t,A_t;\alpha&space;,\beta&space;)=V_\theta(S_t;\beta)&plus;A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in&space;A_t}{}A_\theta(S_t,A_t;\alpha)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_\theta(S_t,A_t;\alpha&space;,\beta&space;)=V_\theta(S_t;\beta)&plus;A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in&space;A_t}{}A_\theta(S_t,A_t;\alpha)" title="Q_\theta(S_t,A_t;\alpha ,\beta )=V_\theta(S_t;\beta)+A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in A_t}{}A_\theta(S_t,A_t;\alpha)" /></a>
 </p>
 
 As an example, let's use [MountainCar](https://gym.openai.com/envs/MountainCar-v0/) task from Gym.
