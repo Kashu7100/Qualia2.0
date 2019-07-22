@@ -62,6 +62,13 @@ In a similar manner, the optimal action value function and the corresponding opt
 <a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" title="\pi^* = \underset{a}{argmax}Q^*(s,a)" /></a>
 </p>
 
+### Bellman equation
+From the linearity of <a href="https://www.codecogs.com/eqnedit.php?latex=\mathbb{E}^\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbb{E}^\pi" title="\mathbb{E}^\pi" /></a>, the value function can be expressed as:
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s\}&space;=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s\}&space;=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s\}" title="V^\pi (s)= \mathbb{E}^\pi \{G_t | S_t=s\} = \mathbb{E}^\pi \{R_{t+1} | S_t=s\}+\mathbb{E}^\pi \{\sum_{\tau=1}^{\infty} \gamma ^\tau R_t_+_\tau_+_1| S_t=s\}" /></a>
+</p>
+
 ### TD error 
 
 
