@@ -69,7 +69,19 @@ From the linearity of <a href="https://www.codecogs.com/eqnedit.php?latex=\mathb
 <a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\gamma\,&space;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^{\tau-1}&space;R_{t&plus;\tau&plus;1}|&space;S_t=s\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\gamma\,&space;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^{\tau-1}&space;R_{t&plus;\tau&plus;1}|&space;S_t=s\}" title="V^\pi (s)= \mathbb{E}^\pi \{R_{t+1} | S_t=s\}+\gamma\, \mathbb{E}^\pi \{\sum_{\tau=1}^{\infty} \gamma ^{\tau-1} R_{t+\tau+1}| S_t=s\}" /></a>
 </p>
 
+If we express the expected reward that we receive when starting in state s, taking action a, and moving into state s' as:
 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{R}(s,s',a)&space;=&space;\mathbb{E}\{R_{t&plus;1}|S_t=s,S_{t&plus;1}=s',A_t=a\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{R}(s,s',a)&space;=&space;\mathbb{E}\{R_{t&plus;1}|S_t=s,S_{t&plus;1}=s',A_t=a\}" title="\mathfrak{R}(s,s',a) = \mathbb{E}\{R_{t+1}|S_t=s,S_{t+1}=s',A_t=a\}" /></a> 
+</p>
+
+The value function can be therefore expressed as following. This is the Bellman equation for the state value function under a policy <a href="https://www.codecogs.com/eqnedit.php?latex=\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" /></a>.
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;V^\pi(s'))" title="V^\pi (s)= \sum_{}{a\in A}\pi(a|s)\sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) +V^\pi(s'))" /></a>
+</p>
+
+The Bellman equation for the action value function can be derived in a similar way.
 
 ### TD error 
 
