@@ -33,12 +33,14 @@ Generally, mean square error is used as evaluation function.
 </p>
 
 ### neural fitted Q
+It is known that it will degrade the learning stability if the target Q value is calculated with the same parameters <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a> as the updating parameters. In order to stablize the learning process, the parameter <a href="https://www.codecogs.com/eqnedit.php?latex=\theta^-" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta^-" title="\theta^-" /></a>, which is fixed at given time, is used instead. 
+
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q_\theta(S_t,A_t)&space;\leftarrow&space;Q_\theta(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_{\theta_t}(S_{t&plus;1},a')-Q_\theta(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_\theta(S_t,A_t)&space;\leftarrow&space;Q_\theta(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_{\theta_t}(S_{t&plus;1},a')-Q_\theta(S_t,A_t))" title="Q_\theta(S_t,A_t) \leftarrow Q_\theta(S_t,A_t)+\alpha (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_{\theta_t}(S_{t+1},a')-Q_\theta(S_t,A_t))" /></a>
 </p>
 
 ## DDQN
-It is known that it will degrade the learning stability if the target Q value is calculated with the same parameters θ as the updating parameters. In order to stablize the learning process, two networks, main network Qm and target network Qt, are introduced. The updating equation will be:
+
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q_1(S_t,A_t)&space;\leftarrow&space;Q_1(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q_2(S_{t&plus;1},\hat{A}_{t&plus;1})-Q_1(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_1(S_t,A_t)&space;\leftarrow&space;Q_1(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q_2(S_{t&plus;1},\hat{A}_{t&plus;1})-Q_1(S_t,A_t))" title="Q_1(S_t,A_t) \leftarrow Q_1(S_t,A_t)+\alpha (R_{t+1}+\gamma \, Q_2(S_{t+1},\hat{A}_{t+1})-Q_1(S_t,A_t))" /></a>
