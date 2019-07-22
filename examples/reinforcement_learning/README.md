@@ -42,8 +42,7 @@ It is known that it will degrade the learning stability if the target Q value is
 </p>
 
 ### Experience replay
-Instead of train using current instance we record multiple experiences and use them for training.
-
+When the series of inputs which have strong correlation are used to train a network, the parameters of the network will be updated according to the recent similar inputs, resulting in degrading an estimation for older inputs and preventing from a convergennce of learning. In order to restrain the sampling bias for the training, experience replay was introduced. In experience replay, the obtained experience <a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{E}[S_t,A_t,R_{t&plus;1},S_{t&plus;1}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{E}[S_t,A_t,R_{t&plus;1},S_{t&plus;1}]" title="\mathfrak{E}[S_t,A_t,R_{t+1},S_{t+1}]" /></a> is stored to the memory (or experience buffer) and later sampled according to the uniform distribution.
 
 ## DDQN
 The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation.
