@@ -85,6 +85,14 @@ Experience replay enabled the sampling independent from markov property. However
 <a href="https://www.codecogs.com/eqnedit.php?latex=i\sim&space;P(i)=\frac{p_i^\alpha}{\sum&space;p_k^\alpha}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?i\sim&space;P(i)=\frac{p_i^\alpha}{\sum&space;p_k^\alpha}" title="i\sim P(i)=\frac{p_i^\alpha}{\sum p_k^\alpha}" /></a>
 </p>
 
+The estimation of the expected value with stochastic updates relies on those updates correspondingto the same distribution as its expectation. Prioritized experience replay introduces bias because it changes this distribution in an uncontrolled fashion.
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=w_i&space;=&space;\frac{(N\cdot&space;P(i))^{-\beta}&space;}{\underset{i}{max}\:&space;w_i}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_i&space;=&space;\frac{(N\cdot&space;P(i))^{-\beta}&space;}{\underset{i}{max}\:&space;w_i}" title="w_i = \frac{(N\cdot P(i))^{-\beta} }{\underset{i}{max}\: w_i}" /></a>
+</p>
+
+These weights can be folded into the Q-learning update by using <a href="https://www.codecogs.com/eqnedit.php?latex=w_i\delta_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_i\delta_i" title="w_i\delta_i" /></a> instead of <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_i" title="\delta_i" /></a>.
+
 ### Multi-step learning
 
 <p align="center">
