@@ -48,9 +48,19 @@ Among all possible value-functions, there exist an optimal value function <a hre
 <a href="https://www.codecogs.com/eqnedit.php?latex=V^*(s)&space;=&space;\underset{\pi}{max}V^\pi(s)&space;\:&space;\:&space;\:&space;\:&space;\forall&space;s\in&space;S" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^*(s)&space;=&space;\underset{\pi}{max}V^\pi(s)&space;\:&space;\:&space;\:&space;\:&space;\forall&space;s\in&space;S" title="V^*(s) = \underset{\pi}{max}V^\pi(s) \: \: \: \: \forall s\in S" /></a>
 </p>
 
-The optimal policy <a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*" title="\pi^*" /></a> corresponds to the optimal value function.
+The optimal policy <a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*" title="\pi^*" /></a> that corresponds to the optimal value function is:
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{\pi}{argmax}V^\pi(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{\pi}{argmax}V^\pi(s)" title="\pi^* = \underset{\pi}{argmax}V^\pi(s)" /></a>
+</p>
+
+In a similar manner, 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^*(s,a)&space;=&space;\underset{\pi}{max}\:&space;Q^\pi(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^*(s,a)&space;=&space;\underset{\pi}{max}\:&space;Q^\pi(s,a)" title="Q^*(s,a) = \underset{\pi}{max}\: Q^\pi(s,a)" /></a>
+</p>
+
+and 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" title="\pi^* = \underset{a}{argmax}Q^*(s,a)" /></a>
 </p>
 ### TD error 
 
