@@ -62,8 +62,11 @@ and
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" title="\pi^* = \underset{a}{argmax}Q^*(s,a)" /></a>
 </p>
+
 ### TD error 
 
+
+### Dopamine neurons and TD error signal
 <p align="center">
   <img src="/assets/TD_error.png" width="500"/>
   <br>
