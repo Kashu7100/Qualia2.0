@@ -44,6 +44,10 @@ It is known that it will degrade the learning stability if the target Q value is
 ### Experience replay
 When the series of inputs which have strong correlation are used to train a network, the parameters of the network will be updated according to the recent similar inputs, resulting in degrading an estimation for older inputs and preventing from a convergennce of learning. In order to restrain the sampling bias for the training, experience replay was introduced. In experience replay, the obtained experience <a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{E}[S_t,A_t,R_{t&plus;1},S_{t&plus;1}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{E}[S_t,A_t,R_{t&plus;1},S_{t&plus;1}]" title="\mathfrak{E}[S_t,A_t,R_{t+1},S_{t+1}]" /></a> is stored to the memory (or experience buffer) and later sampled according to the uniform distribution.
 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=i\sim&space;U(0,N)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?i\sim&space;U(0,N)" title="i\sim U(0,N)" /></a>
+</p>
+
 ## DDQN
 The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation.
 
@@ -75,6 +79,11 @@ The information within a Q function can be divided into two: a part determined m
 Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) that address the limitaions of the original DQN algorithm. The extensions are: 1.DQN, 2.DDQN, 3.Prioritized experience replay, 4.Dueling network, 5.Multi-step learning, 6.Distributional RL, and 7.Noisy network.
 
 ### Prioritized experience replay
+Experience replay enabled the sampling independent from markov property. However, the sampling was done based on the uniform distribution, and importance of each sample was neglected. Prioritized experience replay resolves the problem by weighting each sample; <a href="https://www.codecogs.com/eqnedit.php?latex=i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?i" title="i" /></a>th sample has importance <a href="https://www.codecogs.com/eqnedit.php?latex=p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i" title="p_i" /></a> of <a href="https://www.codecogs.com/eqnedit.php?latex=p_i=|\delta_i|&plus;\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i=|\delta_i|&plus;\epsilon" title="p_i=|\delta_i|+\epsilon" /></a>. The sampling is done according to the importance as follows:   
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=i\sim&space;P(i)=\frac{p_i^\alpha}{\sum&space;p_k^\alpha}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?i\sim&space;P(i)=\frac{p_i^\alpha}{\sum&space;p_k^\alpha}" title="i\sim P(i)=\frac{p_i^\alpha}{\sum p_k^\alpha}" /></a>
+</p>
 
 ### Multi-step learning
 
