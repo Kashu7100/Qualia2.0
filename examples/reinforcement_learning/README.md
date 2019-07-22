@@ -1,5 +1,7 @@
 <p align="center">
   <img src="/assets/reinforcement_learning_algorithm_map.png"/>
+  <br>
+  <b> Fig.1: </b> Reinforcement learning algorithm map
 </p>
 
 # Value Based
@@ -62,6 +64,12 @@ The information within a Q function can be divided into two: a part determined m
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q_\theta(S_t,A_t;\alpha&space;,\beta&space;)=V_\theta(S_t;\beta)&plus;A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in&space;A_t}{}A_\theta(S_t,A_t;\alpha)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_\theta(S_t,A_t;\alpha&space;,\beta&space;)=V_\theta(S_t;\beta)&plus;A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in&space;A_t}{}A_\theta(S_t,A_t;\alpha)" title="Q_\theta(S_t,A_t;\alpha ,\beta )=V_\theta(S_t;\beta)+A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in A_t}{}A_\theta(S_t,A_t;\alpha)" /></a>
+</p>
+
+<p align="center">
+  <img src="/assets/dueling_Q_struct.png"/>
+  <br>
+  <b> Fig.2: </b> A popular single streamQ-network (top) and the duel-ingQ-network (bottom).
 </p>
 
 ## Rainbow
