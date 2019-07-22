@@ -88,6 +88,13 @@ The parameter n is very sensitive but for the Atari games, n=3 is seid to be goo
 ### Distributional RL
 
 ### Noisy network
+Noisy network improves the exploration efficiency by letting the model to learn the exploration rate for itself.
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=y=(W&plus;\sigma^W&space;\odot&space;\epsilon^W)x&plus;(b&plus;\sigma^b&space;\odot&space;\epsilon^b)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=(W&plus;\sigma^W&space;\odot&space;\epsilon^W)x&plus;(b&plus;\sigma^b&space;\odot&space;\epsilon^b)" title="y=(W+\sigma^W \odot \epsilon^W)x+(b+\sigma^b \odot \epsilon^b)" /></a>
+</p>
+
+Note that when <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sigma=0" title="\sigma=0" /></a>, noisy network is equivalent to the normal linear layer.
 
 # Actor-Critic
 ## A3C
