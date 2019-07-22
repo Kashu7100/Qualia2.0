@@ -94,7 +94,9 @@ The Bellman equation for the action value function can be derived in a similar w
 ### TD error 
 The Bellman equation requires the knowledge of the transition probability P, which is unknown for most tasks, in order to find the value. This can be resolved by utilizing the experience from trial and error. 
 
+<p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" title="Q(S_t,A_t) = R_{t+1}+\gamma \, Q(S_{t+1},A_{t+1})-\delta" /></a>
+</p>
 
 The term <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a> is called Temporal Difference (TD) error.
 
