@@ -32,11 +32,20 @@ Generally, mean square error is used as evaluation function.
 <a href="https://www.codecogs.com/eqnedit.php?latex=J(\theta)&space;=&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\theta)&space;=&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2" title="J(\theta) = \frac{1}{2} (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t))^2" /></a>
 </p>
 
+### neural fitted Q
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q_\theta(S_t,A_t)&space;\leftarrow&space;Q_\theta(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_{\theta_t}(S_{t&plus;1},a')-Q_\theta(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_\theta(S_t,A_t)&space;\leftarrow&space;Q_\theta(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_{\theta_t}(S_{t&plus;1},a')-Q_\theta(S_t,A_t))" title="Q_\theta(S_t,A_t) \leftarrow Q_\theta(S_t,A_t)+\alpha (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_{\theta_t}(S_{t+1},a')-Q_\theta(S_t,A_t))" /></a>
+</p>
+
 ## DDQN
 It is known that it will degrade the learning stability if the target Q value is calculated with the same parameters θ as the updating parameters. In order to stablize the learning process, two networks, main network Qm and target network Qt, are introduced. The updating equation will be:
 
 <p align="center">
-  <img src="/assets/ddqn.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q_1(S_t,A_t)&space;\leftarrow&space;Q_1(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q_2(S_{t&plus;1},\hat{A}_{t&plus;1})-Q_1(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_1(S_t,A_t)&space;\leftarrow&space;Q_1(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q_2(S_{t&plus;1},\hat{A}_{t&plus;1})-Q_1(S_t,A_t))" title="Q_1(S_t,A_t) \leftarrow Q_1(S_t,A_t)+\alpha (R_{t+1}+\gamma \, Q_2(S_{t+1},\hat{A}_{t+1})-Q_1(S_t,A_t))" /></a>
+</p>
+where
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\hat{A}_{t&plus;1}=\underset{a_{t&plus;1}\in&space;A(S_{t&plus;1})}{argmax}\:&space;Q_1(S_{t&plus;1},A_{t&plus;1})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{A}_{t&plus;1}=\underset{a_{t&plus;1}\in&space;A(S_{t&plus;1})}{argmax}\:&space;Q_1(S_{t&plus;1},A_{t&plus;1})" title="\hat{A}_{t+1}=\underset{a_{t+1}\in A(S_{t+1})}{argmax}\: Q_1(S_{t+1},A_{t+1})" /></a>
 </p>
 
 ## GORILA
