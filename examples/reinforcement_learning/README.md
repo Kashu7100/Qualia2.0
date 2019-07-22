@@ -47,7 +47,7 @@ The idea of Double Q-learning is to reduce overestimations by decomposing the ma
 </p>
 where
 <p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=\hat{A}_{t&plus;1}=\underset{a_{t&plus;1}\in&space;A(S_{t&plus;1})}{argmax}\:&space;Q_1(S_{t&plus;1},A_{t&plus;1})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{A}_{t&plus;1}=\underset{a_{t&plus;1}\in&space;A(S_{t&plus;1})}{argmax}\:&space;Q_1(S_{t&plus;1},A_{t&plus;1})" title="\hat{A}_{t+1}=\underset{a_{t+1}\in A(S_{t+1})}{argmax}\: Q_1(S_{t+1},A_{t+1})" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\hat{A}_{t&plus;1}=\underset{a'\in&space;A(S_{t&plus;1})}{argmax}\:&space;Q_1(S_{t&plus;1},a')" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{A}_{t&plus;1}=\underset{a'\in&space;A(S_{t&plus;1})}{argmax}\:&space;Q_1(S_{t&plus;1},a')" title="\hat{A}_{t+1}=\underset{a'\in A(S_{t+1})}{argmax}\: Q_1(S_{t+1},a')" /></a>
 </p>
 
 ## GORILA
@@ -57,7 +57,7 @@ GOogle ReInforcement Learning Architecture (GORILA) is parallelized DQN architec
 The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN.
 
 <p align="center">
-  <img src="/assets/dueling_net.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q_\theta(S_t,A_t;\alpha&space;,\beta&space;)=V_\theta(S_t;\beta)&plus;A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in&space;A_t}{}A_\theta(S_t,A_t;\alpha)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_\theta(S_t,A_t;\alpha&space;,\beta&space;)=V_\theta(S_t;\beta)&plus;A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in&space;A_t}{}A_\theta(S_t,A_t;\alpha)" title="Q_\theta(S_t,A_t;\alpha ,\beta )=V_\theta(S_t;\beta)+A_\theta(S_t,A_t;\alpha)-\frac{1}{|A|}\sum_{a\in A_t}{}A_\theta(S_t,A_t;\alpha)" /></a>
 </p>
 
 ## Rainbow
