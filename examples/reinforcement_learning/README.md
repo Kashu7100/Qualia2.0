@@ -7,7 +7,7 @@
 Q-learning updates the action value according to the following equation:
 
 <p align="center">
-  <img src="/assets/q-learning.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;1},a')-Q(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;1},a')-Q(S_t,A_t))" title="Q(S_t,A_t) \leftarrow Q(S_t,A_t)+\alpha (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q(S_{t+1},a')-Q(S_t,A_t))" /></a>
 </p>
 
 When the learning converges, the second term of the equation above approaches to zero.
