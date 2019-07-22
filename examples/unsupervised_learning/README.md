@@ -1,6 +1,6 @@
 # Generative adversarial networks
 ## [GAN](/examples/unsupervised_learning/mnist)
-GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 2014. GANs can create new data by competing two neural networks: *generator* (G) and *discriminator* (D). 
+GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 2014. GANs can create new data by competing two neural networks: *generator* <a href="https://www.codecogs.com/eqnedit.php?latex=G:&space;Z\rightarrow&space;X" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G:&space;Z\rightarrow&space;X" title="G: Z\rightarrow X" /></a> and *discriminator* <a href="https://www.codecogs.com/eqnedit.php?latex=D:&space;X\rightarrow&space;\mathbb{R}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D:&space;X\rightarrow&space;\mathbb{R}" title="D: X\rightarrow \mathbb{R}" /></a>. 
 
 <p align="center">
   <img src="/assets/gan_diagram.PNG"/>
@@ -16,7 +16,7 @@ GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 20
 DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. It utilizes convolutional layers along batch normalization and leaky ReLU.
 
 <p align="center">
-  <img src="/assets/DCGAN.png"/>
+  <img src="/assets/DCGAN.png"/ width=600>
   <br>
   <b> Fig.2: </b> DCGAN generator used for LSUN scene modeling
 </p>
