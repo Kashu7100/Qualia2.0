@@ -26,10 +26,10 @@ DQN is Q-Learning with a deep neural network as a Q function approximator. DQN l
 <a href="https://www.codecogs.com/eqnedit.php?latex=J(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a'),Q_\theta(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a'),Q_\theta(S_t,A_t))" title="J(R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a'),Q_\theta(S_t,A_t))" /></a>
 </p>
 
-DQN updates the parameters θ according to the following gradient:
+Generally, mean square error is used as evaluation function.
 
 <p align="center">
-  <img src="/assets/dqn_grad.PNG"/>
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(\theta)&space;=&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\theta)&space;=&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2" title="J(\theta) = \frac{1}{2} (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t))^2" /></a>
 </p>
 
 ## DDQN
