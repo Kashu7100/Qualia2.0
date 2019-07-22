@@ -39,6 +39,9 @@ It is known that it will degrade the learning stability if the target Q value is
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q_\theta(S_t,A_t)&space;\leftarrow&space;Q_\theta(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_{\theta_t}(S_{t&plus;1},a')-Q_\theta(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_\theta(S_t,A_t)&space;\leftarrow&space;Q_\theta(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_{\theta_t}(S_{t&plus;1},a')-Q_\theta(S_t,A_t))" title="Q_\theta(S_t,A_t) \leftarrow Q_\theta(S_t,A_t)+\alpha (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_{\theta_t}(S_{t+1},a')-Q_\theta(S_t,A_t))" /></a>
 </p>
 
+### Experience replay
+Instead of train using current instance we record multiple experiences and use them for training.
+
 ## DDQN
 The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation.
 
