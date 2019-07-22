@@ -30,6 +30,6 @@ GANs or DCGAN could not specify the class when generating image, since the gener
   <img src="/assets/conditional_gan.PNG"/>
 </p>
 
-# Dimentionality Reduction
+# Dimentionality reduction
 
 # Autoencoders
