@@ -6,6 +6,9 @@ GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 20
   <img src="/assets/gan_diagram.PNG"/>
   <br>
   <b> Fig.1: </b> GAN architecture
+</p>
+
+<p align="center">
   <img src="/assets/gan.PNG"/>
 </p>
 
