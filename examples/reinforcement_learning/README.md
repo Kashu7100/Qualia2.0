@@ -79,6 +79,12 @@ Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) t
 
 ### Multi-step learning
 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\delta&space;=&space;\sum_{i=0}^{n-1}(\gamma^iR_{t&plus;i&plus;1})&plus;\gamma^n\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;n},a')-Q(S_t,A_t)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta&space;=&space;\sum_{i=0}^{n-1}(\gamma^iR_{t&plus;i&plus;1})&plus;\gamma^n\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;n},a')-Q(S_t,A_t)" title="\delta = \sum_{i=0}^{n-1}(\gamma^iR_{t+i+1})+\gamma^n\underset{a'\in A}{max}\: Q(S_{t+n},a')-Q(S_t,A_t)" /></a>
+</p>
+
+The parameter n is very sensitive but for the Atari games, n=3 is seid to be good.
+
 ### Distributional RL
 
 ### Noisy network
