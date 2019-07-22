@@ -25,7 +25,11 @@ DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. 
 GANs had problem that learning is unstable. LSGAN - Least Square GANs, which employs least square loss instead of binary cross entropy loss for its loss function was introduced intended to improve the stability of the learning. 
 
 <p align="center">
-  <img src="/assets/lsgan.PNG"/>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\underset{D}{min}\:&space;V_D(D,G)=\frac{1}{2}\mathbb{E}_{x\sim&space;P(x)}\{(D(x)-1)^2&space;\}&plus;\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{D(G(z))^2&space;\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{D}{min}\:&space;V_D(D,G)=\frac{1}{2}\mathbb{E}_{x\sim&space;P(x)}\{(D(x)-1)^2&space;\}&plus;\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{D(G(z))^2&space;\}" title="\underset{D}{min}\: V_D(D,G)=\frac{1}{2}\mathbb{E}_{x\sim P(x)}\{(D(x)-1)^2 \}+\frac{1}{2}\mathbb{E}_{z\sim P(z)}\{D(G(z))^2 \}" /></a>
+</p>
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{(D(G(z))-1)^2&space;\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{(D(G(z))-1)^2&space;\}" title="\underset{G}{min}\: V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim P(z)}\{(D(G(z))-1)^2 \}" /></a>
 </p>
 
 ## Conditional GAN
