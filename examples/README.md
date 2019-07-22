@@ -8,7 +8,13 @@ Animals, including humans, change their behavior through experience. It is said 
 </p>
 
 ## [Supervised Learning](/examples/supervised_learning) 
-*Supervised Learning* is a machine learning technique that expects a model to learn the input-to-label mapping of data where an input and a label associated with that input are given.
+*Supervised Learning* is a machine learning technique that expects a model to learn the input-to-label mapping of data where an input <a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a> and the label <a href="https://www.codecogs.com/eqnedit.php?latex=l_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l_i" title="l_i" /></a> associated with that input are given.
+
+The objective of supervised learning is to estimate the data generation probability <a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a> from the experimental probability <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a>:
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=(x_i,l_i)&space;\sim&space;P(x,l)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_i,l_i)&space;\sim&space;P(x,l)" title="(x_i,l_i) \sim P(x,l)" /></a>
+</p>
 
 ## [Unsupervised Learning](/examples/unsupervised_learning)
 *Unsupervised learning* is a machine learning technique that expects a model to learn patterns in the input data. Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.
