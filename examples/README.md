@@ -17,7 +17,9 @@ The objective of supervised learning is to estimate the data generation probabil
 </p>
 
 ## [Unsupervised Learning](/examples/unsupervised_learning)
-*Unsupervised learning* is a machine learning technique that expects a model to learn patterns in the input data. Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.
+*Unsupervised learning* is a machine learning technique that expects a model to learn patterns in the input data <a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a>. 
+
+Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.
 
 In 1949, Donald O. Hebb argued that: 
 > "When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased." 
