@@ -99,9 +99,8 @@ Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparamet
 ## TRPO
 Trust Region Policy Optimization (TRPO)
 
-
 ## PPO
 Proximal Policy Optimization (PPO) is a policy gradient based method. 
 
 ## ACKTR
-
+Actor-Critic using Kronecker-Factored Trust Region (ACKTR) is a policy gradient method with the trust region optimization, which will reduce the complexity closer to a first-order optimization like the Gradient Descent. 
