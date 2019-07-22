@@ -108,6 +108,8 @@ The term <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_bl
 </p>  
 In the first case, an unpredicted reward (R) occurs, and a burst of dopamine firing follows. In the second case, a predicted reward occurs, and a burst follows the onset of the predictor (CS or conditioned stimulus), but there is no firing after the predicted reward. In the bottom case, a predicted reward is omitted, with a corresponding trough in dopamine responding.
 
+The feature of TD error matches with the response of dopamine neurons <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a> in the figure. Therefore, the response of dopamine neurons is thought to be the TD error signal.  
+
 ---
 [1] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599 
 
