@@ -13,7 +13,7 @@ GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 20
 </p>
 
 ## DCGAN
-DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. It utilizes convolutional layers along batch normalization and leaky ReLU.
+DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. It utilizes convolutional layers along with batch normalization and leaky ReLU.
 
 <p align="center">
   <img src="/assets/DCGAN.png"/ width=600>
