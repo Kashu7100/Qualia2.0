@@ -73,7 +73,15 @@ The information within a Q function can be divided into two: a part determined m
 </p>
 
 ## Rainbow
-Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) that address the limitaions of the original DQN algorithm. 1.DQN 2.DDQN 3.Prioritized experience replay 4.Dueling network 5.Multi-step learning 6.Distributional RL 7.Noisy network
+Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) that address the limitaions of the original DQN algorithm. The extensions are: 1.DQN, 2.DDQN, 3.Prioritized experience replay, 4.Dueling network, 5.Multi-step learning, 6.Distributional RL, and 7.Noisy network.
+
+### Prioritized experience replay
+
+### Multi-step learning
+
+### Distributional RL
+
+### Noisy network
 
 # Actor-Critic
 ## A2C
