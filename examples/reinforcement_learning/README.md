@@ -32,7 +32,7 @@ Generally, the following error is used as the evaluation function.
 <a href="https://www.codecogs.com/eqnedit.php?latex=J(\theta)&space;=&space;\left\{&space;\begin{matrix}&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2&space;\;&space;\;&space;\;&space;\;&space;\;&space;|\delta&space;|\leq&space;1&space;\\&space;|R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t)|\;&space;\;&space;\;&space;\;&space;\;\;\;\;\;&space;|\delta&space;|>&space;1&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\theta)&space;=&space;\left\{&space;\begin{matrix}&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2&space;\;&space;\;&space;\;&space;\;&space;\;&space;|\delta&space;|\leq&space;1&space;\\&space;|R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t)|\;&space;\;&space;\;&space;\;&space;\;\;\;\;\;&space;|\delta&space;|>&space;1&space;\end{matrix}\right." title="J(\theta) = \left\{ \begin{matrix} \frac{1}{2} (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t))^2 \; \; \; \; \; |\delta |\leq 1 \\ |R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t)|\; \; \; \; \;\;\;\;\; |\delta |> 1 \end{matrix}\right." /></a>
 </p>
 
-### neural fitted Q
+### Neural fitted Q
 It is known that it will degrade the learning stability if the target Q value is calculated with the same parameters <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a> as the updating parameters. In order to stablize the learning process, the parameter <a href="https://www.codecogs.com/eqnedit.php?latex=\theta^-" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta^-" title="\theta^-" /></a>, which is a periodic copy of the <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a> , is used instead. 
 
 <p align="center">
@@ -41,6 +41,7 @@ It is known that it will degrade the learning stability if the target Q value is
 
 ### Experience replay
 Instead of train using current instance we record multiple experiences and use them for training.
+
 
 ## DDQN
 The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation.
