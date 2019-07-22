@@ -16,6 +16,12 @@ The objective of supervised learning is to estimate the data generation probabil
 <a href="https://www.codecogs.com/eqnedit.php?latex=(x_i,l_i)&space;\sim&space;P(x,l)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_i,l_i)&space;\sim&space;P(x,l)" title="(x_i,l_i) \sim P(x,l)" /></a>
 </p>
 
+This is done by minimizing the error between <a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a> and the output from the model <a href="https://www.codecogs.com/eqnedit.php?latex=M_\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M_\theta" title="M_\theta" /></a> with parameter <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a>. In practice, the experimental probability <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a> is used for train the model.
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{L}(\hat{P}(x,l),M_\theta(x_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{L}(\hat{P}(x,l),M_\theta(x_i)" title="\mathfrak{L}(\hat{P}(x,l),M_\theta(x_i)" /></a>
+</p>
+
 ## [Unsupervised Learning](/examples/unsupervised_learning)
 *Unsupervised learning* is a machine learning technique that expects a model to learn patterns in the input data <a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a>. 
 
