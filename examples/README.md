@@ -78,10 +78,18 @@ If we express the expected reward that we receive when starting in state s, taki
 The value function can be therefore expressed as following. This is the Bellman equation for the state value function under a policy <a href="https://www.codecogs.com/eqnedit.php?latex=\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" /></a>.
 
 <p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;V^\pi(s'))" title="V^\pi (s)= \sum_{}{a\in A}\pi(a|s)\sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) +V^\pi(s'))" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" title="V^\pi (s)= \sum_{}{a\in A}\pi(a|s)\sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma V^\pi(s'))" /></a>
 </p>
 
 The Bellman equation for the action value function can be derived in a similar way.
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" title="Q^\pi (s,a)= \sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma V^\pi(s'))" /></a>
+</p>
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;\sum_{}{a'\in&space;A}\pi(a'|s')Q^\pi(s',a')&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;\sum_{}{a'\in&space;A}\pi(a'|s')Q^\pi(s',a')&space;)" title="Q^\pi (s,a)= \sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma \sum_{}{a'\in A}\pi(a'|s')Q^\pi(s',a') )" /></a>
+</p>
 
 ### TD error 
 
