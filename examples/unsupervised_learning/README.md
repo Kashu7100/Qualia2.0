@@ -4,6 +4,8 @@ GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 20
 
 <p align="center">
   <img src="/assets/gan_diagram.PNG"/>
+  <br>
+  <b> Fig.1: </b> GAN architecture
   <img src="/assets/gan.PNG"/>
 </p>
 
@@ -13,7 +15,7 @@ DCGAN - Deep Convolutional GANs - is updated version of GANs presented in 2015. 
 <p align="center">
   <img src="/assets/DCGAN.png"/>
   <br>
-  <b> Figure: </b> DCGAN generator used for LSUN scene modeling (retrieved from <a href="https://arxiv.org/abs/1511.06434">Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</a>)
+  <b> Fig.2: </b> DCGAN generator used for LSUN scene modeling
 </p>
 
 ## LSGAN
@@ -28,6 +30,8 @@ GANs or DCGAN could not specify the class when generating image, since the gener
 
 <p align="center">
   <img src="/assets/conditional_gan.PNG"/>
+  <br>
+  <b> Fig.3: </b> Conditional GAN architecture
 </p>
 
 # Dimentionality reduction
