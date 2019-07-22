@@ -84,6 +84,8 @@ Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) t
 ### Noisy network
 
 # Actor-Critic
+## A3C
+
 ## A2C
 A2C stands for Advantage Actor-Critic. 
 
@@ -100,3 +102,6 @@ Trust Region Policy Optimization (TRPO)
 
 ## PPO
 Proximal Policy Optimization (PPO) is a policy gradient based method. 
+
+## ACKTR
+
