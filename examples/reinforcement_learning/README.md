@@ -40,7 +40,7 @@ It is known that it will degrade the learning stability if the target Q value is
 </p>
 
 ## DDQN
-
+The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation.
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=Q_1(S_t,A_t)&space;\leftarrow&space;Q_1(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q_2(S_{t&plus;1},\hat{A}_{t&plus;1})-Q_1(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_1(S_t,A_t)&space;\leftarrow&space;Q_1(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q_2(S_{t&plus;1},\hat{A}_{t&plus;1})-Q_1(S_t,A_t))" title="Q_1(S_t,A_t) \leftarrow Q_1(S_t,A_t)+\alpha (R_{t+1}+\gamma \, Q_2(S_{t+1},\hat{A}_{t+1})-Q_1(S_t,A_t))" /></a>
