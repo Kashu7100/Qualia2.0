@@ -5,8 +5,8 @@ The MNIST database of handwritten digits, available from this page, has a traini
   <img src="/assets/mnist_data.png">
 </p>
 
-# GAN
-## Usage
+## GAN
+### Usage
 Following are the commands used to train and test the model:
 
 To train the model:
@@ -18,7 +18,7 @@ To run with pre-trained weights:
 ```bash
 python gan.py test 
 ```
-## Results
+### Results
 The obtained result:
 <p align="center">
   <img src="/assets/gan_mnist.gif">
