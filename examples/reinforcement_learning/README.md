@@ -64,7 +64,9 @@ where
 ## GORILA
 GOogle ReInforcement Learning Architecture (GORILA) is parallelized DQN architecture. 
 
-## [Dueling Network](/examples/reinforcement_learning/mountain_car)
+## Dueling Network
+[[paper]](https://arxiv.org/pdf/1511.06581.pdf) [[example]](/examples/reinforcement_learning/mountain_car)
+
 The information within a Q function can be divided into two: a part determined mostly by state; and a part influenced by an action choosed. Dueling network separates the Q function into Value, a part that is determined by state, and Advantage, a part that is influenced by the action. This enables the model to learn the parameters that is related to Value every step regardless of action choosed, i.e. the model can learn faster than DQN.
 
 <p align="center">
