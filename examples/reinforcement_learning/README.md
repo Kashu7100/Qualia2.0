@@ -105,6 +105,8 @@ Multi-step learning combines Q-learning and Montecarlo to improve the estimation
 The parameter n is very sensitive but for the Atari games, n=3 is seid to be good.
 
 ### Distributional RL
+[[paper]](https://arxiv.org/pdf/1707.06887.pdf)
+
 This is also the way to improve the estimation quality of the value. Distributional RL treats the reward as distribution whose mean and variance will reflect the state and action instead of "expectation value," which is basically the average of every rewards.
 
 <p align="center">
@@ -114,6 +116,8 @@ This is also the way to improve the estimation quality of the value. Distributio
 </p>
 
 ### Noisy network
+[[paper]](https://arxiv.org/pdf/1706.10295.pdf)
+
 Noisy network improves the exploration efficiency by letting the model to learn the exploration rate for itself.
 
 <p align="center">
