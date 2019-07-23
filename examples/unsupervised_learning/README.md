@@ -1,5 +1,7 @@
 # Generative adversarial networks
-## [GAN](/examples/unsupervised_learning/mnist)
+## GAN
+[[example]](/examples/unsupervised_learning/mnist)
+
 GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 2014. GANs can create new data by competing two neural networks: *generator* <a href="https://www.codecogs.com/eqnedit.php?latex=G:&space;Z\rightarrow&space;X" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G:&space;Z\rightarrow&space;X" title="G: Z\rightarrow X" /></a> and *discriminator* <a href="https://www.codecogs.com/eqnedit.php?latex=D:&space;X\rightarrow&space;\mathbb{R}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D:&space;X\rightarrow&space;\mathbb{R}" title="D: X\rightarrow \mathbb{R}" /></a>. 
 
 <p align="center">
