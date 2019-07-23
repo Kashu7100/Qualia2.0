@@ -51,6 +51,8 @@ When the series of inputs which have strong correlation are used to train a netw
 </p>
 
 ## DDQN
+[[paper]](https://arxiv.org/pdf/1509.06461.pdf)
+
 The idea of Double Q-learning is to reduce overestimations by decomposing the max operation in the target into action selection and action evaluation.
 
 <p align="center">
@@ -62,6 +64,8 @@ where
 </p>
 
 ## GORILA
+[[paper]](https://arxiv.org/pdf/1507.04296.pdf)
+
 GOogle ReInforcement Learning Architecture (GORILA) is parallelized DQN architecture. 
 
 ## Dueling Network
