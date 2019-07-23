@@ -96,6 +96,7 @@ The estimation of the expected value with stochastic updates relies on those upd
 These weights can be folded into the Q-learning update by using <a href="https://www.codecogs.com/eqnedit.php?latex=w_i\delta_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_i\delta_i" title="w_i\delta_i" /></a> instead of <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_i" title="\delta_i" /></a>.
 
 ### Multi-step learning
+Multi-step learning combines Q-learning and Montecarlo to improve the estimation quality of the value. It takes the future n-steps rewards and the value at n-steps to calculate the <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a>.     
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\delta&space;=&space;\sum_{i=0}^{n-1}(\gamma^iR_{t&plus;i&plus;1})&plus;\gamma^n\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;n},a')-Q(S_t,A_t)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta&space;=&space;\sum_{i=0}^{n-1}(\gamma^iR_{t&plus;i&plus;1})&plus;\gamma^n\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;n},a')-Q(S_t,A_t)" title="\delta = \sum_{i=0}^{n-1}(\gamma^iR_{t+i+1})+\gamma^n\underset{a'\in A}{max}\: Q(S_{t+n},a')-Q(S_t,A_t)" /></a>
@@ -104,6 +105,13 @@ These weights can be folded into the Q-learning update by using <a href="https:/
 The parameter n is very sensitive but for the Atari games, n=3 is seid to be good.
 
 ### Distributional RL
+This is also the way to improve the estimation quality of the value. Distributional RL treats the reward as distribution whose mean and variance will reflect the state and action instead of "expectation value," which is basically the average of every rewards.
+
+<p align="center">
+  <img src="/assets/distributional_rl.png"/>
+  <br>
+  <b> Fig.2: </b> Agent differentiates action-value distributions under pressure.
+</p>
 
 ### Noisy network
 Noisy network improves the exploration efficiency by letting the model to learn the exploration rate for itself.
