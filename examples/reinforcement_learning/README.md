@@ -110,7 +110,7 @@ This is also the way to improve the estimation quality of the value. Distributio
 <p align="center">
   <img src="/assets/distributional_rl.png"/>
   <br>
-  <b> Fig.2: </b> Agent differentiates action-value distributions under pressure.
+  <b> Fig.3: </b> Agent differentiates action-value distributions under pressure.
 </p>
 
 ### Noisy network
