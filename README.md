@@ -99,3 +99,6 @@ BibTex
 
 ## License
 Source codes in the repository follows [MIT](http://www.opensource.org/licenses/MIT) license.
+
+## References
+References are listed in [wiki](https://github.com/Kashu7100/Qualia2.0/wiki/References-(Editing...))
