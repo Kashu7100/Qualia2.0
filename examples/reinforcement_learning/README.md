@@ -5,6 +5,8 @@
 </p>
 
 # Value Based
+The value iteration algorithm tries to find an optimal policy by finding the optimal value function.
+
 ## SARSA
 Sarsa updates the action value according to the following equation:
 <p align="center">
@@ -125,6 +127,8 @@ Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and acto
 Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function.
 
 # Policy Based
+The policy iteration algorithm manipulates the policy directly, rather than finding it indirectly via the optimal value function.
+
 ## TRPO
 Trust Region Policy Optimization (TRPO)
 
