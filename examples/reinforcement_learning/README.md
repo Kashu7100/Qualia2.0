@@ -23,7 +23,9 @@ Q-learning updates the action value according to the following equation:
 When the learning converges, the second term of the equation above approaches to zero.
 Note that when the policy that never takes some of the pairs of state and action, the action value function for the pair will never be learned, and learning will not properly converge. 
 
-## [DQN](/examples/reinforcement_learning/inverted_pendulum)
+## DQN
+[[paper]](https://www.nature.com/articles/nature14236) [[example]](/examples/reinforcement_learning/inverted_pendulum)
+
 DQN is Q-Learning with a deep neural network as a Q function approximator. DQN learns to minimize the TD error with some evaluation function <a href="https://www.codecogs.com/eqnedit.php?latex=J" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J" title="J" /></a>. 
 
 <p align="center">
