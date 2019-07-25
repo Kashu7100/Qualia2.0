@@ -14,6 +14,17 @@ GANs - Generative Adversarial networks - were introduced by Ian Goodfellow in 20
 <a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z)))\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z)))\}" title="\underset{G}{min}\: \underset{D}{max} \: V_D(D,G)=\mathbb{E}_{x\sim P(x)}\{log(D(x)))\}+\mathbb{E}_{z\sim P(z)}\{log(1-D(G(z)))\}" /></a>
 </p>
 
+## Conditional GAN
+[[paper]](https://arxiv.org/pdf/1411.1784)
+
+GANs or DCGAN could not specify the class when generating image, since the generator totally depends on the random noise. In conditional GAN, generator gets noise as well as a label as an input; the desired output is to be the one corresponds to the label.  Also, discriminator gets the label along the real or generated image.
+
+<p align="center">
+  <img src="/assets/conditional_gan.PNG"/>
+  <br>
+  <b> Fig.3: </b> Conditional GAN architecture
+</p>
+
 ## DCGAN
 [[paper]](https://arxiv.org/pdf/1511.06434.pdf)
 
@@ -36,17 +47,6 @@ GANs had problem that learning is unstable. LSGAN - Least Square GANs, which emp
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{(D(G(z))-1)^2&space;\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{(D(G(z))-1)^2&space;\}" title="\underset{G}{min}\: V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim P(z)}\{(D(G(z))-1)^2 \}" /></a>
-</p>
-
-## Conditional GAN
-[[paper]](https://arxiv.org/pdf/1411.1784)
-
-GANs or DCGAN could not specify the class when generating image, since the generator totally depends on the random noise. In conditional GAN, generator gets noise as well as a label as an input; the desired output is to be the one corresponds to the label.  Also, discriminator gets the label along the real or generated image.
-
-<p align="center">
-  <img src="/assets/conditional_gan.PNG"/>
-  <br>
-  <b> Fig.3: </b> Conditional GAN architecture
 </p>
 
 # Dimentionality reduction
