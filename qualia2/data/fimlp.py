@@ -50,16 +50,14 @@ class FIMLP(DataLoader):
     def __init__(self, normalize=True, flatten=False):
         super().__init__() 
         path = os.path.dirname(os.path.abspath(__file__)) 
-        self.divide = 6049
+        self.divide = 6000
 
         print('[*] preparing data...')
         if not os.path.exists(path + '/download/fimlp/'): 
             print('    this might take few minutes.') 
             self.download(path+'/download/')
-        self.train_data = self._load_data(path+ '/download/fimlp/', 'train')
-        self.train_label = self._load_label(path+ '/download/fimlp/', 'train')
-        self.test_data = self._load_data(path+ '/download/fimlp/', 'test')
-        self.test_label = self._load_label(path+ '/download/fimlp/', 'test')
+        self.train_label, self.test_label = self._load_label(path+ '/download/fimlp/')
+        self.train_data, self.test_data = self._load_data(path+ '/download/fimlp/')
         print('[*] done.')
 
         if normalize: 
@@ -74,35 +72,31 @@ class FIMLP(DataLoader):
         kaggle.api.authenticate()
         kaggle.api.dataset_download_files('drgilermo/face-images-with-marked-landmark-points', path=path+'fimlp', unzip=True)
     
-    def _load_data(self, path, type):
+    def _load_data(self, path):
         if gpu:
             import numpy
             data = np.asarray(numpy.moveaxis(numpy.load(path+'face_images.npz', 'r')['face_images'], -1, 0))
         else:
             data = np.moveaxis(np.load(path+'face_images.npz', 'r')['face_images'], -1, 0) 
-        if type == 'train':
-            return data[:self.divide].reshape(-1,1,96,96)
-        elif type == 'test':
-            return data[self.divide:].reshape(-1,1,96,96)
-        else:
-            raise KeyError
+        data = data[self.data_mask]
+        
+        return data[:self.divide].reshape(-1,1,96,96), data[self.divide:].reshape(-1,1,96,96)
 
-    def _load_label(self, path, type):
+    def _load_label(self, path):
         import numpy
         data = numpy.genfromtxt(path+'facial_keypoints.csv', delimiter=',', filling_values=0)[1:]
         if gpu:
             data = np.asarray(data)
+        
         # select x and y of the eyes center, nose tip and mouth center
         label = np.zeros((7049,8))
         label[:,0:4] = data[:,0:4]
         label[:,4:6] = data[:,20:22]
         label[:,6:8] = data[:,28:]
-        if type == 'train':
-            return label[:self.divide]/96.0
-        elif type == 'test':
-            return label[self.divide:]/96.0
-        else:
-            raise KeyError
+        self.data_mask = np.all(label>0, axis=1)
+        label = label[self.data_mask]
+
+        return label[:self.divide]/96.0, label[self.divide:]/96.0
 
     def show(self):
         import random
