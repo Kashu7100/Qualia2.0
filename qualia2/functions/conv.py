@@ -274,17 +274,17 @@ class ConvTranspose1d(Function):
         oh = int((height-1)*stride-2*padding+dilation*(kernel_height-1)+1)
 
         offset_h = dilation*(kernel_height-1)+1-padding
-        padded = np.zeros((batch, channel, (height-1)*stride1-1+offset_h*2))
+        padded = np.zeros((batch, channel, (height-1)*stride-1+offset_h*2))
         padded[:,:,offset_h-1:(height-1)*stride+offset_h][:,:, ::stride] = x.data
         reshaped = Conv1d.unfold(padded, batch, oh, kernel.shape, 1, dilation)
         if bias is None: 
-            tmp = np.tensordot(reshaped, kernel.data, ((2,3),(0,2))).transpose(0,2,1).reshape(-1,patch,oh)
+            tmp = np.tensordot(reshaped, np.rot90(kernel.data, 2, axes=(1,2)), ((2,3),(0,2))).transpose(0,2,1).reshape(-1,patch,oh)
             out = np.zeros((batch, patch, oh+2*output_padding))
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias=False, oh=oh, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
         else:
-            tmp = np.add(np.tensordot(reshaped, kernel.data, ((2,3),(1,2))).transpose(0,2,1).reshape(-1,patch,oh), np.reshape(bias.data, (1,-1,1)))
+            tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data, 2, axes=(1,2)), ((2,3),(1,2))).transpose(0,2,1).reshape(-1,patch,oh), np.reshape(bias.data, (1,-1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding))
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
@@ -294,9 +294,10 @@ class ConvTranspose1d(Function):
     def calc_grad(self, dx):
         batch, patch, _ = dx.shape 
         dx = dx[:,:,self.kwargs['output_padding']:self.kwargs['oh']+self.kwargs['output_padding']]
-        delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.var[1].data, (1,1))
+        delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), np.rot90(self.var[1].data, 2, axes=(1,2)), (1,1))
         delta = Conv1d.fold(delta, self.kwargs['oh'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], 1, self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
+        dk = np.rot90(dk, 2, axes=(1,2))
         if not self.kwargs['bias']:
             return delta, dk
         else:
