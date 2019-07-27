@@ -163,7 +163,7 @@ class ConvTranspose1d(Module):
         self.out_channels = out_channels
         self.kernel_size = _single(kernel_size)
         self.num_params += out_channels*in_channels*self.kernel_size
-        self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, self.kernel_size))) 
+        self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(in_channels, out_channels, self.kernel_size))) 
         if bias: 
             self.bias = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),out_channels))
             self.num_params += out_channels
@@ -210,7 +210,7 @@ class ConvTranspose2d(Module):
         self.out_channels = out_channels
         self.kernel_size = _pair(kernel_size)
         self.num_params += out_channels*in_channels*_mul(*self.kernel_size)
-        self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, *self.kernel_size))) 
+        self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(in_channels, out_channels, *self.kernel_size)))
         if bias: 
             self.bias = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),out_channels))
             self.num_params += out_channels
@@ -254,7 +254,7 @@ class ConvTranspose3d(Module):
         self.out_channels = out_channels
         self.kernel_size = _triple(kernel_size)
         self.num_params += out_channels*in_channels*_mul(*self.kernel_size)
-        self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(out_channels, in_channels, *self.kernel_size))) 
+        self.kernel = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),(in_channels, out_channels, *self.kernel_size))) 
         if bias: 
             self.bias = Tensor(np.random.uniform(-math.sqrt(out_channels/self.num_params),math.sqrt(out_channels/self.num_params),out_channels))
             self.num_params += out_channels
