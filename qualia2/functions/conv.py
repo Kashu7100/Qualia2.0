@@ -284,7 +284,7 @@ class ConvTranspose1d(Function):
             result = Tensor(out) 
             result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias=False, oh=oh, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
         else:
-            tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data, 2, axes=(1,2)), ((2,3),(1,2))).transpose(0,2,1).reshape(-1,patch,oh), np.reshape(bias.data, (1,-1,1)))
+            tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data, 2, axes=(1,2)), ((2,3),(0,2))).transpose(0,2,1).reshape(-1,patch,oh), np.reshape(bias.data, (1,-1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding))
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
@@ -348,7 +348,7 @@ class ConvTranspose2d(Function):
             result = Tensor(out) 
             result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
         else:
-            tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data ,2, axes=(2,3)), ((2,3,4),(1,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow), np.reshape(bias.data, (1,-1,1,1)))
+            tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data ,2, axes=(2,3)), ((2,3,4),(0,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow), np.reshape(bias.data, (1,-1,1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1]] = tmp
             result = Tensor(out) 
