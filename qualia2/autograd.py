@@ -81,7 +81,7 @@ class Tensor(object):
     def detach(self):
         '''Returns a new Tensor, detached from the current graph.
         '''
-        return Tensor(self.data, requires_grad=False)
+        return Tensor(self.data, dtype=self.dtype)
     
     def clamp(self, low, high):
         return Clamp.forward(self, low, high)
