@@ -297,7 +297,7 @@ class ConvTranspose1d(Function):
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), np.rot90(self.var[1].data, 2, axes=(1,2)), (1,1))
         delta = Conv1d.fold(delta, self.kwargs['oh'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], 1, self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
-        dk = np.rot90(dk, 2, axes=(1,2))
+        dk = np.rot90(dk, 2, axes=(1,2)).transpose(1,0,2)
         if not self.kwargs['bias']:
             return delta, dk
         else:
@@ -361,7 +361,7 @@ class ConvTranspose2d(Function):
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), np.rot90(self.var[1].data ,2, axes=(2,3)), (1,1))
         delta = Conv2d.fold(delta, self.kwargs['oh'], self.kwargs['ow'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], (1,1), self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
-        dk = np.rot90(dk ,2, axes=(2,3))
+        dk = np.rot90(dk ,2, axes=(2,3)).transpose(1,0,2,3)
         if not self.kwargs['bias']:
             return delta, dk
         else:
@@ -428,7 +428,7 @@ class ConvTranspose3d(Function):
         delta = np.tensordot(np.reshape(dx,(batch,patch,-1)), np.rot90(self.var[1].data.reshape(*self.var[1].shape[:-2],-1), k=2, axes=(2,3)).reshape(*self.var[1].shape), (1,1))
         delta = Conv3d.fold(delta, self.kwargs['oh'], self.kwargs['ow'], self.kwargs['od'], self.var[0].shape, self.var[1].shape, self.kwargs['padded_shape'], (1,1,1), self.kwargs['dilation'])
         dk = np.tensordot(np.reshape(dx,(batch,patch,-1)), self.kwargs['reshaped'], ((0,2),(0,1))) 
-        dk = np.rot90(dk.reshape(*dk.shape[:-2],-1), k=2, axes=(2,3)).reshape(*dk.shape)
+        dk = np.rot90(dk.reshape(*dk.shape[:-2],-1), k=2, axes=(2,3)).reshape(*dk.shape).transpose(1,0,2,3,4)
         if not self.kwargs['bias']:
             return delta, dk
         else:
