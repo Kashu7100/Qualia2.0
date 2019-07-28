@@ -9,7 +9,8 @@ requires = ['numpy',
 
 envs = ['gym',
         'atari-py',
-        'box2d-py'
+        'box2d-py',
+        'roboschool'
        ]
 
 datasets = ['kaggle',
