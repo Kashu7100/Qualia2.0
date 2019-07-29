@@ -25,6 +25,9 @@ class Module(object):
             for i, (name, module) in enumerate(self._modules.items()):
                 print('    [{}] {}: {}'.format(i, name, repr(module)))
         return ') at 0x{:0{}X}'.format(id(self), 16)
+    
+    def __str__(self):
+        return self.__class__.__name__
 
     def summary(self, input_shape, *args):
         logger.info('-'*76)
