@@ -13,6 +13,9 @@ class DataLoader(object):
 
     def __repr__(self):
         print('{}'.format(self.__class__.__name__))
+        
+    def __str__(self):
+        return self.__class__.__name__
     
     def __len__(self):
         if self.training:
