@@ -10,6 +10,7 @@ requires = ['numpy',
 envs = ['gym',
         'atari-py',
         'box2d-py',
+        'pybullet',
         'roboschool'
        ]
 
