@@ -49,6 +49,11 @@ GANs had problem that learning is unstable. LSGAN - Least Square GANs, which emp
 <a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{(D(G(z))-1)^2&space;\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim&space;P(z)}\{(D(G(z))-1)^2&space;\}" title="\underset{G}{min}\: V_G(D,G)=\frac{1}{2}\mathbb{E}_{z\sim P(z)}\{(D(G(z))-1)^2 \}" /></a>
 </p>
 
+## CycleGAN
+[[paper]](https://arxiv.org/pdf/1703.10593.pdf)
+
+Image-to-image translation is a class of vision and graphics problems where the goal is to learn the mapping between an input image and an output image using a training set of aligned image pairs.
+
 # Dimentionality reduction
 
 # Autoencoders
