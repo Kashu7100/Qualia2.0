@@ -28,3 +28,7 @@ python gru.py test
 <p align="center">
   <img src="/assets/mnist_gru_loss.png">
 </p>
+
+```bash
+[*] test acc: 99.06%
+```
