@@ -25,3 +25,4 @@ python gru.py test
 ```bash
 [*] test acc: 89.33%
 ```
+* Note that the same model can achieve 99% test accuracy on MNIST dataset.
