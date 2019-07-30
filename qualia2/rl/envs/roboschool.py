@@ -27,25 +27,56 @@ class RoboSchoolBase(Env):
             raise Exception('[*] Exception occurred during the Env.show() process.')
 
 class RoboschoolAnt(RoboSchoolBase):
+    ''' RoboschoolAnt \n
+    Observation:
+        Type: Box(28,)
+    
+    Actions:
+        Type: Box(8,)
+    '''
     def __init__(self):
         super().__init__('RoboschoolAnt-v1')
 
-#class RoboschoolAtlasForwardWalk(RoboSchoolBase):
-#    def __init__(self):
-#        super().__init__('RoboschoolAtlasForwardWalk-v1')
-
 class RoboschoolHalfCheetah(RoboSchoolBase):
+    ''' RoboschoolHalfCheetah \n
+    Observation:
+        Type: Box(26,)
+    
+    Actions:
+        Type: Box(6,)    
+    '''
     def __init__(self):
         super().__init__('RoboschoolHalfCheetah-v1')
 
 class RoboschoolHumanoid(RoboSchoolBase):
+    ''' RoboschoolHumanoid \n
+    Observation:
+        Type: Box(44,)
+    
+    Actions:
+        Type: Box(17,)    
+    '''
     def __init__(self):
         super().__init__('RoboschoolHumanoid-v1')
 
 class RoboschoolWalker2d(RoboSchoolBase):
+    ''' RoboschoolHumanoid \n
+    Observation:
+        Type: Box(22,)
+    
+    Actions:
+        Type: Box(6,)    
+    '''
     def __init__(self):
         super().__init__('RoboschoolWalker2d-v1')        
 
 class RoboschoolHopper(RoboSchoolBase):
+    ''' RoboschoolHumanoid \n
+    Observation:
+        Type: Box(15,)
+    
+    Actions:
+        Type: Box(3,)    
+    '''
     def __init__(self):
         super().__init__('RoboschoolHopper-v1')     
