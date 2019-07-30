@@ -13,5 +13,18 @@ The GRU model takes rows of the image as shown assuming the hidden state of GRU 
 </p>
 
 ### Usage
+Following are the commands used to train and test the model:
 
+To train the model:
+```bash
+python gru.py train --itr 100 --batch 100
+```
+
+To run with pre-trained weights:
+```bash
+python gru.py test 
+```
 ### Results
+<p align="center">
+  <img src="/assets/mnist_gru_loss.png">
+</p>
