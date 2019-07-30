@@ -17,7 +17,7 @@ Following are the commands used to train and test the model:
 
 To train the model:
 ```bash
-python gru.py train --itr 100 --batch 100
+python gru.py train --itr 20 --batch 100
 ```
 
 To run with pre-trained weights:
