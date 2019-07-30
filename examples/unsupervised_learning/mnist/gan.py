@@ -131,5 +131,5 @@ if __name__ == '__main__':
         
         check_noise = qualia2.randn(batch, z_dim)
         g = Generator()
-        g.load(path+'/g')  
+        g.load(path+'/weights/gan_g')  
         savefig(g, check_noise, path+'/gan.png')
