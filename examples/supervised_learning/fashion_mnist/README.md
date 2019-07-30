@@ -10,7 +10,7 @@ Following are the commands used to train and test the model:
 
 To train the model:
 ```bash
-python gru.py train --itr 200 --batch 100
+python gru.py train --itr 100 --batch 100
 ```
 
 To run with pre-trained weights:
@@ -22,3 +22,7 @@ Loss plot:
 <p align="center">
   <img src="/assets/fashion_mnist_gru_loss.png">
 </p>
+
+```bash
+[*] test acc: 89.33%
+```
