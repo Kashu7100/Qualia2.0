@@ -18,7 +18,6 @@ To run with pre-trained weights:
 python gru.py test 
 ```
 ### Results
-Loss plot:
 <p align="center">
   <img src="/assets/fashion_mnist_gru_loss.png">
 </p>
