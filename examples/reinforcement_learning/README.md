@@ -142,6 +142,11 @@ Note that when <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma=0" tar
 
 A2C stands for Advantage Actor-Critic. 
 
+## HAC
+[[paper]](https://arxiv.org/pdf/1712.00948.pdf)
+
+Hierarchical Actor Critic (HAC) learns to reach a goal state by dividing the task into short horizon intermediate goals (subgoals).
+
 ## DDPG
 Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and actor-critic algorithm. 
 
