@@ -60,6 +60,13 @@ class Tensor(object):
             return np.asnumpy(self.data)
         else:
             return self.data
+        
+    def gradasnumpy(self):
+        assert self.grad is not None
+        if gpu:
+            return np.asnumpy(self.grad)
+        else:
+            return self.grad
     
     def fill(self, val):
         self.data.fill(val)
