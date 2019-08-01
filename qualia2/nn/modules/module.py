@@ -81,146 +81,115 @@ class Module(object):
             fn(self)
         else:
             for _, module in self._modules.items():
-                fn(module)
+                module.apply(fn)
 
     def modules(self):
         if not self._modules: 
-            raise Exception('No module found inside {} at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16))
+            yield self
         else:
             for _, module in self._modules.items(): 
-                yield module 
+                for var in module.modules():
+                    yield var
 
     def params(self): 
-        if not self._modules: 
-            for _, var in self._params.items(): 
-                if type(var) is list:
-                    for i in var:
-                        yield i
-                else:
-                    yield var 
-        else:
+        if self._modules:
             for _, module in self._modules.items(): 
-                for _, var in module._params.items(): 
-                    if type(var) is list:
-                        for i in var:
-                            yield i
-                    else:
-                        yield var 
-     
+                for var in module.params():
+                    yield var
+        for _, var in self._params.items(): 
+            if type(var) is list:
+                for i in var:
+                    yield i
+            else:
+                yield var 
+
     def zero_grad(self): 
-        if not self._modules: 
-            for _, var in self._params.items(): 
-                if type(var) is list:
-                    for i in var:
-                        i.grad = None 
-                else:
-                    var.grad = None
-        else: 
+        if self._modules:
             for _, module in self._modules.items(): 
-                for _, var in module._params.items(): 
-                    if type(var) is list:
-                        for i in var:
-                            i.grad = None 
-                    else:
-                        var.grad = None
+                module.zero_grad()
+        for _, var in self._params.items(): 
+            if type(var) is list:
+                for i in var:
+                    i.grad = None 
+            else:
+                var.grad = None
     
     def eval(self):
-        self.training = False
         if self._modules:
             for _, module in self._modules.items():
-                module.training = False
+                module.eval()
+        self.training = False
     
     def train(self):
-        self.training = True
         if self._modules:
             for _, module in self._modules.items():
-                module.training = True
+                module.train()
+        self.training = True
 
     def state_dict(self):
         '''Returns a dictionary containing a whole state of the module.\n
         '''
-        if not self._modules:
-            return self._params
-        else: 
-            return self._modules
+        return OrderedDict(chain(self._modules.items(),self._params.items()))
     
     def load_state_dict(self, state_dict):
         '''Copies parameters from state_dict into this module.\n
         '''
-        if not self._modules: 
-            for key, value in state_dict.items(): 
-                if type(value) is list:
-                    for i, val in enumerate(value):
-                        self._params[key][int(i)].data = val.data
-                else:
-                    self._params[key].data = value.data
-        else: 
-            for name, module in state_dict.items(): 
-                for key, value in module._params.items(): 
-                    if type(value) is list:
-                        for i, val in enumerate(value):
-                            self._modules[name]._params[key][int(i)].data = val.data
+        if self._modules: 
+            for name, module in self._modules.items():
+                module.load_state_dict(state_dict[name].state_dict())
+        for key, value in self._params.items(): 
+            if type(value) is list:
+                for i, val in enumerate(value):
+                    self._params[key][int(i)].data = state_dict[key][int(i)].data
+            else:
+                self._params[key].data = state_dict[key].data
+    
+    def __save__(self, h5file):
+        if self._modules: 
+            for name, module in self._modules.items(): 
+                grp = h5file.create_group(str(name))
+                module.__save__(grp)
+        for key, value in self._params.items(): 
+            if type(value) is list:
+                grp = h5file.create_group(str(key)) 
+                for i, val in enumerate(value):
+                    if gpu:
+                        grp.create_dataset(str(i), dtype='f8', data=to_cpu(val.data)) 
                     else:
-                        self._modules[name]._params[key].data = value.data
+                        grp.create_dataset(str(i), dtype='f8', data=val.data) 
+            else:
+                if gpu:
+                    h5file.create_dataset(str(key), dtype='f8', data=to_cpu(value.data)) 
+                else:
+                    h5file.create_dataset(str(key), dtype='f8', data=value.data)
 
-    def save(self, filename, dtype='float64'): 
+
+    def save(self, filename): 
         '''Saves internal parameters of the Module in HDF5 format.\n 
         Args: 
             filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename 
         ''' 
         with h5.File(filename + '.hdf5', 'w') as file: 
-            if not self._modules:
-                for key, value in self._params.items():
-                    if type(value) is list:
-                        grp = file.create_group(str(key)) 
-                        for i, val in enumerate(value):
-                            if gpu:
-                                grp.create_dataset(str(i), dtype=dtype, data=to_cpu(val.data)) 
-                            else:
-                                grp.create_dataset(str(i), dtype=dtype, data=val.data) 
-                    else:
-                        if gpu:
-                            file.create_dataset(str(key), dtype=dtype, data=to_cpu(value.data)) 
-                        else:
-                            file.create_dataset(str(key), dtype=dtype, data=value.data) 
-            else: 
-                for name, module in self._modules.items(): 
-                    grp = file.create_group(str(name)) 
-                    for key, value in module._params.items(): 
-                        if type(value) is list:
-                            subgrp = grp.create_group(str(key)) 
-                            for i, val in enumerate(value):
-                                if gpu:
-                                    subgrp.create_dataset(str(i), dtype=dtype, data=to_cpu(val.data)) 
-                                else:
-                                    subgrp.create_dataset(str(i), dtype=dtype, data=val.data) 
-                        else:
-                            if gpu:
-                                grp.create_dataset(str(key), dtype=dtype, data=to_cpu(value.data)) 
-                            else:
-                                grp.create_dataset(str(key), dtype=dtype, data=value.data) 
-     
+            self.__save__(file)             
+
+    def __load__(self, h5file):
+        if self._modules: 
+            for name, module in self._modules.items():
+                module.__load__(h5file[name])
+        for key, value in self._params.items(): 
+            if type(value) is list:
+                for i, val in enumerate(value):
+                    self._params[key][int(i)].data = np.array(h5file[key][str(i)])
+            else:
+                self._params[key].data = np.array(h5file[key])
+        
     def load(self, filename): 
         '''Loads parameters saved in HDF5 format to the Module.\n 
         Args: 
             filename (str): specify the filename as well as the path to the file without the file extension. (ex) path/to/filename 
         ''' 
         with h5.File(filename + '.hdf5', 'r') as file: 
-            if not self._modules: 
-                for key in file: 
-                    if isinstance(file[key], h5.Group):
-                        for i in file[key]:
-                            self._params[key][int(i)].data = np.array(file[key][i])
-                    else:
-                        self._params[key].data = np.array(file[key]) 
-            else: 
-                for module in file: 
-                    for key in file[module]: 
-                        if isinstance(file[module][key], h5.Group):
-                            for i in file[module][key]:
-                                self._modules[module]._params[key][int(i)].data = np.array(file[module][key][i])
-                        else:
-                            self._modules[module]._params[key].data = np.array(file[module][key])
+            self.__load__(file)  
 
 class Sequential(Module): 
     r'''A sequential container.\n 
