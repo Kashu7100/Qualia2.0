@@ -44,7 +44,7 @@ class RNN(Module):
             self.bias_h = None  
     
     def __repr__(self):
-        return '{}({}, {}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, self.num_layers, str(self.bias_x is not None), id(self), 16)
+        return '{}({}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, self.num_layers, str(self.bias_x is not None), id(self), 16)
 
     def forward(self, x, h0):
         result, hn = rnn(x, h0, self.weight_x, self.weight_h, self.bias_x, self.bias_h, self.num_layers)
@@ -82,7 +82,7 @@ class RNNCell(Module):
             self.bias_h = None
 
     def __repr__(self):
-        return '{}({}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, str(self.bias_x is not None), id(self), 16)
+        return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, str(self.bias_x is not None), id(self), 16)
  
     def forward(self, x, h):
         result = rnncell(x, h, self.weight_x, self.weight_h, self.bias_x, self.bias_h)
@@ -131,7 +131,7 @@ class GRU(Module):
             self.bias_h = None  
     
     def __repr__(self):
-        return '{}({}, {}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, self.num_layers, str(self.bias_x is not None), id(self), 16)
+        return '{}({}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, self.num_layers, str(self.bias_x is not None), id(self), 16)
 
     def forward(self, x, h0):
         result, hn = gru(x, h0, self.weight_x, self.weight_h, self.bias_x, self.bias_h, self.num_layers)
@@ -169,7 +169,7 @@ class GRUCell(Module):
             self.bias_h = None
     
     def __repr__(self):
-        return '{}({}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, str(self.bias_x is not None), id(self), 16)
+        return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.input_size, self.hidden_size, str(self.bias_x is not None), id(self), 16)
 
     def forward(self, x, h):
         result = grucell(x, h, self.weight_x, self.weight_h, self.bias_x, self.bias_h)
