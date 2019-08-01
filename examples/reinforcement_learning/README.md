@@ -138,6 +138,8 @@ Note that when <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma=0" tar
 ## A3C
 
 ## A2C
+[[paper]](https://arxiv.org/pdf/1602.01783v1.pdf)
+
 A2C stands for Advantage Actor-Critic. 
 
 ## DDPG
@@ -155,7 +157,11 @@ The policy iteration algorithm manipulates the policy directly, rather than find
 Trust Region Policy Optimization (TRPO)
 
 ## PPO
+[[paper]](https://arxiv.org/pdf/1707.06347.pdf)
+
 Proximal Policy Optimization (PPO) is a policy gradient based method. 
 
 ## ACKTR
+[[paper]](https://arxiv.org/pdf/1708.05144.pdf)
+
 Actor-Critic using Kronecker-Factored Trust Region (ACKTR) is a policy gradient method with the trust region optimization, which will reduce the complexity closer to a first-order optimization like the Gradient Descent. 
