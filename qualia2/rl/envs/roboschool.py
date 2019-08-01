@@ -9,7 +9,6 @@ class RoboSchoolBase(Env):
     def show(self, filename=None):
         frames = []
         try:
-            #self.env.render()
             self.env.reset()
             while True:
                 _, _, done, _ = self.env.step(self.env.action_space.sample())
