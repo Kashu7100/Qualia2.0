@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import os
 import tarfile
 
-class CIFAR10(DataLoader):
+class CIFAR10(ImageLoader):
     '''CIFAR10 Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -84,7 +84,7 @@ class CIFAR10(DataLoader):
                 plt.imshow(to_cpu(img) if gpu else img, interpolation='nearest') 
         plt.show()        
 
-class CIFAR100(DataLoader):
+class CIFAR100(ImageLoader):
     '''CIFAR100 Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
