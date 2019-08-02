@@ -158,6 +158,8 @@ A2C stands for Advantage Actor-Critic.
 Hierarchical Actor Critic (HAC) learns to reach a goal state by dividing the task into short horizon intermediate goals (subgoals).
 
 ## DDPG
+[[paper]](https://arxiv.org/pdf/1509.02971.pdf)
+
 Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and actor-critic algorithm. 
 
 ## TD3
@@ -169,6 +171,8 @@ Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparamet
 The policy iteration algorithm manipulates the policy directly, rather than finding it indirectly via the optimal value function.
 
 ## TRPO
+[[paper]](https://arxiv.org/pdf/1502.05477.pdf)
+
 Trust Region Policy Optimization (TRPO)
 
 ## PPO
