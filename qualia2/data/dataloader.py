@@ -84,6 +84,11 @@ class DataLoader(object):
             return np.argmax(label, axis=1)
         
 class ImageLoader(DataLoader):
+    @property
+    def shape(self):
+        assert self.train_data is not None
+        return self.train_data[0].shape
+    
     @staticmethod
     def horizontal_flip(image):
         image = image[:, :, :, ::-1]
