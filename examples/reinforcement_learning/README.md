@@ -150,7 +150,7 @@ Note that when <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma=0" tar
 ## A2C
 [[paper]](https://arxiv.org/pdf/1602.01783v1.pdf)
 
-A2C stands for Advantage Actor-Critic. 
+Advantage Actor-Critic (A2C) is a synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A3C). It uses multiple workers to avoid the use of a replay buffer.
 
 ## HAC
 [[paper]](https://arxiv.org/pdf/1712.00948.pdf)
@@ -165,7 +165,13 @@ Deep Deterministic Policy Gradient (DDPG) is an off-policy, model-free, and acto
 ## TD3
 [[paper]](https://arxiv.org/pdf/1802.09477.pdf) [[example]](/examples/reinforcement_learning/bipedal_walker)
 
-Twin Delayed DDPG (TD3). DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function.
+DDPG is frequently brittle with respect to hyperparameters and tunings. A common failure mode for DDPG is that the learned Q-function begins to dramatically overestimate Q-values, which then leads to the policy breaking, exploiting the errors in the Q-function. Twin Delayed DDPG (TD3) is a direct successor of DDPG and improves it using three major tricks: clipped double Q-Learning, delayed policy update and target policy smoothing. 
+
+### Target policy smoothing
+Clipped noise will be added on each dimension of the action. After adding the clipped noise, the target action is then clipped to lie in the valid action range.
+
+
+### Clipped double-Q learning
 
 # Policy Based
 The policy iteration algorithm manipulates the policy directly, rather than finding it indirectly via the optimal value function.
