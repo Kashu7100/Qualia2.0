@@ -169,9 +169,17 @@ DDPG is frequently brittle with respect to hyperparameters and tunings. A common
 
 ### Target policy smoothing
 Clipped noise will be added on each dimension of the action. After adding the clipped noise, the target action is then clipped to lie in the valid action range.
-
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=A'_{t&plus;1}=clip(\pi_{\theta_t}(S_{t&plus;1})&plus;clip(\epsilon,-c,c),A_{low},A_{high}),\:&space;\:&space;\epsilon\sim&space;\mathit{N}(0,&space;\sigma)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?A'_{t&plus;1}=clip(\pi_{\theta_t}(S_{t&plus;1})&plus;clip(\epsilon,-c,c),A_{low},A_{high}),\:&space;\:&space;\epsilon\sim&space;\mathit{N}(0,&space;\sigma)" title="A'_{t+1}=clip(\pi_{\theta_t}(S_{t+1})+clip(\epsilon,-c,c),A_{low},A_{high}),\: \: \epsilon\sim \mathit{N}(0, \sigma)" /></a>
+</p>
 
 ### Clipped double-Q learning
+Both Q-functions use a single target, calculated using whichever of the two Q-functions gives a smaller target value. Use of the smaller Q-value for the target, and regressing towards that, helps to eliminate the overestimation in the Q-function. 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\mathit{target}&space;=&space;R_{t&plus;1}&plus;\gamma(1-d)\,&space;\underset{i=1,2}{min}\:&space;Q_{t_i}(S_{t&plus;1},&space;A'_{t&plus;1})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathit{target}&space;=&space;R_{t&plus;1}&plus;\gamma(1-d)\,&space;\underset{i=1,2}{min}\:&space;Q_{t_i}(S_{t&plus;1},&space;A'_{t&plus;1})" title="\mathit{target} = R_{t+1}+\gamma(1-d)\, \underset{i=1,2}{min}\: Q_{t_i}(S_{t+1}, A'_{t+1})" /></a>
+</p>
+
+Then the policy is learned just by maximizing <a href="https://www.codecogs.com/eqnedit.php?latex=Q_{t_1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q_{t_1}" title="Q_{t_1}" /></a>.
 
 # Policy Based
 The policy iteration algorithm manipulates the policy directly, rather than finding it indirectly via the optimal value function.
