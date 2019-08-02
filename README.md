@@ -77,7 +77,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 ## Examples
 Examples can be found [here](/examples).
 
-<img src="/assets/cartpole_dqn.gif" height="180"/><img src="/assets/mountaincar_duelingnet.gif" height="180"/><img src="/assets/bipedal_walker_td3.gif" height="180"/><img src="/assets/lunar_lander_cont_td3.gif" height="180"/>
+<img src="/assets/cartpole_dqn.gif" height="180"/><img src="/assets/mountaincar_duelingnet.gif" height="180"/><img src="/assets/bipedal_walker_td3.gif" height="180"/><img src="/assets/lunar_lander_cont_td3.gif" height="180"/><img src="/assets/roboschool_walker2d_td3.gif" height="180"/>
 <img src="/assets/gan_mnist.gif" height="200"/>
 
 ## Citation
