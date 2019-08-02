@@ -90,6 +90,12 @@ The information within a Q function can be divided into two: a part determined m
 
 Rainbow commbines DQN with six extensions (the number of colors in a rainbow!) that address the limitaions of the original DQN algorithm. The extensions are: 1.DQN, 2.DDQN, 3.Prioritized experience replay, 4.Dueling network, 5.Multi-step learning, 6.Distributional RL, and 7.Noisy network.
 
+<p align="center">
+  <img src="/assets/rainbow_comparison.png"/>
+  <br>
+  <b> Fig.3: </b> Median human-normalized performanceacross57 Atari games, as a function of time.
+</p>
+
 ### Prioritized experience replay
 Experience replay enabled the sampling independent from markov property. However, the sampling was done based on the uniform distribution, and importance of each sample was neglected. Prioritized experience replay resolves the problem by weighting each sample; <a href="https://www.codecogs.com/eqnedit.php?latex=i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?i" title="i" /></a>th sample has importance <a href="https://www.codecogs.com/eqnedit.php?latex=p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i" title="p_i" /></a> of <a href="https://www.codecogs.com/eqnedit.php?latex=p_i=|\delta_i|&plus;\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i=|\delta_i|&plus;\epsilon" title="p_i=|\delta_i|+\epsilon" /></a>. The sampling is done according to the importance as follows:   
 
@@ -122,7 +128,7 @@ This is also the way to improve the estimation quality of the value. Distributio
 <p align="center">
   <img src="/assets/distributional_rl.png"/>
   <br>
-  <b> Fig.3: </b> Agent differentiates action-value distributions under pressure.
+  <b> Fig.4: </b> Agent differentiates action-value distributions under pressure.
 </p>
 
 ### Noisy network
