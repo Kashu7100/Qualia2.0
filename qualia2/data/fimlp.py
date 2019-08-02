@@ -5,7 +5,7 @@ from .dataloader import DataLoader
 import matplotlib.pyplot as plt
 import os
 
-class FIMLP(DataLoader):
+class FIMLP(ImageLoader):
     '''FIMLP Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
