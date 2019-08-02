@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import os
 import gzip
 
-class FashionMNIST(DataLoader):
+class FashionMNIST(ImageLoader):
     '''FashionMNIST Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
