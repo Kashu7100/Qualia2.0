@@ -25,6 +25,10 @@ GANs or DCGAN could not specify the class when generating image, since the gener
   <b> Fig.3: </b> Conditional GAN architecture
 </p>
 
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x,l)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z,l)))\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x,l)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z,l)))\}" title="\underset{G}{min}\: \underset{D}{max} \: V_D(D,G)=\mathbb{E}_{x\sim P(x)}\{log(D(x,l)))\}+\mathbb{E}_{z\sim P(z)}\{log(1-D(G(z,l)))\}" /></a>
+</p>
+
 ## DCGAN
 [[paper]](https://arxiv.org/pdf/1511.06434.pdf)
 
