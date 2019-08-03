@@ -63,7 +63,7 @@ def progressbar(progress, process, text_before='', text_after=''):
 class Trainer(object):
     ''' Trainer base class\n
     '''
-    def __init__(self, batch, path):
+    def __init__(self, batch, path=None):
         self.batch = batch
         self.path = path
         self.losses = []
@@ -131,25 +131,30 @@ class Trainer(object):
             if len(loss) > 0:
                 self.losses.append(sum(loss)/len(loss))
             
-            if not os.path.exists(self.path + '/train/{}/{}/'.format(self.data_name,self.model_name)):
-                os.makedirs(self.path + '/train/{}/{}/'.format(self.data_name,self.model_name)) 
-            model.save(self.path+'/train/{}/{}/{}'.format(self.data_name,self.model_name,epoch)) 
+            if self.path is not None:
+                if not os.path.exists(self.path + '/train/{}/{}/'.format(self.data_name,self.model_name)):
+                    os.makedirs(self.path + '/train/{}/{}/'.format(self.data_name,self.model_name)) 
+                model.save(self.path+'/train/{}/{}/{}'.format(self.data_name,self.model_name,epoch)) 
                 
     def after_train(self):
         logger.info('[*] training completed.')
-        self.plot(self.path + '/train/{}/{}/train_curve.png'.format(self.data_name,self.model_name))
+        if self.path is None:
+            self.plot()
+        else:
+            self.plot(self.path + '/train/{}/{}/train_curve.png'.format(self.data_name,self.model_name))
 
-    def test(self, model, dataloader, batch, filename):
+    def test(self, model, dataloader, batch, filename=None):
         dataloader.training = False
         dataloader.batch = batch
         model.eval()
 
-        if os.path.exists(filename+'.hdf5'):
-            model.load(filename)
-            logger.info('[*] weights loaded for testing.')
-        else:
-            logger.error('[*] File not found: weights cannot be loaded.') 
-            raise FileNotFoundError
+        if filename is not None:
+            if os.path.exists(filename+'.hdf5'):
+                model.load(filename)
+                logger.info('[*] weights loaded for testing.')
+            else:
+                logger.error('[*] File not found: weights cannot be loaded.') 
+                raise FileNotFoundError
     
         logger.info('[*] testing started.')
         acc = 0
@@ -168,71 +173,5 @@ class Trainer(object):
         plt.xlabel('epochs')
         if filename is not None:
             plt.savefig(filename)
-        else:
+        else: 
             plt.show()
-    
-def trainer(model, criterion, optimizer, dataloader, epochs, minibatch, save_filename, load_filename=None): 
-    ''' trainer helps the training process of supervised learning
-    Args: 
-        model (Module): model to train 
-        criterion (Function): loss function to use 
-        optimizer (Optimizer): optimizer to use 
-        dataloader (DataLoader): dataloader to use 
-        epochs (int): number of epochs 
-        minibatch (int): number of batch to use for training 
-        save_filename (string): specify the filename as well as the saving path without the file extension. (ex) path/to/filename 
-        load_filename (string): specify the filename as well as the loading path without the file extension. (ex) path/to/filename
-    ''' 
-    if load_filename is not None:
-        if os.path.exists(load_filename+'.hdf5'):
-            model.load(load_filename)
-            logger.info('[*] weights loaded.') 
-        else:
-            logger.error('[*] File not found: weights cannot be loaded.')
-            raise Exception
-    dataloader.batch = minibatch
-    dataloader.training = True
-    model.training = True
-    losses = []
-    start = time.time()
-    logger.info('[*] training started.')
-    for epoch in range(epochs):
-        for i, (data, label) in enumerate(dataloader): 
-            output = model(data) 
-            loss = criterion(output, label)
-            model.zero_grad()
-            loss.backward()
-            optimizer.step()
-            progressbar(i, len(dataloader), 'epoch: {}/{} test loss:{:.4f} '.format(epoch+1, epochs, to_cpu(loss.data) if gpu else loss.data), '(time: {})'.format(str(timedelta(seconds=time.time()-start))))
-            losses.append(to_cpu(loss.data) if gpu else loss.data)
-        model.save(save_filename) 
-    plt.plot([i for i in range(len(losses))], losses)
-    plt.show()
-    logger.info('[*] training completed.')
-
-def tester(model, dataloader, minibatch, filename):
-    ''' tester helps the testing process of supervised learning
-    Args: 
-        model (Module): model to train 
-        dataloader (DataLoader): dataloader to use 
-        minibatch (int): number of batch to use for testing 
-        filename (string): specify the filename as well as the loading path without the file extension. (ex) path/to/filename
-    ''' 
-    if os.path.exists(filename+'.hdf5'):
-        model.load(filename)
-        logger.info('[*] weights loaded for testing.')
-    else:
-        logger.error('[*] File not found: weights cannot be loaded.') 
-        raise Exception
-    dataloader.batch = minibatch
-    dataloader.training = False
-    model.training = False
-    logger.info('[*] testing started.')
-    acc = 0
-    for i, (data, label) in enumerate(dataloader): 
-        output = model(data) 
-        out = np.argmax(output.data, axis=1) 
-        ans = np.argmax(label.data, axis=1)
-        acc += sum(out == ans)/label.shape[0]
-        progressbar(i, len(dataloader))
-    logger.info('\n[*] test acc: {:.2f}%'.format(float(acc/len(dataloader)*100)))
