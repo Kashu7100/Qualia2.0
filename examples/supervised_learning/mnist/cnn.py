@@ -3,7 +3,7 @@ import qualia2
 from qualia2.core import *
 from qualia2.data import MNIST
 from qualia2.nn.modules import Module, Conv2d, Linear
-from qualia2.functions import leakyrelu, reshape, maxpool2d, softmax_cross_entropy
+from qualia2.functions import leakyrelu, reshape, maxpool2d, mse_loss
 from qualia2.nn.optim import Adadelta
 from qualia2.util import Trainer
 import matplotlib.pyplot as plt
@@ -25,7 +25,7 @@ class CNN_classifier(Module):
         x = maxpool2d(leakyrelu(self.conv2(x)))
         x = reshape(x, (-1, 32*7*7))
         x = leakyrelu(self.linear1(x))
-        x = self.linear2(x)
+        x = leakyrelu(self.linear2(x))
         return x
 
 if __name__ == '__main__':
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     trainer = Trainer(args.batch, path)
 
     if args.mode == 'train':
-        trainer.train(model, mnist, optim, softmax_cross_entropy, args.itr)
+        trainer.train(model, mnist, optim, mse_loss, args.itr)
 
     if args.mode == 'test':
         trainer.test(model, mnist, args.batch, path+'/weights/cnn')
