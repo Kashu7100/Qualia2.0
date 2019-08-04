@@ -18,6 +18,12 @@ To run with pre-trained weights:
 ```bash
 python gan.py test 
 ```
+
+You can also experience the effect of z values on generated image with the jupyter notebook.
+```bash
+jupyter notebook gan_interactive.ipynb
+```
+
 ### Results
 The obtained result:
 <p align="center">
