@@ -37,7 +37,7 @@ python cnn.py test
 ### Results
 
 ```bash
-[*] test acc: 95.70%
+[*] test acc: 96.86%
 ```
 
 ## Classification with GRU
