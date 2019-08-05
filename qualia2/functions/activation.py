@@ -2,6 +2,13 @@
 from ..core import *
 from ..autograd import *
 
+class Identity(Function):
+    @staticmethod
+    def forward(a):
+        return a
+
+identity = Identity(None)
+
 class ReLU(Function):
     @staticmethod
     def forward(a):
