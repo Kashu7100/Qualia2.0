@@ -113,11 +113,11 @@ class Sum(Function):
 
 sum = Sum(None)
 
-class Max(Function):
+class Amax(Function):
     @staticmethod
     def forward(a, axis=1):
         result = Tensor(np.amax(a.data, axis=axis, keepdims=True))
-        result.set_creator(Max.prepare(result.shape, a, axis=axis))
+        result.set_creator(Amax.prepare(result.shape, a, axis=axis))
         return result
     
     def calc_grad(self, dx):
@@ -143,13 +143,13 @@ class Max(Function):
             result[idx] = dx
         return result
 
-amax = Max(None)
+amax = Amax(None)
 
-class Min(Function):
+class Amin(Function):
     @staticmethod
     def forward(a, axis=1):
         result = Tensor(np.amin(a.data, axis=axis, keepdims=True))
-        result.set_creator(Min.prepare(result.shape, a, axis=axis))
+        result.set_creator(Amin.prepare(result.shape, a, axis=axis))
         return result
     
     def calc_grad(self, dx):
@@ -175,4 +175,4 @@ class Min(Function):
             result[idx] = dx
         return result
 
-amin = Min(None)
+amin = Amin(None)
