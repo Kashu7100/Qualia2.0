@@ -68,6 +68,22 @@ class Tensor(object):
         else:
             return self.grad
     
+    def uniform(self, a=0, b=1):
+        self.data = np.random.uniform(low=a, high=b, size=self.shape)
+        self.creator = None
+
+    def normal(self, mean=0, std=1):
+        self.data = np.random.normal(loc=mean, scale=std, size=self.shape)
+        self.creator = None
+
+    def ones(self):
+        self.data = np.ones_like(self.data)
+        self.creator = None
+
+    def zeros(self):
+        self.data = np.zeros_like(self.data)
+        self.creator = None
+    
     def fill(self, val):
         self.data.fill(val)
         self.creator = None
