@@ -68,8 +68,8 @@ class Tensor(object):
         else:
             return self.grad
     
-    def uniform(self, a=0, b=1):
-        self.data = np.random.uniform(low=a, high=b, size=self.shape)
+    def uniform(self, low=0, high=1):
+        self.data = np.random.uniform(low=low, high=high, size=self.shape)
         self.creator = None
 
     def normal(self, mean=0, std=1):
