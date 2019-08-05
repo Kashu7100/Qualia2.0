@@ -176,3 +176,39 @@ class Amin(Function):
         return result
 
 amin = Amin(None)
+
+class Maximum(Function):
+    @staticmethod
+    def forward(input, other):
+        result = Tensor(np.maximum(input.data, other.data))
+        result.set_creator(Maximum.prepare(result.shape, input, other, mask1=input.data>other.data, mask2=input.data==other.data))
+        return result
+    
+    def calc_grad(self, dx):
+        din = np.zeros_like(dx)
+        din[self.kwargs['mask1']] = dx[self.kwargs['mask1']] 
+        din[self.kwargs['mask2']] = dx[self.kwargs['mask2']]
+        dot = np.zeros_like(dx)
+        dot[np.logical_not(self.kwargs['mask1'])] = dx[np.logical_not(self.kwargs['mask1'])]
+        dot[self.kwargs['mask2']] = dx[self.kwargs['mask2']] 
+        return din, dot 
+
+maximum = Maximum(None)
+
+class Minimum(Function):
+    @staticmethod
+    def forward(input, other):
+        result = Tensor(np.minimum(input.data, other.data))
+        result.set_creator(Minimum.prepare(result.shape, input, other, mask1=input.data<other.data, mask2=input.data==other.data))
+        return result
+    
+    def calc_grad(self, dx):
+        din = np.zeros_like(dx)
+        din[self.kwargs['mask1']] = dx[self.kwargs['mask1']] 
+        din[self.kwargs['mask2']] = dx[self.kwargs['mask2']]
+        dot = np.zeros_like(dx)
+        dot[np.logical_not(self.kwargs['mask1'])] = dx[np.logical_not(self.kwargs['mask1'])]
+        dot[self.kwargs['mask2']] = dx[self.kwargs['mask2']] 
+        return din, dot 
+
+minimum = Minimum(None)
