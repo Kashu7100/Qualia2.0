@@ -39,7 +39,19 @@ class Alexnet(Module):
         )
 
         if pretrained:
+            if not os.path.exists(path+'/weights/'):
+                os.makedirs(path+'/weights/')
+            if not os.path.exists(path+'/weights/alexnet.hdf5'):
+                self.download(path+'/weights/')
             self.load(path+'/weights/alexnet')
+    
+    def download(self, path): 
+        import urllib.request 
+        url = 'https://www.dropbox.com/s/3ipdx7y73o31ht3/alexnet.hdf5?dl=1'
+        with urllib.request.urlopen(url) as u:
+            data = u.read()
+        with open(path+'alexnet.hdf5', 'wb') as file:
+            file.write(data)
     
     def forward(self, x):
         x = self.features(x)
