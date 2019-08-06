@@ -35,10 +35,12 @@ The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6
 ### CIFAR100
 The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. 
 
-
 <p align="center">
   <img src="/assets/cifar100_data.png">
 </p>
+
+### STL-10
+The STL-10 dataset is an image recognition dataset for developing unsupervised feature learning, deep learning, self-taught learning algorithms. 
 
 ### FIMLP
 FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint Detection dataset that contains 7049 96x96 facial images and up to 15 keypoints marked on them. 
