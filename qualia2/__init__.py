@@ -6,7 +6,7 @@ from .util import *
 from .util import _mul
 from .nn import * 
 from .data import *
-from .applications import *
+from .vision import *
 from .rl import *
 
 pi = np.pi
