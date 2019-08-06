@@ -21,10 +21,10 @@ The main components of Qualia2.0 is listed below:
 | **qualia2.autograd** | provides a Tensor object for a dynamic automatic differentiation |
 | **qualia2.functions** | pre-defined functions capable of automatic differentiation |
 | **qualia2.nn** | a neural networks library deeply integrated with autograd with CUDA acceleration |
-| **qualia2.applications** | implemented deep leaning models for handy testing |
 | [**qualia2.data**](/qualia2/data) | datasets for handy testing |
 | **qualia2.rl** | reinforcement learning models and utilities |
 | **qualia2.util** | utility functions for convenience |
+| **qualia2.vision** | model architectures for computer vision |
 
 ## Requirements
 
