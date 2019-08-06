@@ -29,7 +29,17 @@ class Module(object):
     def __str__(self):
         return self.__class__.__name__
 
-    def summary(self, input_shape, *args):
+    def _module_summary(self):
+        if not self._modules:
+            logger.info('| {:20}|{:^20}|{:^20}|{:^10}|'.format(self.__class__.__name__, str(self.input_shape), str(self.output_shape), str(self.num_params)))
+            return self.num_params
+        else:
+            total_params = 0
+            for _, module in self._modules.items():
+                total_params += module._module_summary()
+            return total_params
+        
+    def summary(self, input_shape):
         logger.info('-'*76)
         logger.info('{:^76}'.format('Model: ' + self.__class__.__name__))
         if type(input_shape) is list:
@@ -37,17 +47,13 @@ class Module(object):
 
         elif type(input_shape) is tuple:
             x = Tensor(np.zeros(input_shape), requires_grad=False)
-            total_params = 0
             if self._modules: 
                 logger.info('{}\n| {:20}|{:^20}|{:^20}|{:^10}|\n{}'.format('-'*76, 'layers', 'input shape', 'output shape', 'params #', '='*76))
                 for _, module in self._modules.items():
                     module.input_shape = None
-                    module.output_shape = None
-    
-                _ = self.forward(x, *args)
-                for i, (_, module) in enumerate(self._modules.items()):
-                    logger.info('| {:20}|{:^20}|{:^20}|{:^10}|'.format(module.__class__.__name__+'-'+str(i), str(module.input_shape), str(module.output_shape), str(module.num_params)))
-                    total_params += module.num_params
+                    module.output_shape = None    
+                self.forward(x)
+                total_params = self._module_summary()
         logger.info('='*76)
         logger.info('total params: {}'.format(total_params))
         logger.info('training mode: {}'.format(self.training))
