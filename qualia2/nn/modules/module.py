@@ -3,6 +3,7 @@ from ... import to_cpu
 from ...core import *
 from ...autograd import Tensor
 from collections import OrderedDict 
+from itertools import chain, islice
 import h5py as h5 
 from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('module')
@@ -224,7 +225,10 @@ class Sequential(Module):
                 self._modules[str(i)] = module 
         for name, module in kwargs.items(): 
             if isinstance(module, Module): 
-                self._modules[name] = module 
+                self._modules[name] = module
+    
+    def __getitem__(self, slice):
+        return OrderedDict(islice(self._modules.items(), slice.start, slice.stop)) 
          
     def __call__(self, x): 
         return self.forward(x)
