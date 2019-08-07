@@ -35,6 +35,9 @@ To run with pre-trained weights:
 python cnn.py test 
 ```
 ### Results
+<p align="center">
+  <img src="/assets/mnist_cnn_loss.png">
+</p>
 
 ```bash
 [*] test acc: 97.26%
