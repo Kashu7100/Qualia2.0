@@ -228,7 +228,7 @@ class Sequential(Module):
                 self._modules[name] = module
     
     def __getitem__(self, slice):
-        return OrderedDict(islice(self._modules.items(), slice.start, slice.stop)) 
+        return Sequential(*list(islice(self._modules.values(), slice.start, slice.stop))) 
          
     def __call__(self, x): 
         return self.forward(x)
