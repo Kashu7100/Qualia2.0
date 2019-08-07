@@ -42,7 +42,9 @@ class Alexnet(Module):
             if not os.path.exists(path+'/weights/'):
                 os.makedirs(path+'/weights/')
             if not os.path.exists(path+'/weights/alexnet.hdf5'):
+                print('[*] downloading weights...')
                 self.download(path+'/weights/')
+                print('[*] extracting...')
                 self.unzip(path+'/weights/')
             self.load(path+'/weights/alexnet')
     
