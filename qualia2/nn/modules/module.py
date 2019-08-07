@@ -239,11 +239,13 @@ class Sequential(Module):
         return x 
      
     def append(self, *arg, **kwarg): 
-        if len(arg) > 1 or len(kwarg) > 1: 
+        if len(arg) > 1 and len(kwarg) > 1: 
             raise Exception('Too much arguments were given.') 
         for module in arg: 
             if isinstance(module, Module): 
                 self._modules[str(len(self._modules))] = module
+            else: 
+                raise Exception('Invalid argument was given. Failed to append.')
         for name, module in kwarg.items(): 
             if isinstance(module, Module): 
                 self._modules[name] = module 
