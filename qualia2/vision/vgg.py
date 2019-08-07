@@ -40,14 +40,23 @@ class VGG(Module):
             if not os.path.exists(path+'/weights/vgg{}.hdf5'.format(cfg if not batch_norm else str(cfg)+'_bn')):
                 print('[*] downloading weights...')
                 self.download(path+'/weights/', cfg, batch_norm)
+                print('[*] extracting...')
                 self.unzip(path+'/weights/', cfg, batch_norm)
             self.load(path+'/weights/vgg{}'.format(cfg if not batch_norm else str(cfg)+'_bn'))
 
     def download(self, path, cfg, batch_norm): 
+        if batch_norm:
+            raise FileNotFoundError
         import urllib.request
         url = {
             'vgg11': 'https://www.dropbox.com/s/ea93ty84gos9eau/vgg11.zip?dl=1',
             'vgg13': 'https://www.dropbox.com/s/ex4f98rlwp9tra4/vgg13.zip?dl=1',
+            'vgg16': 'https://www.dropbox.com/s/3pms8tx02xa0hhx/vgg16.zip?dl=1',
+            'vgg19': 'https://www.dropbox.com/s/itg947agiwi69nq/vgg19.zip?dl=1',
+            'vgg11_bn': '',
+            'vgg13_bn': '',
+            'vgg16_bn': '',
+            'vgg19_bn': '',
         }
         with urllib.request.urlopen(url['vgg{}'.format(cfg if not batch_norm else str(cfg)+'_bn')]) as u:
             data = u.read()
