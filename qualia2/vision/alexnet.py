@@ -42,17 +42,22 @@ class Alexnet(Module):
             if not os.path.exists(path+'/weights/'):
                 os.makedirs(path+'/weights/')
             if not os.path.exists(path+'/weights/alexnet.hdf5'):
-                print('[*] downloading weights...')
                 self.download(path+'/weights/')
+                self.unzip(path+'/weights/')
             self.load(path+'/weights/alexnet')
     
     def download(self, path): 
         import urllib.request 
-        url = 'https://www.dropbox.com/s/3ipdx7y73o31ht3/alexnet.hdf5?dl=1'
+        url = 'https://www.dropbox.com/s/uadgtyfq5t5zuiq/alexnet.zip?dl=1'
         with urllib.request.urlopen(url) as u:
             data = u.read()
-        with open(path+'alexnet.hdf5', 'wb') as file:
+        with open(path+'alexnet.zip', 'wb') as file:
             file.write(data)
+
+    def unzip(self, path):
+        from zipfile import ZipFile
+        with ZipFile(path+'alexnet.zip', 'r') as zip:
+            zip.extractall(path)
     
     def forward(self, x):
         x = self.features(x)
