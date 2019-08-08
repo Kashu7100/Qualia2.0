@@ -24,7 +24,7 @@ The main components of Qualia2.0 is listed below:
 | [**qualia2.data**](/qualia2/data) | datasets for handy testing |
 | **qualia2.rl** | reinforcement learning models and utilities |
 | **qualia2.util** | utility functions for convenience |
-| **qualia2.vision** | model architectures for computer vision |
+| **qualia2.vision** | pretrained model architectures for computer vision |
 
 ## Requirements
 
