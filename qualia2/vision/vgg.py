@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from ..nn.modules.module import Module, Sequential
-from ..nn.modules import Linear, Conv2d, MaxPool2d, AvgPool2d, ReLU, Dropout, BatchNorm2d
+from ..nn.modules import Linear, Conv2d, MaxPool2d, ReLU, Dropout, BatchNorm2d
 from ..functions import reshape
 import os
 
@@ -23,7 +23,6 @@ class VGG(Module):
     def __init__(self, features, cfg, pretrained=False, batch_norm=False):
         super().__init__()
         self.features = features
-        #self.avgpool = AvgPool2d((7, 7))
         self.classifier = Sequential(
             Linear(512*7*7, 4096),
             ReLU(),
