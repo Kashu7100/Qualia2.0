@@ -26,6 +26,9 @@ Pose estimation refers to computer vision techniques that detect human figures i
 </p>
 
 ## OpenPose
+[[paper]](https://arxiv.org/pdf/1812.08008.pdf)
+
+OpenPose provides a real-time method for Multi-Person 2D Pose Estimation based on its bottom-up approach instead of detection-based approach.
 
 <p align="center">
   <img src="/assets/openpose_structure.png"/>
@@ -39,3 +42,5 @@ Pose estimation refers to computer vision techniques that detect human figures i
   <br>
   <b> Fig.4: </b> Body part detection and part association.
 </p>
+
+The feature maps obtained by the first 10 layers of VGG-19 model are processed with multiple stages CNN to generate a set of Part Confidence Maps and a set of Part Affinity Fields (PAFs). They are then used in a greedy algorithm to obtain the poses for each person in the image.
