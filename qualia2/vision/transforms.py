@@ -59,6 +59,15 @@ class ToTensor(object):
         image = image.reshape(1,*image.shape) / 255
         return Tensor(image)
 
+class ToPIL(object):
+    '''
+    Convert Tensor to PIL Image.
+    '''
+    def __call__(self, tensor):
+        data = tensor.asnumpy()
+        data = data[0].transpose(1,2,0)
+        return PIL.Image.fromarray(data)
+    
 class Normalize(object):
     '''
     Normalize a tensor image with mean and standard deviation.
