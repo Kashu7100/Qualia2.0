@@ -17,11 +17,15 @@
 [[paper]](https://arxiv.org/pdf/1512.03385.pdf)
 
 # Pose estimation
-## OpenPose
-
+Pose estimation refers to computer vision techniques that detect human figures in images and videos, so that one could determine, for example, where someone’s elbow shows up in an image.
 
 <p align="center">
   <img src="/assets/openpose_skelton.png"/>
   <br>
   <b> Fig.2: </b> Parts and Pairs indexes for COCO dataset
 </p>
+
+## OpenPose
+
+
+
