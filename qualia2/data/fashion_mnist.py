@@ -37,6 +37,21 @@ class FashionMNIST(ImageLoader):
         if flatten:
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
+    
+    @property
+    def label_dict(self):
+        return {
+            0: 'T-shirt/top',
+            1: 'Trouser',
+            2: 'Pullover',
+            3: 'Dress',
+            4: 'Coat',
+            5: 'Sandal',
+            6: 'Shirt',
+            7: 'Sneaker',
+            8: 'Bag',
+            9: 'Ankle boot'
+        }
 
     def download(self, path): 
         import urllib.request 
