@@ -19,3 +19,9 @@
 # Pose estimation
 ## OpenPose
 
+
+<p align="center">
+  <img src="/assets/openpose_skelton.png"/>
+  <br>
+  <b> Fig.2: </b> Parts and Pairs indexes for COCO dataset
+</p>
