@@ -42,6 +42,21 @@ class CIFAR10(ImageLoader):
         if not flatten:
             self.train_data = self.train_data.reshape(-1,3,32,32) 
             self.test_data = self.test_data.reshape(-1,3,32,32) 
+    
+    @property
+    def label_dict(self):
+        return {
+            0: 'airplane', 
+            1: 'automobile', 
+            2: 'bird', 
+            3: 'cat', 
+            4: 'deer', 
+            5: 'dog', 
+            6: 'frog', 
+            7: 'horse', 
+            8: 'ship', 
+            9: 'truck'
+        }
 
     def download(self, path): 
         import urllib.request 
