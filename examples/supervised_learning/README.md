@@ -27,5 +27,15 @@ Pose estimation refers to computer vision techniques that detect human figures i
 
 ## OpenPose
 
+<p align="center">
+  <img src="/assets/openpose_structure.png"/>
+  <br>
+  <b> Fig.3: </b> Architecture  of  the  multi-stage  CNN.
+</p>
 
 
+<p align="center">
+  <img src="/assets/heatmap_paf.png"/>
+  <br>
+  <b> Fig.4: </b> Body part detection and part association.
+</p>
