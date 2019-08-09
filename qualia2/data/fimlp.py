@@ -1,7 +1,7 @@
 from .. import to_cpu
 from ..core import *
 from ..autograd import Tensor
-from .dataloader import DataLoader
+from .dataloader import ImageLoader
 import matplotlib.pyplot as plt
 import os
 
