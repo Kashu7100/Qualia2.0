@@ -22,7 +22,7 @@ Pose estimation refers to computer vision techniques that detect human figures i
 <p align="center">
   <img src="/assets/openpose_skelton.png"/>
   <br>
-  <b> Fig.2: </b> Parts and Pairs indexes for COCO dataset
+  <b> Fig.2: </b> Parts and Pairs indexes for [COCO dataset](http://cocodataset.org/#home)
 </p>
 
 ## OpenPose
