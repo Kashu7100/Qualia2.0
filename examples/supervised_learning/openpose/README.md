@@ -1,5 +1,6 @@
 # OpenPose  
 ## heatmaps and PAFs
+Heatmaps and Part Affinity Fields (PAFs) are the output form the OpenPose.
 
 <p align="center">
   <img src="/assets/women.png"/ width=420>
