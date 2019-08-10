@@ -83,7 +83,7 @@ Examples can be found [here](/examples).
 
 ### Unsupervised learning
 
-[<img src="/assets/gan_mnist.gif" height="200"/>](examples/unsupervised_learning/mnist)
+[<img src="/assets/gan_mnist.gif" height="200"/>](examples/unsupervised_learning/mnist)[<img src="/assets/lorenz_compare.png" height="200"/>](examples/unsupervised_learning)
 
 ### Reinforcement learning
 
