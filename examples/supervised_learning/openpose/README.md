@@ -22,5 +22,12 @@ $ python demo.py
 <p align="center">
   <img src="/assets/women_pose.png"/>
   <br>
-  <b> Fig.2: </b> Constructed pose estimation.
+  <b> Fig.2: </b> Constructed pose estimation on picture.
+</p>
+
+
+<p align="center">
+  <img src="/assets/baseball.gif"/>
+  <br>
+  <b> Fig.3: </b> Constructed pose estimation on video.
 </p>
