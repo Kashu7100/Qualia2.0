@@ -34,7 +34,7 @@ Pose estimation refers to computer vision techniques that detect human figures i
 </p>
 
 ## OpenPose
-[[paper]](https://arxiv.org/pdf/1812.08008.pdf)
+[[paper]](https://arxiv.org/pdf/1812.08008.pdf) [[example]](/examples/supervised_learning/openpose)
 
 OpenPose provides a real-time method for Multi-Person 2D Pose Estimation based on its bottom-up approach instead of detection-based approach.
 
