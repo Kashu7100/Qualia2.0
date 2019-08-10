@@ -77,7 +77,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 ## Examples
 Examples can be found [here](/examples).
 
-[<img src="/assets/baseball.gif" height="250"/>](/examples/supervised_learning/openpose)
+[<img src="/assets/baseball.gif" height="200"/>](/examples/supervised_learning/openpose)
 
 [<img src="/assets/gan_mnist.gif" height="200"/>](examples/unsupervised_learning/mnist)
 
