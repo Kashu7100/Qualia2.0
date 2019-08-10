@@ -1,6 +1,6 @@
 # OpenPose  
 ## heatmaps and PAFs
-Heatmaps and Part Affinity Fields (PAFs) are the output form the OpenPose.
+Heatmaps and Part Affinity Fields (PAFs) are the output form the OpenPose. PAFs are used to connect the detected body parts for several people in a single image at the same time.
 
 <p align="center">
   <img src="/assets/women.png"/ width=420>
