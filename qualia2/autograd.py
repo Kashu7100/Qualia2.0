@@ -18,7 +18,7 @@ class Tensor(object):
         ndim (int): Stores the number of Tensor's data dimentions  
      
     Examples:: 
-        The following example will compute the Sum of Squared Error 
+        The following example will compute the dy/dx
         >>> # Create Tensor objects 
         >>> x = qualia2.array([5])
         >>> # Write an equation 
