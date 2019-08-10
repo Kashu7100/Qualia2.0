@@ -77,9 +77,15 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 ## Examples
 Examples can be found [here](/examples).
 
+### Supervised learning
+
 [<img src="/assets/baseball.gif" height="200"/>](/examples/supervised_learning/openpose)
 
+### Unsupervised learning
+
 [<img src="/assets/gan_mnist.gif" height="200"/>](examples/unsupervised_learning/mnist)
+
+### Reinforcement learning
 
 [<img src="/assets/cartpole_dqn.gif" height="180"/>](/examples/reinforcement_learning/inverted_pendulum)[<img src="/assets/mountaincar_duelingnet.gif" height="180"/>](examples/reinforcement_learning/mountain_car)[<img src="/assets/bipedal_walker_td3.gif" height="180"/>](examples/reinforcement_learning/bipedal_walker)[<img src="/assets/lunar_lander_cont_td3.gif" height="180"/>](examples/reinforcement_learning/lunar_lander)[<img src="/assets/roboschool_walker2d_td3.gif" height="180"/>](examples/reinforcement_learning/roboschool_walker2d)
 
