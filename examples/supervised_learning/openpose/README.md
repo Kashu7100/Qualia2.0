@@ -13,6 +13,12 @@
 
 ## pose estimation
 
+To run a pose estimation with the pretrained model: 
+
+```bash
+$ python demo.py
+```
+
 <p align="center">
   <img src="/assets/women_pose.png"/>
   <br>
