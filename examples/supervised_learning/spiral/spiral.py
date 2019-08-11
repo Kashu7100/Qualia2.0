@@ -4,6 +4,9 @@ from qualia2.functions import sigmoid, mse_loss
 from qualia2.nn.optim import Adadelta
 from qualia2.util import Trainer
 import matplotlib.pyplot as plt
+import os
+
+path = os.path.abspath(os.path.dirname(__file__))
 
 class Model(Module):
     def __init__(self):
