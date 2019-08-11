@@ -10,7 +10,7 @@ Neural networks can be viewed as a universal approximation function. Let's use a
 ### Usage
 Following are the commands used to train and test the model:
 
-```python
+```bash
 $ python spiral.py
 ```
 
