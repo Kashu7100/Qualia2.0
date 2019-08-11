@@ -3,13 +3,20 @@
 ## Alexnet
 [[paper]](https://arxiv.org/pdf/1404.5997.pdf)
 
+
+<p align="center">
+  <img src="/assets/alexnet_model.png"/>
+  <br>
+  <b> Fig.1: </b> The configurations of alexnet 
+</p>
+
 ## VGG
 [[paper]](https://arxiv.org/pdf/1409.1556.pdf)
 
 <p align="center">
   <img src="/assets/vgg_config.png"/>
   <br>
-  <b> Fig.1: </b> The configurations of vgg models 
+  <b> Fig.2: </b> The configurations of vgg models 
 </p>
 
 
@@ -21,7 +28,7 @@ A training of deeper neural networks are difficult because of the vanishing grad
 <p align="center">
   <img src="/assets/resnet_block.png"/>
   <br>
-  <b> Fig.2: </b> Residual learning: a building block. 
+  <b> Fig.3: </b> Residual learning: a building block. 
 </p>
 
 # Pose estimation
@@ -30,7 +37,7 @@ Pose estimation refers to computer vision techniques that detect human figures i
 <p align="center">
   <img src="/assets/openpose_skelton.png"/>
   <br>
-  <b> Fig.3: </b> Parts and Pairs indexes for COCO dataset.
+  <b> Fig.4: </b> Parts and Pairs indexes for COCO dataset.
 </p>
 
 ## OpenPose
@@ -41,14 +48,17 @@ OpenPose provides a real-time method for Multi-Person 2D Pose Estimation based o
 <p align="center">
   <img src="/assets/openpose_structure.png"/>
   <br>
-  <b> Fig.4: </b> Architecture  of  the  multi-stage  CNN.
+  <b> Fig.5: </b> Architecture  of  the  multi-stage  CNN.
 </p>
 
 
 <p align="center">
   <img src="/assets/heatmap_paf.png"/>
   <br>
-  <b> Fig.5: </b> Body part detection and part association.
+  <b> Fig.6: </b> Body part detection and part association.
 </p>
 
 The feature maps obtained by the first 10 layers of VGG-19 model are processed with multiple stages CNN to generate a set of Part Confidence Maps and a set of Part Affinity Fields (PAFs). They are then used in a greedy algorithm to obtain the poses for each person in the image.
+
+# Object Detection
+## SSD
