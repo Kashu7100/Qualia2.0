@@ -79,7 +79,7 @@ Examples can be found [here](/examples).
 
 ### Supervised learning
 
-[<img src="/assets/baseball.gif" height="220"/>](/examples/supervised_learning/openpose)
+[<img src="/assets/spiral_boundary.png" height="200"/>](/examples/supervised_learning/spiral)[<img src="/assets/baseball.gif" height="220"/>](/examples/supervised_learning/openpose)
 
 ### Unsupervised learning
 
