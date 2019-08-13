@@ -58,6 +58,22 @@ GANs had problem that learning is unstable. LSGAN - Least Square GANs, which emp
 
 Image-to-image translation is a class of vision and graphics problems where the goal is to learn the mapping between an input image and an output image using a training set of aligned image pairs.
 
-# Dimentionality reduction
-
 # Autoencoders
+## Data-driven Discovery of Nonlinear Dynamical Systems
+
+[[paper]](https://arxiv.org/pdf/1801.01236.pdf)
+
+In the following equation, <a href="https://www.codecogs.com/eqnedit.php?latex=x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x" title="x" /></a> denotes the state of the system at time <a href="https://www.codecogs.com/eqnedit.php?latex=t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?t" title="t" /></a> and the function <a href="https://www.codecogs.com/eqnedit.php?latex=f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f" title="f" /></a> describes the evolution of the system. The term <a href="https://www.codecogs.com/eqnedit.php?latex=u" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u" title="u" /></a> can be the external forcing or feedback control. The goal is to determine the function <a href="https://www.codecogs.com/eqnedit.php?latex=f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f" title="f" /></a> and consequently discover the underlying dynamical system from data.  
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dot{x}&space;=&space;f(x(t),u(t),t)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{x}&space;=&space;f(x(t),u(t),t)" title="\dot{x} = f(x(t),u(t),t)" /></a>
+</p>
+
+By applying the general form of a linear multistep method with <a href="https://www.codecogs.com/eqnedit.php?latex=M" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M" title="M" /></a> steps to the equation above, given the measurements of the state <a href="https://www.codecogs.com/eqnedit.php?latex=x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x" title="x" /></a> from <a href="https://www.codecogs.com/eqnedit.php?latex=t&space;=&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?t&space;=&space;0" title="t = 0" /></a> to <a href="https://www.codecogs.com/eqnedit.php?latex=t&space;=&space;N" target="_blank"><img src="https://latex.codecogs.com/gif.latex?t&space;=&space;N" title="t = N" /></a>, the following equation can be obtained:
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{m=0}^{M}[\alpha_mx_{n-m}&plus;\Delta&space;t\beta_m&space;f(x_{n-m},u_{n-m},t_{n-m})]=0,&space;\;&space;n=M,...,N" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sum_{m=0}^{M}[\alpha_mx_{n-m}&plus;\Delta&space;t\beta_m&space;f(x_{n-m},u_{n-m},t_{n-m})]=0,&space;\;&space;n=M,...,N" title="\sum_{m=0}^{M}[\alpha_mx_{n-m}+\Delta t\beta_m f(x_{n-m},u_{n-m},t_{n-m})]=0, \; n=M,...,N" /></a>
+</p>
+
+The function <a href="https://www.codecogs.com/eqnedit.php?latex=f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f" title="f" /></a> is apploximated by a neural netwok. The neural network is trained so that the LHS of the equation above approaches to zero.
+
+When <a href="https://www.codecogs.com/eqnedit.php?latex=M=1,&space;\alpha_0=-1,&space;\alpha_1=1,&space;and&space;\,&space;\beta_0=\beta_1=1/2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M=1,&space;\alpha_0=-1,&space;\alpha_1=1,&space;and&space;\,&space;\beta_0=\beta_1=1/2" title="M=1, \alpha_0=-1, \alpha_1=1, and \, \beta_0=\beta_1=1/2" /></a>, the equation states the trapezoidal rule.
