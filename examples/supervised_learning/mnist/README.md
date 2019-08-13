@@ -27,12 +27,12 @@ Following are the commands used to train and test the model:
 
 To train the model:
 ```bash
-python cnn.py train --itr 15 --batch 100
+$ python cnn.py train --itr 15 --batch 100
 ```
 
 To run with pre-trained weights:
 ```bash
-python cnn.py test 
+$ python cnn.py test 
 ```
 ### Results
 <p align="center">
@@ -55,12 +55,12 @@ Following are the commands used to train and test the model:
 
 To train the model:
 ```bash
-python gru.py train --itr 15 --batch 100
+$ python gru.py train --itr 15 --batch 100
 ```
 
 To run with pre-trained weights:
 ```bash
-python gru.py test 
+$ python gru.py test 
 ```
 ### Results
 <p align="center">
