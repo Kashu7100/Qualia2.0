@@ -61,7 +61,7 @@ Image-to-image translation is a class of vision and graphics problems where the 
 # Autoencoders
 ## Data-driven Discovery of Nonlinear Dynamical Systems
 
-[[paper]](https://arxiv.org/pdf/1801.01236.pdf) [[example]](examples/unsupervised_learning/lorenz_system)
+[[paper]](https://arxiv.org/pdf/1801.01236.pdf) [[example]](/examples/unsupervised_learning/lorenz_system)
 
 In the following equation, <a href="https://www.codecogs.com/eqnedit.php?latex=x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x" title="x" /></a> denotes the state of the system at time <a href="https://www.codecogs.com/eqnedit.php?latex=t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?t" title="t" /></a> and the function <a href="https://www.codecogs.com/eqnedit.php?latex=f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f" title="f" /></a> describes the evolution of the system. The term <a href="https://www.codecogs.com/eqnedit.php?latex=u" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u" title="u" /></a> can be the external forcing or feedback control. The goal is to determine the function <a href="https://www.codecogs.com/eqnedit.php?latex=f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f" title="f" /></a> and consequently discover the underlying dynamical system from data.  
 <p align="center">
