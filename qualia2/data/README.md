@@ -1,17 +1,23 @@
 ## Datasets
 ### MNIST
+[[site]](http://yann.lecun.com/exdb/mnist/)
+
 The MNIST database of handwritten digits, available from this page, has a training set of 60,000 examples, and a test set of 10,000 examples. It is a subset of a larger set available from NIST. The digits have been size-normalized and centered in a fixed-size image. 
 <p align="center">
   <img src="/assets/mnist_data.png">
 </p>
 
 ### FashionMNIST
+[[site]](https://github.com/zalandoresearch/fashion-mnist)
+
 Fashion-MNIST is a dataset of Zalando's article images—consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. 
 <p align="center">
   <img src="/assets/fashion_mnist_data.png">
 </p>
 
 ### KuzushiMNIST
+[[site]](https://github.com/rois-codh/kmnist)
+
 Kuzushiji-MNIST contains 70,000 28x28 grayscale images spanning 10 classes (one from each column of hiragana), and is perfectly balanced like the original MNIST dataset (6k/1k train/test for each class).
 
 <p align="center">
@@ -19,6 +25,8 @@ Kuzushiji-MNIST contains 70,000 28x28 grayscale images spanning 10 classes (one 
 </p>
 
 ### Kuzushi49
+[[site]](https://github.com/rois-codh/kmnist)
+
 Kuzushiji-49 contains 270,912 images spanning 49 classes, and is an extension of the Kuzushiji-MNIST dataset.
 
 <p align="center">
@@ -26,14 +34,18 @@ Kuzushiji-49 contains 270,912 images spanning 49 classes, and is an extension of
 </p>
 
 ### CIFAR10
-The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
+[[site]](https://www.cs.toronto.edu/~kriz/cifar.html)
+
+The CIFAR-10 dataset consists of 60000 32x32 color images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. 
 
 <p align="center">
   <img src="/assets/cifar10_data.png">
 </p>
 
 ### CIFAR100
-The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. 
+[[site]](https://www.cs.toronto.edu/~kriz/cifar.html)
+
+The CIFAR-100 dataset consists of 60000 32x32 color images in 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. 
 
 <p align="center">
   <img src="/assets/cifar100_data.png">
@@ -41,7 +53,8 @@ The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes conta
 
 ### STL-10
 [[site]](https://cs.stanford.edu/~acoates/stl10/)
-The STL-10 dataset is an image recognition dataset for developing unsupervised feature learning, deep learning, self-taught learning algorithms. It contains 500 training images (10 pre-defined folds) and 800 test images per class.
+
+The STL-10 dataset consists of 13000 96x96 color images in 10 classes, with 500+800 images per class. There are 5000 training images and 8000 test images. 
 
 The following standardized testing protocol for reporting results is recommended:
 
