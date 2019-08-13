@@ -40,7 +40,18 @@ The CIFAR-100 dataset consists of 60000 32x32 colour images in 100 classes conta
 </p>
 
 ### STL-10
-The STL-10 dataset is an image recognition dataset for developing unsupervised feature learning, deep learning, self-taught learning algorithms. 
+[[site]](https://cs.stanford.edu/~acoates/stl10/)
+The STL-10 dataset is an image recognition dataset for developing unsupervised feature learning, deep learning, self-taught learning algorithms. It contains 500 training images (10 pre-defined folds) and 800 test images per class.
+
+The following standardized testing protocol for reporting results is recommended:
+
+* Perform unsupervised training on the unlabeled.
+* Perform supervised training on the labeled data using 10 (pre-defined) folds of 100 examples from the training data. The indices of the examples to be used for each fold are provided.
+* Report average accuracy on the full test set.
+
+<p align="center">
+  <img src="/assets/stl10_data.png">
+</p>
 
 ### FIMLP
 FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint Detection dataset that contains 7049 96x96 facial images and up to 15 keypoints marked on them. 
