@@ -63,3 +63,4 @@ if __name__ == "__main__":
         return qualia2.to_cpu(out.data)
     
     learned_u = odeint(f, u0, t)
+    plot3d(u, learned_u)
