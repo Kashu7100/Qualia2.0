@@ -33,11 +33,15 @@ The model will be trained so that the trapezoidal rule is satisfied. LHS will be
 </p>
 
 ## Usage
-Following are the commands used to train the model:
+Following are the commands used to train and test the model:
 
 To train the model:
 ```bash
 $ python trapezoidal.py train --itr 2000
+```
+To test the model:
+```bash
+$ python trapezoidal.py test
 ```
 
 ## Result
