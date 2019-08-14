@@ -4,17 +4,6 @@ from ..autograd import *
 
 gather = Gather(None)
 reshape = Reshape(None)
-
-class Transpose(Function):
-    @staticmethod
-    def forward(a, axes):
-        result = Tensor(np.transpose(a.data, axes)) 
-        result.set_creator(Transpose.prepare(result.shape, a, axes=axes))
-        return result
-
-    def calc_grad(self, dx):
-        return np.transpose(dx, [self.kwargs['axes'].index(i) for i in range(len(self.kwargs['axes']))]) 
-
 transpose = Transpose(None)
 
 class ListConcat(Function):
