@@ -12,3 +12,4 @@ from .dropout import *
 from .normalize import *
 from .sparse import *
 from .vision import *
+from .distance import *
