@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-from ... import to_cpu
 from ...core import *
 from ...autograd import Tensor
 from collections import OrderedDict 
@@ -160,16 +159,9 @@ class Module(object):
             if type(value) is list:
                 grp = h5file.create_group(str(key)) 
                 for i, val in enumerate(value):
-                    if gpu:
-                        grp.create_dataset(str(i), dtype='f8', data=to_cpu(val.data)) 
-                    else:
-                        grp.create_dataset(str(i), dtype='f8', data=val.data) 
+                    grp.create_dataset(str(i), dtype='f8', data=val.asnumpy()) 
             else:
-                if gpu:
-                    h5file.create_dataset(str(key), dtype='f8', data=to_cpu(value.data)) 
-                else:
-                    h5file.create_dataset(str(key), dtype='f8', data=value.data)
-
+                h5file.create_dataset(str(key), dtype='f8', data=value.asnumpy())
 
     def save(self, filename): 
         '''Saves internal parameters of the Module in HDF5 format.\n 
