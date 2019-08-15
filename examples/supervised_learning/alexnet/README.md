@@ -6,7 +6,7 @@ $ python demo.py ./dog.jpg
 ```
 ### Results
 <p align="center">
-  <img src="dog.jpg">
+  <img src="dog.jpg" width=500>
 </p>
 
 ```bash
@@ -17,13 +17,13 @@ borzoi, Russian wolfhound: 2.79%
 kuvasz: 1.94%
 ```
 <p align="center">
-  <img src="cat.jpg">
+  <img src="cat.jpg" width=500>
 </p>
 
 ```bash
-tabby, tabby cat: 48.87%
-Egyptian cat: 29.46%
-tiger cat: 13.23%
-tiger, Panthera tigris: 4.30%
-lynx, catamount: 2.98%
+tabby, tabby cat: 48.55%
+Egyptian cat: 17.22%
+tiger cat: 13.52%
+carton: 6.78%
+washbasin, handbasin, washbowl, lavabo, wash-hand basin: 4.21%
 ```
