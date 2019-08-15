@@ -1,8 +1,7 @@
 # Image classification
 
 ## Alexnet
-[[paper]](https://arxiv.org/pdf/1404.5997.pdf)
-
+[[paper]](https://arxiv.org/pdf/1404.5997.pdf) [[example]](/examples/supervised_learning/alexnet)
 
 <p align="center">
   <img src="/assets/alexnet_model.png"/>
