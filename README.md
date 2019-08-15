@@ -75,7 +75,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 | [Learning Qualia with Examples](/tutorial/#ex) | introducing Qualia2.0 with some of the impremented examples |
 
 ## Examples
-Examples can be found [here](/examples).
+More examples can be found [here](/examples).
 
 ### Supervised learning
 
