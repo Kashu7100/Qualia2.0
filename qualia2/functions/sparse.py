@@ -17,6 +17,9 @@ class Embedding(Function):
         elif isinstance(input, np.ndarray):
             result = Tensor(weight[input.astype('int64')].data)
             result.set_creator(Embedding.prepare(result.shape, weight, idx=input))
+        elif isinstance(input, int):
+            result = Tensor(weight[input].data)
+            result.set_creator(Embedding.prepare(result.shape, weight, idx=input))
         else:
             raise ValueError
         return result
