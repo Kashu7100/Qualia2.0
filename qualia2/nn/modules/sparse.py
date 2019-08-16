@@ -24,7 +24,10 @@ class Embedding(Module):
     def forward(self, x):
         result = embedding(x, self.weight, self.num_embeddings)
         if self.input_shape is None:
-            self.input_shape = x.shape
+            if isinstance(x, int):
+                self.input_shape = (1,)
+            else:
+                self.input_shape = x.shape
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
