@@ -104,6 +104,12 @@ class Tensor(object):
     def gather(self, dim, idx):
         return Gather.forward(self, dim, idx)
     
+    def squeeze(self, axis=None):
+        return Squeeze.forward(self, axis)
+
+    def expand_dims(self, axis):
+        return Expand_dims.forward(self, axis)
+    
     def detach(self):
         '''Returns a new Tensor, detached from the current graph.
         '''
@@ -276,6 +282,26 @@ class Reshape(Function):
     def calc_grad(self, dx):
         return np.reshape(dx, self.var[0].shape)
 
+class Squeeze(Function):
+    @staticmethod
+    def forward(a, axis=None):
+        result = Tensor(np.squeeze(a.data, axis=axis)) 
+        result.set_creator(Squeeze.prepare(result.shape, a, axis=axis))
+        return result
+    
+    def calc_grad(self, dx):
+        return dx.reshape(self.var[0].shape)
+
+class Expand_dims(Function):
+    @staticmethod
+    def forward(a, axis):
+        result = Tensor(np.expand_dims(a.data, axis=axis)) 
+        result.set_creator(Expand_dims.prepare(result.shape, a, axis=axis))
+        return result
+    
+    def calc_grad(self, dx):
+        return np.squeeze(dx, axis=self.kwargs['axis'])
+    
 class Transpose(Function):
     @staticmethod
     def forward(a, axes):
