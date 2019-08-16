@@ -5,6 +5,8 @@ from ..autograd import *
 gather = Gather(None)
 reshape = Reshape(None)
 transpose = Transpose(None)
+squeeze = Squeeze(None)
+expand_dims = Expand_dims(None)
 
 class ListConcat(Function):
     '''
