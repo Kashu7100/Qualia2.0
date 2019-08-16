@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 from ..functions import sum, mean
 from ..nn.modules import Module, Embedding
 
