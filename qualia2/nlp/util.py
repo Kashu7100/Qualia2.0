@@ -40,7 +40,7 @@ def analogy(a, b, c, word2idx, wordvec, n=5):
     assert b in word2idx
     assert c in word2idx
 
-    print('[*] analogy {}:{} = {}:?'.format(a,b,c))
+    print('[*] {}:{} = {}:?'.format(a,b,c))
     idx2word = {v: k for k, v in word2idx.items()}
     a_vec, b_vec, c_vec = wordvec(word2idx[a]), wordvec(word2idx[b]), wordvec(word2idx[c])
     query_vec = b_vec - a_vec + c_vec
