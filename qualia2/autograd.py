@@ -88,6 +88,9 @@ class Tensor(object):
         self.data.fill(val)
         self.creator = None
     
+    def copy(self, data):
+        self.data = np.copy(data)
+    
     def handle_const(self, obj):
         if type(obj) is not Tensor:
             return Tensor(obj, requires_grad=False)
