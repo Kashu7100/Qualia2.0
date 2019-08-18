@@ -10,6 +10,24 @@ logger = getLogger('QualiaLogger').getChild('module')
 class Module(object):
     '''Base class for all neural network modules in qualia.\n 
     Module can incoporate Modules, allowing to nest them in a tree structure.  
+    Note that a user-defined model must have super().__init__() in the __init__ of the model.
+
+    Examples::
+        >>> # define a module
+        >>> class Model(nn.Module):
+        >>>     def __init__(self):
+        >>>         super().__init__()
+        >>>         self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
+        >>>         self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
+        >>>         self.fc1 = nn.Linear(500, 50)
+        >>>         self.fc2 = nn.Linear(50, 10)
+        >>>     def forward(self, x):
+        >>>         x = F.relu(F.maxpool2d(self.conv1(x), (2,2)))
+        >>>         x = F.relu(F.maxpool2d(self.conv2(x), (2,2)))
+        >>>         x = F.reshape(x,(-1, 500))
+        >>>         x = F.relu(self.fc1(x))
+        >>>         x = self.fc2(x)
+        >>>         return x
     ''' 
     def __init__(self): 
         self._modules = OrderedDict() 
