@@ -20,11 +20,15 @@ class Module(object):
         self.output_shape = None
     
     def __repr__(self):
-        print('{}('.format(self.__class__.__name__))
+        result = '{}(\n'.format(self.__class__.__name__)
         if self._modules: 
             for i, (name, module) in enumerate(self._modules.items()):
-                print('    [{}] {}: {}'.format(i, name, repr(module)))
-        return ') at 0x{:0{}X}'.format(id(self), 16)
+                result += '    [{}] {}: {}\n'.format(i, name, repr(module))
+        if __debug__:
+            result += ') at 0x{:0{}X}\n'.format(id(self), 16)
+        else:
+            result += ')\n'
+        return result
     
     def __str__(self):
         return self.__class__.__name__
