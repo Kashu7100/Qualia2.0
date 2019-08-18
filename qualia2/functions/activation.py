@@ -12,17 +12,14 @@ identity = Identity(None)
 class ReLU(Function):
     @staticmethod
     def forward(a):
-        mask = (a.data < 0) 
-        tmp = a.data.copy() 
-        tmp[mask] = 0
-        result = Tensor(tmp) 
-        result.set_creator(ReLU.prepare(result.shape, a, mask=mask))
+        result = Tensor(np.maximum(0,a.data)) 
+        result.set_creator(ReLU.prepare(result.shape, a, mask=(a.data < 0)))
         return result
 
     def calc_grad(self, dx):
-        dx = dx.copy()
-        dx[self.kwargs['mask']] = 0
-        return dx
+        result = np.copy(dx)
+        result[self.kwargs['mask']] = 0
+        return result
 
 relu = ReLU(None)
 
