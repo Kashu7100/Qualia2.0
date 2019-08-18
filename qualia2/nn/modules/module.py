@@ -146,9 +146,9 @@ class Module(object):
         for key, value in self._params.items(): 
             if type(value) is list:
                 for i, val in enumerate(value):
-                    self._params[key][int(i)].data = state_dict[key][int(i)].data
+                    self._params[key][int(i)].data = np.copy(state_dict[key][int(i)].data)
             else:
-                self._params[key].data = state_dict[key].data
+                self._params[key].data = np.copy(state_dict[key].data)
     
     def __save__(self, h5file):
         if self._modules: 
