@@ -12,6 +12,9 @@ from .rl import *
 pi = np.pi
 e = np.e
 
+def copy(tensor):
+    return Tensor(np.copy(tensor.data), tensor.requires_grad, tensor.dtype)
+
 def numel(obj):
     return _mul(*obj.shape)
 
