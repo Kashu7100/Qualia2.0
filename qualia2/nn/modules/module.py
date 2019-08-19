@@ -100,6 +100,10 @@ class Module(object):
      
     def __call__(self, *args, **kwargs): 
         return self.forward(*args, **kwargs) 
+    
+    def add_module(self, name, module):
+        assert isinstance(module, Module)
+        self._modules[name] = module 
      
     def forward(self, *args, **kwargs): 
         raise NotImplementedError 
