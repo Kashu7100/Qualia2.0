@@ -88,21 +88,15 @@ class Tensor(object):
         self.data.fill(val)
         self.creator = None
     
-    def copy(self, *args):
-        if bool(args):
-            assert len(args) == 1
-            if isinstance(args[0], Tensor):
-                self.data = np.copy(args[0].data)
-            elif isinstance(args[0], np.ndarray):
-                self.data = np.copy(args[0])    
-            else:
-                import numpy
-                if isinstance(args[0], numpy.ndarray):
-                    self.data = np.array(args[0])
-                else:
-                    raise ValueError
+    def copy(self, data):
+        if isinstance(data, np.ndarray):
+            self.data = np.copy(data)    
         else:
-            return Tensor(np.copy(self.data), self.requires_grad, self.dtype)
+            import numpy
+            if isinstance(data, numpy.ndarray):
+                self.data = np.array(data)
+            else:
+                raise ValueError
     
     def handle_const(self, obj):
         if type(obj) is not Tensor:
