@@ -47,7 +47,6 @@ if __name__ == '__main__':
         if args.plot:
             trainer.plot()
     if args.mode == 'test':
-        agent = DDQN.init(env, DuelingNet())
         agent.load(path+'/dueling_net_example')
         
     if args.save:
