@@ -67,6 +67,8 @@ The following standardized testing protocol for reporting results is recommended
 </p>
 
 ### FIMLP
+[[site]](https://www.kaggle.com/drgilermo/face-images-with-marked-landmark-points)
+
 FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint Detection dataset that contains 7049 96x96 facial images and up to 15 keypoints marked on them. 
 
 <p align="center">
@@ -74,6 +76,8 @@ FIMLP (Face Images with Marked Landmark Points) is a Kaggle's Facial Keypoint De
 </p>
 
 ### ChestXRay
+[[site]](https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community)
+
 The Chest X-Ray Images dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (Pneumonia/Normal). There are 5,863 X-Ray images (JPEG) and 2 categories (Pneumonia/Normal). 
 
 <p align="center">
