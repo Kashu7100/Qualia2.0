@@ -144,8 +144,10 @@ class Adam(Optimizer):
         self.m = {}
         self.v = {} 
         self.l2 = weight_decay
+        self.t = 0
      
     def step(self): 
+        self.t += 1
         for i, var in enumerate(self.params()): 
             if not var.requires_grad:
                 continue
@@ -155,8 +157,50 @@ class Adam(Optimizer):
                 self.v[i] = np.zeros_like(var.grad) 
             self.m[i] = self.betas[0] * self.m[i] + (1-self.betas[0]) * var.grad
             self.v[i] = self.betas[1] * self.v[i] + (1-self.betas[1]) * var.grad**2
-            m = self.m[i] / (1-self.betas[0])
-            v = self.v[i] / (1-self.betas[1])
+            m = self.m[i] / (1-self.betas[0]**self.t)
+            v = self.v[i] / (1-self.betas[1]**self.t)
             var.data -= self.l2 * var.data
             var.data -= self.lr * m / np.sqrt(v+self.eps) 
+
+class RAdam(Optimizer):
+    ''' Rectified Adam \n
+    Args: 
+        parameters (iterable): iterable of parameters to optimize
+        lr (float): learning rate Default: 1e-02
+        betas (tuple of float): coefficients used for computing running averages of gradient and its square Default: (0.9, 0.999)
+        eps (float): for numerical stability Default: 1e-08
+        weight_decay (float): weight decay (L2 penalty) Default: 0
+    '''
+    def __init__(self, parameters, lr=1e-3, betas=(0.9, 0.999), eps=1e-8, weight_decay=0):
+        super().__init__(parameters)
+        self.lr = lr 
+        self.betas = betas 
+        self.eps = eps
+        self.m = {}
+        self.v = {} 
+        self.l2 = weight_decay
+        self.t = 0
+        self.rho = 2/(1-betas[1])-1
+
+    def step(self):
+        self.t += 1
+        for i, var in enumerate(self.params()): 
+            if not var.requires_grad:
+                continue
+            if i not in self.m:  
+                self.m[i] = np.zeros_like(var.grad) 
+            if i not in self.v:  
+                self.v[i] = np.zeros_like(var.grad) 
+            self.m[i] = self.betas[0] * self.m[i] + (1-self.betas[0]) * var.grad
+            self.v[i] = self.betas[1] * self.v[i] + (1-self.betas[1]) * var.grad**2
+            m = self.m[i] / (1-self.betas[0]**self.t)
+            rho = self.rho - 2*self.t*self.betas[1]**self.t/(1-self.betas[1]**self.t)
+            if self.t > 4:
+                v = np.sqrt(self.v[i]/(1-self.betas[1]**self.t))+self.eps
+                r = np.sqrt((rho-4)*(rho-2)*self.rho/((self.rho-4)*(self.rho-2)*rho))
+                var.data -= self.l2 * var.data
+                var.data -= self.lr * r * m / v 
+            else:
+                var.data -= self.l2 * var.data
+                var.data -= self.lr * m
             
