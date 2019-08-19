@@ -88,8 +88,21 @@ class Tensor(object):
         self.data.fill(val)
         self.creator = None
     
-    def copy(self, data):
-        self.data = np.copy(data)
+    def copy(self, *args):
+        if bool(args):
+            assert len(args) == 1
+            if isinstance(args[0], Tensor):
+                self.data = np.copy(args[0].data)
+            elif isinstance(args[0], np.ndarray):
+                self.data = np.copy(args[0])    
+            else:
+                import numpy
+                if isinstance(args[0], numpy.ndarray):
+                    self.data = np.array(args[0])
+                else:
+                    raise ValueError
+        else:
+            return Tensor(np.copy(self.data), self.requires_grad, self.dtype)
     
     def handle_const(self, obj):
         if type(obj) is not Tensor:
@@ -109,6 +122,9 @@ class Tensor(object):
     
     def squeeze(self, axis=None):
         return Squeeze.forward(self, axis)
+    
+    def unsqueeze(self, axis):
+        return self.expand_dims(axis)
 
     def expand_dims(self, axis):
         return Expand_dims.forward(self, axis)
