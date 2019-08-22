@@ -2,7 +2,7 @@
 from .module import Module
 from ...core import * 
 from ...util import _single, _pair, _triple
-from ...functions import maxpool1d, maxpool2d, maxpool3d, avepool1d, avepool2d, avepool3d, maxunpool1d, maxunpool2d, maxunpool3d
+from ...functions import maxpool1d, maxpool2d, maxpool3d, avepool1d, avepool2d, avepool3d, globalavepool1d, globlavepool2d, globalavepool3d, maxunpool1d, maxunpool2d, maxunpool3d
 from ...autograd import Tensor 
 
 class MaxPool1d(Module):
@@ -232,7 +232,70 @@ class AvgPool3d(Module):
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
+    
+class GlobalAvgPool1d(Module):
+    ''' Applies a 1D globl average pooling over an input signal composed of several input planes.\n
+    
+    Shape:
+        - Input: [N,C,W]
+        - Output: [N,C,1]
+    '''
+    def __init__(self):
+        super().__init__()
+    
+    def __repr__(self):
+        return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
 
+    def forward(self, x):
+        result = globalavepool1d(x)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
+
+class GlobalAvgPool2d(Module):
+    ''' Applies a 2D globl average pooling over an input signal composed of several input planes.\n
+
+    Shape:
+        - Input: [N,C,H,W]
+        - Output: [N,C,1,1]
+    '''
+    def __init__(self):
+        super().__init__()
+    
+    def __repr__(self):
+        return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
+
+    def forward(self, x):
+        result = globalavepool2d(x)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
+
+class GlobalAvgPool3d(Module):
+    ''' Applies a 3D globl average pooling over an input signal composed of several input planes.\n
+
+    Shape:
+        - Input: [N,C,H,W,D]
+        - Output: [N,C,1,1,1]
+    '''
+    def __init__(self):
+        super().__init__()
+    
+    def __repr__(self):
+        return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
+
+    def forward(self, x):
+        result = globalavepool3d(x)
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
+    
 class MaxUnpool1d(Module):
     '''Applies a 1D max unpooling over an input signal composed of several input planes.\n
     Args:
