@@ -158,23 +158,37 @@ class Module(object):
                 module.train()
         self.training = True
 
+    def _create_state_dict(self, name=''):
+        state_dict = {}
+        if self._modules: 
+            for key, module in self._modules.items():
+                state_dict.update(module._create_state_dict(name+str(key)+'.'))
+        for key, value in self._params.items(): 
+            if type(value) is list: 
+                for i, val in enumerate(value):
+                    state_dict[name+str(key)+'.'+str(i)] = val.data 
+            else:
+                state_dict[name+str(key)] = value.data
+        return state_dict
+    
     def state_dict(self):
         '''Returns a dictionary containing a whole state of the module.\n
         '''
-        return OrderedDict(chain(self._modules.items(),self._params.items()))
+        state_dict = self._create_state_dict()
+        return state_dict
     
-    def load_state_dict(self, state_dict):
+    def load_state_dict(self, state_dict, name=''):
         '''Copies parameters from state_dict into this module.\n
         '''
         if self._modules: 
-            for name, module in self._modules.items():
-                module.load_state_dict(state_dict[name].state_dict())
+            for key, module in self._modules.items():
+                module.load_state_dict(state_dict, name+str(key)+'.')
         for key, value in self._params.items(): 
             if type(value) is list:
                 for i, val in enumerate(value):
-                    self._params[key][int(i)].data = np.copy(state_dict[key][int(i)].data)
+                    self._params[key][int(i)].data = np.copy(state_dict[name+str(key)+'.'+str(i)])
             else:
-                self._params[key].data = np.copy(state_dict[key].data)
+                self._params[key].data = np.copy(state_dict[name+str(key)])
     
     def __save__(self, h5file):
         if self._modules: 
