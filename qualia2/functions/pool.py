@@ -364,6 +364,36 @@ class AvePool3d(Function):
 
 avepool3d = AvePool3d(None)
 
+class GlobalAvePool1d(Function):
+    @staticmethod
+    def forward(x):
+        '''Applies a 1D global average pooling over an input signal composed of several input planes.\n
+        '''
+        batch, channel, width = x.shape
+        return AvePool2d.forward(x,width,1,0)
+
+globalavepool1d = GlobalAvePool1d(None)
+
+class GlobalAvePool2d(Function):
+    @staticmethod
+    def forward(x):
+        '''Applies a 2D global average pooling over an input signal composed of several input planes.\n
+        '''
+        batch, channel, height, width = x.shape
+        return AvePool2d.forward(x,(height, width),(1,1),(0,0))
+
+globalavepool2d = GlobalAvePool2d(None)
+
+class GlobalAvePool3d(Function):
+    @staticmethod
+    def forward(x):
+        '''Applies a 3D global average pooling over an input signal composed of several input planes.\n
+        '''
+        batch, channel, height, width, depth = x.shape
+        return AvePool3d.forward(x,(height, width, depth),(1,1,1),(0,0,0))
+
+globalavepool3d = GlobalAvePool3d(None)
+
 class MaxUnpool1d(Function):
     @staticmethod
     def forward(x, indices, kernel_size=2, stride=2, padding=0, dilation=1):
