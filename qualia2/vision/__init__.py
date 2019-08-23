@@ -2,6 +2,8 @@
 from .alexnet import *
 from .vgg import *
 from .squeezenet import *
+from .densenet import *
+
 from .openpose import *
 
 from .transforms import *
