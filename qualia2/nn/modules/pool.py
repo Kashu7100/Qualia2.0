@@ -2,7 +2,7 @@
 from .module import Module
 from ...core import * 
 from ...util import _single, _pair, _triple
-from ...functions import maxpool1d, maxpool2d, maxpool3d, avepool1d, avepool2d, avepool3d, globalavepool1d, globlavepool2d, globalavepool3d, maxunpool1d, maxunpool2d, maxunpool3d
+from ...functions import maxpool1d, maxpool2d, maxpool3d, avepool1d, avepool2d, avepool3d, globalavepool1d, globalavepool2d, globalavepool3d, maxunpool1d, maxunpool2d, maxunpool3d
 from ...autograd import Tensor 
 
 class MaxPool1d(Module):
