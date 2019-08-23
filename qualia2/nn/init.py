@@ -126,7 +126,7 @@ def xavier_normal_(tensor, gain=1):
     '''
     fan_in, fan_out = _calculate_fan_in_and_fan_out(tensor)
     std = gain * math.sqrt(2.0 / (fan_in + fan_out))
-    tensor.normal(loc=0, scale=std)
+    tensor.normal(mean=0, std=std)
 
 def kaiming_uniform_(tensor, a=0, mode='fan_in', nonlinearity='leaky_relu'):
     '''
@@ -193,4 +193,4 @@ def kaiming_normal_(tensor, a=0, mode='fan_in', nonlinearity='leaky_relu'):
     fan = fan_in if mode == 'fan_in' else fan_out
     gain = calculate_gain(nonlinearity, a)
     std = gain / math.sqrt(fan)
-    tensor.normal(loc=0, scale=std)
+    tensor.normal(mean=0, std=std)
