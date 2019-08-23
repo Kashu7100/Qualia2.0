@@ -30,6 +30,9 @@ A training of deeper neural networks are difficult because of the vanishing grad
   <b> Fig.3: </b> Residual learning: a building block. 
 </p>
 
+## SqueezeNet
+
+
 # Pose estimation
 Pose estimation refers to computer vision techniques that detect human figures in images and videos, so that one could determine, for example, where someone’s elbow shows up in an image.
 
