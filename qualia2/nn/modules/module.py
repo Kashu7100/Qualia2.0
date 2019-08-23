@@ -244,10 +244,10 @@ class Sequential(Module):
         >>>     ) 
         >>> # name for each layers can also be specified 
         >>> model = Sequential( 
-        >>>     'conv1' = nn.Conv2d(1,20,5), 
-        >>>     'relu1' = nn.ReLU(), 
-        >>>     'conv2' = nn.Conv2d(20,64,5), 
-        >>>     'relu2' = nn.ReLU() 
+        >>>     conv1 = nn.Conv2d(1,20,5), 
+        >>>     relu1 = nn.ReLU(), 
+        >>>     conv2 = nn.Conv2d(20,64,5), 
+        >>>     relu2 = nn.ReLU() 
         >>>     ) 
     ''' 
     def __init__(self, *args, **kwargs): 
