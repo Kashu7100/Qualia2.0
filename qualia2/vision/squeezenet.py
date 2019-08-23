@@ -48,12 +48,12 @@ class SqueezeNet(Module):
         if pretrained:
             pass
         else:
-            for m in self._modules['features']._modules.values():
+            for m in self._modules['features'].modules():
                 if isinstance(m, Conv2d):
                     init.kaiming_uniform_(m.kernel)
                     if m.bias is not None:
                         init.constant_(m.bias, 0)
-            for m in self._modules['classifier']._modules.values():
+            for m in self._modules['classifier'].modules():
                 if isinstance(m, Conv2d):
                     init.normal_(m.kernel, mean=0.0, std=0.01)
                     if m.bias is not None:
