@@ -47,7 +47,7 @@ def uniform_(tensor, a=0, b=1):
     tensor.uniform(low=a, high=b)
 
 def normal_(tensor, mean=0, std=1):
-    tensor.normal(loc=mean, scale=std)
+    tensor.normal(mean=mean, std=std)
 
 def constant_(tensor, val):
     tensor.fill(val)
@@ -76,7 +76,7 @@ def _calculate_fan_in_and_fan_out(tensor):
         num_output_fmaps = tensor.shape[0]
         receptive_field_size = 1
         if tensor.ndim > 2:
-            receptive_field_size = _mul(tensor.shape[2:])
+            receptive_field_size = _mul(*tensor.shape[2:])
         fan_in = num_input_fmaps * receptive_field_size
         fan_out = num_output_fmaps * receptive_field_size
     return fan_in, fan_out
