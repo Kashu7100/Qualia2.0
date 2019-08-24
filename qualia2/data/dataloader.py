@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*- 
 from ..core import *
+from ..util import download_progress
 from ..autograd import Tensor
+import os
 
 class DataLoader(object):
     def __init__(self):
@@ -47,7 +49,32 @@ class DataLoader(object):
             features = data[self.idx*self.batch:(self.idx+1)*self.batch]
             self.idx += 1
             return Tensor(features, requires_grad=False)
+    
+    def download(self, url, filename=None):
+        if not os.path.exists(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())):  
+            os.makedirs(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())) 
+        data_dir = home_dir+'data/download/{}'.format(self.__class__.__name__.lower())
+        if filename is None:
+            from urllib.parse import urlparse
+            parts = urlparse(url)
+            filename = os.path.basename(parts.path)
+        cache = os.path.join(data_dir, filename)
+        if not os.path.exists(cache): 
+            from urllib.request import urlretrieve
+            urlretrieve(url, cache, reporthook=download_progress) 
 
+    def extract(filename):
+        data_dir = home_dir+'data/download/{}'.format(self.__class__.__name__.lower())
+        cache = os.path.join(data_dir, filename)
+        if '.tar.gz' in filename:
+            import tarfile
+            tarfile.open(cache, 'r:gz').extractall(data_dir+'/')
+        elif '.zip' in filename:
+            import zipfile
+            zipfile.ZipFile(cache).extractall(data_dir+'/')
+        else:
+            raise Exception('[*] not supported extension')
+            
     def shuffle(self):
         if self.training:
             self.train_data, self.train_label = self._shuffle(self.train_data, self.train_label)
