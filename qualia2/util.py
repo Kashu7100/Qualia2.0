@@ -59,6 +59,10 @@ def progressbar(progress, process, text_before='', text_after=''):
     sys.stdout.flush()
     text = '\r[*]{}progress: [{:.0f}%] |{}| {}/{} {}'.format(' '+text_before, progress/process*100, '#'*block + "-"*(bar_length-block), progress, process, text_after)
     sys.stdout.write(text)
+
+def download_progress(count, block_size, total_size):
+    sys.stdout.write('\r[*] downloading %.2f%%' % (float(count * block_size) / float(total_size) * 100.0))
+    sys.stdout.flush()
     
 class Trainer(object):
     ''' Trainer base class\n
