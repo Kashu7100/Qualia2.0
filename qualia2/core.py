@@ -4,14 +4,22 @@ import time
 import subprocess
 from logging import getLogger, Formatter, FileHandler, StreamHandler
 
-path = os.path.dirname(os.path.abspath(__file__))
+home_dir = os.path.dirname(os.path.abspath(__file__))
 
+max_logs = 100
 level = 10
 fmt = '%(asctime)s - %(name)-20s: %(levelname)-8s %(message)s'
 datefmt = '%Y-%m-%d %H:%M:%S'
 
-if not os.path.exists(path + '/logs/'):
-    os.makedirs(path + '/logs/') 
+if not os.path.exists(home_dir + '/logs/'):
+    os.makedirs(home_dir + '/logs/') 
+
+if len([name for name in os.listdir(home_dir + '/logs/')]) > max_logs:
+    import glob
+    files = glob.glob(home_dir + '/logs/*.log')
+    files.sort(key=os.path.getmtime)
+    for log in files[:-max_logs]:
+        os.remove(log)
 
 logger = getLogger('QualiaLogger')
 logger.setLevel(level)
