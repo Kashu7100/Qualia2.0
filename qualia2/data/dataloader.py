@@ -53,7 +53,7 @@ class DataLoader(object):
     def download(self, url, filename=None):
         if not os.path.exists(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())):  
             os.makedirs(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())) 
-        data_dir = home_dir+'data/download/{}'.format(self.__class__.__name__.lower())
+        data_dir = home_dir+'/data/download/{}'.format(self.__class__.__name__.lower())
         if filename is None:
             from urllib.parse import urlparse
             parts = urlparse(url)
@@ -64,7 +64,7 @@ class DataLoader(object):
             urlretrieve(url, cache, reporthook=download_progress) 
 
     def extract(filename):
-        data_dir = home_dir+'data/download/{}'.format(self.__class__.__name__.lower())
+        data_dir = home_dir+'/data/download/{}'.format(self.__class__.__name__.lower())
         cache = os.path.join(data_dir, filename)
         if '.tar.gz' in filename:
             import tarfile
