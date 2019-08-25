@@ -35,8 +35,7 @@ class MNIST(ImageLoader):
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
 
-    def download(self): 
-        print('    this might take few minutes.')
+    def download(self):
         url = 'http://yann.lecun.com/exdb/mnist/' 
         files = { 
             'train_data.gz':'train-images-idx3-ubyte.gz', 
