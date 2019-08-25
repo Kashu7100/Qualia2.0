@@ -21,10 +21,7 @@ class MNIST(ImageLoader):
         path = os.path.dirname(os.path.abspath(__file__)) 
 
         print('[*] preparing data...')
-        if not os.path.exists(path + '/download/mnist/'): 
-            print('    this might take few minutes.') 
-            os.makedirs(path + '/download/mnist/') 
-            self.download(path+'/download/mnist/')
+        self.download()
         self.train_data = self._load_data(path + '/download/mnist/train_data.gz')
         self.train_label = MNIST.to_one_hot(self._load_label(path + '/download/mnist/train_labels.gz'), 10)
         self.test_data = self._load_data(path + '/download/mnist/test_data.gz')
@@ -38,18 +35,17 @@ class MNIST(ImageLoader):
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
 
-    def download(self, path): 
-        import urllib.request 
+    def download(self): 
+        print('    this might take few minutes.')
         url = 'http://yann.lecun.com/exdb/mnist/' 
         files = { 
             'train_data.gz':'train-images-idx3-ubyte.gz', 
             'train_labels.gz':'train-labels-idx1-ubyte.gz', 
             'test_data.gz':'t10k-images-idx3-ubyte.gz', 
             'test_labels.gz':'t10k-labels-idx1-ubyte.gz' 
-        } 
-        for key, value in files.items(): 
-            if not os.path.exists(path+key): 
-                urllib.request.urlretrieve(url+value, path+key) 
+        }
+        for filename, value in files.items():
+            super().download(url+value, filename)
     
     def _load_data(self, filename):
         with gzip.open(filename, 'rb') as file: 
