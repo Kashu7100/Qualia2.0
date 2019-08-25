@@ -51,6 +51,7 @@ class DataLoader(object):
             return Tensor(features, requires_grad=False)
     
     def download(self, url, filename=None):
+        print('    this might take few minutes.') 
         if not os.path.exists(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())):  
             os.makedirs(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())) 
         data_dir = home_dir+'/data/download/{}'.format(self.__class__.__name__.lower())
