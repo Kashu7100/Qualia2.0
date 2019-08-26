@@ -4,8 +4,8 @@ from ..core import *
 from ..autograd import Tensor
 from .dataloader import ImageLoader
 import matplotlib.pyplot as plt
-import os
 import gzip
+import random
 
 class FashionMNIST(ImageLoader):
     '''FashionMNIST Dataset\n     
@@ -18,17 +18,12 @@ class FashionMNIST(ImageLoader):
     '''
     def __init__(self, normalize=True, flatten=False):
         super().__init__() 
-        path = os.path.dirname(os.path.abspath(__file__)) 
-
-        print('[*] preparing data...')
-        if not os.path.exists(path + '/download/fashion_mnist/'): 
-            print('    this might take few minutes.') 
-            os.makedirs(path + '/download/fashion_mnist/') 
-            self.download(path+'/download/fashion_mnist/')
-        self.train_data = self._load_data(path + '/download/fashion_mnist/train_data.gz')
-        self.train_label = FashionMNIST.to_one_hot(self._load_label(path + '/download/fashion_mnist/train_labels.gz'), 10)
-        self.test_data = self._load_data(path + '/download/fashion_mnist/test_data.gz')
-        self.test_label = FashionMNIST.to_one_hot(self._load_label(path + '/download/fashion_mnist/test_labels.gz'), 10)
+        
+        self.download()
+        self.train_data = self._load_data(home_dir + '/data/download/fashion_mnist/train_data.gz')
+        self.train_label = FashionMNIST.to_one_hot(self._load_label(home_dir + '/data/download/fashion_mnist/train_labels.gz'), 10)
+        self.test_data = self._load_data(home_dir + '/data/download/fashion_mnist/test_data.gz')
+        self.test_label = FashionMNIST.to_one_hot(self._load_label(home_dir + '/data/download/fashion_mnist/test_labels.gz'), 10)
         print('[*] done.')
 
         if normalize: 
@@ -37,7 +32,7 @@ class FashionMNIST(ImageLoader):
         if flatten:
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
-    
+
     @property
     def label_dict(self):
         return {
@@ -53,8 +48,7 @@ class FashionMNIST(ImageLoader):
             9: 'Ankle boot'
         }
 
-    def download(self, path): 
-        import urllib.request 
+    def download(self):
         url = 'http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/' 
         files = { 
             'train_data.gz':'train-images-idx3-ubyte.gz', 
@@ -62,9 +56,8 @@ class FashionMNIST(ImageLoader):
             'test_data.gz':'t10k-images-idx3-ubyte.gz', 
             'test_labels.gz':'t10k-labels-idx1-ubyte.gz' 
         } 
-        for key, value in files.items(): 
-            if not os.path.exists(path+key): 
-                urllib.request.urlretrieve(url+value, path+key) 
+        for filename, value in files.items():
+            super().download(url+value, filename)
     
     def _load_data(self, filename):
         with gzip.open(filename, 'rb') as file: 
@@ -84,13 +77,16 @@ class FashionMNIST(ImageLoader):
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
 
-    def show(self):
+    def show(self, label=None):
         for i in range(10):
             for j in range(10):
                 plt.subplot(10,10,i+j*10+1)
                 plt.xticks([]) 
                 plt.yticks([]) 
                 plt.grid(False)
-                img = self.train_data[(self.train_label[:,j]>0)][i*10+j].reshape(28,28)
+                if label is None:
+                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+                else:
+                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
                 plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()
