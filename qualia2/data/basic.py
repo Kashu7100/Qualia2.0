@@ -32,7 +32,7 @@ class Spiral(DataLoader):
                 self.train_data[num_data*c+i,1] = radius*np.cos(theta)
                 self.train_label[num_data*c+i,c] = 1
 
-    def show(self):
+    def show(self, label=None):
         fig, ax = plt.subplots()
         for c in range(self.num_class):
             if gpu:
@@ -88,7 +88,7 @@ class SwissRoll(DataLoader):
         for c in range(self.num_class):
             self.train_label[:,c][np.logical_and((min+c*i<theta[:,0]),(theta[:,0]<(min+(c+1)*i)))] = 1
         
-    def show(self):
+    def show(self, label=None):
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         if gpu:
