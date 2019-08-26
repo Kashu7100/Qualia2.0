@@ -4,8 +4,8 @@ from ..core import *
 from ..autograd import Tensor
 from .dataloader import ImageLoader
 import matplotlib.pyplot as plt
-import os
 import gzip
+import random
 
 class KuzushiMNIST(ImageLoader):
     '''KuzushiMNIST Dataset\n     
@@ -17,18 +17,13 @@ class KuzushiMNIST(ImageLoader):
         - data: [N, 1, 28, 28] if flatten [N, 28*28]
     '''
     def __init__(self, normalize=True, flatten=False):
-        super().__init__() 
-        path = os.path.dirname(os.path.abspath(__file__)) 
-
-        print('[*] preparing data...')
-        if not os.path.exists(path + '/download/kuzushi_mnist/'): 
-            print('    this might take few minutes.') 
-            os.makedirs(path + '/download/kuzushi_mnist/') 
-            self.download(path+'/download/kuzushi_mnist/')
-        self.train_data = self._load_data(path + '/download/kuzushi_mnist/train_data.gz')
-        self.train_label = KuzushiMNIST.to_one_hot(self._load_label(path + '/download/kuzushi_mnist/train_labels.gz'), 10)
-        self.test_data = self._load_data(path + '/download/kuzushi_mnist/test_data.gz')
-        self.test_label = KuzushiMNIST.to_one_hot(self._load_label(path + '/download/kuzushi_mnist/test_labels.gz'), 10)
+        super().__init__()
+ 
+        self.download()
+        self.train_data = self._load_data(home_dir + '/data/download/kuzushi_mnist/train_data.gz')
+        self.train_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushi_mnist/train_labels.gz'), 10)
+        self.test_data = self._load_data(home_dir + '/data/download/kuzushi_mnist/test_data.gz')
+        self.test_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushi_mnist/test_labels.gz'), 10)
         print('[*] done.')
 
         if normalize: 
@@ -38,8 +33,22 @@ class KuzushiMNIST(ImageLoader):
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
 
-    def download(self, path): 
-        import urllib.request 
+    @property
+    def label_dict(self):
+        return {
+            0: 'お'
+            1: 'き'
+            2: 'す'
+            3: 'つ'
+            4: 'な'
+            5: 'は'
+            6: 'ま'
+            7: 'や'
+            8: 'れ'
+            9: 'を'
+        }
+
+    def download(self): 
         url = 'http://codh.rois.ac.jp/kmnist/dataset/kmnist/' 
         files = { 
             'train_data.gz':'train-images-idx3-ubyte.gz', 
@@ -47,9 +56,8 @@ class KuzushiMNIST(ImageLoader):
             'test_data.gz':'t10k-images-idx3-ubyte.gz', 
             'test_labels.gz':'t10k-labels-idx1-ubyte.gz' 
         } 
-        for key, value in files.items(): 
-            if not os.path.exists(path+key): 
-                urllib.request.urlretrieve(url+value, path+key) 
+        for filename, value in files.items():
+            super().download(url+value, filename)
     
     def _load_data(self, filename):
         with gzip.open(filename, 'rb') as file: 
@@ -69,14 +77,17 @@ class KuzushiMNIST(ImageLoader):
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
 
-    def show(self):
+    def show(self, label=None):
         for i in range(10):
             for j in range(10):
                 plt.subplot(10,10,i+j*10+1)
                 plt.xticks([]) 
                 plt.yticks([]) 
                 plt.grid(False)
-                img = self.train_data[(self.train_label[:,j]>0)][i*10+j].reshape(28,28)
+                if label is None:
+                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+                else:
+                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
                 plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()
 
@@ -91,17 +102,12 @@ class Kuzushi49(ImageLoader):
     '''
     def __init__(self, normalize=True, flatten=False):
         super().__init__() 
-        path = os.path.dirname(os.path.abspath(__file__)) 
 
-        print('[*] preparing data...')
-        if not os.path.exists(path + '/download/kuzushi49/'): 
-            print('    this might take few minutes.') 
-            os.makedirs(path + '/download/kuzushi49/') 
-            self.download(path+'/download/kuzushi49/')
-        self.train_data = self._load_data(path + '/download/kuzushi49/train_data.npz')
-        self.train_label = KuzushiMNIST.to_one_hot(self._load_label(path + '/download/kuzushi49/train_labels.npz'), 49)
-        self.test_data = self._load_data(path + '/download/kuzushi49/test_data.npz')
-        self.test_label = KuzushiMNIST.to_one_hot(self._load_label(path + '/download/kuzushi49/test_labels.npz'), 49)
+        self.download()
+        self.train_data = self._load_data(home_dir + '/data/download/kuzushi49/train_data.npz')
+        self.train_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushi49/train_labels.npz'), 49)
+        self.test_data = self._load_data(home_dir + '/data/download/kuzushi49/test_data.npz')
+        self.test_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushi49/test_labels.npz'), 49)
         print('[*] done.')
 
         if normalize: 
@@ -110,9 +116,62 @@ class Kuzushi49(ImageLoader):
         if flatten:
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
+
+    @property
+    def label_dict(self):
+        return dict(enumerate([
+            'あ',
+            'い',
+            'う',
+            'え',
+            'お',
+            'か',
+            'き',
+            'く',
+            'け',
+            'こ',
+            'さ',
+            'し',
+            'す',
+            'せ',
+            'そ',
+            'た',
+            'ち',
+            'つ',
+            'て',
+            'と',
+            'な',
+            'に',
+            'ぬ',
+            'ね',
+            'の',
+            'は',
+            'ひ',
+            'ふ',
+            'へ',
+            'ほ',
+            'ま',
+            'み',
+            'む',
+            'め',
+            'も',
+            'や',
+            'ゆ',
+            'よ',
+            'ら',
+            'り',
+            'る',
+            'れ',
+            'ろ',
+            'わ',
+            'ゐ',
+            'ゑ',
+            'を',
+            'ん',
+            'ゝ'
+        ]))
     
-    def download(self, path): 
-        import urllib.request 
+    def download(self):
         url = 'http://codh.rois.ac.jp/kmnist/dataset/k49/' 
         files = { 
             'train_data.npz':'k49-train-imgs.npz', 
@@ -120,9 +179,8 @@ class Kuzushi49(ImageLoader):
             'test_data.npz':'k49-test-imgs.npz', 
             'test_labels.npz':'k49-test-labels.npz' 
         } 
-        for key, value in files.items(): 
-            if not os.path.exists(path+key): 
-                urllib.request.urlretrieve(url+value, path+key) 
+        for filename, value in files.items():
+            super().download(url+value, filename)
     
     def _load_data(self, filename):
         if gpu:
@@ -140,12 +198,15 @@ class Kuzushi49(ImageLoader):
             labels = np.load(filename, 'r')['arr_0']
         return labels
 
-    def show(self):
+    def show(self, label=None):
         for i in range(49):
             plt.subplot(5,10,i+1)
             plt.xticks([]) 
             plt.yticks([]) 
             plt.grid(False)
-            img = self.train_data[(self.train_label[:,i]>0)][0].reshape(28,28)
+            if label is None:
+                img = self.train_data[(self.train_label[:,i]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+            else:
+                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)i
             plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()
