@@ -36,15 +36,15 @@ class KuzushiMNIST(ImageLoader):
     @property
     def label_dict(self):
         return {
-            0: 'お'
-            1: 'き'
-            2: 'す'
-            3: 'つ'
-            4: 'な'
-            5: 'は'
-            6: 'ま'
-            7: 'や'
-            8: 'れ'
+            0: 'お',
+            1: 'き',
+            2: 'す',
+            3: 'つ',
+            4: 'な',
+            5: 'は',
+            6: 'ま',
+            7: 'や',
+            8: 'れ',
             9: 'を'
         }
 
@@ -207,6 +207,6 @@ class Kuzushi49(ImageLoader):
             if label is None:
                 img = self.train_data[(self.train_label[:,i]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
             else:
-                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)i
+                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
             plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()
