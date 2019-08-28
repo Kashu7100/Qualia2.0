@@ -5,8 +5,8 @@ import os
 
 path = os.path.dirname(os.path.abspath(__file__))
 
-class Alexnet(Module):
-    ''' Alexnet \n
+class AlexNet(Module):
+    ''' AlexNet \n
     Args:
         pretrained (bool): if true, load a pretrained weights
     '''
@@ -39,28 +39,8 @@ class Alexnet(Module):
         )
 
         if pretrained:
-            if not os.path.exists(path+'/weights/'):
-                os.makedirs(path+'/weights/')
-            if not os.path.exists(path+'/weights/alexnet.hdf5'):
-                print('[*] downloading weights...')
-                self.download(path+'/weights/')
-                print('[*] extracting...')
-                self.unzip(path+'/weights/')
-            self.load(path+'/weights/alexnet')
-    
-    def download(self, path): 
-        import urllib.request 
-        url = 'https://www.dropbox.com/s/uadgtyfq5t5zuiq/alexnet.zip?dl=1'
-        with urllib.request.urlopen(url) as u:
-            data = u.read()
-        with open(path+'alexnet.zip', 'wb') as file:
-            file.write(data)
-
-    def unzip(self, path):
-        from zipfile import ZipFile
-        with ZipFile(path+'alexnet.zip', 'r') as zip:
-            zip.extractall(path)
-    
+            self.load_state_dict_from_url('https://www.dropbox.com/s/uadgtyfq5t5zuiq/alexnet.zip?dl=1', version=0)
+            
     def forward(self, x):
         x = self.features(x)
         x = self.classifier(x.reshape(-1,6*6*256))
