@@ -3,7 +3,9 @@ from ...core import *
 from ...autograd import Tensor
 from collections import OrderedDict 
 from itertools import chain, islice
-import h5py as h5 
+import h5py as h5
+import _pickle as pickle
+import gzip
 from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('module')
 
@@ -186,9 +188,24 @@ class Module(object):
         for key, value in self._params.items(): 
             if type(value) is list:
                 for i, val in enumerate(value):
-                    self._params[key][int(i)].data = np.copy(state_dict[name+str(key)+'.'+str(i)])
+                    self._params[key][int(i)].data = np.copy(state_dict[name+str(key)+'.'+str(i)].astype(self._params[key][int(i)].dtype))
             else:
-                self._params[key].data = np.copy(state_dict[name+str(key)])
+                self._params[key].data = np.copy(state_dict[name+str(key)].astype(self._params[key].dtype))
+                
+    def load_state_dict_from_url(self, url, version=0):
+        '''Downloads and copies parameters from the state_dict at the url into this module.\n
+        '''
+        if not os.path.exists(home_dir+'/pretrained/'):
+            os.makedirs(home_dir+'/pretrained/')
+        model_dir = home_dir+'/pretrained'
+        from urllib.parse import urlparse
+        parts = urlparse(url)
+        filename = os.path.basename(parts.path)
+        cache = os.path.join(model_dir, filename)
+        if not os.path.exists(cache): 
+            from urllib.request import urlretrieve
+            urlretrieve(url, cache, reporthook=download_progress) 
+        self.load(cache, version)
     
     def __save__(self, h5file):
         if self._modules: 
@@ -201,15 +218,7 @@ class Module(object):
                 for i, val in enumerate(value):
                     grp.create_dataset(str(i), dtype='f8', data=val.asnumpy()) 
             else:
-                h5file.create_dataset(str(key), dtype='f8', data=value.asnumpy())
-
-    def save(self, filename): 
-        '''Saves internal parameters of the Module in HDF5 format.\n 
-        Args: 
-            filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename 
-        ''' 
-        with h5.File(filename + '.hdf5', 'w') as file: 
-            self.__save__(file)             
+                h5file.create_dataset(str(key), dtype='f8', data=value.asnumpy())          
 
     def __load__(self, h5file):
         if self._modules: 
@@ -222,13 +231,33 @@ class Module(object):
             else:
                 self._params[key].data = np.array(h5file[key])
         
-    def load(self, filename): 
+    def save(self, filename, dtype='float32', protocol=-1, version=0):
+        '''Saves internal parameters of the Module in HDF5 format.\n 
+        Args: 
+            filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename.qla 
+            dtype (str): data type to save
+            protocol (int): pickle protocol
+            version (int): version for the way of saving. version 1 takes less disk space. 
+        ''' 
+        if version == 1:
+            with gzip.open(filename, 'wb') as f:
+                pickle.dump(self.state_dict(dtype), f, protocol)
+        elif version == 0:
+            with h5.File(filename, 'w') as file: 
+                self.__save__(file)
+
+    def load(self, filename, version=0):
         '''Loads parameters saved in HDF5 format to the Module.\n 
         Args: 
-            filename (str): specify the filename as well as the path to the file without the file extension. (ex) path/to/filename 
+            filename (str): specify the filename as well as the path to the file with the file extension. (ex) path/to/filename.qla 
+            version (int): version for the way of saving. 
         ''' 
-        with h5.File(filename + '.hdf5', 'r') as file: 
-            self.__load__(file)  
+        if version == 1:
+            with gzip.open(filename, 'rb') as f:
+                self.load_state_dict(pickle.load(f))
+        elif version == 0:
+            with h5.File(filename, 'r') as file: 
+                self.__load__(file)
 
 class Sequential(Module): 
     r'''A sequential container.\n 
