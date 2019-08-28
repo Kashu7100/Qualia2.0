@@ -77,7 +77,7 @@ Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
 ## Examples
 More examples can be found [here](/examples).
 
-### [Supervised learning]/examples/supervised_learning)
+### [Supervised learning](/examples/supervised_learning)
 
 [<img src="/assets/spiral_boundary.png" height="200"/>](/examples/supervised_learning/spiral)<img src="/assets/openpose_hand.gif" height="200"/>[<img src="/assets/baseball.gif" height="220"/>](/examples/supervised_learning/openpose)
 
