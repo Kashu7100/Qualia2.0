@@ -1,4 +1,4 @@
-from qualia2.vision import Alexnet, imagenet_labels
+from qualia2.vision import AlexNet, imagenet_labels
 import qualia2.vision.transforms as transforms
 import PIL
 import numpy
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     input = preprocess(img)
 
-    model = Alexnet(pretrained=True)
+    model = AlexNet(pretrained=True)
     model.eval()
 
     output = model(input).asnumpy()
