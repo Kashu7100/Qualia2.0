@@ -2,6 +2,17 @@
 from .module import Module
 from ...functions import *
 
+class Identity(Module):
+    def __repr__(self):
+        return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
+    
+    def forward(self, x):
+        if self.input_shape is None:
+            self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = x.shape
+        return identity(x)
+    
 class ReLU(Module):
     def __repr__(self):
         return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
