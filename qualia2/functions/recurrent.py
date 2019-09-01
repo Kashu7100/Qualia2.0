@@ -72,10 +72,13 @@ class RNN(Function):
 
 rnn = RNN(None)
 
-#TODO
 class LSTMCell(Function):
+    def __init__(self, output_shape_h, output_shape_c, *args, **kwargs):
+        super().__init__(output_shape_h, *args, **kwargs)
+        self.output_shape_c = output_shape_c
+
     @staticmethod
-    def forward(x, h, c, weight_x, weight_h, bias_x, bias_h, hidden_size):
+    def forward(x, h, c, weight_x, weight_h, bias_x, bias_h):
         '''
         Shape:
             - x: [N, input_size]
@@ -88,24 +91,86 @@ class LSTMCell(Function):
             - Output_h: [N, hidden_size]
             - Output_c: [N, hidden_size]
         '''
+        hidden_size = h.shape[1]
         if bias_x is None or bias_h is None:
             tmp = np.add(np.dot(h.data, weight_h.data), np.dot(x.data, weight_x.data))
         else:
             tmp = np.add(np.add(np.dot(h.data, weight_h.data), bias_x.data), np.add(np.dot(x.data, weight_x.data), bias_h.data))
-        f = np.divide(1, np.add(1, np.exp(np.negative(tmp[:, :hidden_size]))))
+        f = np.divide(1, np.add(1, np.exp(np.negative(tmp[:,:hidden_size]))))
         g = np.tanh(tmp[:, hidden_size:2*hidden_size])
-        i = np.divide(1, np.add(1, np.exp(np.negative(tmp[:, 2*hidden_size:3*hidden_size]))))
-        o = np.divide(1, np.add(1, np.exp(np.negative(tmp[:, 3*hidden_size:4*hidden_size]))))
-        c_next = np.add(np.multiply(f, c), np.multiply(g, i))
+        i = np.divide(1, np.add(1, np.exp(np.negative(tmp[:,2*hidden_size:3*hidden_size]))))
+        o = np.divide(1, np.add(1, np.exp(np.negative(tmp[:,3*hidden_size:4*hidden_size]))))
+        c_next = np.add(np.multiply(f, c.data), np.multiply(g, i))
         h_next = np.multiply(o, np.tanh(c_next))
         c_next = Tensor(c_next)
         h_next = Tensor(h_next)
-        c_next.set_creator(LSTMCell.prepare(c_next.shape, ))
-        h_next.set_creator(LSTMCell.prepare(h_next.shape, ))
+        if bias_x is None or bias_h is None:
+            parent = LSTMCell.prepare(h_next.shape, c_next.shape, x, h, c, weight_x, weight_h, bias=False, f=f, g=g, i=i, o=o, c_next=c_next.data, hidden_size=hidden_size)
+        else:
+            parent = LSTMCell.prepare(h_next.shape, c_next.shape, x, h, c, weight_x, weight_h, bias_x, bias_h, bias=True, f=f, g=g, i=i, o=o, c_next=c_next.data, hidden_size=hidden_size)
+        c_next.set_creator(parent)
+        h_next.set_creator(parent)
         return h_next, c_next
-    
+
     def calc_grad(self, dh_next, dc_next):
-        pass
+        tanh_c_next = np.tanh(self.kwargs['c_next'])
+        ds = dc_next + (dh_next * self.kwargs['o']) * (1 - tanh_c_next ** 2)
+        
+        df = ds * self.var[2].data
+        dg = ds * self.kwargs['i']
+        di = ds * self.kwargs['g']
+        do = dh_next * tanh_c_next
+        # derivative of activation
+        df *= self.kwargs['f'] * (1 - self.kwargs['f'])
+        dg *= (1 - self.kwargs['g'] ** 2)
+        di *= self.kwargs['i'] * (1 - self.kwargs['i'])
+        do *= self.kwargs['o'] * (1 - self.kwargs['o'])
+        dtmp = np.hstack((df, dg, di, do))
+
+        dx = np.dot(dtmp, self.var[3].data.T)
+        dh = np.dot(dtmp, self.var[4].data.T)
+        dc = ds * self.kwargs['f']
+        dw_h = np.dot(self.var[1].data.T, dtmp)
+        dw_x = np.dot(self.var[0].data.T, dtmp)
+
+        if not self.kwargs['bias']:        
+            return dx, dh, dc, dw_x, dw_h
+        else:
+            hidden_size = self.kwargs['hidden_size']
+            db_x = np.zeros_like(self.var[5].data)
+            db_h = np.zeros_like(self.var[6].data)
+            db_x = LSTMCell.handle_broadcast(dtmp, self.var[5])
+            db_h = LSTMCell.handle_broadcast(dtmp, self.var[6])
+            return dx, dh, dc, dw_x, dw_h, db_x, db_h
+
+    def backward(self, dh_next, dc_next=None):
+        if dc_next is None:
+            dc_next = np.zeros_like(self.kwargs['c_next'])
+        grads = self.calc_grad(dh_next, dc_next)
+        if type(grads) is list:
+            grads = tuple(grads)
+        if type(grads) is not tuple:
+            grads = (grads,)
+        for dx, var in zip(grads, self.var):
+            if not var.requires_grad:
+                continue
+            if var.grad is None:
+                var.grad = dx
+            else:
+                var.grad += dx
+        for i, var in enumerate(self.var):
+            if i == 2:
+                continue
+            if var.creator is not None:
+                if i == 1:
+                    if isinstance(var.creator, LSTMCell):
+                        var.backward(var.grad, self.var[2].grad)
+                    else:
+                        var.backward(var.grad)
+                else:
+                    var.backward(var.grad)
+
+lstmcell = LSTMCell(None, None)
 
 class GRUCell(Function):
     @staticmethod
