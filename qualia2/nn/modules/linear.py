@@ -24,9 +24,9 @@ class Linear(Module):
         self.in_features = in_features
         self.out_features = out_features
         self.num_params += in_features*out_features
-        self.weight = Tensor(np.random.normal(0, math.sqrt(1/in_features),(in_features, out_features))) 
+        self.weight = Tensor(np.random.uniform(-math.sqrt(1/in_features), math.sqrt(1/in_features),(in_features, out_features))) 
         if bias: 
-            self.bias = Tensor(np.zeros(out_features)) 
+            self.bias = Tensor(np.random.uniform(-math.sqrt(1/in_features), math.sqrt(1/in_features),(out_features))) 
             self.num_params += out_features
         else: 
             self.bias = None
@@ -35,9 +35,55 @@ class Linear(Module):
         return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_features, self.out_features, str(self.bias is not None), id(self), 16)
     
     def forward(self, x): 
-        result = tensordot(x, self.weight) + self.bias
+        if self.bias is not None:
+            result = tensordot(x, self.weight) + self.bias
+        else:
+            result = tensordot(x, self.weight)
         if self.input_shape is None:
             self.input_shape = x.shape
+        if self.output_shape is None:
+            self.output_shape = result.shape
+        return result
+
+class Bilinear(Module):
+    '''Applies a bilinear transformation to the incoming data\n 
+    Model: 
+        y = x1*w*x2 + b 
+     
+    Args: 
+        in_features1 (int): size of each input sample 
+        in_features2 (int): size of each second input sample 
+        out_features (int): size of each output sample 
+        bias (bool): whether to use bias. Default: True 
+     
+    Shape: 
+        - Input1: [N, *, in_features1] where '∗' means any number of additional dimensions.
+        - Input2: [N, *, in_features2] where '∗' means any number of additional dimensions. 
+        - Output: [N, *, out_features] where '∗' means any number of additional dimensions. 
+    ''' 
+    def __init__(self, in_features1, in_features2, out_features, bias=True):
+        super().__init__()
+        self.in_features1 = in_features1
+        self.in_features2 = in_features2
+        self.out_features = out_features
+        self.num_params += in_features1*in_features2*out_features
+        self.weight = Tensor(np.random.uniform(-math.sqrt(1/in_features1), math.sqrt(1/in_features1),(out_features, in_features1, in_features2))) 
+        if bias: 
+            self.bias = Tensor(np.random.uniform(-math.sqrt(1/in_features1), math.sqrt(1/in_features1),(out_features))) 
+            self.num_params += out_features
+        else: 
+            self.bias = None
+    
+    def __repr__(self):
+        return '{}({}, {}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_features1, self.in_features2, self.out_features, str(self.bias is not None), id(self), 16)
+
+    def forward(self, x1, x2):
+        if self.bias is not None:
+            result = (x1.expand_dims(len(x1.shape)-1)@(tensordot(self.weight,x2.T,(2,0))).T).squeeze(len(x1.shape)-1) + self.bias
+        else:
+            result = (x1.expand_dims(len(x1.shape)-1)@(tensordot(self.weight,x2.T,(2,0))).T).squeeze(len(x1.shape)-1)
+        if self.input_shape is None:
+            self.input_shape = [x1.shape, x2.shape]
         if self.output_shape is None:
             self.output_shape = result.shape
         return result
@@ -72,7 +118,10 @@ class CLinear(Module):
         return '{}({}, {}, bias={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.in_features, self.out_features, str(self.bias is not None), id(self), 16)
     
     def forward(self, x): 
-        result = tensordot(x, self.weight) + self.bias
+        if self.bias is not None:
+            result = tensordot(x, self.weight) + self.bias
+        else:
+            result = tensordot(x, self.weight)
         if self.input_shape is None:
             self.input_shape = x.shape
         if self.output_shape is None:
