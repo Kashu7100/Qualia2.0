@@ -172,6 +172,42 @@ class LSTMCell(Function):
 
 lstmcell = LSTMCell(None, None)
 
+class LSTM(Function):
+    @staticmethod
+    def forward(x, h, c, weight_x, weight_h, bias_x, bias_h, num_layers):
+        '''
+        Shape:
+            - x: [seq_len, N, input_size]
+            - h: [num_layers, N, hidden_size]
+            - c: [num_layers, N, hidden_size]
+            - Output: [seq_len, N, hidden_size]
+            - Hidden_h: [num_layers, N, hidden_size]
+            - Hidden_c: [num_layers, N, hidden_size]
+        '''
+        seq_len = x.shape[0]
+        h_out = []
+        c_out = []
+        tmp = [x]
+        for l in range(num_layers):
+            hx = h[l]
+            cx = c[l]
+            tmp.append([])
+            for i in range(seq_len):
+                if bias_x is None or bias_h is None:
+                    hx, cx = lstmcell(tmp[l][i], hx, cx, weight_x[l], weight_h[l], None, None)
+                    tmp[l+1].append(hx)
+                else:
+                    hx, cx = lstmcell(tmp[l][i], hx, cx, weight_x[l], weight_h[l], bias_x[l], bias_h[l])
+                    tmp[l+1].append(hx)
+            h_out.append(hx)
+            c_out.append(cx)
+        result_x = listconcat(tmp[-1])
+        result_h = listconcat(h_out)
+        result_c = listconcat(c_out)
+        return result_x, result_h, result_c
+    
+lstm = LSTM(None)
+
 class GRUCell(Function):
     @staticmethod
     def forward(x, h, weight_x, weight_h, bias_x, bias_h):
