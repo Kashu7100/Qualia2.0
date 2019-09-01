@@ -43,6 +43,84 @@ class Tensor(object):
         self.grad = None
         self.creator = None
         self.requires_grad = requires_grad
+    
+    def __str__(self):
+        return f'{self.data} shape={self.shape}'
+    
+    def __repr__(self):
+        return '{}({}, requires_grad={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.data, self.requires_grad, id(self), 16)
+
+    def __setattr__(self, key, value):   
+        super().__setattr__(key, value)
+        if key == 'data':
+            super().__setattr__('shape', self.data.shape)
+            super().__setattr__('ndim', self.data.ndim) 
+        if key == 'dtype':
+            super().__setattr__('data', self.data.astype(value)) 
+        if self.hook is not None:
+            if key == 'grad':
+                super().__setattr__('grad', self.hook(value))
+
+    def __getitem__(self, slice):
+        return Slice.forward(self, slice)
+    
+    def __setitem__(self, idx, obj):
+        self.data[idx] = obj
+
+    def __len__(self): 
+        return self.ndim
+
+    def __add__(self, other): 
+        other = self.handle_const(other)
+        return Add.forward(self, other)
+    
+    def __radd__(self, other): 
+        other = self.handle_const(other)
+        return Add.forward(self, other)
+
+    def __sub__(self, other): 
+        other = self.handle_const(other)
+        return Sub.forward(self, other) 
+     
+    def __rsub__(self, other): 
+        other = self.handle_const(other)
+        return Sub.forward(other, self) 
+ 
+    def __mul__(self, other): 
+        other = self.handle_const(other)
+        return Mul.forward(self, other) 
+ 
+    def __rmul__(self, other): 
+        other = self.handle_const(other) 
+        return Mul.forward(self, other)  
+     
+    def __matmul__(self, other):
+        return Matmul.forward(self, other) 
+     
+    def __neg__(self): 
+        return Neg.forward(self) 
+   
+    def __abs__(self):
+        return Abs.forward(self)
+ 
+    def __truediv__(self, other): 
+        other = self.handle_const(other)
+        return Div.forward(self, other)
+ 
+    def __rtruediv__(self, other): 
+        other = self.handle_const(other)
+        return Div.forward(other, self)
+ 
+    def __pow__(self, other): 
+        other = self.handle_const(other)
+        return Pow.forward(self, other)
+     
+    def __rpow__(self, other): 
+        raise Exception('__rpow__ is not defined.')
+        
+    @property
+    def T(self):
+        return Transpose.forward(self, tuple([i for i in reversed(range(self.ndim))]))
 
     def backward(self, *args):
         if not bool(args):
@@ -133,80 +211,6 @@ class Tensor(object):
     
     def register_hook(self, hook):
         self.hook = hook
-    
-    def __str__(self):
-        return f'{self.data} shape={self.shape}'
-    
-    def __repr__(self):
-        return '{}({}, requires_grad={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.data, self.requires_grad, id(self), 16)
-
-    def __setattr__(self, key, value):   
-        super().__setattr__(key, value)
-        if key == 'data':
-            super().__setattr__('shape', self.data.shape)
-            super().__setattr__('ndim', self.data.ndim) 
-        if key == 'dtype':
-            super().__setattr__('data', self.data.astype(value)) 
-        if self.hook is not None:
-            if key == 'grad':
-                super().__setattr__('grad', self.hook(value))
-
-    def __getitem__(self, slice):
-        return Slice.forward(self, slice)
-    
-    def __setitem__(self, idx, obj):
-        self.data[idx] = obj
-
-    def __len__(self): 
-        return self.ndim
-
-    def __add__(self, other): 
-        other = self.handle_const(other)
-        return Add.forward(self, other)
-    
-    def __radd__(self, other): 
-        other = self.handle_const(other)
-        return Add.forward(self, other)
-
-    def __sub__(self, other): 
-        other = self.handle_const(other)
-        return Sub.forward(self, other) 
-     
-    def __rsub__(self, other): 
-        other = self.handle_const(other)
-        return Sub.forward(other, self) 
- 
-    def __mul__(self, other): 
-        other = self.handle_const(other)
-        return Mul.forward(self, other) 
- 
-    def __rmul__(self, other): 
-        other = self.handle_const(other) 
-        return Mul.forward(self, other)  
-     
-    def __matmul__(self, other):
-        return Matmul.forward(self, other) 
-     
-    def __neg__(self): 
-        return Neg.forward(self) 
-   
-    def __abs__(self):
-        return Abs.forward(self)
- 
-    def __truediv__(self, other): 
-        other = self.handle_const(other)
-        return Div.forward(self, other)
- 
-    def __rtruediv__(self, other): 
-        other = self.handle_const(other)
-        return Div.forward(other, self)
- 
-    def __pow__(self, other): 
-        other = self.handle_const(other)
-        return Pow.forward(self, other)
-     
-    def __rpow__(self, other): 
-        raise Exception('__rpow__ is not defined.')
 
 class Function(object):
     '''
