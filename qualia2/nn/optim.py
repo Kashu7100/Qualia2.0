@@ -23,9 +23,15 @@ class Optimizer(object):
         raise NotImplementedError
      
     def step(self): 
+        '''
+        Performs a single optimization step (parameter update).
+        '''
         raise NotImplementedError 
     
     def zero_grad(self):
+        '''
+        Clears the all gradients in parameters
+        '''
         for i in self.params(): 
             i.grad = None
 
