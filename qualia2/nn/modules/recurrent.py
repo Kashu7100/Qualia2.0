@@ -93,7 +93,7 @@ class RNNCell(Module):
         return result
     
 class LSTM(Module):
-    '''A Long Short Term Memoty cell \n
+    '''Long Short Term Memoty \n
     Args:
         input_size (int): The number of expected features in the input
         hidden_size (int): The number of features in the hidden state
