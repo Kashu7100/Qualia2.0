@@ -3,6 +3,9 @@ from ..core import *
 from ..autograd import *
 
 class Identity(Function):
+    '''
+    Identity function
+    '''
     @staticmethod
     def forward(a):
         return a
@@ -10,6 +13,9 @@ class Identity(Function):
 identity = Identity(None)
 
 class ReLU(Function):
+    '''
+    Rectified linear unit
+    '''
     @staticmethod
     def forward(a):
         result = Tensor(np.maximum(0,a.data)) 
@@ -22,6 +28,23 @@ class ReLU(Function):
         return result
 
 relu = ReLU(None)
+
+class BReLU(Function):
+    ''' 
+    Bipolar rectified linear unit 
+    '''
+    @staticmethod
+    def forward(a):
+        result = Tensor(np.minimum(0,a.data)) 
+        result.set_creator(BReLU.prepare(result.shape, a, mask=(a.data > 0)))
+        return result
+
+    def calc_grad(self, dx):
+        result = np.copy(dx)
+        result[self.kwargs['mask']] = 0
+        return result
+
+brelu = BReLU(None)
 
 class CReLU(Function):
     @staticmethod
@@ -45,6 +68,9 @@ class CReLU(Function):
 crelu = CReLU(None)
     
 class LeakyReLU(Function):
+    '''
+    Leaky rectified linear unit 
+    '''
     @staticmethod
     def forward(a):
         mask = (a.data < 0) 
@@ -62,6 +88,9 @@ class LeakyReLU(Function):
 leakyrelu = LeakyReLU(None)
 
 class ELU(Function):
+    '''
+    Exponential linear unit
+    '''
     @staticmethod
     def forward(a, k):
         mask = (a.data < 0) 
@@ -79,6 +108,9 @@ class ELU(Function):
 elu = ELU(None)
 
 class Sigmoid(Function):
+    '''
+    Sigmoid function
+    '''
     @staticmethod
     def forward(a):
         result = Tensor(np.divide(1, np.add(1, np.exp(np.negative(a.data))))) 
@@ -92,6 +124,9 @@ sigmoid = Sigmoid(None)
 logistic = Sigmoid(None)
 
 class SoftPlus(Function):
+    '''
+    SoftPlus function
+    '''
     @staticmethod
     def forward(a):
         result = Tensor(np.log(np.add(1, np.exp(a.data)))) 
@@ -104,6 +139,9 @@ class SoftPlus(Function):
 softplus = SoftPlus(None)
 
 class SoftSign(Function):
+    '''
+    SoftSign function
+    '''
     @staticmethod
     def forward(a):
         result = Tensor(np.divide(a.data, np.add(1, np.absolute(a.data))))
@@ -117,6 +155,9 @@ softsign = SoftSign(None)
 elliotsig = SoftSign(None)
 
 class SoftMax(Function):
+    '''
+    SoftMax function
+    '''
     @staticmethod
     def forward(a):
         assert a.ndim == 2
@@ -133,3 +174,34 @@ class SoftMax(Function):
         return result
 
 softmax = SoftMax(None)
+
+class Tanhshrink(Function):
+    '''
+    Elementwise x - Tanh(x) function
+    '''
+    @staticmethod
+    def forward(a):
+        tmp = np.tanh(a.data)
+        result = Tensor(a.data-tmp) 
+        result.set_creator(Tanhshrink.prepare(result.shape, a, tmp=tmp))
+        return result
+
+    def calc_grad(self, dx):
+        return np.subtract(1, np.multiply(dx, np.subtract(1, np.square(self.kwargs['tmp']))))
+
+tanhshrink = Tanhshrink(None)
+
+class Gaussian(Function):
+    '''
+    Elementwise Gaussian function
+    '''
+    @staticmethod
+    def forward(a):
+        result = Tensor(np.exp(-np.square(a.data)))
+        result.set_creator(Gaussian.prepare(result.shape, a, tmp=result.data))
+        return result
+    
+    def calc_grad(self, dx):
+        return -2*dx*self.var[0].data*self.kwargs['tmp']
+
+gaussian = Gaussian(None)
