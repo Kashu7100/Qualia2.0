@@ -1,10 +1,20 @@
 ## Introduction
+### Biological Neuron and Artificial Neuron
+Neural networks are a set of algorithms, modeled loosely after the human brain, that are designed to recognize patterns [1].
+The perceptron is a mathematical model of a biological neuron.
+<p align="center">
+  <img src="/assets/neuron_and_nn.png"/>
+  <br>
+  <b> Fig.1: </b> Biological neuron versus artificial neuron (perceptron).
+</p>
+
+### Learning in Brain and Neural Network
 Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.
 
 <p align="center">
   <img src="/assets/Brain_DL.PNG"/>
   <br>
-  <b> Fig.1: </b> Learning scheme in the brain.
+  <b> Fig.2: </b> Learning scheme in the brain.
 </p>
 
 ## [Supervised Learning](/examples/supervised_learning) 
@@ -33,9 +43,31 @@ This is done by minimizing the error between <a href="https://www.codecogs.com/e
 Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.
 
 In 1949, Donald O. Hebb argued that: 
-> "When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased." 
+> "When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cells firing B, is increased." - Organization of Behavior (1949).
 
 This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in our learning and memory.
+
+### Hebbian learning
+Hebb's Rule is often generalized as:
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\mathbf{w}&space;=&space;\eta&space;y&space;\mathbf{x}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\mathbf{w}&space;=&space;\eta&space;y&space;\mathbf{x}" title="\Delta \mathbf{w} = \eta y \mathbf{x}" /></a>
+</p>
+
+This version of the rule is clearly unstable, as in any network with a dominant signal the synaptic weights will increase or decrease exponentially.
+
+### Oja's learning rule
+Oja's rule solves all stability problems of Hebb's Rule and generates an algorithm for principal components analysis. This is a computational form of an effect which is believed to happen in biological neurons. 
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\mathbf{w}&space;=&space;\eta&space;y(\mathbf{x}-y\mathbf{w})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\mathbf{w}&space;=&space;\eta&space;y(\mathbf{x}-y\mathbf{w})" title="\Delta \mathbf{w} = \eta y(\mathbf{x}-y\mathbf{w})" /></a>
+</p>
+
+### Generalized Hebbian Algorithm (Sanger's rule)
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;w_{ij}&space;=&space;\eta&space;y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;w_{ij}&space;=&space;\eta&space;y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" title="\Delta w_{ij} = \eta y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" /></a>
+</p>
 
 ## [Reinforcement Learning](/examples/reinforcement_learning)
 *Reinforcement Learning* is a machine learning technique that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences assuming Markov Decision Process (MDP). Reinforcement Learning named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner.
@@ -130,6 +162,8 @@ In the first case, an unpredicted reward (R) occurs, and a burst of dopamine fir
 The feature of TD error matches with the response of dopamine neurons <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a> in the figure. Therefore, the response of dopamine neurons is thought to be the TD error signal.  
 
 ---
-[1] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599 
+[1] A Beginner's Guide to Neural Networks and Deep Learning Online: https://skymind.ai/wiki/neural-network
 
-[2] Doya K. (2007). Reinforcement learning: Computational theory and biological mechanisms. HFSP journal, 1(1), 30–40. doi:10.2976/1.2732246/10.2976/1
+[2] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599 
+
+[3] Doya K. (2007). Reinforcement learning: Computational theory and biological mechanisms. HFSP journal, 1(1), 30–40. doi:10.2976/1.2732246/10.2976/1
