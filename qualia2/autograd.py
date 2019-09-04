@@ -123,6 +123,10 @@ class Tensor(object):
         return Transpose.forward(self, tuple([i for i in reversed(range(self.ndim))]))
 
     def backward(self, *args):
+        ''' calculates all the gradients in the graph
+        Args:
+            *args (ndarray): seed of the reverse accumulation AD; optional
+        '''
         if not bool(args):
             args = [np.ones_like(self.data, dtype=self.dtype)]     
         if self.creator is None:
@@ -130,16 +134,24 @@ class Tensor(object):
         else:
             self.creator.backward(*args) 
 
-    def set_creator(self, obj): 
+    def set_creator(self, obj):
+        ''' sets the creator of the Tensor
+        Args:
+            obj (Function): the function that created the Tensor
+        '''
         self.creator = obj     
         
     def asnumpy(self):
+        ''' aquire Tensor data as numpy ndarray
+        '''
         if gpu:
             return np.asnumpy(self.data)
         else:
             return self.data
         
     def gradasnumpy(self):
+        ''' aquire Tensor grad as numpy ndarray
+        '''
         assert self.grad is not None
         if gpu:
             return np.asnumpy(self.grad)
@@ -147,22 +159,34 @@ class Tensor(object):
             return self.grad
     
     def uniform(self, low=0, high=1):
+        ''' initialize the Tensor data with uniform distribution
+        '''
         self.data = np.random.uniform(low=low, high=high, size=self.shape)
         self.creator = None
 
     def normal(self, mean=0, std=1):
+        ''' initialize the Tensor data with normal distribution
+        '''
         self.data = np.random.normal(loc=mean, scale=std, size=self.shape)
         self.creator = None
 
     def ones(self):
+        ''' initialize the Tensor data with ones
+        '''
         self.data = np.ones_like(self.data)
         self.creator = None
 
     def zeros(self):
+        ''' initialize the Tensor data with zeros
+        '''
         self.data = np.zeros_like(self.data)
         self.creator = None
     
     def fill(self, val):
+        ''' initialize the Tensor data with a constant value
+        Args:
+            val (float|int): a value to fill the Tensor data 
+        '''
         self.data.fill(val)
         self.creator = None
     
@@ -202,7 +226,7 @@ class Tensor(object):
         return Expand_dims.forward(self, axis)
     
     def detach(self):
-        '''Returns a new Tensor, detached from the current graph.
+        ''' returns a new Tensor, detached from the current graph.
         '''
         return Tensor(self.data, dtype=self.dtype)
     
@@ -219,6 +243,7 @@ class Function(object):
     Attributes:
         output_shape (tuple of int): output shape of a function
         var (tuple of Tensor): Tensor(s) that was feeded
+        kwargs (dict): some useful data for backward calculation
     '''
     def __init__(self, output_shape, *args, **kwargs):
         self.output_shape = output_shape
