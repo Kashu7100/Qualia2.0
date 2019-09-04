@@ -419,3 +419,52 @@ class RAdam(Optimizer):
             else:
                 var.data -= self.l2 * var.data
                 var.data -= self.lr * m
+
+class NovoGrad(Optimizer):
+    '''Implements NovoGrad algorithm.\n
+    Args: 
+        parameters (iterable): iterable of parameters to optimize
+        lr (float): learning rate Default: 1e-03
+        betas (tuple of float): coefficients used for computing running averages of gradient and its square Default: (0.95, 0.98)
+        eps (float): for numerical stability Default: 1e-08
+        weight_decay (float): weight decay (L2 penalty) Default: 0
+    '''
+    def __init__(self, parameters, lr=0.001, betas=(0.95, 0.98), eps=1e-08, weight_decay=0):
+        super().__init__(parameters)
+        self.lr = lr 
+        self.betas = betas 
+        self.eps = eps 
+        self.m = {}
+        self.v = {} 
+        self.l2 = weight_decay
+        self.t = 0
+
+    def __repr__(self):
+        return '{}(lr={}, betas={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.betas, self.l2, id(self), 16)
+    
+    @property
+    def defaults(self):
+        return {
+            'lr':0.001, 
+            'betas':(0.95, 0.98), 
+            'weight_decay':0
+        }
+    
+    def load_settings(self, defaults):
+        self.lr = defaults['lr']
+        self.betas = defaults['betas']
+        self.l2 = defaults['weight_decay']
+
+    def step(self): 
+        self.t += 1
+        for i, var in enumerate(self.params()): 
+            if not var.requires_grad:
+                continue
+            if i not in self.v:  
+                self.v[i] = np.zeros_like(var.grad) 
+            if i not in self.m:  
+                self.m[i] = np.zeros_like(var.grad) 
+            self.v[i] = self.betas[1] * self.v[i] + (1-self.betas[1]) * var.grad**2
+            self.m[i] = self.betas[0] * self.m[i] + var.grad / np.sqrt(self.v[i] + self.eps)
+            var.data -= self.l2 * var.data
+            var.data -= self.lr * self.m[i]
