@@ -5,6 +5,9 @@ from ..autograd import Tensor
 import os
 
 class DataLoader(object):
+    ''' DataLoader \n
+    
+    '''
     def __init__(self):
         self.training = True 
         self.train_data = None
@@ -53,7 +56,11 @@ class DataLoader(object):
             return Tensor(features, requires_grad=False)
     
     def download(self, url, filename=None):
-        
+        ''' downloads data from the url
+        Args:
+            url (str): url of the data
+            filename (str): filename to save the data
+        '''
         if not os.path.exists(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())):  
             os.makedirs(home_dir + '/data/download/{}/'.format(self.__class__.__name__.lower())) 
         data_dir = home_dir+'/data/download/{}'.format(self.__class__.__name__.lower())
@@ -67,6 +74,10 @@ class DataLoader(object):
             urlretrieve(url, cache, reporthook=download_progress) 
 
     def extract(filename):
+        ''' extract the contents in the file
+        Args:
+            filename (str): name of the file to extract
+        '''
         data_dir = home_dir+'/data/download/{}'.format(self.__class__.__name__.lower())
         cache = os.path.join(data_dir, filename)
         if '.tar.gz' in filename:
@@ -79,6 +90,8 @@ class DataLoader(object):
             raise Exception('[*] not supported extension')
             
     def shuffle(self):
+        ''' shuffle the dataset
+        '''
         if self.training:
             self.train_data, self.train_label = self._shuffle(self.train_data, self.train_label)
         else:
@@ -94,10 +107,17 @@ class DataLoader(object):
         return new_data, new_label
 
     def show(self):
+        ''' plot the samples of the dataset
+        '''
         raise NotImplementedError
 
     @staticmethod
     def to_one_hot(label, num_class):
+        ''' convert the label to one hot representation
+        Args:
+            label (ndarray | Tensor): label data
+            num_class (int): number of the class in a dataset
+        '''
         if isinstance(label, Tensor):
             one_hot = np.zeros((len(label.data), num_class), dtype=np.int32)    
         else:
@@ -108,6 +128,10 @@ class DataLoader(object):
 
     @staticmethod
     def to_vector(label):
+        ''' convert the label to vector representation
+        Args:
+            label (ndarray | Tensor): label data
+        '''
         if isinstance(label, Tensor):
             return np.argmax(label.data, axis=1)
         else:
