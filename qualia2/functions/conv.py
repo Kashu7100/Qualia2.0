@@ -5,22 +5,24 @@ from ..autograd import *
 class Conv1d(Function):
     @staticmethod
     def forward(x, kernel, bias=None, stride=1, padding=1, dilation=1):
-        '''Applies a 2D convolution over an input signal composed of several input planes.\n 
+        '''Applies a 2D convolution over an input signal composed of several input planes.
+        
         Args: 
-            x (Tensor): Input tensor with shepe of [batch, channel, width] 
-            kernel (Tensor): Kernel with shape of [patch, channel, kernel_width] 
-            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None 
-            stride (int): Stride of the convolution. Default: 1
-            padding (int): Padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension. Default: 1
+            x (Tensor): Input tensor with shepe of [batch, channel, width] \n
+            kernel (Tensor): Kernel with shape of [patch, channel, kernel_width] \n
+            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None\n 
+            stride (int): Stride of the convolution. Default: 1\n
+            padding (int): Padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension. Default: 1 \n 
             dilation (int): Spacing between kernel elements. Default: 1
+            
         Returns: 
-            (Tensor): Output tensor will have shape of [batch, patch, out_width] 
+            (Tensor): Output tensor will have shape of [batch, patch, out_width] \n 
 
         Shape: 
             - Input: [N, in_channels, W] 
             - Output: [N, out_channels, W_out] 
  
-            W_out = (W+2*padding-dilation*(kernel_size-1)-1)/stride+1 
+            :math:`W_out = (W+2*padding-dilation*(kernel_size-1)-1)/stride+1` 
         ''' 
         batch, channel, width = x.shape 
         patch, _, kernel_width = kernel.shape 
@@ -82,14 +84,16 @@ conv1d = Conv1d(None)
 class Conv2d(Function):        
     @staticmethod
     def forward(x, kernel, bias=None, stride=(1,1), padding=(1,1), dilation=(1,1)):
-        '''Applies a 2D convolution over an input signal composed of several input planes.\n 
+        '''Applies a 2D convolution over an input signal composed of several input planes.
+        
         Args: 
-            x (Tensor): Input tensor with shepe of [batch, channel, height, width] 
-            kernel (Tensor): Kernel with shape of [patch, channel, kernel_height, kernel_width] 
-            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None 
-            stride (tuple of int): Stride of the convolution. Default: (1,1) 
-            padding (tuple of int): Padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension. Default: (1,1)
+            x (Tensor): Input tensor with shepe of [batch, channel, height, width] \n
+            kernel (Tensor): Kernel with shape of [patch, channel, kernel_height, kernel_width]\n 
+            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None \n
+            stride (tuple of int): Stride of the convolution. Default: (1,1) \n
+            padding (tuple of int): Padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension. Default: (1,1)\n
             dilation (tuple of int): Spacing between kernel elements. Default: (1,1)
+            
         Returns: 
             (Tensor): Output tensor will have shape of [batch, patch, out_height, out_width] 
 
@@ -97,8 +101,8 @@ class Conv2d(Function):
             - Input: [N, in_channels, H, W] 
             - Output: [N, out_channels, H_out, W_out] 
  
-            H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0]+1 
-            W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1]+1 
+            :math:`H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0]+1 `
+            :math:`W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1]+1 `
         ''' 
         batch, channel, height, width = x.shape 
         patch, _, kernel_height, kernel_width = kernel.shape 
@@ -163,14 +167,16 @@ conv2d = Conv2d(None)
 class Conv3d(Function):
     @staticmethod
     def forward(x, kernel, bias=None, stride=(1,1,1), padding=(1,1,1), dilation=(1,1,1)):
-        '''Applies a 3D convolution over an input signal composed of several input planes.\n 
+        '''Applies a 3D convolution over an input signal composed of several input planes.
+        
         Args: 
-            x (Tensor): Input tensor with shepe of [batch, channel, height, width, depth] 
-            kernel (Tensor): Kernel with shape of [patch, channel, kernel_height, kernel_width, kernel_depth] 
-            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None
-            stride (tuple of int): Stride of the convolution. Default: (1,1,1) 
-            padding (tuple of int): Padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension. Default: (1,1,1)
+            x (Tensor): Input tensor with shepe of [batch, channel, height, width, depth] \n
+            kernel (Tensor): Kernel with shape of [patch, channel, kernel_height, kernel_width, kernel_depth]\n 
+            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None\n
+            stride (tuple of int): Stride of the convolution. Default: (1,1,1) \n
+            padding (tuple of int): Padding controls the amount of implicit zero-paddings on both sides for padding number of points for each dimension. Default: (1,1,1)\n
             dilation (tuple of int): Spacing between kernel elements. Default: (1,1,1)
+            
         Returns: 
             (Tensor): Output tensor will have shape of [batch, patch, out_height, out_width, out_depth] 
 
@@ -178,9 +184,9 @@ class Conv3d(Function):
             - Input: [N, in_channels, H, W, D] 
             - Output: [N, out_channels, H_out, W_out, D_out] 
  
-            H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0]+1 
-            W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1]+1 
-            D_out = (D+2*padding[2]-dilation[2]*(kernel_size[2]-1)-1)/stride[2]+1 
+            :math:`H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0]+1` 
+            :math:`W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1]+1` 
+            :math:`D_out = (D+2*padding[2]-dilation[2]*(kernel_size[2]-1)-1)/stride[2]+1`
         ''' 
         batch, channel, height, width, depth = x.shape 
         patch, _, kernel_height, kernel_width, kernel_depth = kernel.shape 
@@ -249,20 +255,21 @@ class ConvTranspose1d(Function):
     @staticmethod
     def forward(x, kernel, bias=None, stride=1, padding=1, output_padding=0, dilation=1):
         '''Applies a 1D transposed convolution over an input signal composed of several input planes.\n 
+        
         Args: 
-            x (Tensor): Input tensor with shepe of [batch, channel, height] 
-            kernel (Tensor): Kernel with shape of [channel, patch, kernel_height] 
-            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None 
-            stride (tuple of int): Stride of the convolution. Default: 1
-            padding (tuple of int):  Zero-padding added to both sides of the input. Default: 1
-            output_padding (tuple of int): Zero-padding added to both sides of the output. Default: 0
-            dilation (tuple of int): Spacing between kernel elements. Default: 1
+            x (Tensor): Input tensor with shepe of [batch, channel, height] \n
+            kernel (Tensor): Kernel with shape of [channel, patch, kernel_height]\n 
+            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None\n 
+            stride (tuple of int): Stride of the convolution. Default: 1\n
+            padding (tuple of int):  Zero-padding added to both sides of the input. Default: 1\n
+            output_padding (tuple of int): Zero-padding added to both sides of the output. Default: 0\n
+            dilation (tuple of int): Spacing between kernel elements. Default: 1\n
      
         Shape: 
             - Input: [N, in_channels, H] 
             - Output: [N, out_channels, H_out] 
  
-            H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]
+            :math:`H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]`
 
         Reference:
             https://arxiv.org/pdf/1603.07285.pdf
@@ -310,21 +317,22 @@ class ConvTranspose2d(Function):
     @staticmethod
     def forward(x, kernel, bias=None, stride=(1,1), padding=(1,1), output_padding=(0,0), dilation=(1,1)):
         '''Applies a 2D transposed convolution over an input signal composed of several input planes.\n 
+        
         Args: 
-            x (Tensor): Input tensor with shepe of [batch, channel, height, width]
-            kernel (Tensor): Kernel with shape of [channel, patch, kernel_height, kernel_width] 
-            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None 
-            stride (tuple of int): Stride of the convolution. Default: (1,1)
-            padding (tuple of int):  Zero-padding added to both sides of the input. Default: (1,1)
-            output_padding (tuple of int): Zero-padding added to both sides of the output. Default: (0,0)
-            dilation (tuple of int): Spacing between kernel elements. Default: (1,1)
+            x (Tensor): Input tensor with shepe of [batch, channel, height, width]\n
+            kernel (Tensor): Kernel with shape of [channel, patch, kernel_height, kernel_width]\n 
+            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None \n
+            stride (tuple of int): Stride of the convolution. Default: (1,1)\n
+            padding (tuple of int):  Zero-padding added to both sides of the input. Default: (1,1)\n
+            output_padding (tuple of int): Zero-padding added to both sides of the output. Default: (0,0)\n
+            dilation (tuple of int): Spacing between kernel elements. Default: (1,1)\n
      
         Shape: 
             - Input: [N, in_channels, H, W] 
             - Output: [N, out_channels, H_out, W_out] 
  
-            H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]
-            W_out = (W-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_size[1]-1)+1+output_padding[1]
+            :math:`H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]`
+            :math:`W_out = (W-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_size[1]-1)+1+output_padding[1]`
 
         Reference:
             https://arxiv.org/pdf/1603.07285.pdf
@@ -374,22 +382,23 @@ class ConvTranspose3d(Function):
     @staticmethod
     def forward(x, kernel, bias=None, stride=(1,1,1), padding=(1,1,1), output_padding=(0,0,0), dilation=(1,1,1)):
         '''Applies a 2D transposed convolution over an input signal composed of several input planes.\n 
+        
         Args: 
-            x (Tensor): Input tensor with shepe of [batch, channel, height, width, depth] 
-            kernel (Tensor): Kernel with shape of [channel, patch, kernel_height, kernel_width, kernel_depth] 
-            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None 
-            stride (tuple of int): Stride of the convolution. Default: (1,1,1)
-            padding (tuple of int):  Zero-padding added to both sides of the input. Default: (1,1,1)
-            output_padding (tuple of int): Zero-padding added to both sides of the output. Default: (0,0,0)
-            dilation (tuple of int): Spacing between kernel elements. Default: (1,1,1)
+            x (Tensor): Input tensor with shepe of [batch, channel, height, width, depth] \n
+            kernel (Tensor): Kernel with shape of [channel, patch, kernel_height, kernel_width, kernel_depth]\n 
+            bias (Tensor): Bias with shape of [patch] to add if needed. Default: None \n
+            stride (tuple of int): Stride of the convolution. Default: (1,1,1)\n
+            padding (tuple of int):  Zero-padding added to both sides of the input. Default: (1,1,1)\n
+            output_padding (tuple of int): Zero-padding added to both sides of the output. Default: (0,0,0)\n
+            dilation (tuple of int): Spacing between kernel elements. Default: (1,1,1)\n
      
         Shape: 
             - Input: [N, in_channels, H, W, D] 
             - Output: [N, out_channels, H_out, W_out, D_out] 
  
-            H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]
-            W_out = (W-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_size[1]-1)+1+output_padding[1]
-            D_out = (D-1)*stride[2]-2*padding[2]+dilation[2]*(kernel_size[2]-1)+1+output_padding[2]
+            :math:`H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]`
+            :math:`W_out = (W-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_size[1]-1)+1+output_padding[1]`
+            :math:`D_out = (D-1)*stride[2]-2*padding[2]+dilation[2]*(kernel_size[2]-1)+1+output_padding[2]`
 
         Reference:
             https://arxiv.org/pdf/1603.07285.pdf
