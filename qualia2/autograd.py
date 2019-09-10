@@ -281,12 +281,13 @@ class Tensor(object):
         self.hook = hook
 
 class Function(object):
-    '''All function should inherit this class. 
+    '''All function should inherit this class. \n
+    `forward` and `calc_grad` methods should be overwritten.
 
     Attributes:
-        output_shape (tuple(int)): output shape of a function
-        var (tuple(Tensor)): Tensor(s) that was feeded
-        kwargs (dict): some useful data for backward calculation
+        output_shape (tuple(int)): output shape of a function\n
+        var (tuple(:class:`Tensor`)): Tensor(s) that was feeded\n
+        kwargs (dict): some useful data for backward calculation\n
     '''
     def __init__(self, output_shape, *args, **kwargs):
         self.output_shape = output_shape
