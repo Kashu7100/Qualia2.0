@@ -3,22 +3,24 @@ from .core import *
 from functools import reduce
 
 class Tensor(object):
-    '''Wrapper class to execute automatic differentiation\n 
+    '''Wrapper class to execute automatic differentiation
+
     Args: 
-        data (Union[ndarray,int,float]): tensor to compute the automatic differentiation 
-        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. Default: True
+        data (Union[ndarray,int,float]): tensor to compute the automatic differentiation \n
+        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. Default: True\n
         dtype (str): data type of the tensor Default: 'float64'
      
     Attributes: 
-        data (ndarray): Stores data of the Tensor 
-        grad (ndarray): Stores gradients of the Tensor  
-        creator (Function): Stores the creator of the Tensor, which will be called at the backpropagation. 
-        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. 
-        shape (tuple): Stores the shape of Tensor's data 
+        data (ndarray): Stores data of the Tensor\n
+        grad (ndarray): Stores gradients of the Tensor\n  
+        creator (Function): Stores the creator of the Tensor, which will be called at the backpropagation.\n 
+        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros.\n
+        shape (tuple): Stores the shape of Tensor's data\n 
         ndim (int): Stores the number of Tensor's data dimentions  
      
     Examples:: 
-        The following example will compute the dy/dx
+
+        >>> # The following example will compute the dy/dx
         >>> # Create Tensor objects 
         >>> x = qualia2.array([5])
         >>> # Write an equation 
@@ -120,10 +122,16 @@ class Tensor(object):
         
     @property
     def T(self):
+        '''transpose of the Tensor 
+        
+        Returns:
+            (Tensor): transpose of the tensor
+        '''
         return Transpose.forward(self, tuple([i for i in reversed(range(self.ndim))]))
 
     def backward(self, *args):
-        ''' calculates all the gradients in the graph
+        '''calculates all the gradients in the graph
+        
         Args:
             *args (ndarray): seed of the reverse accumulation AD; optional
         '''
@@ -135,14 +143,18 @@ class Tensor(object):
             self.creator.backward(*args) 
 
     def set_creator(self, obj):
-        ''' sets the creator of the Tensor
+        '''sets the creator of the Tensor
+        
         Args:
             obj (Function): the function that created the Tensor
         '''
         self.creator = obj     
         
     def asnumpy(self):
-        ''' aquire Tensor data as numpy ndarray
+        '''aquire Tensor data as numpy ndarray
+        
+        Returns:
+            (ndarray): numpy array
         '''
         if gpu:
             return np.asnumpy(self.data)
@@ -150,7 +162,10 @@ class Tensor(object):
             return self.data
         
     def gradasnumpy(self):
-        ''' aquire Tensor grad as numpy ndarray
+        '''aquire Tensor grad as numpy ndarray
+        
+        Returns:
+            (ndarray): numpy array
         '''
         assert self.grad is not None
         if gpu:
@@ -159,31 +174,40 @@ class Tensor(object):
             return self.grad
     
     def uniform(self, low=0, high=1):
-        ''' initialize the Tensor data with uniform distribution
+        '''initialize the Tensor data with uniform distribution
+        
+        Args:
+            low (float): lower limit of the uniform distribution.\n
+            high (float): upper limit of the uniform distribution.\n
         '''
         self.data = np.random.uniform(low=low, high=high, size=self.shape)
         self.creator = None
 
     def normal(self, mean=0, std=1):
-        ''' initialize the Tensor data with normal distribution
+        '''initialize the Tensor data with normal distribution
+
+        Args:
+            mean (float): mean of the normal distribution.\n
+            std (float): std of the normal distribution.\n
         '''
         self.data = np.random.normal(loc=mean, scale=std, size=self.shape)
         self.creator = None
 
     def ones(self):
-        ''' initialize the Tensor data with ones
+        '''initialize the Tensor data with ones
         '''
         self.data = np.ones_like(self.data)
         self.creator = None
 
     def zeros(self):
-        ''' initialize the Tensor data with zeros
+        '''initialize the Tensor data with zeros
         '''
         self.data = np.zeros_like(self.data)
         self.creator = None
     
     def fill(self, val):
-        ''' initialize the Tensor data with a constant value
+        '''initialize the Tensor data with a constant value
+        
         Args:
             val (float|int): a value to fill the Tensor data 
         '''
@@ -201,6 +225,14 @@ class Tensor(object):
                 raise ValueError
     
     def handle_const(self, obj):
+        '''handles the constant object such as int or float
+        
+        Args:
+            obj (Union[Tensor,int,float]): constant
+           
+        Returns:
+            (Tensor)
+        '''
         if type(obj) is not Tensor:
             return Tensor(obj, requires_grad=False)
         return obj
@@ -226,23 +258,34 @@ class Tensor(object):
         return Expand_dims.forward(self, axis)
     
     def detach(self):
-        ''' returns a new Tensor, detached from the current graph.
+        '''returns a new Tensor, detached from the current graph.
+        
+        Returns:
+            (Tensor): a new Tensor, detached from the current graph.
         '''
         return Tensor(self.data, dtype=self.dtype)
     
     def clamp(self, low, high):
+        '''clamp the data
+        
+        Args: 
+            low (float): lower limit of the data.\n
+            high (float): upper limit of the data.\n
+            
+        Returns:
+            (Tensor): clamped Tensor
+        '''
         return Clamp.forward(self, low, high)
     
     def register_hook(self, hook):
         self.hook = hook
 
 class Function(object):
-    '''
-    All function should inherit this class. 
+    '''All function should inherit this class. 
 
     Attributes:
-        output_shape (tuple of int): output shape of a function
-        var (tuple of Tensor): Tensor(s) that was feeded
+        output_shape (tuple(int)): output shape of a function
+        var (tuple(Tensor)): Tensor(s) that was feeded
         kwargs (dict): some useful data for backward calculation
     '''
     def __init__(self, output_shape, *args, **kwargs):
@@ -259,9 +302,13 @@ class Function(object):
 
     @staticmethod
     def forward(*args, **kwargs):
+        '''calculates forward propagation
+        '''
         raise NotImplementedError
     
     def calc_grad(self, *args):
+        '''calculates gradients for backpropagation
+        '''
         raise NotImplementedError
 
     @staticmethod
@@ -286,6 +333,8 @@ class Function(object):
         return arg    
 
     def backward(self, *args):
+        '''executes backpropagation
+        '''
         grads = self.calc_grad(*args)
         if type(grads) is list:
             grads = tuple(grads)
@@ -355,8 +404,7 @@ class Transpose(Function):
         return np.transpose(dx, [self.kwargs['axes'].index(i) for i in range(len(self.kwargs['axes']))]) 
     
 class Gather(Function):
-    '''
-    Gathers values along an axis specified by dim.
+    '''Gathers values along an axis specified by dim.
     '''
     @staticmethod
     def forward(a, dim, idx):
