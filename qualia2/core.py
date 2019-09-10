@@ -23,7 +23,7 @@ if len([name for name in os.listdir(home_dir + '/logs/')]) > max_logs:
 
 logger = getLogger('QualiaLogger')
 logger.setLevel(level)
-filehandler = FileHandler(filename=path+'/logs/{}.log'.format(time.strftime('%Y%m%d-%H%M%S')), mode='a')
+filehandler = FileHandler(filename=home_dir+'/logs/{}.log'.format(time.strftime('%Y%m%d-%H%M%S')), mode='a')
 streamhandler = StreamHandler()
 filehandler.setLevel(level)
 streamhandler.setLevel(level)
