@@ -9,11 +9,14 @@ squeeze = Squeeze(None)
 expand_dims = Expand_dims(None)
 
 class ListConcat(Function):
-    '''
-    Concatenate list of Tensors 
+    '''concatenate list of Tensors 
     '''
     @staticmethod
     def forward(list):
+        '''
+        Args:
+            list (list(Tensor)): list of Tensors
+        '''
         result = Tensor(np.concatenate([np.expand_dims(arr.data, axis=0) for arr in list], axis=0))
         result.set_creator(ListConcat.prepare(result.shape, *list))
         return result
@@ -25,8 +28,15 @@ class ListConcat(Function):
 listconcat = ListConcat(None)
 
 class Concat(Function):
+    '''concatenate given Tensors
+    '''
     @staticmethod
     def forward(*args, axis=1):
+        '''
+        Args:
+            *args (tuple(Tensor)): tensors to be concatenated along the given axis.\n
+            axis (int): axis to concatenate the Tensors.
+        '''
         result = Tensor(np.concatenate(tuple(i.data for i in args), axis)) 
         result.set_creator(Concat.prepare(result.shape, *args, axis=axis))
         return result
