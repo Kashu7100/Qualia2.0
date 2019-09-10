@@ -5,7 +5,7 @@ from functools import reduce
 class Tensor(object):
     '''Wrapper class to execute automatic differentiation\n 
     Args: 
-        data (ndarray|int|float): tensor to compute the automatic differentiation 
+        data (Union[ndarray,int,float]): tensor to compute the automatic differentiation 
         requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros. Default: True
         dtype (str): data type of the tensor Default: 'float64'
      
