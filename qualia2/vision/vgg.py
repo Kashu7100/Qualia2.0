@@ -20,9 +20,9 @@ class VGG(Module):
         cfg (int): model config
         pretrained (bool): if true, load a pretrained weights
     '''
-    def __init__(self, features, cfg, pretrained=False, batch_norm=False):
+    def __init__(self, ver, pretrained=False, batch_norm=False):
         super().__init__()
-        self.features = features
+        self.features = VGG.create_layers(ver, batch_norm)
         self.classifier = Sequential(
             Linear(512*7*7, 4096),
             ReLU(),
@@ -34,38 +34,20 @@ class VGG(Module):
         )
 
         if pretrained:
-            if not os.path.exists(path+'/weights/'):
-                os.makedirs(path+'/weights/')
-            if not os.path.exists(path+'/weights/vgg{}.hdf5'.format(cfg if not batch_norm else str(cfg)+'_bn')):
-                print('[*] downloading weights...')
-                self.download(path+'/weights/', cfg, batch_norm)
-                print('[*] extracting...')
-                self.unzip(path+'/weights/', cfg, batch_norm)
-            self.load(path+'/weights/vgg{}'.format(cfg if not batch_norm else str(cfg)+'_bn'))
-
-    def download(self, path, cfg, batch_norm): 
-        if batch_norm:
-            raise FileNotFoundError
-        import urllib.request
-        url = {
-            'vgg11': 'https://www.dropbox.com/s/ea93ty84gos9eau/vgg11.zip?dl=1',
-            'vgg13': 'https://www.dropbox.com/s/ex4f98rlwp9tra4/vgg13.zip?dl=1',
-            'vgg16': 'https://www.dropbox.com/s/3pms8tx02xa0hhx/vgg16.zip?dl=1',
-            'vgg19': 'https://www.dropbox.com/s/itg947agiwi69nq/vgg19.zip?dl=1',
-            'vgg11_bn': '',
-            'vgg13_bn': '',
-            'vgg16_bn': '',
-            'vgg19_bn': '',
-        }
-        with urllib.request.urlopen(url['vgg{}'.format(cfg if not batch_norm else str(cfg)+'_bn')]) as u:
-            data = u.read()
-        with open(path+'vgg{}.zip'.format(cfg if not batch_norm else str(cfg)+'_bn'), 'wb') as file:
-            file.write(data)
-        
-    def unzip(self, path, cfg, batch_norm):
-        from zipfile import ZipFile
-        with ZipFile(path+'vgg{}.zip'.format(cfg if not batch_norm else str(cfg)+'_bn'), 'r') as zip:
-            zip.extractall(path)
+            url = {
+                'vgg11': 'https://www.dropbox.com/s/ea93ty84gos9eau/vgg11.zip?dl=1',
+                'vgg13': 'https://www.dropbox.com/s/ex4f98rlwp9tra4/vgg13.zip?dl=1',
+                'vgg16': 'https://www.dropbox.com/s/3pms8tx02xa0hhx/vgg16.zip?dl=1',
+                'vgg19': 'https://www.dropbox.com/s/itg947agiwi69nq/vgg19.zip?dl=1',
+                'vgg11_bn': '',
+                'vgg13_bn': '',
+                'vgg16_bn': '',
+                'vgg19_bn': '',
+            }
+            if not batch_norm:
+                self.load_state_dict_from_url(url['vgg{}'.format(ver)])
+            else:
+                raise FileNotFoundError
 
     def forward(self, x):
         x = self.features(x)
@@ -73,10 +55,10 @@ class VGG(Module):
         return x
 
     @staticmethod
-    def create_layers(cfg, batch_norm=False):
+    def create_layers(ver, batch_norm=False):
         layers = []
         in_channels = 3
-        for v in cfg:
+        for v in cfg[ver]:
             if v == 'M':
                 layers.append(MaxPool2d(kernel_size=2, stride=2))
             else:
@@ -89,35 +71,35 @@ class VGG(Module):
 
     @classmethod
     def vgg11(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['11'], False), 11, pretrained)
+        return cls(11, pretrained)
 
     @classmethod
     def vgg13(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['13'], False), 13, pretrained)
+        return cls(13, pretrained)
 
     @classmethod
     def vgg16(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['16'], False), 16, pretrained)
+        return cls(16, pretrained)
 
     @classmethod
     def vgg19(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['19'], False), 19, pretrained)
+        return cls(19, pretrained)
     
     @classmethod
     def vgg11_bn(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['11'], True), 11, pretrained, True)
+        return cls(11, pretrained, True)
 
     @classmethod
     def vgg13_bn(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['13'], True), 13, pretrained, True)
+        return cls(13, pretrained, True)
 
     @classmethod
     def vgg16_bn(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['16'], True), 16, pretrained, True)
+        return cls(16, pretrained, True)
 
     @classmethod
     def vgg19_bn(cls, pretrained=False):
-        return cls(VGG.create_layers(cfg['19'], True), 19, pretrained, True)
+        return cls(19, pretrained, True)
 
 VGG11 = VGG.vgg11
 VGG11_bn = VGG.vgg11_bn
