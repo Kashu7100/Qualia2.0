@@ -477,29 +477,31 @@ class Abs(Function):
     
 class Add(Function):
     '''
-    Adds two arrays elementwise.
+    Adds arrays elementwise.
     '''
     @staticmethod
-    def forward(a, b):
-        result = Tensor(np.add(a.data, b.data)) 
-        result.set_creator(Add.prepare(result.shape, a, b))
+    def forward(*args):
+        result = Tensor(reduce(np.add, [a.data for a in args])) 
+        result.set_creator(Add.prepare(result.shape, *args))
         return result
-    
+
     def calc_grad(self, dx):
-        return Add.handle_broadcast(dx, self.var[0]), Add.handle_broadcast(dx, self.var[1])
+        return [Add.handle_broadcast(dx, var) for var in self.var]
     
 class Sub(Function):
     '''
     Subtracts arguments elementwise.
     '''
     @staticmethod
-    def forward(a, b):
-        result = Tensor(np.subtract(a.data, b.data)) 
-        result.set_creator(Sub.prepare(result.shape, a, b))
+    def forward(*args):
+        result = Tensor(reduce(np.subtract, [a.data for a in args])) 
+        result.set_creator(Sub.prepare(result.shape, *args))
         return result
 
     def calc_grad(self, dx):
-        return Sub.handle_broadcast(dx, self.var[0]), np.negative(Sub.handle_broadcast(dx, self.var[1]))
+        result = [np.negative(Sub.handle_broadcast(dx, var)) for var in self.var]
+        result[0] = np.negative(result[0])
+        return result
 
 class Mul(Function):
     '''
