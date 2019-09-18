@@ -518,16 +518,16 @@ class Mul(Function):
     
 class Pow(Function):
     '''
-    Computes x1 ** x2 elementwise.
+    Computes a ** b elementwise.
     '''
     @staticmethod
     def forward(a, b):
         result = Tensor(np.power(a.data, b.data)) 
-        result.set_creator(Pow.prepare(result.shape, a, b))
+        result.set_creator(Pow.prepare(result.shape, a, b, tmp=result.data))
         return result
 
     def calc_grad(self, dx):
-        return np.multiply(self.var[1].data, np.multiply(np.power(self.var[0].data, np.subtract(self.var[1].data, np.array([1]))), dx)), None
+        return np.multiply(self.var[1].data, np.multiply(np.power(self.var[0].data, np.subtract(self.var[1].data, np.array([1]))), dx)), np.multiply(np.multiply(self.kwargs['tmp'], np.log(self.var[0].data)), dx)
 
 class Div(Function):
     '''
