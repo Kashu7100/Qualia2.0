@@ -118,7 +118,8 @@ class Tensor(object):
         return Pow.forward(self, other)
      
     def __rpow__(self, other): 
-        raise Exception('__rpow__ is not defined.')
+        other = self.handle_const(other)
+        return Pow.forward(other, self)
         
     @property
     def T(self):
@@ -527,7 +528,7 @@ class Pow(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.multiply(self.var[1].data, np.multiply(np.power(self.var[0].data, np.subtract(self.var[1].data, np.array([1]))), dx)), np.multiply(np.multiply(self.kwargs['tmp'], np.log(self.var[0].data)), dx)
+        return Pow.handle_broadcast(np.multiply(self.var[1].data, np.multiply(np.power(self.var[0].data, np.subtract(self.var[1].data, np.array([1]))), dx)),self.var[0]), Pow.handle_broadcast(np.multiply(np.multiply(self.kwargs['tmp'], np.log(self.var[0].data)), dx),self.var[1])
 
 class Div(Function):
     '''
@@ -540,7 +541,7 @@ class Div(Function):
         return result
 
     def calc_grad(self, dx):
-        return Div.handle_broadcast(np.divide(dx, self.var[1].data)), Div.handle_broadcast(np.negative(np.multiply(dx, np.divide(self.var[0].data, np.power(self.var[1].data, 2)))))
+        return Div.handle_broadcast(np.divide(dx, self.var[1].data),self.var[0]), Div.handle_broadcast(np.negative(np.multiply(dx, np.divide(self.var[0].data, np.power(self.var[1].data, 2)))),self.var[1])
 
 class Matmul(Function):
     @staticmethod
