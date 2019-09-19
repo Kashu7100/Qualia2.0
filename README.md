@@ -87,7 +87,7 @@ More examples can be found [here](/examples).
 
 ### [Reinforcement learning](/examples/reinforcement_learning)
 
-[<img src="/assets/cartpole_dqn.gif" height="180"/>](/examples/reinforcement_learning/inverted_pendulum)[<img src="/assets/mountaincar_duelingnet.gif" height="180"/>](examples/reinforcement_learning/mountain_car)[<img src="/assets/bipedal_walker_td3.gif" height="180"/>](examples/reinforcement_learning/bipedal_walker)[<img src="/assets/lunar_lander_cont_td3.gif" height="180"/>](examples/reinforcement_learning/lunar_lander)[<img src="/assets/roboschool_walker2d_td3.gif" height="180"/>](examples/reinforcement_learning/roboschool_walker2d)
+[<img src="/assets/cartpole_dqn.gif" height="180"/>](/examples/reinforcement_learning/inverted_pendulum)[<img src="/assets/mountaincar_duelingnet.gif" height="180"/>](examples/reinforcement_learning/mountain_car)[<img src="/assets/roboschool_walker2d_td3.gif" height="180"/>](examples/reinforcement_learning/roboschool_walker2d)[<img src="/assets/bipedal_walker_td3.gif" height="180"/>](examples/reinforcement_learning/bipedal_walker)[<img src="/assets/lunar_lander_cont_td3.gif" height="180"/>](examples/reinforcement_learning/lunar_lander)
 
 
 ## Citation
@@ -99,7 +99,7 @@ BibTex
 ```bibtex
 @misc{qualia,
   author = {Kashu Yamazaki},
-  title = {{Q}ualia2.0},
+  title = {{Q}ualia2.0 - Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application},
   year = {2019},
   publisher = {GitHub},
   journal = {GitHub repository},
