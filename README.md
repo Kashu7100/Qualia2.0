@@ -41,6 +41,11 @@ CUDA Toolkit version can be found by:
 ```bash
 $ nvcc --version
 ```
+Clone Github repo and cd to Qualia2.0 to install:
+```bash
+$ git clone https://github.com/Kashu7100/Qualia2.0.git
+$ cd Qualia2.0
+```
 Depending on the CUDA version you have installed on your host, choose the best option from following.
 ```bash
 (For CUDA 8.0)
