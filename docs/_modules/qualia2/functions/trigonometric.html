@@ -1,0 +1,424 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.functions.trigonometric &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../qualia2.html">qualia2</a> &raquo;</li>
+        
+      <li>qualia2.functions.trigonometric</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qualia2.functions.trigonometric</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*- </span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..autograd</span> <span class="k">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="Sin"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sin">[docs]</a><span class="k">class</span> <span class="nc">Sin</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise sine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Sin.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sin.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Sin</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Sin.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sin.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))</span></div></div>
+
+<span class="n">sin</span> <span class="o">=</span> <span class="n">Sin</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Cos"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Cos">[docs]</a><span class="k">class</span> <span class="nc">Cos</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise cosine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Cos.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Cos.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Cos</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Cos.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Cos.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span></div></div>
+
+<span class="n">cos</span> <span class="o">=</span> <span class="n">Cos</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Tan"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Tan">[docs]</a><span class="k">class</span> <span class="nc">Tan</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise tangent function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Tan.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Tan.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Tan</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Tan.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Tan.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span></div></div>
+
+<span class="n">tan</span> <span class="o">=</span> <span class="n">Tan</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Arcsin"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arcsin">[docs]</a><span class="k">class</span> <span class="nc">Arcsin</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise inverse-sine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Arcsin.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arcsin.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Arcsin</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Arcsin.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arcsin.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))))</span></div></div>
+
+<span class="n">arcsin</span> <span class="o">=</span> <span class="n">Arcsin</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Arccos"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arccos">[docs]</a><span class="k">class</span> <span class="nc">Arccos</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise inverse-cosine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Arccos.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arccos.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Arccos</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Arccos.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arccos.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="o">-</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))))</span></div></div>
+
+<span class="n">arccos</span> <span class="o">=</span> <span class="n">Arccos</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Arctan"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arctan">[docs]</a><span class="k">class</span> <span class="nc">Arctan</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise inverse-tangent function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Arctan.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arctan.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Arctan</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Arctan.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arctan.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span></div></div>
+
+<span class="n">arctan</span> <span class="o">=</span> <span class="n">Arctan</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Sinh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sinh">[docs]</a><span class="k">class</span> <span class="nc">Sinh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise hyperbolic sine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Sinh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sinh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Sinh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Sinh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sinh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))</span></div></div>
+
+<span class="n">sinh</span> <span class="o">=</span> <span class="n">Sinh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Cosh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Cosh">[docs]</a><span class="k">class</span> <span class="nc">Cosh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise hyperbolic cosine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Cosh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Cosh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Cosh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Cosh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Cosh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))</span></div></div>
+
+<span class="n">cosh</span> <span class="o">=</span> <span class="n">Cosh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Tanh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Tanh">[docs]</a><span class="k">class</span> <span class="nc">Tanh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise hyperbolic tangent function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Tanh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Tanh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Tanh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">tmp</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Tanh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Tanh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tmp&#39;</span><span class="p">])))</span></div></div>
+
+<span class="n">tanh</span> <span class="o">=</span> <span class="n">Tanh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CTanh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.CTanh">[docs]</a><span class="k">class</span> <span class="nc">CTanh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise hyperbolic tangent function for complex neural networks</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="CTanh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.CTanh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+        <span class="n">imag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">real</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">imag</span><span class="p">)</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">CTanh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="o">=</span><span class="n">imag</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="CTanh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.CTanh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="n">dx</span><span class="o">.</span><span class="n">real</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;real&#39;</span><span class="p">]))</span>
+        <span class="n">imag</span> <span class="o">=</span> <span class="n">dx</span><span class="o">.</span><span class="n">imag</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;imag&#39;</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">real</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">imag</span></div></div>
+
+<span class="n">ctanh</span> <span class="o">=</span> <span class="n">CTanh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Arcsinh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arcsinh">[docs]</a><span class="k">class</span> <span class="nc">Arcsinh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise inverse of hyperbolic sine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Arcsinh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arcsinh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Arcsinh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Arcsinh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arcsinh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))))</span></div></div>
+    
+<span class="n">arcsinh</span> <span class="o">=</span> <span class="n">Arcsinh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Arccosh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arccosh">[docs]</a><span class="k">class</span> <span class="nc">Arccosh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise inverse of hyperbolic cosine function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Arccosh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arccosh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Arccosh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Arccosh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arccosh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">1</span><span class="p">)))</span></div></div>
+
+<span class="n">arccosh</span> <span class="o">=</span> <span class="n">Arccosh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Arctanh"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arctanh">[docs]</a><span class="k">class</span> <span class="nc">Arctanh</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elementwise inverse of hyperbolic tangent function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Arctanh.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arctanh.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Arctanh</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Arctanh.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Arctanh.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span></div></div>
+
+<span class="n">arctanh</span> <span class="o">=</span> <span class="n">Arctanh</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Sinc"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sinc">[docs]</a><span class="k">class</span> <span class="nc">Sinc</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<div class="viewcode-block" id="Sinc.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sinc.forward">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> 
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+        <span class="n">tmp</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">tmp</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)]),</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)])</span> 
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Sinc</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+    
+<div class="viewcode-block" id="Sinc.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.trigonometric.Sinc.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="n">dx</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dx</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">])]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">])]</span> <span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">])]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">])]),</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">])]),</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mask&#39;</span><span class="p">])]))))</span> 
+        <span class="k">return</span> <span class="n">dx</span></div></div>
+
+<span class="n">sinc</span> <span class="o">=</span> <span class="n">Sinc</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

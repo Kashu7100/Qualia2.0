@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.rl.agents.td3 &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../qualia2.html">qualia2</a> &raquo;</li>
+        
+      <li>qualia2.rl.agents.td3</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qualia2.rl.agents.td3</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*- </span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">ActorCriticAgent</span><span class="p">,</span> <span class="n">np</span><span class="p">,</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">...functions</span> <span class="k">import</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">mse_loss</span><span class="p">,</span> <span class="n">mean</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">Experience</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<div class="viewcode-block" id="TD3"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3">[docs]</a><span class="k">class</span> <span class="nc">TD3</span><span class="p">(</span><span class="n">ActorCriticAgent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Twin Delayed DDPG (TD3) \n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        actor (Module): actor network</span>
+<span class="sd">        critic (Module): critic network</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">critic</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">critic</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2</span> <span class="o">=</span> <span class="n">critic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_target</span> <span class="o">=</span> <span class="n">critic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic2</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_optim</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TD3.set_critic_optim"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.set_critic_optim">[docs]</a>    <span class="k">def</span> <span class="nf">set_critic_optim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic_optim</span> <span class="o">=</span> <span class="n">optim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_optim</span> <span class="o">=</span> <span class="n">optim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic2</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="TD3.save"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_actor&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_critic1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_critic2&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TD3.load"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_actor&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actor_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_critic1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_critic2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_target</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic2</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="TD3.get_train_signal"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.get_train_signal">[docs]</a>    <span class="k">def</span> <span class="nf">get_train_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experience</span><span class="p">,</span> <span class="n">max_action</span><span class="p">,</span> <span class="n">policy_noise</span><span class="p">,</span> <span class="n">noise_clip</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">experience</span>
+        <span class="c1"># Select next action according to target policy:</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">policy_noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">action</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">noise</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="o">-</span><span class="n">noise_clip</span><span class="p">,</span> <span class="n">noise_clip</span><span class="p">)</span>
+        <span class="n">next_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor_target</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span> <span class="o">+</span> <span class="n">noise</span>
+        <span class="n">next_action</span> <span class="o">=</span> <span class="n">next_action</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="o">-</span><span class="n">max_action</span><span class="p">,</span> <span class="n">max_action</span><span class="p">)</span>
+
+        <span class="c1"># Compute target Q-value:</span>
+        <span class="n">target_Q1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic_target</span><span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">next_action</span><span class="p">)</span>
+        <span class="n">target_Q2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic2_target</span><span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">next_action</span><span class="p">)</span>
+        <span class="n">target_Q</span> <span class="o">=</span> <span class="n">minimum</span><span class="p">(</span><span class="n">target_Q1</span><span class="p">,</span> <span class="n">target_Q2</span><span class="p">)</span>
+        <span class="n">target_Q</span> <span class="o">=</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Tensor</span><span class="p">(</span><span class="n">done</span><span class="p">))</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">target_Q</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">state</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">action</span><span class="p">),</span> <span class="n">target_Q</span></div>
+
+<div class="viewcode-block" id="TD3.update_critic1"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.update_critic1">[docs]</a>    <span class="k">def</span> <span class="nf">update_critic1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">current_Q1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="n">loss_Q1</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">current_Q1</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic_optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss_Q1</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic_optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TD3.update_critic2"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.update_critic2">[docs]</a>    <span class="k">def</span> <span class="nf">update_critic2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">current_Q2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic2</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="n">loss_Q2</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">current_Q2</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss_Q2</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic2_optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="TD3.update_actor"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3.update_actor">[docs]</a>    <span class="k">def</span> <span class="nf">update_actor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="n">actor_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">(</span><span class="n">state</span><span class="p">)),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actor_optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">actor_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actor_optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">actor_loss</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span></div></div>
+    
+<div class="viewcode-block" id="TD3Trainer"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3Trainer">[docs]</a><span class="k">class</span> <span class="nc">TD3Trainer</span><span class="p">(</span><span class="n">Trainer</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; TD3 Trainer \n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        memory (deque): replay memory object</span>
+<span class="sd">        capacity (int): capacity of the memory</span>
+<span class="sd">        batch (int): batch size for training</span>
+<span class="sd">        gamma (int): gamma value</span>
+<span class="sd">        policy_delay (int): interval for updating target network</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">polyak</span><span class="o">=</span><span class="mf">0.995</span><span class="p">,</span> <span class="n">policy_delay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exploration_noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">policy_noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">noise_clip</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>   
+        <span class="bp">self</span><span class="o">.</span><span class="n">polyak</span> <span class="o">=</span> <span class="n">polyak</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exploration_noise</span> <span class="o">=</span> <span class="n">exploration_noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy_delay</span> <span class="o">=</span> <span class="n">policy_delay</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy_noise</span> <span class="o">=</span> <span class="n">policy_noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noise_clip</span> <span class="o">=</span> <span class="n">noise_clip</span>
+
+<div class="viewcode-block" id="TD3Trainer.before_episode"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3Trainer.before_episode">[docs]</a>    <span class="k">def</span> <span class="nf">before_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_action</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">high</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(),</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="TD3Trainer.train_routine"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3Trainer.train_routine">[docs]</a>    <span class="k">def</span> <span class="nf">train_routine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">episodes</span><span class="p">):</span>
+                <span class="n">state</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">steps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">before_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">)</span>
+                <span class="n">tmp_loss</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">tmp_reward</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">render</span> <span class="ow">and</span> <span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                        <span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="n">action</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exploration_noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">low</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">high</span><span class="p">)</span>
+
+                    <span class="nb">next</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Experience</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="nb">next</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">done</span><span class="p">))</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="nb">next</span>
+                    <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">done</span> <span class="ow">or</span> <span class="n">steps</span> <span class="o">==</span> <span class="n">env</span><span class="o">.</span><span class="n">max_steps</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">:</span>
+                            <span class="n">tmp_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experience_replay</span><span class="p">(</span><span class="n">episode</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">agent</span><span class="p">))</span>
+                    <span class="n">tmp_reward</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reward</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                
+                    
+                <span class="k">if</span> <span class="n">render</span> <span class="ow">and</span> <span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">10</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">after_episode</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">tmp_loss</span><span class="p">,</span> <span class="n">tmp_reward</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">os</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/tmp/&#39;</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/tmp/&#39;</span><span class="p">)</span> 
+            <span class="n">agent</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/tmp/auto_save&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;[*] Training aborted.&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TD3Trainer.experience_replay"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.td3.TD3Trainer.experience_replay">[docs]</a>    <span class="k">def</span> <span class="nf">experience_replay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">episode</span><span class="p">,</span> <span class="n">step_count</span><span class="p">,</span> <span class="n">agent</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">step_count</span><span class="p">):</span>
+            <span class="n">experience</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">)</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">target_Q</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get_train_signal</span><span class="p">(</span><span class="n">experience</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_action</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy_noise</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_clip</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">update_critic1</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">target_Q</span><span class="p">)</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">update_critic2</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">target_Q</span><span class="p">)</span>
+            <span class="c1"># delayed policy updates</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">policy_delay</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">loss</span> <span class="o">+=</span> <span class="n">agent</span><span class="o">.</span><span class="n">update_actor</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+                <span class="c1"># polyak averaging update:</span>
+                <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">target_param</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">params</span><span class="p">(),</span> <span class="n">agent</span><span class="o">.</span><span class="n">actor_target</span><span class="o">.</span><span class="n">params</span><span class="p">()):</span>
+                    <span class="n">target_param</span><span class="o">.</span><span class="n">copy</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">polyak</span> <span class="o">*</span> <span class="n">target_param</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">polyak</span><span class="p">)</span> <span class="o">*</span> <span class="n">param</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+                
+                <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">target_param</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">params</span><span class="p">(),</span> <span class="n">agent</span><span class="o">.</span><span class="n">critic_target</span><span class="o">.</span><span class="n">params</span><span class="p">()):</span>
+                    <span class="n">target_param</span><span class="o">.</span><span class="n">copy</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">polyak</span> <span class="o">*</span> <span class="n">target_param</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">polyak</span><span class="p">)</span> <span class="o">*</span> <span class="n">param</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+                
+                <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">target_param</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">critic2</span><span class="o">.</span><span class="n">params</span><span class="p">(),</span> <span class="n">agent</span><span class="o">.</span><span class="n">critic2_target</span><span class="o">.</span><span class="n">params</span><span class="p">()):</span>
+                    <span class="n">target_param</span><span class="o">.</span><span class="n">copy</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">polyak</span> <span class="o">*</span> <span class="n">target_param</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">polyak</span><span class="p">)</span> <span class="o">*</span> <span class="n">param</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">loss</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

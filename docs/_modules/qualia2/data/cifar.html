@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.data.cifar &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../qualia2.html">qualia2</a> &raquo;</li>
+        
+      <li>qualia2.data.cifar</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qualia2.data.cifar</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*- </span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">to_cpu</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..autograd</span> <span class="k">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">.dataloader</span> <span class="k">import</span> <span class="n">ImageLoader</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<div class="viewcode-block" id="CIFAR10"><a class="viewcode-back" href="../../../qualia2.data.html#qualia2.data.cifar.CIFAR10">[docs]</a><span class="k">class</span> <span class="nc">CIFAR10</span><span class="p">(</span><span class="n">ImageLoader</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;CIFAR10 Dataset\n     </span>
+<span class="sd">    Args:</span>
+<span class="sd">        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True </span>
+<span class="sd">        flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False </span>
+
+<span class="sd">    Shape: </span>
+<span class="sd">        - data: [N, 3, 32, 32] if flatten [N, 3*32*32]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">50000</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="mi">32</span><span class="o">*</span><span class="mi">32</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">50000</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">10000</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">10000</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_data</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar10/cifar-10.tar.gz&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_label</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">10000</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">10000</span><span class="p">]</span> <span class="o">=</span> <span class="n">CIFAR10</span><span class="o">.</span><span class="n">to_one_hot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_label</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar10/cifar-10.tar.gz&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_data</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar10/cifar-10.tar.gz&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_label</span> <span class="o">=</span> <span class="n">CIFAR10</span><span class="o">.</span><span class="n">to_one_hot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_label</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar10/cifar-10.tar.gz&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[*] done.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">flatten</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span> 
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;airplane&#39;</span><span class="p">,</span> 
+            <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;automobile&#39;</span><span class="p">,</span> 
+            <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;bird&#39;</span><span class="p">,</span> 
+            <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> 
+            <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;deer&#39;</span><span class="p">,</span> 
+            <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> 
+            <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;frog&#39;</span><span class="p">,</span> 
+            <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39;horse&#39;</span><span class="p">,</span> 
+            <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39;ship&#39;</span><span class="p">,</span> 
+            <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39;truck&#39;</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="CIFAR10.download"><a class="viewcode-back" href="../../../qualia2.data.html#qualia2.data.cifar.CIFAR10.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz&#39;</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;cifar-10.tar.gz&#39;</span><span class="p">)</span></div>
+    
+    <span class="k">def</span> <span class="nf">_load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r:gz&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">getmembers</span><span class="p">():</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;data_batch_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="ow">and</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;test_batch&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="ow">and</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">):</span>
+                    <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;bytes&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">gpu</span><span class="p">:</span>
+                        <span class="kn">import</span> <span class="nn">numpy</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">_load_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r:gz&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">getmembers</span><span class="p">():</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;data_batch_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="ow">and</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;test_batch&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="ow">and</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">):</span>
+                    <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;bytes&#39;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;labels&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="CIFAR10.show"><a class="viewcode-back" href="../../../qualia2.data.html#qualia2.data.cifar.CIFAR10.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span> 
+                <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span> 
+                <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_label</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)][</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_label</span><span class="p">[:,</span><span class="n">label</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)][</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">if</span> <span class="n">gpu</span> <span class="k">else</span> <span class="n">img</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>        </div></div>
+
+<div class="viewcode-block" id="CIFAR100"><a class="viewcode-back" href="../../../qualia2.data.html#qualia2.data.cifar.CIFAR100">[docs]</a><span class="k">class</span> <span class="nc">CIFAR100</span><span class="p">(</span><span class="n">ImageLoader</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;CIFAR100 Dataset\n     </span>
+<span class="sd">    Args:</span>
+<span class="sd">        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True </span>
+<span class="sd">        flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False </span>
+<span class="sd">        label_type (str): &quot;fine&quot; label (the class to which it belongs) or &quot;coarse&quot; label (the superclass to which it belongs)</span>
+<span class="sd">    Shape: </span>
+<span class="sd">        - data: [N, 3, 32, 32] if flatten [N, 3*32*32]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;coarse&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>         
+        <span class="k">assert</span> <span class="n">label_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;fine&#39;</span><span class="p">,</span> <span class="s1">&#39;coarse&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_type</span> <span class="o">=</span> <span class="n">label_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_data</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar100/cifar-100.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_label</span> <span class="o">=</span> <span class="n">CIFAR100</span><span class="o">.</span><span class="n">to_one_hot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_label</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar100/cifar-100.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_data</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar100/cifar-100.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_label</span> <span class="o">=</span> <span class="n">CIFAR100</span><span class="o">.</span><span class="n">to_one_hot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_load_label</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="s1">&#39;/data/download/cifar100/cifar-100.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[*] done.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">flatten</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span> 
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_type</span> <span class="o">==</span> <span class="s1">&#39;fine&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">([</span>
+                <span class="s1">&#39;apple&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;aquarium_fish&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;baby&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bear&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;beaver&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bed&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bee&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;beetle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bicycle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bottle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bowl&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;boy&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bridge&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;bus&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;butterfly&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;camel&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;can&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;castle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;caterpillar&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;cattle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;chair&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;chimpanzee&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;clock&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;cockroach&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;couch&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;crab&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;crocodile&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;cup&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;dinosaur&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;dolphin&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;elephant&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;flatfish&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;forest&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;fox&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;girl&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hamster&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;house&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;kangaroo&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;computer_keyboard&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;lamp&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;lawn_mower&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;leopard&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;lion&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;lizard&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;lobster&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;man&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;maple_tree&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;motorcycle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;mountain&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;mouse&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;mushroom&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;oak_tree&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;orchid&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;otter&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;palm_tree&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pear&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pickup_truck&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pine_tree&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;plain&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;plate&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;poppy&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;porcupine&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;possum&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rabbit&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;raccoon&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;ray&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;road&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rocket&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rose&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sea&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;seal&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;shark&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;shrew&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;skunk&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;skyscraper&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;snail&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;snake&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;spider&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;squirrel&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;streetcar&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sunflower&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sweet_pepper&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;table&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;tank&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;telephone&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;television&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;tiger&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;tractor&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;train&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;trout&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;tulip&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;turtle&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;wardrobe&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;whale&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;willow_tree&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;wolf&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;woman&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;worm&#39;</span><span class="p">,</span>
+            <span class="p">]))</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_type</span> <span class="o">==</span> <span class="s1">&#39;coarse&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">([</span>
+                <span class="s1">&#39;aquatic mammals&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;fish&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;flowers&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;food containers&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;fruit and vegetables&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;household electrical device&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;household furniture&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;insects&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;large carnivores&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;large man-made outdoor things&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;large natural outdoor scenes&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;large omnivores and herbivores&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;medium-sized mammals&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;non-insect invertebrates&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;people&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;reptiles&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;small mammals&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;trees&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;vehicles 1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;vehicles 2&#39;</span><span class="p">,</span>
+            <span class="p">]))</span>
+            
+<div class="viewcode-block" id="CIFAR100.download"><a class="viewcode-back" href="../../../qualia2.data.html#qualia2.data.cifar.CIFAR100.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz&#39;</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;cifar-100.tar.gz&#39;</span><span class="p">)</span></div>
+        
+    <span class="k">def</span> <span class="nf">_load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r:gz&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">getmembers</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;bytes&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">gpu</span><span class="p">:</span>
+                        <span class="kn">import</span> <span class="nn">numpy</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">_load_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r:gz&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">getmembers</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">data_type</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">data_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;bytes&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_type</span> <span class="o">==</span> <span class="s1">&#39;fine&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;fine_labels&#39;</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_type</span> <span class="o">==</span> <span class="s1">&#39;coarse&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_dict</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;coarse_labels&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="CIFAR100.show"><a class="viewcode-back" href="../../../qualia2.data.html#qualia2.data.cifar.CIFAR100.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span><span class="p">)):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span><span class="p">)</span><span class="o">//</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span> 
+            <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span> 
+            <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_label</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)][</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_label</span><span class="p">[:,</span><span class="n">label</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)][</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">if</span> <span class="n">gpu</span> <span class="k">else</span> <span class="n">img</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

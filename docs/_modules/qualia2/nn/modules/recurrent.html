@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.nn.modules.recurrent &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../qualia2.html">qualia2</a> &raquo;</li>
+        
+      <li>qualia2.nn.modules.recurrent</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qualia2.nn.modules.recurrent</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">math</span> 
+<span class="kn">from</span> <span class="nn">.module</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">...core</span> <span class="k">import</span> <span class="o">*</span> 
+<span class="kn">from</span> <span class="nn">...functions</span> <span class="k">import</span> <span class="n">rnncell</span><span class="p">,</span> <span class="n">rnn</span><span class="p">,</span> <span class="n">lstmcell</span><span class="p">,</span> <span class="n">grucell</span><span class="p">,</span> <span class="n">gru</span>
+<span class="kn">from</span> <span class="nn">...autograd</span> <span class="k">import</span> <span class="n">Tensor</span> 
+
+<div class="viewcode-block" id="RNN"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.RNN">[docs]</a><span class="k">class</span> <span class="nc">RNN</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a multi-layer Elman RNN with tanh</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): The number of expected features in the input</span>
+<span class="sd">        hidden_size (int): The number of features in the hidden state</span>
+<span class="sd">        num_layers (int): Number of recurrent layers.</span>
+<span class="sd">        bias (bool):adds a learnable bias to the output. Default: True </span>
+<span class="sd">    Shape:</span>
+<span class="sd">            - Input: [seq_len, N, input_size]</span>
+<span class="sd">            - Hidden: [num_layers, N, hidden_size]</span>
+<span class="sd">            - Output: [seq_len, N, hidden_size]</span>
+<span class="sd">            - Hidden: [num_layers, N, hidden_size]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="p">(</span><span class="n">input_size</span><span class="o">*</span><span class="n">hidden_size</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num_layers</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">hidden_size</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))))</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">num_layers</span><span class="o">*</span><span class="n">hidden_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">))))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">))))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="kc">None</span>  
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RNN.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.RNN.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">):</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">hn</span> <span class="o">=</span> <span class="n">rnn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h0</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hn</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">hn</span></div></div>
+
+<div class="viewcode-block" id="RNNCell"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.RNNCell">[docs]</a><span class="k">class</span> <span class="nc">RNNCell</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;An Elman RNN cell with tanh\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): The number of expected features in the input</span>
+<span class="sd">        hidden_size (int): The number of features in the hidden state</span>
+<span class="sd">        bias (bool):adds a learnable bias to the output. Default: True </span>
+<span class="sd">    </span>
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N, input_size]</span>
+<span class="sd">        - Hidden: [N, hidden_size]</span>
+<span class="sd">        - Output: [N, hidden_size]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="p">(</span><span class="n">input_size</span><span class="o">*</span><span class="n">hidden_size</span> <span class="o">+</span> <span class="n">hidden_size</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">hidden_size</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+ 
+<div class="viewcode-block" id="RNNCell.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.RNNCell.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">rnncell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+    
+<div class="viewcode-block" id="LSTM"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.LSTM">[docs]</a><span class="k">class</span> <span class="nc">LSTM</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Long Short Term Memoty \n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): The number of expected features in the input</span>
+<span class="sd">        hidden_size (int): The number of features in the hidden state</span>
+<span class="sd">        num_layers (int): Number of recurrent layers.</span>
+<span class="sd">        bias (bool):adds a learnable bias to the output. Default: True </span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [seq_len, N, input_size]</span>
+<span class="sd">        - Hidden_h: [num_layers, N, hidden_size]</span>
+<span class="sd">        - Hidden_c: [num_layers, N, hidden_size]</span>
+<span class="sd">        - Output: [seq_len, N, hidden_size]</span>
+<span class="sd">        - Hidden_h: [num_layers, N, hidden_size]</span>
+<span class="sd">        - Hidden_c: [num_layers, N, hidden_size]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">input_size</span><span class="o">*</span><span class="n">hidden_size</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num_layers</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">num_layers</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="kc">None</span>  
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LSTM.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.LSTM.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">c0</span><span class="p">):</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">hn</span><span class="p">,</span> <span class="n">cn</span> <span class="o">=</span> <span class="n">lstm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">c0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h0</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">c0</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hn</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">cn</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">hn</span><span class="p">,</span> <span class="n">cn</span></div></div>
+    
+<div class="viewcode-block" id="LSTMCell"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.LSTMCell">[docs]</a><span class="k">class</span> <span class="nc">LSTMCell</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;A Long Short Term Memoty cell \n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): The number of expected features in the input</span>
+<span class="sd">        hidden_size (int): The number of features in the hidden state</span>
+<span class="sd">        bias (bool):adds a learnable bias to the output. Default: True </span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N, input_size]</span>
+<span class="sd">        - Hidden_h: [N, hidden_size]</span>
+<span class="sd">        - Hidden_c: [N, hidden_size]</span>
+<span class="sd">        - Output_h: [N, hidden_size]</span>
+<span class="sd">        - Output_c: [N, hidden_size]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">input_size</span><span class="o">*</span><span class="n">hidden_size</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">hidden_size</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LSTMCell.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.LSTMCell.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="n">h_next</span><span class="p">,</span> <span class="n">c_next</span> <span class="o">=</span> <span class="n">lstmcell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">h_next</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">c_next</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">h_next</span><span class="p">,</span> <span class="n">c_next</span></div></div>
+
+<div class="viewcode-block" id="GRU"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.GRU">[docs]</a><span class="k">class</span> <span class="nc">GRU</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a multi-layer gated recurrent unit (GRU) RNN to an input sequence.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): The number of expected features in the input</span>
+<span class="sd">        hidden_size (int): The number of features in the hidden state</span>
+<span class="sd">        num_layers (int): Number of recurrent layers.</span>
+<span class="sd">        bias (bool):adds a learnable bias to the output. Default: True </span>
+<span class="sd">    Shape:</span>
+<span class="sd">            - Input: [seq_len, N, input_size]</span>
+<span class="sd">            - Hidden: [num_layers, N, hidden_size]</span>
+<span class="sd">            - Output: [seq_len, N, hidden_size]</span>
+<span class="sd">            - Hidden: [num_layers, N, hidden_size]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">input_size</span><span class="o">*</span><span class="n">hidden_size</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num_layers</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">num_layers</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">))))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="kc">None</span>  
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GRU.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.GRU.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">):</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">hn</span> <span class="o">=</span> <span class="n">gru</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h0</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hn</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">hn</span>    </div></div>
+    
+<div class="viewcode-block" id="GRUCell"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.GRUCell">[docs]</a><span class="k">class</span> <span class="nc">GRUCell</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;A gated recurrent unit\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_size (int): The number of expected features in the input</span>
+<span class="sd">        hidden_size (int): The number of features in the hidden state</span>
+<span class="sd">        bias (bool):adds a learnable bias to the output. Default: True </span>
+<span class="sd">    </span>
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N, input_size]</span>
+<span class="sd">        - Hidden: [N, hidden_size]</span>
+<span class="sd">        - Output: [N, hidden_size]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">input_size</span><span class="o">*</span><span class="n">hidden_size</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hidden_size</span><span class="p">),(</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_params</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="n">hidden_size</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">, bias=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GRUCell.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.recurrent.GRUCell.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">grucell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_h</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

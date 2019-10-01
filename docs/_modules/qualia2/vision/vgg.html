@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.vision.vgg &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../qualia2.html">qualia2</a> &raquo;</li>
+        
+      <li>qualia2.vision.vgg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qualia2.vision.vgg</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">..nn.modules.module</span> <span class="k">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">..nn.modules</span> <span class="k">import</span> <span class="n">Linear</span><span class="p">,</span> <span class="n">Conv2d</span><span class="p">,</span> <span class="n">MaxPool2d</span><span class="p">,</span> <span class="n">ReLU</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">BatchNorm2d</span>
+<span class="kn">from</span> <span class="nn">..functions</span> <span class="k">import</span> <span class="n">reshape</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+<span class="n">cfg</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;11&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;13&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;16&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;19&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<div class="viewcode-block" id="VGG"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG">[docs]</a><span class="k">class</span> <span class="nc">VGG</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Base class of VGG\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        features (Module): feanture Module</span>
+<span class="sd">        cfg (int): model config</span>
+<span class="sd">        pretrained (bool): if true, load a pretrained weights</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="o">*</span><span class="mi">7</span><span class="o">*</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4096</span><span class="p">),</span>
+            <span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">Dropout</span><span class="p">(),</span>
+            <span class="n">Linear</span><span class="p">(</span><span class="mi">4096</span><span class="p">,</span> <span class="mi">4096</span><span class="p">),</span>
+            <span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">Dropout</span><span class="p">(),</span>
+            <span class="n">Linear</span><span class="p">(</span><span class="mi">4096</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pretrained</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;/weights/&#39;</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;/weights/&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;/weights/vgg</span><span class="si">{}</span><span class="s1">.hdf5&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">batch_norm</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_bn&#39;</span><span class="p">)):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[*] downloading weights...&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;/weights/&#39;</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">batch_norm</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[*] extracting...&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unzip</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;/weights/&#39;</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">batch_norm</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;/weights/vgg</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">batch_norm</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_bn&#39;</span><span class="p">))</span>
+
+<div class="viewcode-block" id="VGG.download"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">batch_norm</span><span class="p">):</span> 
+        <span class="k">if</span> <span class="n">batch_norm</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span>
+        <span class="kn">import</span> <span class="nn">urllib.request</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;vgg11&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.dropbox.com/s/ea93ty84gos9eau/vgg11.zip?dl=1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg13&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.dropbox.com/s/ex4f98rlwp9tra4/vgg13.zip?dl=1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg16&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.dropbox.com/s/3pms8tx02xa0hhx/vgg16.zip?dl=1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg19&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.dropbox.com/s/itg947agiwi69nq/vgg19.zip?dl=1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg11_bn&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg13_bn&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg16_bn&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vgg19_bn&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">[</span><span class="s1">&#39;vgg</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">batch_norm</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_bn&#39;</span><span class="p">)])</span> <span class="k">as</span> <span class="n">u</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;vgg</span><span class="si">{}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">batch_norm</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_bn&#39;</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="VGG.unzip"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.unzip">[docs]</a>    <span class="k">def</span> <span class="nf">unzip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">batch_norm</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">zipfile</span> <span class="k">import</span> <span class="n">ZipFile</span>
+        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;vgg</span><span class="si">{}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cfg</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">batch_norm</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_bn&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">zip</span><span class="p">:</span>
+            <span class="nb">zip</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.forward"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="o">*</span><span class="mi">7</span><span class="o">*</span><span class="mi">7</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="VGG.create_layers"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.create_layers">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">in_channels</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">batch_norm</span><span class="p">:</span>
+                    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ReLU</span><span class="p">())</span>
+                <span class="n">in_channels</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg11"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg11">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg11</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span> <span class="mi">11</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg13"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg13">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg13</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;13&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span> <span class="mi">13</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg16"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg16">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg16</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;16&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span> <span class="mi">16</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg19"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg19">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg19</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;19&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">),</span> <span class="mi">19</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="VGG.vgg11_bn"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg11_bn">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg11_bn</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span> <span class="mi">11</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg13_bn"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg13_bn">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg13_bn</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;13&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span> <span class="mi">13</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg16_bn"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg16_bn">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg16_bn</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;16&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span> <span class="mi">16</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VGG.vgg19_bn"><a class="viewcode-back" href="../../../qualia2.vision.html#qualia2.vision.vgg.VGG.vgg19_bn">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">vgg19_bn</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">VGG</span><span class="o">.</span><span class="n">create_layers</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;19&#39;</span><span class="p">],</span> <span class="kc">True</span><span class="p">),</span> <span class="mi">19</span><span class="p">,</span> <span class="n">pretrained</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div></div>
+
+<span class="n">VGG11</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg11</span>
+<span class="n">VGG11_bn</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg11_bn</span>
+<span class="n">VGG13</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg13</span>
+<span class="n">VGG13_bn</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg13_bn</span>
+<span class="n">VGG16</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg16</span>
+<span class="n">VGG16_bn</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg16_bn</span>
+<span class="n">VGG19</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg19</span>
+<span class="n">VGG19_bn</span> <span class="o">=</span> <span class="n">VGG</span><span class="o">.</span><span class="n">vgg19_bn</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

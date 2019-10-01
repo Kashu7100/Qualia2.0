@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.nn.modules.pool &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../../qualia2.html">qualia2</a> &raquo;</li>
+        
+      <li>qualia2.nn.modules.pool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for qualia2.nn.modules.pool</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">.module</span> <span class="k">import</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">...core</span> <span class="k">import</span> <span class="o">*</span> 
+<span class="kn">from</span> <span class="nn">...util</span> <span class="k">import</span> <span class="n">_single</span><span class="p">,</span> <span class="n">_pair</span><span class="p">,</span> <span class="n">_triple</span>
+<span class="kn">from</span> <span class="nn">...functions</span> <span class="k">import</span> <span class="n">maxpool1d</span><span class="p">,</span> <span class="n">maxpool2d</span><span class="p">,</span> <span class="n">maxpool3d</span><span class="p">,</span> <span class="n">avepool1d</span><span class="p">,</span> <span class="n">avepool2d</span><span class="p">,</span> <span class="n">avepool3d</span><span class="p">,</span> <span class="n">globalavepool1d</span><span class="p">,</span> <span class="n">globalavepool2d</span><span class="p">,</span> <span class="n">globalavepool3d</span><span class="p">,</span> <span class="n">maxunpool1d</span><span class="p">,</span> <span class="n">maxunpool2d</span><span class="p">,</span> <span class="n">maxunpool3d</span>
+<span class="kn">from</span> <span class="nn">...autograd</span> <span class="k">import</span> <span class="n">Tensor</span> 
+
+<div class="viewcode-block" id="MaxPool1d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxPool1d">[docs]</a><span class="k">class</span> <span class="nc">MaxPool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 1D max pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (int): the size of the window to take a max over</span>
+<span class="sd">        stride (int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (int): a parameter that controls the stride of elements in the window</span>
+<span class="sd">        return_indices (bool): if True, will return the max indices along with the outputs.</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,W]</span>
+<span class="sd">        - Output: [N,C,W_out]</span>
+<span class="sd">        </span>
+<span class="sd">        W_out = (W+2*padding-dilation*(kernel_size-1)-1)/stride + 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">, return_indices=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxPool1d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxPool1d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">maxpool1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">idx</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">maxpool1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">return</span> <span class="n">result</span></div></div>
+        
+<div class="viewcode-block" id="MaxPool2d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxPool2d">[docs]</a><span class="k">class</span> <span class="nc">MaxPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 2D max pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (tuple of int): the size of the window to take a max over</span>
+<span class="sd">        stride (tuple of int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (tuple of int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (tuple of int): a parameter that controls the stride of elements in the window</span>
+<span class="sd">        return_indices (bool): if True, will return the max indices along with the outputs.</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W]</span>
+<span class="sd">        - Output: [N,C,H_out,W_out]</span>
+
+<span class="sd">        H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1</span>
+<span class="sd">        W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">, return_indices=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxPool2d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxPool2d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">maxpool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">idx</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">maxpool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="MaxPool3d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxPool3d">[docs]</a><span class="k">class</span> <span class="nc">MaxPool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 3D max pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (tuple of int): the size of the window to take a max over</span>
+<span class="sd">        stride (tuple of int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (tuple of int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (tuple of int): a parameter that controls the stride of elements in the window</span>
+<span class="sd">        return_indices (bool): if True, will return the max indices along with the outputs.</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W,D]</span>
+<span class="sd">        - Output: [N,C,H_out,W_out,D_out]</span>
+
+<span class="sd">        H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1</span>
+<span class="sd">        W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1</span>
+<span class="sd">        D_out = (D+2*padding[2]-dilation[2]*(kernel_size[2]-1)-1)/stride[2] + 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">, return_indices=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxPool3d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxPool3d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">maxpool3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">idx</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">maxpool3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="AvgPool1d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.AvgPool1d">[docs]</a><span class="k">class</span> <span class="nc">AvgPool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 1D average pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (int): the size of the window to take a max over</span>
+<span class="sd">        stride (int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (int): a parameter that controls the stride of elements in the window</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,W]</span>
+<span class="sd">        - Output: [N,C,W_out]</span>
+<span class="sd">        </span>
+<span class="sd">        W_out = (W+2*padding-dilation*(kernel_size-1)-1)/stride + 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AvgPool1d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.AvgPool1d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">avepool1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="AvgPool2d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.AvgPool2d">[docs]</a><span class="k">class</span> <span class="nc">AvgPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 2D average pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (tuple of int): the size of the window to take a max over</span>
+<span class="sd">        stride (tuple of int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (tuple of int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (tuple of int): a parameter that controls the stride of elements in the window</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W]</span>
+<span class="sd">        - Output: [N,C,H_out,W_out]</span>
+
+<span class="sd">        H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1</span>
+<span class="sd">        W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AvgPool2d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.AvgPool2d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">avepool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="AvgPool3d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.AvgPool3d">[docs]</a><span class="k">class</span> <span class="nc">AvgPool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 3D average pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (tuple of int): the size of the window to take a max over</span>
+<span class="sd">        stride (tuple of int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (tuple of int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (tuple of int): a parameter that controls the stride of elements in the window</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W,D]</span>
+<span class="sd">        - Output: [N,C,H_out,W_out,D_out]</span>
+
+<span class="sd">        H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1</span>
+<span class="sd">        W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1</span>
+<span class="sd">        D_out = (D+2*padding[2]-dilation[2]*(kernel_size[2]-1)-1)/stride[2] + 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AvgPool3d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.AvgPool3d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">avepool3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+    
+<div class="viewcode-block" id="GlobalAvgPool1d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.GlobalAvgPool1d">[docs]</a><span class="k">class</span> <span class="nc">GlobalAvgPool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Applies a 1D globl average pooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    </span>
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,W]</span>
+<span class="sd">        - Output: [N,C,1]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">() at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GlobalAvgPool1d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.GlobalAvgPool1d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">globalavepool1d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="GlobalAvgPool2d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.GlobalAvgPool2d">[docs]</a><span class="k">class</span> <span class="nc">GlobalAvgPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Applies a 2D globl average pooling over an input signal composed of several input planes.\n</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W]</span>
+<span class="sd">        - Output: [N,C,1,1]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">() at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GlobalAvgPool2d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.GlobalAvgPool2d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">globalavepool2d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="GlobalAvgPool3d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.GlobalAvgPool3d">[docs]</a><span class="k">class</span> <span class="nc">GlobalAvgPool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Applies a 3D globl average pooling over an input signal composed of several input planes.\n</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W,D]</span>
+<span class="sd">        - Output: [N,C,1,1,1]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">() at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GlobalAvgPool3d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.GlobalAvgPool3d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">globalavepool3d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+    
+<div class="viewcode-block" id="MaxUnpool1d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxUnpool1d">[docs]</a><span class="k">class</span> <span class="nc">MaxUnpool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 1D max unpooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (int): the size of the window to take a max over</span>
+<span class="sd">        stride (int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (int): a parameter that controls the stride of elements in the window</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,W]</span>
+<span class="sd">        - Output: [N,C,W_out]</span>
+<span class="sd">    </span>
+<span class="sd">        W_out = (W-1)*stride+dilation*(kernel_size-1)+1-2*padding</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_single</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxUnpool1d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxUnpool1d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">maxunpool1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="MaxUnpool2d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxUnpool2d">[docs]</a><span class="k">class</span> <span class="nc">MaxUnpool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 2D max unpooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (tuple of int): the size of the window to take a max over</span>
+<span class="sd">        stride (tuple of int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (tuple of int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (tuple of int): a parameter that controls the stride of elements in the window</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: [N,C,H,W]</span>
+<span class="sd">        - Output: [N,C,H_out,W_out]</span>
+<span class="sd">        </span>
+<span class="sd">        H_out = (H-1)*stride[0]+dilation[0]*(kernel_size[0]-1)+1-2*padding[0]</span>
+<span class="sd">        W_out = (W-1)*stride[1]+dilation[1]*(kernel_size[1]-1)+1-2*padding[1]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_pair</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxUnpool2d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxUnpool2d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">maxunpool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+<div class="viewcode-block" id="MaxUnpool3d"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxUnpool3d">[docs]</a><span class="k">class</span> <span class="nc">MaxUnpool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Applies a 3D max unpooling over an input signal composed of several input planes.\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size (tuple of int): the size of the window to take a max over</span>
+<span class="sd">        stride (tuple of int): the stride of the window. Default value is kernel_size</span>
+<span class="sd">        padding (tuple of int): implicit zero padding to be added on all three sides</span>
+<span class="sd">        dilation (tuple of int): a parameter that controls the stride of elements in the window</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: Input: [N,C,H,W,D]</span>
+<span class="sd">        - Output: [N,C,H_out,W_out,D_out]</span>
+<span class="sd">        </span>
+<span class="sd">        H_out = (H-1)*stride[0]+dilation[0]*(kernel_size[0]-1)+1-2*padding[0]</span>
+<span class="sd">        W_out = (W-1)*stride[1]+dilation[1]*(kernel_size[1]-1)+1-2*padding[1]</span>
+<span class="sd">        D_out = (D-1)*stride[2]+dilation[2]*(kernel_size[2]-1)+1-2*padding[2]</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span> <span class="o">=</span> <span class="n">_triple</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, stride=</span><span class="si">{}</span><span class="s1">, padding=</span><span class="si">{}</span><span class="s1">, dilation=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxUnpool3d.forward"><a class="viewcode-back" href="../../../../qualia2.nn.modules.html#qualia2.nn.modules.pool.MaxUnpool3d.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="n">result</span><span class="o">=</span> <span class="n">maxunpool3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
