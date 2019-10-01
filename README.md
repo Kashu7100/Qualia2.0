@@ -29,8 +29,10 @@ The main components of Qualia2.0 is listed below:
 ## Requirements
 
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
-* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2, 10.0, and 10.1. (*Note: Qualia2.0 is also available for CPU use*)
+* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2, 10.0, and 10.1. 
 * [Python 3.6](https://www.python.org/)
+
+>   *Note: Qualia2.0 is also available for CPU use*
 
 ## Installation
 Upgrade of setuptools and pip is recommended before the installation:
@@ -63,21 +65,10 @@ $ python setup.py install --cuda 100
 (For without CUDA)
 $ python setup.py install
 ```
-See [more](https://github.com/Kashu7100/Qualia2.0/wiki/Installation-Guide) in wiki.
+See [more](https://kashu7100.github.io/Qualia2.0/install.html) in docs.
 
-## Tutorial
-Detailed tutorial of Qualia2.0 can be found [here](/tutorial).
-
-| Component | Description |
-| ---- | --- |
-| [Automatic Differentiation](/tutorial/#automatic_differentiation) | usage of automatic differentiation with a simple example |
-| [Validation of Automatic Differentiation](/tutorial/#valid_automatic_differentiation) | numerical method to validate automatic differentiation |
-| [Qualia Tensor](/tutorial/#qualia_tensor) | Tensor class for automatic differentiation in Qualia |
-| [Network Definition](/tutorial/#network_definition) | create a custom neural network model with Qualia |
-| [Model Summary](/tutorial/#model_summary) | get the summary of the neural network model |
-| [Saving/Loading Weights](/tutorial/#save_load) | save and load the trained weights |
-| [Setting up Optimizer](/tutorial/#optim_setup) | preparing optimizers to train a neural network |
-| [Learning Qualia with Examples](/tutorial/#ex) | introducing Qualia2.0 with some of the impremented examples |
+## Docs
+Online document is available [here](https://kashu7100.github.io/Qualia2.0). 
 
 ## Examples
 More examples can be found [here](/examples).
