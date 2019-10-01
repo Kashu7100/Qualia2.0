@@ -160,27 +160,27 @@ class Module(object):
                 module.train()
         self.training = True
 
-    def _create_state_dict(self, name=''):
+    def _create_state_dict(self, name='', dtype='float64'):
         state_dict = {}
         if self._modules: 
             for key, module in self._modules.items():
-                state_dict.update(module._create_state_dict(name+str(key)+'.'))
+                state_dict.update(module._create_state_dict(name+str(key)+'.', dtype))
         for key, value in self._params.items(): 
             if type(value) is list: 
                 for i, val in enumerate(value):
-                    state_dict[name+str(key)+'.'+str(i)] = val.data 
+                    state_dict[name+str(key)+'.'+str(i)] = val.data.astype(dtype) 
             else:
-                state_dict[name+str(key)] = value.data
+                state_dict[name+str(key)] = value.data.astype(dtype) 
         return state_dict
     
-    def state_dict(self):
+    def state_dict(self, dtype='float64'):
         '''Returns a dictionary containing a whole state of the module.\n
         '''
-        state_dict = self._create_state_dict()
+        state_dict = self._create_state_dict('', dtype)
         return state_dict
     
     def load_state_dict(self, state_dict, name=''):
-        '''Copies parameters from state_dict into this module.\n
+        '''Copies parameters from the state_dict into this module.\n
         '''
         if self._modules: 
             for key, module in self._modules.items():
@@ -191,8 +191,8 @@ class Module(object):
                     self._params[key][int(i)].data = np.copy(state_dict[name+str(key)+'.'+str(i)].astype(self._params[key][int(i)].dtype))
             else:
                 self._params[key].data = np.copy(state_dict[name+str(key)].astype(self._params[key].dtype))
-                
-    def load_state_dict_from_url(self, url, version=0):
+
+    def load_state_dict_from_url(self, url, version=1):
         '''Downloads and copies parameters from the state_dict at the url into this module.\n
         '''
         if not os.path.exists(home_dir+'/pretrained/'):
@@ -232,7 +232,7 @@ class Module(object):
                 self._params[key].data = np.array(h5file[key])
         
     def save(self, filename, dtype='float32', protocol=-1, version=0):
-        '''Saves internal parameters of the Module in HDF5 format.\n 
+        '''Saves internal parameters of the Module.\n 
         Args: 
             filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename.qla 
             dtype (str): data type to save
