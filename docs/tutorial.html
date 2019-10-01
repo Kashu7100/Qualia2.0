@@ -1,0 +1,1005 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Table of Contents &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Requirements" href="install.html" />
+    <link rel="prev" title="Qualia2.0 – Pytorch-like API accelerated with CUDA" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Table of Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Automatic-Differentiation">Automatic Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Validation-of-Automatic-Differentiation">Validation of Automatic Differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Qualia-Tensor">Qualia Tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Computational-Graph">Computational Graph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Network-Definition">Network Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Model-Summary">Model Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Saving/Loading-a-Trained-Weights">Saving/Loading a Trained Weights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Setting-up-an-Optimizer">Setting up an Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Use-Dataloader">Use Dataloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Qualia2-Vision">Qualia2 Vision</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#recommended">Recommended</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#supplemental-information">Supplemental Information</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Table of Contents</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Table-of-Contents">
+<h1>Table of Contents<a class="headerlink" href="#Table-of-Contents" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Component</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="#automatic_differentiation">Automatic Differentiation</a></p></td>
+<td><p>usage of automatic differentiation with simple example</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#valid_automatic_differentiation">Validation of Automatic Differentiation</a></p></td>
+<td><p>numerical method to validate automatic differentiation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="#qualia_tensor">Qualia Tensor</a></p></td>
+<td><p>Tensor class in Qualia</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#computational_graph">Computational Graph</a></p></td>
+<td><p>computational graph in Qualia</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="#network_definition">Network Definition</a></p></td>
+<td><p>create a custom neural network model with Qualia</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#model_summary">Model Summary</a></p></td>
+<td><p>get the summary of the neural network model</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="#save_load">Saving/Loading Weights</a></p></td>
+<td><p>save and load the trained weights</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#optim_setup">Setting up Optimizer</a></p></td>
+<td><p>preparing optimizers to train a neural network</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="#dataloader">Use Dataloader</a></p></td>
+<td><p>usage of dataloader</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#vision">Qualia2 Vision</a></p></td>
+<td><p>pretrained models for computer vision</p></td>
+</tr>
+</tbody>
+</table>
+<div id='automatic_differentiation'/></div>
+<div class="section" id="Automatic-Differentiation">
+<h1>Automatic Differentiation<a class="headerlink" href="#Automatic-Differentiation" title="Permalink to this headline">¶</a></h1>
+<p>Fundamental of automatic differentiation <a class="reference external" href="https://en.wikipedia.org/wiki/Automatic_differentiation">(AD)</a> is the decomposition of differentials based on the chain rule. Qualia implements the reverse accumulation AD in <code class="docutils literal notranslate"><span class="pre">qualia2.autograd</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import qualia2
+</pre></div>
+</div>
+</div>
+<p>Qualia uses the so called “Define-by-Run” scheme, so forward computation itself defines the computational graph. By using a Tensor object, Qualia can keep track of every operation. Here, the resulting y is also a Tensor object, which points to its creator(s).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>x = qualia2.array([5])
+y = x**2 - 2*x + 1
+print(y)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[16.] shape=(1,)
+</pre></div></div>
+</div>
+<p>At this moment we can compute the derivative.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>y.backward()
+print(x.grad)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[8.]
+</pre></div></div>
+</div>
+<p>Note that this meets the result of symbolic differentiation.</p>
+<p align="center"></p><p align="center"></p><p>All these computations can be generalized to a multidimensional tensor input. When the output is not a scalar quantity, a tenspr with the same dimentions as the output that is filled with ones will be given by default to start backward computation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>x = qualia2.array([[1, 2, 3], [4, 5, 6]])
+y = x**2 - 2*x + 1
+y.backward()
+print(x.grad)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[ 0.  2.  4.]
+ [ 6.  8. 10.]]
+</pre></div></div>
+</div>
+<p>With the autograd feature of Qualia, one can plot the derivative curve of a given function very easily. For instance, let function of interest be <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">x*sin(x)</span></code>. Note that the qualia array needs to be converted to numpy array before the plot.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from qualia2.functions import sin
+import matplotlib.pyplot as plt
+
+x = qualia2.arange(-2*qualia2.pi,2*qualia2.pi,0.01)
+y = x * sin(x)
+y.backward()
+
+plt.plot(x.asnumpy(), y.asnumpy(), label=&#39;y = x*sin(x)&#39;)
+plt.plot(x.asnumpy(), x.gradasnumpy(), label=&#39;dy/dx&#39;)
+plt.xlabel(&#39;x&#39;)
+plt.ylabel(&#39;y&#39;)
+plt.legend(loc=&#39;upper left&#39;)
+plt.grid()
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial_11_0.png" src="_images/tutorial_11_0.png" />
+</div>
+</div>
+<div id='valid_automatic_differentiation'/></div>
+<div class="section" id="Validation-of-Automatic-Differentiation">
+<h1>Validation of Automatic Differentiation<a class="headerlink" href="#Validation-of-Automatic-Differentiation" title="Permalink to this headline">¶</a></h1>
+<p>One can use <code class="docutils literal notranslate"><span class="pre">util.check_function()</span></code> to validate the gradient caluclation of a function. <code class="docutils literal notranslate"><span class="pre">util.check_function()</span></code> internally calculates the gradient using numerical method and compares the result with automatic differentiation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from qualia2.functions import *
+from qualia2.util import check_function
+
+check_function(sinc)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[*] measured error:  7.808416552423754e-18
+</pre></div></div>
+</div>
+<p>One can specify the domain to avoid null value for the function that has not defined region.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>check_function(tan, domain=(-np.pi/4, np.pi/4))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[*] measured error:  1.0834724541670098e-12
+</pre></div></div>
+</div>
+<div id='qualia_tensor'/></div>
+<div class="section" id="Qualia-Tensor">
+<h1>Qualia Tensor<a class="headerlink" href="#Qualia-Tensor" title="Permalink to this headline">¶</a></h1>
+<p>Every tensor calculation and automatic differentiation are done by the <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> onject in Qualia. <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> onject wraps <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> objects along the <code class="docutils literal notranslate"><span class="pre">creator</span></code> onject to perform automatic differentiation. A computational graph for a differentiation is defined dynamically as program runs.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>x = qualia2.array([[1, 2, 3], [4, 5, 6]])
+print(type(x))
+print(x)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class &#39;qualia2.autograd.Tensor&#39;&gt;
+[[1. 2. 3.]
+ [4. 5. 6.]] shape=(2, 3)
+</pre></div></div>
+</div>
+<p>The gradient for a <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> can be optionally replaced by a new gradient, which is additionally calculated by a hooked function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>a = qualia2.rand(5,6)
+a.backward()
+print(a.grad)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]]
+</pre></div></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">grad:</span> <span class="pre">2*grad</span></code> is registered as a hook, the gradient will be doubled.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>a = qualia2.rand(5,6)
+a.register_hook(lambda grad: 2*grad)
+a.backward()
+print(a.grad)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[2. 2. 2. 2. 2. 2.]
+ [2. 2. 2. 2. 2. 2.]
+ [2. 2. 2. 2. 2. 2.]
+ [2. 2. 2. 2. 2. 2.]
+ [2. 2. 2. 2. 2. 2.]]
+</pre></div></div>
+</div>
+<div id='computational_graph'/></div>
+<div class="section" id="Computational-Graph">
+<h1>Computational Graph<a class="headerlink" href="#Computational-Graph" title="Permalink to this headline">¶</a></h1>
+<p>If you want to detach the computation from the current graph, you can use <code class="docutils literal notranslate"><span class="pre">Tensor.detach()</span></code> method. This will clear the <code class="docutils literal notranslate"><span class="pre">creator</span></code> object in the <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> and prevents backward propagation to be computed further.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from qualia2.functions import *
+
+a = qualia2.rand(5,6)
+b = sin(a)
+
+b.backward()
+print(a.grad)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.76790906 0.71244082 0.83183156 0.96897591 0.64806117 0.75165602]
+ [0.82414905 0.58799685 0.96589815 0.67495328 0.95247465 0.93182726]
+ [0.89724121 0.98999407 0.77401058 0.99550057 0.98964091 0.80678068]
+ [0.98992852 0.69552181 0.73793413 0.99660953 0.63206233 0.60313844]
+ [0.59003014 0.81016324 0.84843595 0.616491   0.74049448 0.92092612]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>a = qualia2.rand(5,6)
+b = sin(a).detach()
+
+b.backward()
+print(a.grad)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+None
+</pre></div></div>
+</div>
+<div id='network_definition'/></div>
+<div class="section" id="Network-Definition">
+<h1>Network Definition<a class="headerlink" href="#Network-Definition" title="Permalink to this headline">¶</a></h1>
+<p>In order to define a network, <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> needs to be inherited. Note that a user-defined model must have <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code> in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> of the model.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import qualia2.nn as nn
+import qualia2.functions as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
+        self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
+        self.fc1 = nn.Linear(500, 50)
+        self.fc2 = nn.Linear(50, 10)
+
+    def forward(self, x):
+        x = F.relu(F.maxpool2d(self.conv1(x), (2,2)))
+        x = F.relu(F.maxpool2d(self.conv2(x), (2,2)))
+        x = F.reshape(x,(-1, 500))
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+model = Model()
+</pre></div>
+</div>
+</div>
+<p>If the model is sequential, there is also an option to use <code class="docutils literal notranslate"><span class="pre">nn.Sequential</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>model = nn.Sequential(
+    nn.Conv2d(1, 10, kernel_size=5),
+    nn.MaxPool2d((2,2)),
+    nn.ReLU(),
+    nn.Conv2d(10, 20, kernel_size=5),
+    nn.MaxPool2d((2,2)),
+    nn.ReLU(),
+    nn.Flatten(),
+    nn.Linear(500, 50),
+    nn.ReLU(),
+    nn.Linear(50, 10),
+)
+</pre></div>
+</div>
+</div>
+<div id='model_summary'/></div>
+<div class="section" id="Model-Summary">
+<h1>Model Summary<a class="headerlink" href="#Model-Summary" title="Permalink to this headline">¶</a></h1>
+<p>Having a visualization of the model is very helpful while debugging your network. You can obtain a network summary by <code class="docutils literal notranslate"><span class="pre">your_model.summary(input_shape)</span></code>. Note that the <code class="docutils literal notranslate"><span class="pre">input_size</span></code> is required to make a forward pass through the network.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>model = Model()
+model.summary((1, 1, 28, 28))
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+----------------------------------------------------------------------------
+                                Model: Model
+----------------------------------------------------------------------------
+| layers              |    input shape     |    output shape    | params # |
+============================================================================
+| Conv2d-0            |   (1, 1, 28, 28)   |  (1, 10, 26, 26)   |   260    |
+| Conv2d-1            |  (1, 10, 13, 13)   |  (1, 20, 11, 11)   |   5020   |
+| Linear-2            |      (1, 500)      |      (1, 50)       |  25050   |
+| Linear-3            |      (1, 50)       |      (1, 10)       |   510    |
+============================================================================
+total params: 30840
+training mode: True
+----------------------------------------------------------------------------
+</pre></div></div>
+</div>
+<div id='save_load'/></div>
+<div class="section" id="Saving/Loading-a-Trained-Weights">
+<h1>Saving/Loading a Trained Weights<a class="headerlink" href="#Saving/Loading-a-Trained-Weights" title="Permalink to this headline">¶</a></h1>
+<p>In order to save the trained weights of a model, one can simply use <code class="docutils literal notranslate"><span class="pre">Module.save(filename)</span></code> method. The weights are saved in <a class="reference external" href="https://support.hdfgroup.org/HDF5/whatishdf5.html">hdf5</a> format. To load the saved weights, use <code class="docutils literal notranslate"><span class="pre">Module.load(filename)</span></code> method.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>model.save(&#39;tutorial_weights&#39;)
+model.load(&#39;tutorial_weights&#39;)
+</pre></div>
+</div>
+</div>
+<div id='optim_setup'/></div>
+<div class="section" id="Setting-up-an-Optimizer">
+<h1>Setting up an Optimizer<a class="headerlink" href="#Setting-up-an-Optimizer" title="Permalink to this headline">¶</a></h1>
+<p>Optimizers require the model parameters. Put <code class="docutils literal notranslate"><span class="pre">Module.params</span></code> as the first argument for the optimizer. Other arguments such as learning rate are optional.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from qualia2.nn.optim import SGD
+
+optim = SGD(model.params)
+</pre></div>
+</div>
+</div>
+<p>Following optimizers are available now:</p>
+<ul class="simple">
+<li><p>SGD (Momentum)</p></li>
+<li><p>Adagrad</p></li>
+<li><p>Adam</p></li>
+<li><p>Adadelta</p></li>
+<li><p>RMSProp</p></li>
+</ul>
+<div id='dataloader'/></div>
+<div class="section" id="Use-Dataloader">
+<h1>Use Dataloader<a class="headerlink" href="#Use-Dataloader" title="Permalink to this headline">¶</a></h1>
+<p>Dataloader is the user friendly class that helps the preprocess of data for training, testing, and visualization purpose.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from qualia2.data import MNIST
+
+data = MNIST()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[*] preparing data...
+[*] done.
+</pre></div></div>
+</div>
+<p>You can take a grance at data by <code class="docutils literal notranslate"><span class="pre">Dataloader.show()</span></code> method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>data.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/tutorial_48_0.png" src="_images/tutorial_48_0.png" />
+</div>
+</div>
+<div id='vision'/></div>
+<div class="section" id="Qualia2-Vision">
+<h1>Qualia2 Vision<a class="headerlink" href="#Qualia2-Vision" title="Permalink to this headline">¶</a></h1>
+<p>Qalia2 vision provides some pretrained models for computer vision tasks. Following models are available with pretrained weights now:</p>
+<ul class="simple">
+<li><p>Alexnet</p></li>
+<li><p>VGG11</p></li>
+<li><p>VGG13</p></li>
+<li><p>VGG16</p></li>
+<li><p>VGG19</p></li>
+<li><p>OpenPose (Body)</p></li>
+<li><p>OpenPose (Hand)</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import qualia2.vision as v
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>v.VGG11(pretrained=False)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+VGG(
+Sequential(
+    [0] 0: Conv2d(3, 64, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C11DEB8
+    [1] 1: ReLU() at 0x00007F831C11DF28
+    [2] 2: MaxPool2d((2, 2), stride=(2, 2), padding=(0, 0), dilation=(1, 1), return_indices=False) at 0x00007F831C1250B8
+    [3] 3: Conv2d(64, 128, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C125048
+    [4] 4: ReLU() at 0x00007F831C125128
+    [5] 5: MaxPool2d((2, 2), stride=(2, 2), padding=(0, 0), dilation=(1, 1), return_indices=False) at 0x00007F831C125240
+    [6] 6: Conv2d(128, 256, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C125198
+    [7] 7: ReLU() at 0x00007F831C1252B0
+    [8] 8: Conv2d(256, 256, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C1253C8
+    [9] 9: ReLU() at 0x00007F831C125320
+    [10] 10: MaxPool2d((2, 2), stride=(2, 2), padding=(0, 0), dilation=(1, 1), return_indices=False) at 0x00007F831C125518
+    [11] 11: Conv2d(256, 512, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C125470
+    [12] 12: ReLU() at 0x00007F831C125588
+    [13] 13: Conv2d(512, 512, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C1256A0
+    [14] 14: ReLU() at 0x00007F831C1255F8
+    [15] 15: MaxPool2d((2, 2), stride=(2, 2), padding=(0, 0), dilation=(1, 1), return_indices=False) at 0x00007F831C1257F0
+    [16] 16: Conv2d(512, 512, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C125748
+    [17] 17: ReLU() at 0x00007F831C125898
+    [18] 18: Conv2d(512, 512, (3, 3), stride=(1, 1), padding=(1, 1), dilation=(1, 1), bias=True) at 0x00007F831C1259B0
+    [19] 19: ReLU() at 0x00007F831C125908
+    [20] 20: MaxPool2d((2, 2), stride=(2, 2), padding=(0, 0), dilation=(1, 1), return_indices=False) at 0x00007F831C125B38
+    [0] features: ) at 0x00007F831C11DDA0
+Sequential(
+    [0] 0: Linear(25088, 4096, bias=True) at 0x00007F831C12A0B8
+    [1] 1: ReLU() at 0x00007F831C12A0F0
+    [2] 2: Dropout(p=0.5) at 0x00007F831C12A208
+    [3] 3: Linear(4096, 4096, bias=True) at 0x00007F831C12A160
+    [4] 4: ReLU() at 0x00007F831C12A2B0
+    [5] 5: Dropout(p=0.5) at 0x00007F831C12A3C8
+    [6] 6: Linear(4096, 1000, bias=True) at 0x00007F831C12A320
+    [1] classifier: ) at 0x00007F831C12A470
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>) at 0x00007F831C125A90
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Qualia2.0 – Pytorch-like API accelerated with CUDA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

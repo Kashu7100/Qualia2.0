@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qualia2.rl.agents package &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">1. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>qualia2.rl.agents package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/qualia2.rl.agents.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="qualia2-rl-agents-package">
+<h1>qualia2.rl.agents package<a class="headerlink" href="#qualia2-rl-agents-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-qualia2.rl.agents.ddqn">
+<span id="qualia2-rl-agents-ddqn-module"></span><h2>qualia2.rl.agents.ddqn module<a class="headerlink" href="#module-qualia2.rl.agents.ddqn" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.agents.ddqn.DDQN">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.agents.ddqn.</code><code class="sig-name descname">DDQN</code><span class="sig-paren">(</span><em class="sig-param">eps</em>, <em class="sig-param">actions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/ddqn.html#DDQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.ddqn.DDQN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.rl.html#qualia2.rl.core.ValueAgent" title="qualia2.rl.core.ValueAgent"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.ValueAgent</span></code></a></p>
+<p>DQN 2015 implementation</p>
+<p>This implementation uses double networks for learning. 
+DQN class incopolates the model (Module) and the optim (Optimizer).
+The model learns with experience replay, which is implemented in update() method.</p>
+<dl class="method">
+<dt id="qualia2.rl.agents.ddqn.DDQN.get_train_signal">
+<code class="sig-name descname">get_train_signal</code><span class="sig-paren">(</span><em class="sig-param">experience</em>, <em class="sig-param">gamma</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/ddqn.html#DDQN.get_train_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.ddqn.DDQN.get_train_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.agents.ddqn.DDQNTrainer">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.agents.ddqn.</code><code class="sig-name descname">DDQNTrainer</code><span class="sig-paren">(</span><em class="sig-param">memory</em>, <em class="sig-param">batch</em>, <em class="sig-param">capacity</em>, <em class="sig-param">gamma=0.99</em>, <em class="sig-param">target_update_interval=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/ddqn.html#DDQNTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.ddqn.DDQNTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.rl.html#qualia2.rl.util.Trainer" title="qualia2.rl.util.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.util.Trainer</span></code></a></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>memory (deque): replay memory object
+capacity (int): capacity of the memory
+batch (int): batch size for training
+gamma (int): gamma value
+target_update_interval (int): interval for updating target network</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.agents.ddqn.DDQNTrainer.after_episode">
+<code class="sig-name descname">after_episode</code><span class="sig-paren">(</span><em class="sig-param">episode</em>, <em class="sig-param">steps</em>, <em class="sig-param">agent</em>, <em class="sig-param">loss</em>, <em class="sig-param">reward</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/ddqn.html#DDQNTrainer.after_episode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.ddqn.DDQNTrainer.after_episode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.ddqn.DDQNTrainer.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">env</em>, <em class="sig-param">agent</em>, <em class="sig-param">episodes=200</em>, <em class="sig-param">render=True</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/ddqn.html#DDQNTrainer.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.ddqn.DDQNTrainer.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.rl.agents.dqn">
+<span id="qualia2-rl-agents-dqn-module"></span><h2>qualia2.rl.agents.dqn module<a class="headerlink" href="#module-qualia2.rl.agents.dqn" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.agents.dqn.DQN">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.agents.dqn.</code><code class="sig-name descname">DQN</code><span class="sig-paren">(</span><em class="sig-param">eps</em>, <em class="sig-param">actions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/dqn.html#DQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.dqn.DQN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.rl.html#qualia2.rl.core.ValueAgent" title="qualia2.rl.core.ValueAgent"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.ValueAgent</span></code></a></p>
+<p>DQN 2013 implementation</p>
+<p>This implementation uses single network for learning. 
+DQN class incopolates the model (Module) and the optim (Optimizer).
+The model learns with experience replay, which is implemented in update() method.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.agents.dqn.DQNTrainer">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.agents.dqn.</code><code class="sig-name descname">DQNTrainer</code><span class="sig-paren">(</span><em class="sig-param">memory</em>, <em class="sig-param">batch</em>, <em class="sig-param">capacity</em>, <em class="sig-param">gamma=0.99</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/dqn.html#DQNTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.dqn.DQNTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.rl.html#qualia2.rl.util.Trainer" title="qualia2.rl.util.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.util.Trainer</span></code></a></p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>memory (deque): replay memory object
+capacity (int): capacity of the memory
+batch (int): batch size for training
+gamma (int): gamma value</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.agents.dqn.DQNTrainer.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">env</em>, <em class="sig-param">agent</em>, <em class="sig-param">episodes=200</em>, <em class="sig-param">render=False</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/dqn.html#DQNTrainer.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.dqn.DQNTrainer.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.rl.agents.td3">
+<span id="qualia2-rl-agents-td3-module"></span><h2>qualia2.rl.agents.td3 module<a class="headerlink" href="#module-qualia2.rl.agents.td3" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.agents.td3.TD3">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.agents.td3.</code><code class="sig-name descname">TD3</code><span class="sig-paren">(</span><em class="sig-param">actor</em>, <em class="sig-param">critic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.rl.html#qualia2.rl.core.ActorCriticAgent" title="qualia2.rl.core.ActorCriticAgent"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.ActorCriticAgent</span></code></a></p>
+<p>Twin Delayed DDPG (TD3)</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>actor (Module): actor network
+critic (Module): critic network</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.get_train_signal">
+<code class="sig-name descname">get_train_signal</code><span class="sig-paren">(</span><em class="sig-param">experience</em>, <em class="sig-param">max_action</em>, <em class="sig-param">policy_noise</em>, <em class="sig-param">noise_clip</em>, <em class="sig-param">gamma=0.9</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.get_train_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.get_train_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.set_critic_optim">
+<code class="sig-name descname">set_critic_optim</code><span class="sig-paren">(</span><em class="sig-param">optim</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.set_critic_optim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.set_critic_optim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.update_actor">
+<code class="sig-name descname">update_actor</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.update_actor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.update_actor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.update_critic1">
+<code class="sig-name descname">update_critic1</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">action</em>, <em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.update_critic1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.update_critic1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3.update_critic2">
+<code class="sig-name descname">update_critic2</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">action</em>, <em class="sig-param">target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3.update_critic2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3.update_critic2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.agents.td3.TD3Trainer">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.agents.td3.</code><code class="sig-name descname">TD3Trainer</code><span class="sig-paren">(</span><em class="sig-param">memory</em>, <em class="sig-param">batch</em>, <em class="sig-param">capacity</em>, <em class="sig-param">gamma=0.99</em>, <em class="sig-param">polyak=0.995</em>, <em class="sig-param">policy_delay=2</em>, <em class="sig-param">exploration_noise=0.1</em>, <em class="sig-param">policy_noise=0.2</em>, <em class="sig-param">noise_clip=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3Trainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3Trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.rl.html#qualia2.rl.util.Trainer" title="qualia2.rl.util.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.util.Trainer</span></code></a></p>
+<p>TD3 Trainer</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>memory (deque): replay memory object
+capacity (int): capacity of the memory
+batch (int): batch size for training
+gamma (int): gamma value
+policy_delay (int): interval for updating target network</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3Trainer.before_episode">
+<code class="sig-name descname">before_episode</code><span class="sig-paren">(</span><em class="sig-param">env</em>, <em class="sig-param">agent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3Trainer.before_episode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3Trainer.before_episode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3Trainer.experience_replay">
+<code class="sig-name descname">experience_replay</code><span class="sig-paren">(</span><em class="sig-param">episode</em>, <em class="sig-param">step_count</em>, <em class="sig-param">agent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3Trainer.experience_replay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3Trainer.experience_replay" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.agents.td3.TD3Trainer.train_routine">
+<code class="sig-name descname">train_routine</code><span class="sig-paren">(</span><em class="sig-param">env</em>, <em class="sig-param">agent</em>, <em class="sig-param">episodes=200</em>, <em class="sig-param">render=False</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/agents/td3.html#TD3Trainer.train_routine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.agents.td3.TD3Trainer.train_routine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.rl.agents">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-qualia2.rl.agents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

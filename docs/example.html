@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/example.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="biological-neuron-and-artificial-neuron">
+<h2>Biological Neuron and Artificial Neuron<a class="headerlink" href="#biological-neuron-and-artificial-neuron" title="Permalink to this headline">¶</a></h2>
+<p>Neural networks are a set of algorithms, modeled loosely after the human brain, that are designed to recognize patterns [1].
+The perceptron is a mathematical model of a biological neuron.</p>
+<p align="center">
+  <img src="../assets/neuron_and_nn.png"/>
+  <br>
+  <b> Fig.1: </b> Biological neuron versus artificial neuron (perceptron).
+</p></div>
+<div class="section" id="learning-in-brain-and-neural-network">
+<h2>Learning in Brain and Neural Network<a class="headerlink" href="#learning-in-brain-and-neural-network" title="Permalink to this headline">¶</a></h2>
+<p>Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.</p>
+<p align="center">
+  <img src="../assets/Brain_DL.PNG"/>
+  <br>
+  <b> Fig.2: </b> Learning scheme in the brain.
+</p></div>
+</div>
+<div class="section" id="id1">
+<h1><a class="reference external" href="/examples/supervised_learning">Supervised Learning</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><em>Supervised Learning</em> is a machine learning technique that expects a model to learn the input-to-label mapping of data where an input <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a></span> and the label <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=l_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l_i" title="l_i" /></a></span> associated with that input are given.</p>
+<p>The objective of supervised learning is to estimate the data generation probability <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a></span> from the experimental probability <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a></span>:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=(x_i,l_i)&space;\sim&space;P(x,l)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_i,l_i)&space;\sim&space;P(x,l)" title="(x_i,l_i) \sim P(x,l)" /></a>
+</p><p>This is done by minimizing the error between <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a></span> and the output from the model <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=M_\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M_\theta" title="M_\theta" /></a></span> with parameter <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a></span>. In practice, the experimental probability <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a></span> is used for train the model.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(\hat{P}(x,l),M_\theta(x_i))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\hat{P}(x,l),M_\theta(x_i))" title="J(\hat{P}(x,l),M_\theta(x_i))" /></a>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;\leftarrow&space;\theta&space;&plus;\alpha&space;\triangledown_\theta&space;J(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;\leftarrow&space;\theta&space;&plus;\alpha&space;\triangledown_\theta&space;J(\theta)" title="\theta \leftarrow \theta +\alpha \triangledown_\theta J(\theta)" /></a>
+</p></div>
+<div class="section" id="id2">
+<h1><a class="reference external" href="/examples/unsupervised_learning">Unsupervised Learning</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<p><em>Unsupervised learning</em> is a machine learning technique that expects a model to learn patterns in the input data <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a></span>.</p>
+<p>Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.</p>
+<p>In 1949, Donald O. Hebb argued that:</p>
+<blockquote>
+<div><p>“When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A’s efficiency, as one of the cells firing B, is increased.” - Organization of Behavior (1949).</p>
+</div></blockquote>
+<p>This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in our learning and memory.</p>
+<div class="section" id="hebbian-learning">
+<h2>Hebbian learning<a class="headerlink" href="#hebbian-learning" title="Permalink to this headline">¶</a></h2>
+<p>Hebb’s Rule is often generalized as:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\mathbf{w}&space;=&space;\eta&space;y&space;\mathbf{x}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\mathbf{w}&space;=&space;\eta&space;y&space;\mathbf{x}" title="\Delta \mathbf{w} = \eta y \mathbf{x}" /></a>
+</p><p>This version of the rule is clearly unstable, as in any network with a dominant signal the synaptic weights will increase or decrease exponentially.</p>
+</div>
+<div class="section" id="oja-s-learning-rule">
+<h2>Oja’s learning rule<a class="headerlink" href="#oja-s-learning-rule" title="Permalink to this headline">¶</a></h2>
+<p>Oja’s rule solves all stability problems of Hebb’s Rule and generates an algorithm for principal components analysis. This is a computational form of an effect which is believed to happen in biological neurons.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\mathbf{w}&space;=&space;\eta&space;y(\mathbf{x}-y\mathbf{w})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\mathbf{w}&space;=&space;\eta&space;y(\mathbf{x}-y\mathbf{w})" title="\Delta \mathbf{w} = \eta y(\mathbf{x}-y\mathbf{w})" /></a>
+</p></div>
+<div class="section" id="generalized-hebbian-algorithm-sanger-s-rule">
+<h2>Generalized Hebbian Algorithm (Sanger’s rule)<a class="headerlink" href="#generalized-hebbian-algorithm-sanger-s-rule" title="Permalink to this headline">¶</a></h2>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;w_{ij}&space;=&space;\eta&space;y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;w_{ij}&space;=&space;\eta&space;y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" title="\Delta w_{ij} = \eta y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" /></a>
+</p></div>
+</div>
+<div class="section" id="id3">
+<h1><a class="reference external" href="/examples/reinforcement_learning">Reinforcement Learning</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<p><em>Reinforcement Learning</em> is a machine learning technique that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences assuming Markov Decision Process (MDP). Reinforcement Learning named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner.</p>
+<p align="center">
+  <img src="../assets/reinforcement-learning.jpg" width="450"/>
+  <br>
+  <b> Fig.2: </b> Learning scheme for reinforcement learning assuming MDP.
+</p><div class="section" id="markov-property">
+<h2>Markov property<a class="headerlink" href="#markov-property" title="Permalink to this headline">¶</a></h2>
+<p>A stochastic process has the Markov property if the conditional probability distribution of future states of the process depends only upon the present state. That is, the state <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=S_t_&plus;_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?S_t_&plus;_1" title="S_t_+_1" /></a></span> and reward <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=R_t_&plus;_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R_t_&plus;_1" title="R_t_+_1" /></a></span> at time t+1 depends on the present state <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=S_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?S_t" title="S_t" /></a></span> and the action <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=A_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?A_t" title="A_t" /></a></span>.</p>
+</div>
+<div class="section" id="value-function">
+<h2>Value function<a class="headerlink" href="#value-function" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>state value function</strong> <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi(s)" title="V^\pi(s)" /></a></span> under a policy <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" /></a></span> is the expectation value of the total discounted reward or gain G at given state s.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s\}" title="V^\pi (s)= \mathbb{E}^\pi \{G_t | S_t=s\} = \mathbb{E}^\pi \{\sum_{\tau=0}^{\infty} \gamma ^\tau R_t_+_\tau_+_1| S_t=s\}" /></a>
+</p><p>Similarly, the expectation value of the total discounted reward at given state s and an action a is represented by the <strong>action value function</strong> <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi(s,a)" title="Q^\pi(s,a)" /></a></span>.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s,&space;A_t=a\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s,&space;A_t=a\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s,&space;A_t=a\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s,&space;A_t=a\}" title="Q^\pi (s,a)= \mathbb{E}^\pi \{G_t | S_t=s, A_t=a\} = \mathbb{E}^\pi \{\sum_{\tau=0}^{\infty} \gamma ^\tau R_t_+_\tau_+_1| S_t=s, A_t=a\}" /></a>
+</p><p>Among all possible value-functions, there exist an optimal value function <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=V^*(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^*(s)" title="V^*(s)" /></a></span> that has higher value than other functions for all states.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^*(s)&space;=&space;\underset{\pi}{max}V^\pi(s)&space;\:&space;\:&space;\:&space;\:&space;\forall&space;s\in&space;S" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^*(s)&space;=&space;\underset{\pi}{max}V^\pi(s)&space;\:&space;\:&space;\:&space;\:&space;\forall&space;s\in&space;S" title="V^*(s) = \underset{\pi}{max}V^\pi(s) \: \: \: \: \forall s\in S" /></a>
+</p><p>The optimal policy <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*" title="\pi^*" /></a></span> that corresponds to the optimal value function is:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{\pi}{argmax}V^\pi(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{\pi}{argmax}V^\pi(s)" title="\pi^* = \underset{\pi}{argmax}V^\pi(s)" /></a>
+</p><p>In a similar manner, the optimal action value function and the corresponding optimal policy are:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^*(s,a)&space;=&space;\underset{\pi}{max}\:&space;Q^\pi(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^*(s,a)&space;=&space;\underset{\pi}{max}\:&space;Q^\pi(s,a)" title="Q^*(s,a) = \underset{\pi}{max}\: Q^\pi(s,a)" /></a>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" title="\pi^* = \underset{a}{argmax}Q^*(s,a)" /></a>
+</p></div>
+<div class="section" id="bellman-equation">
+<h2>Bellman equation<a class="headerlink" href="#bellman-equation" title="Permalink to this headline">¶</a></h2>
+<p>From the linearity of <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\mathbb{E}^\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbb{E}^\pi" title="\mathbb{E}^\pi" /></a></span>, the value function can be expressed as:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\gamma\,&space;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^{\tau-1}&space;R_{t&plus;\tau&plus;1}|&space;S_t=s\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\gamma\,&space;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^{\tau-1}&space;R_{t&plus;\tau&plus;1}|&space;S_t=s\}" title="V^\pi (s)= \mathbb{E}^\pi \{R_{t+1} | S_t=s\}+\gamma\, \mathbb{E}^\pi \{\sum_{\tau=1}^{\infty} \gamma ^{\tau-1} R_{t+\tau+1}| S_t=s\}" /></a>
+</p><p>If we express the expected reward that we receive when starting in state s, taking action a, and moving into state s’ as:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{R}(s,s',a)&space;=&space;\mathbb{E}\{R_{t&plus;1}|S_t=s,S_{t&plus;1}=s',A_t=a\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{R}(s,s',a)&space;=&space;\mathbb{E}\{R_{t&plus;1}|S_t=s,S_{t&plus;1}=s',A_t=a\}" title="\mathfrak{R}(s,s',a) = \mathbb{E}\{R_{t+1}|S_t=s,S_{t+1}=s',A_t=a\}" /></a>
+</p><p>The value function can be therefore expressed as following. This is the Bellman equation for the state value function under a policy <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" /></a></span>.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" title="V^\pi (s)= \sum_{}{a\in A}\pi(a|s)\sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma V^\pi(s'))" /></a>
+</p><p>The Bellman equation for the action value function can be derived in a similar way.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" title="Q^\pi (s,a)= \sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma V^\pi(s'))" /></a>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;\sum_{}{a'\in&space;A}\pi(a'|s')Q^\pi(s',a')&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;\sum_{}{a'\in&space;A}\pi(a'|s')Q^\pi(s',a')&space;)" title="Q^\pi (s,a)= \sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma \sum_{}{a'\in A}\pi(a'|s')Q^\pi(s',a') )" /></a>
+</p></div>
+<div class="section" id="td-error">
+<h2>TD error<a class="headerlink" href="#td-error" title="Permalink to this headline">¶</a></h2>
+<p>The Bellman equation requires the knowledge of the transition probability P, which is unknown for most tasks, in order to find the value. This can be resolved by utilizing the experience from trial and error.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" title="Q(S_t,A_t) = R_{t+1}+\gamma \, Q(S_{t+1},A_{t+1})-\delta" /></a>
+</p><p>The term <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a></span> is called Temporal Difference (TD) error. When the training converges, the TD error is expected to approach to zero.</p>
+</div>
+<div class="section" id="dopamine-neurons-and-td-error-signal">
+<h2>Dopamine neurons and TD error signal<a class="headerlink" href="#dopamine-neurons-and-td-error-signal" title="Permalink to this headline">¶</a></h2>
+<p align="center">
+  <img src="../assets/TD_error.png" width="500"/>
+  <br>
+  <b> Fig.3: </b> Firing of dopamine neurons and its correspondence with the TD error [1,2].
+</p><p>In the first case, an unpredicted reward (R) occurs, and a burst of dopamine firing follows. In the second case, a predicted reward occurs, and a burst follows the onset of the predictor (CS or conditioned stimulus), but there is no firing after the predicted reward. In the bottom case, a predicted reward is omitted, with a corresponding trough in dopamine responding.</p>
+<p>The feature of TD error matches with the response of dopamine neurons <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a></span> in the figure. Therefore, the response of dopamine neurons is thought to be the TD error signal.</p>
+<hr class="docutils" />
+<p>[1] A Beginner’s Guide to Neural Networks and Deep Learning Online: <a class="reference external" href="https://skymind.ai/wiki/neural-network">https://skymind.ai/wiki/neural-network</a></p>
+<p>[2] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599</p>
+<p>[3] Doya K. (2007). Reinforcement learning: Computational theory and biological mechanisms. HFSP journal, 1(1), 30–40. doi:10.2976/1.2732246/10.2976/1</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

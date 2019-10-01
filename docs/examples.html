@@ -1,0 +1,795 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Examples &mdash; Qualia2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Contribution Guide" href="contribution.html" />
+    <link rel="prev" title="3. Tutorial" href="tutorial/tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Qualia2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">2. Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/tutorial.html">3. Tutorial</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">1.1. Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#biological-neuron-and-artificial-neuron">1.1.1. Biological Neuron and Artificial Neuron</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#learning-scheme-in-brain-and-neural-network">1.1.2. Learning scheme in Brain and Neural Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#supervised-learning">1.2. Supervised Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#decision-boundary">1.2.1. Decision Boundary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fashionmnist-with-gru">1.2.2. FashionMNIST with GRU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-classification-with-alexnet">1.2.3. Image Classification with AlexNet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#unsupervised-learning">1.3. Unsupervised Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hebbian-learning">1.3.1. Hebbian learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oja-s-learning-rule">1.3.2. Oja’s learning rule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generalized-hebbian-algorithm-sanger-s-rule">1.3.3. Generalized Hebbian Algorithm (Sanger’s rule)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#autoencoders">1.3.4. Autoencoders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generative-adversarial-networks-gans">1.3.5. Generative Adversarial Networks (GANs)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reinforcement-learning">1.4. Reinforcement Learning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#markov-property">1.4.1. Markov property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#value-function">1.4.2. Value function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bellman-equation">1.4.3. Bellman equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#td-error">1.4.4. TD error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dopamine-neurons-and-td-error-signal">1.4.5. Dopamine neurons and TD error signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cartpole-with-dqn">1.4.6. CartPole with DQN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">2. Contribution Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Misc Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Qualia2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>1. Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/examples.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="examples">
+<h1>1. Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>1.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="biological-neuron-and-artificial-neuron">
+<h3>1.1.1. Biological Neuron and Artificial Neuron<a class="headerlink" href="#biological-neuron-and-artificial-neuron" title="Permalink to this headline">¶</a></h3>
+<p>Neural networks are a set of algorithms, modeled loosely after the human brain, that are designed to recognize patterns [1].
+The perceptron is a mathematical model of a biological neuron.</p>
+<p align="center">
+  <img src="../assets/neuron_and_nn.png"/>
+  <br>
+  <b> Fig.1: </b> Biological neuron versus artificial neuron (perceptron).
+</p></div>
+<div class="section" id="learning-scheme-in-brain-and-neural-network">
+<h3>1.1.2. Learning scheme in Brain and Neural Network<a class="headerlink" href="#learning-scheme-in-brain-and-neural-network" title="Permalink to this headline">¶</a></h3>
+<p>Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.</p>
+<p align="center">
+  <img src="../assets/Brain_DL.PNG"/>
+  <br>
+  <b> Fig.2: </b> Learning scheme in the brain.
+</p></div>
+</div>
+<div class="section" id="supervised-learning">
+<h2>1.2. Supervised Learning<a class="headerlink" href="#supervised-learning" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Kashu7100/Qualia2.0/tree/master/examples/supervised_learning">view on github</a></p>
+<p><em>Supervised Learning</em> is a machine learning technique that expects a model to learn the input-to-label mapping of data where an input <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a></span> and the label <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=l_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l_i" title="l_i" /></a></span> associated with that input are given.</p>
+<p>The objective of supervised learning is to estimate the data generation probability <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a></span> from the experimental probability <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a></span>:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=(x_i,l_i)&space;\sim&space;P(x,l)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_i,l_i)&space;\sim&space;P(x,l)" title="(x_i,l_i) \sim P(x,l)" /></a>
+</p><p>This is done by minimizing the error between <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=P" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P" title="P" /></a></span> and the output from the model <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=M_\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M_\theta" title="M_\theta" /></a></span> with parameter <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a></span>. In practice, the experimental probability <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\hat{P}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{P}" title="\hat{P}" /></a></span> is used for train the model.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(\hat{P}(x,l),M_\theta(x_i))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\hat{P}(x,l),M_\theta(x_i))" title="J(\hat{P}(x,l),M_\theta(x_i))" /></a>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;\leftarrow&space;\theta&space;&plus;\alpha&space;\triangledown_\theta&space;J(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;\leftarrow&space;\theta&space;&plus;\alpha&space;\triangledown_\theta&space;J(\theta)" title="\theta \leftarrow \theta +\alpha \triangledown_\theta J(\theta)" /></a>
+</p><div class="section" id="decision-boundary">
+<h3>1.2.1. Decision Boundary<a class="headerlink" href="#decision-boundary" title="Permalink to this headline">¶</a></h3>
+<p>Neural networks can be viewed as a universal approximation function. Let’s use a simple dataset called Spiral to see how neural net can obtain a non-linear decision boundary.</p>
+<p align="center">
+  <img src="../assets/spiral.png" width=400/>
+</p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qualia2.data.basic</span> <span class="kn">import</span> <span class="n">Spiral</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn.modules</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Linear</span>
+<span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">tanh</span><span class="p">,</span> <span class="n">mse_loss</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn.optim</span> <span class="kn">import</span> <span class="n">Adadelta</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Spiral</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">batch</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l1</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">l2</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">l2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">mlp</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">()</span>
+<span class="n">optim</span> <span class="o">=</span> <span class="n">Adadelta</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># train model</span>
+<span class="n">losses</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">feat</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">mlp</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+        <span class="n">optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">())</span>
+
+<span class="c1"># plot losses</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">)),</span> <span class="n">losses</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># show decision boundary</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">mlp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see training loss is gradually decreasing.</p>
+<p align="center">
+  <img src="../assets/spiral_loss.png" width=400/>
+</p>
+Here is the obtained decision boundary:
+<p align="center">
+  <img src="../assets/spiral_boundary.png" width=400/>
+</p></div>
+<div class="section" id="fashionmnist-with-gru">
+<h3>1.2.2. FashionMNIST with GRU<a class="headerlink" href="#fashionmnist-with-gru" title="Permalink to this headline">¶</a></h3>
+<p>RNNs are often utilized for language model or time series prediction; however, they can also be used for image recongnition tasks.
+The GRU model takes rows of the image assuming the hidden state of GRU will contain a context of the image.
+Below is the visualization for the FashionMNIST dataset.</p>
+<p align="center">
+  <img src="../assets/fashion_mnist_data.png" width=400/>
+</p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qualia2</span>
+<span class="kn">from</span> <span class="nn">qualia2.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">tanh</span><span class="p">,</span> <span class="n">softmax_cross_entropy</span><span class="p">,</span> <span class="n">transpose</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">GRU</span><span class="p">,</span> <span class="n">Linear</span><span class="p">,</span> <span class="n">Adadelta</span>
+<span class="kn">from</span> <span class="nn">qualia2.data</span> <span class="kn">import</span> <span class="n">FashionMNIST</span>
+<span class="kn">from</span> <span class="nn">qualia2.util</span> <span class="kn">import</span> <span class="n">Trainer</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">data_trans</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transpose</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">GRU_classifier</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gru</span> <span class="o">=</span> <span class="n">GRU</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="o">=</span><span class="n">qualia2</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">batch</span><span class="p">,</span><span class="mi">128</span><span class="p">))):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">hx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gru</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h0</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">hx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GRU_classifier</span><span class="p">()</span>
+<span class="n">optim</span> <span class="o">=</span> <span class="n">Adadelta</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="n">mnist</span> <span class="o">=</span> <span class="n">FashionMNIST</span><span class="p">()</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">set_data_transformer</span><span class="p">(</span><span class="n">data_trans</span><span class="p">)</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mnist</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">softmax_cross_entropy</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Training loss:</p>
+<p align="center">
+  <img src="../assets/fashion_mnist_gru_loss.png" width=400>
+</p><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>*<span class="o">]</span> <span class="nb">test</span> acc: <span class="m">89</span>.33%
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>the same model can achieve about 99% test accuracy on MNIST dataset.</p>
+</div>
+</div>
+<div class="section" id="image-classification-with-alexnet">
+<h3>1.2.3. Image Classification with AlexNet<a class="headerlink" href="#image-classification-with-alexnet" title="Permalink to this headline">¶</a></h3>
+<p>Qualia provides pretrained computer vision models.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qualia2.vision</span> <span class="kn">import</span> <span class="n">AlexNet</span><span class="p">,</span> <span class="n">imagenet_labels</span>
+<span class="kn">import</span> <span class="nn">qualia2.vision.transforms</span> <span class="kn">as</span> <span class="nn">transforms</span>
+<span class="kn">import</span> <span class="nn">PIL</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="o">../</span><span class="n">assets</span><span class="o">/</span><span class="n">dog</span><span class="o">.</span><span class="n">jpg</span><span class="p">)</span>
+
+<span class="n">preprocess</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+   <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+   <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+   <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+   <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">()</span>
+<span class="p">])</span>
+
+<span class="nb">input</span> <span class="o">=</span> <span class="n">preprocess</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">AlexNet</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span>
+<span class="nb">sorted</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[:,</span><span class="o">-</span><span class="mi">5</span><span class="p">:][:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">candidates</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}: {:.2f}%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">imagenet_labels</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">idx</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here is the top 5 predictions of the pretrained AlexNet on the given image.</p>
+<p align="center">
+  <img src="../assets/dog.jpg" width=400/>
+</p><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Labrador retriever: <span class="m">53</span>.45%
+Saluki, gazelle hound: <span class="m">18</span>.93%
+golden retriever: <span class="m">15</span>.33%
+borzoi, Russian wolfhound: <span class="m">2</span>.79%
+kuvasz: <span class="m">1</span>.94%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="unsupervised-learning">
+<h2>1.3. Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Kashu7100/Qualia2.0/tree/master/examples/unsupervised_learning">view on github</a></p>
+<p><em>Unsupervised learning</em> is a machine learning technique that expects a model to learn patterns in the input data <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=x_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_i" title="x_i" /></a></span>.</p>
+<p>Unsupervised learning such as Hebbian learning or self-organization has been heavily utilized by the living creatures. In general, unsupervised system is better than supervised system in finding new patterns or features in the inputs.</p>
+<p>In 1949, Donald O. Hebb argued that:</p>
+<blockquote>
+<div><p>“When an axon of cell A is near enough to excite a cell B and repeatedly or persistently takes part in firing it, some growth process or metabolic change takes place in one or both cells such that A’s efficiency, as one of the cells firing B, is increased.” - Organization of Behavior (1949).</p>
+</div></blockquote>
+<p>This rule is called Hebbian learning; and this synaptic plasticity is thought to be the basic phenomenon in our learning and memory.</p>
+<div class="section" id="hebbian-learning">
+<h3>1.3.1. Hebbian learning<a class="headerlink" href="#hebbian-learning" title="Permalink to this headline">¶</a></h3>
+<p>Hebb’s Rule is often generalized as:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\mathbf{w}&space;=&space;\eta&space;y&space;\mathbf{x}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\mathbf{w}&space;=&space;\eta&space;y&space;\mathbf{x}" title="\Delta \mathbf{w} = \eta y \mathbf{x}" /></a>
+</p><p>This version of the rule is clearly unstable, as in any network with a dominant signal the synaptic weights will increase or decrease exponentially.</p>
+</div>
+<div class="section" id="oja-s-learning-rule">
+<h3>1.3.2. Oja’s learning rule<a class="headerlink" href="#oja-s-learning-rule" title="Permalink to this headline">¶</a></h3>
+<p>Oja’s rule solves all stability problems of Hebb’s Rule and generates an algorithm for principal components analysis. This is a computational form of an effect which is believed to happen in biological neurons.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;\mathbf{w}&space;=&space;\eta&space;y(\mathbf{x}-y\mathbf{w})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;\mathbf{w}&space;=&space;\eta&space;y(\mathbf{x}-y\mathbf{w})" title="\Delta \mathbf{w} = \eta y(\mathbf{x}-y\mathbf{w})" /></a>
+</p></div>
+<div class="section" id="generalized-hebbian-algorithm-sanger-s-rule">
+<h3>1.3.3. Generalized Hebbian Algorithm (Sanger’s rule)<a class="headerlink" href="#generalized-hebbian-algorithm-sanger-s-rule" title="Permalink to this headline">¶</a></h3>
+<p>This is similar to Oja’s rule in its formulation and stability, except it can be applied to networks with multiple outputs.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\Delta&space;w_{ij}&space;=&space;\eta&space;y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta&space;w_{ij}&space;=&space;\eta&space;y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" title="\Delta w_{ij} = \eta y_i(x_j-\sum_{k=1}^{i}w_{kj}y_k)" /></a>
+</p></div>
+<div class="section" id="autoencoders">
+<h3>1.3.4. Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h3>
+<p>Autoencoders learn a given distribution comparing its input to its output. It is useful for learning hidden representations of the data.</p>
+<p align="center">
+  <img src="../assets/ae_fig.png" width=400>
+</p><p>To explore the identification of chaotic dynamics evolving on a finite dimensional attractor, let’s consider the nonlinear Lorenz system:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dot{x}&space;=&space;10(y-x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{x}&space;=&space;10(y-x)" title="\dot{x} = 10(y-x)" /></a>
+</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dot{y}&space;=&space;x(28-z)-y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{y}&space;=&space;x(28-z)-y" title="\dot{y} = x(28-z)-y" /></a>
+</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dot{z}&space;=&space;xy-(8/3)z" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{z}&space;=&space;xy-(8/3)z" title="\dot{z} = xy-(8/3)z" /></a>
+</p><p>Here is the code for Lorenz system simulation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">lorenz</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">u</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="mf">10.0</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">8.0</span><span class="o">/</span><span class="mf">3.0</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="mf">28.0</span>
+
+    <span class="n">dxdt</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">dydt</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">rho</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="o">-</span><span class="n">y</span>
+    <span class="n">dzdt</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="n">z</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dxdt</span><span class="p">,</span><span class="n">dydt</span><span class="p">,</span><span class="n">dzdt</span><span class="p">])</span>
+
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mi">27</span><span class="p">])</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">lorenz</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The trapezoidal rule is a numerical method to solve ordinary differential equations that approximates solutions to initial value problems of the form:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dot{y}&space;=&space;f(t,y)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{y}&space;=&space;f(t,y)" title="\dot{y} = f(t,y)" /></a>
+</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=y(t_0)=y_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y(t_0)=y_0" title="y(t_0)=y_0" /></a>
+</p>
+The trapezoidal rule states that:
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=y_n&space;-&space;y_n_-_1&space;=&space;\int_{t_n_-_1}^{t_n}f(t,y)dt&space;\approx&space;\Delta&space;t(f(t_n,y_n)&plus;f(t_n_-_1,y_n_-_1))/2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y_n&space;-&space;y_n_-_1&space;=&space;\int_{t_n_-_1}^{t_n}f(t,y)dt&space;\approx&space;\Delta&space;t(f(t_n,y_n)&plus;f(t_n_-_1,y_n_-_1))/2" title="y_n - y_n_-_1 = \int_{t_n_-_1}^{t_n}f(t,y)dt \approx \Delta t(f(t_n,y_n)+f(t_n_-_1,y_n_-_1))/2" /></a>
+</p>
+The model will be trained so that the trapezoidal rule is satisfied. LHS will be the target and the RHS will be the sum of the outputs from the model multiplied by a time step.
+
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(t_n,y_n)&plus;f(t_n_-_1,y_n_-_1))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?2(y_n&space;-&space;y_n_-_1)&space;=&space;\Delta&space;t(f(t_n,y_n)&plus;f(t_n_-_1,y_n_-_1))" title="2(y_n - y_n_-_1) = \Delta t(f(t_n,y_n)+f(t_n_-_1,y_n_-_1))" /></a>
+</p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qualia2</span>
+<span class="kn">from</span> <span class="nn">qualia2</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn</span> <span class="kn">import</span> <span class="n">Linear</span><span class="p">,</span> <span class="n">Module</span>
+<span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">tanh</span><span class="p">,</span> <span class="n">mse_loss</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn.optim</span> <span class="kn">import</span> <span class="n">Adadelta</span>
+<span class="kn">from</span> <span class="nn">qualia2.core</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear1</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear2</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear1</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear2</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="c1"># train the net with trapezoidal rule</span>
+<span class="c1"># u_t = u_t1 + 1/2*dt*(f(u_t)+f(u_t1))</span>
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">2000</span><span class="p">):</span>
+    <span class="n">u_t1</span> <span class="o">=</span> <span class="n">u</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">u_t</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">//</span><span class="mi">100</span><span class="p">):</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">u_t</span><span class="p">[</span><span class="n">b</span><span class="o">*</span><span class="mi">100</span><span class="p">:(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">]</span> <span class="o">-</span> <span class="n">u_t1</span><span class="p">[</span><span class="n">b</span><span class="o">*</span><span class="mi">100</span><span class="p">:(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">]))</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">u_t</span><span class="p">[</span><span class="n">b</span><span class="o">*</span><span class="mi">100</span><span class="p">:(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">]))</span> <span class="o">+</span> <span class="n">model</span><span class="p">(</span><span class="n">Tensor</span><span class="p">(</span><span class="n">u_t1</span><span class="p">[</span><span class="n">b</span><span class="o">*</span><span class="mi">100</span><span class="p">:(</span><span class="n">b</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">])))</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criteria</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="n">optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
+<span class="n">optim</span> <span class="o">=</span> <span class="n">Adadelta</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optim</span><span class="p">,</span> <span class="n">mse_loss</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">(</span><span class="n">qualia2</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span>
+
+<span class="n">learned_u</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Following is the obtained result:</p>
+<p align="center">
+  <img src="../assets/lorenz_compare.png" width=500>
+</p></div>
+<div class="section" id="generative-adversarial-networks-gans">
+<h3>1.3.5. Generative Adversarial Networks (GANs)<a class="headerlink" href="#generative-adversarial-networks-gans" title="Permalink to this headline">¶</a></h3>
+<p>GANs utilize networks called Generator and Discriinator. The Discriminator measures the distance between the generated and the real data. The Generator tries to generate the data that Discriminator cannot distinguish from the real data.</p>
+<p align="center">
+  <img src="../assets/gan_fig.png" width=400>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z)))\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z)))\}" title="\underset{G}{min}\: \underset{D}{max} \: V_D(D,G)=\mathbb{E}_{x\sim P(x)}\{log(D(x)))\}+\mathbb{E}_{z\sim P(z)}\{log(1-D(G(z)))\}" /></a>
+</p><p>Here is the example with MNIST:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qualia2</span>
+<span class="kn">from</span> <span class="nn">qualia2.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">binary_cross_entropy</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">Linear</span><span class="p">,</span> <span class="n">Sigmoid</span><span class="p">,</span> <span class="n">Tanh</span><span class="p">,</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">qualia2.data</span> <span class="kn">import</span> <span class="n">MNIST</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+    <span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+    <span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">784</span><span class="p">),</span>
+    <span class="n">Sigmoid</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+    <span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+    <span class="n">Tanh</span><span class="p">(),</span>
+    <span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Sigmoid</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">fake_img</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">r</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">fake_img</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">r</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">to_cpu</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">if</span> <span class="n">gpu</span> <span class="k">else</span> <span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># train</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">z_dim</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">smooth</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="n">optim_g</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="mf">0.0004</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">))</span>
+<span class="n">optim_d</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="mf">0.0002</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">))</span>
+
+<span class="n">criteria</span> <span class="o">=</span> <span class="n">binary_cross_entropy</span>
+
+<span class="n">mnist</span> <span class="o">=</span> <span class="n">MNIST</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">mnist</span><span class="o">.</span><span class="n">batch</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">target_real</span> <span class="o">=</span> <span class="n">qualia2</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">batch</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">target_fake</span> <span class="o">=</span> <span class="n">qualia2</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">batch</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">check_noise</span> <span class="o">=</span> <span class="n">qualia2</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">z_dim</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mnist</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">qualia2</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">z_dim</span><span class="p">)</span>
+        <span class="n">fake_img</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span>
+        <span class="c1"># update Discriminator</span>
+        <span class="c1"># feed fake images</span>
+        <span class="n">output_fake</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="n">fake_img</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+        <span class="n">loss_d_fake</span> <span class="o">=</span> <span class="n">criteria</span><span class="p">(</span><span class="n">output_fake</span><span class="p">,</span> <span class="n">target_fake</span><span class="p">)</span>
+        <span class="c1"># feed real images</span>
+        <span class="n">output_real</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">loss_d_real</span> <span class="o">=</span> <span class="n">criteria</span><span class="p">(</span><span class="n">output_real</span><span class="p">,</span> <span class="n">target_real</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">smooth</span><span class="p">))</span>
+        <span class="n">loss_d</span> <span class="o">=</span> <span class="n">loss_d_fake</span> <span class="o">+</span> <span class="n">loss_d_real</span>
+        <span class="n">optim_d</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss_d</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optim_d</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="c1"># update Generator</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="n">fake_img</span><span class="p">)</span>
+        <span class="n">loss_g</span> <span class="o">=</span> <span class="n">criteria</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target_real</span><span class="p">)</span>
+        <span class="n">optim_g</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss_g</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optim_g</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="n">savefig</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">check_noise</span><span class="p">,</span> <span class="n">path</span><span class="o">+</span><span class="s1">&#39;/gan_epoch{}.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The obtained result:</p>
+<p align="center">
+  <img src="../assets/gan_mnist.gif" width=400>
+</p></div>
+</div>
+<div class="section" id="reinforcement-learning">
+<h2>1.4. Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Kashu7100/Qualia2.0/tree/master/examples/reinforcement_learning">view on github</a></p>
+<p><em>Reinforcement Learning</em> is a machine learning technique that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences assuming Markov Decision Process (MDP). Reinforcement Learning named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner.</p>
+<p align="center">
+  <img src="../assets/rl_fig.png" width="400"/>
+  <br>
+  <b> Fig.2: </b> Learning scheme for reinforcement learning assuming MDP.
+</p><div class="section" id="markov-property">
+<h3>1.4.1. Markov property<a class="headerlink" href="#markov-property" title="Permalink to this headline">¶</a></h3>
+<p>A stochastic process has the Markov property if the conditional probability distribution of future states of the process depends only upon the present state. That is, the state <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=S_t_&plus;_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?S_t_&plus;_1" title="S_t_+_1" /></a></span> and reward <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=R_t_&plus;_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?R_t_&plus;_1" title="R_t_+_1" /></a></span> at time t+1 depends on the present state <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=S_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?S_t" title="S_t" /></a></span> and the action <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=A_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?A_t" title="A_t" /></a></span>.</p>
+</div>
+<div class="section" id="value-function">
+<h3>1.4.2. Value function<a class="headerlink" href="#value-function" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>state value function</strong> <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi(s)" title="V^\pi(s)" /></a></span> under a policy <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" /></a></span> is the expectation value of the total discounted reward or gain G at given state s.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s\}" title="V^\pi (s)= \mathbb{E}^\pi \{G_t | S_t=s\} = \mathbb{E}^\pi \{\sum_{\tau=0}^{\infty} \gamma ^\tau R_t_+_\tau_+_1| S_t=s\}" /></a>
+</p><p>Similarly, the expectation value of the total discounted reward at given state s and an action a is represented by the <strong>action value function</strong> <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi(s,a)" title="Q^\pi(s,a)" /></a></span>.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s,&space;A_t=a\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s,&space;A_t=a\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\mathbb{E}^\pi&space;\{G_t&space;|&space;S_t=s,&space;A_t=a\}&space;=&space;\mathbb{E}^\pi&space;\{\sum_{\tau=0}^{\infty}&space;\gamma&space;^\tau&space;R_t_&plus;_\tau_&plus;_1|&space;S_t=s,&space;A_t=a\}" title="Q^\pi (s,a)= \mathbb{E}^\pi \{G_t | S_t=s, A_t=a\} = \mathbb{E}^\pi \{\sum_{\tau=0}^{\infty} \gamma ^\tau R_t_+_\tau_+_1| S_t=s, A_t=a\}" /></a>
+</p><p>Among all possible value-functions, there exist an optimal value function <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=V^*(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^*(s)" title="V^*(s)" /></a></span> that has higher value than other functions for all states.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^*(s)&space;=&space;\underset{\pi}{max}V^\pi(s)&space;\:&space;\:&space;\:&space;\:&space;\forall&space;s\in&space;S" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^*(s)&space;=&space;\underset{\pi}{max}V^\pi(s)&space;\:&space;\:&space;\:&space;\:&space;\forall&space;s\in&space;S" title="V^*(s) = \underset{\pi}{max}V^\pi(s) \: \: \: \: \forall s\in S" /></a>
+</p><p>The optimal policy <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*" title="\pi^*" /></a></span> that corresponds to the optimal value function is:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{\pi}{argmax}V^\pi(s)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{\pi}{argmax}V^\pi(s)" title="\pi^* = \underset{\pi}{argmax}V^\pi(s)" /></a>
+</p><p>In a similar manner, the optimal action value function and the corresponding optimal policy are:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^*(s,a)&space;=&space;\underset{\pi}{max}\:&space;Q^\pi(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^*(s,a)&space;=&space;\underset{\pi}{max}\:&space;Q^\pi(s,a)" title="Q^*(s,a) = \underset{\pi}{max}\: Q^\pi(s,a)" /></a>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi^*&space;=&space;\underset{a}{argmax}Q^*(s,a)" title="\pi^* = \underset{a}{argmax}Q^*(s,a)" /></a>
+</p></div>
+<div class="section" id="bellman-equation">
+<h3>1.4.3. Bellman equation<a class="headerlink" href="#bellman-equation" title="Permalink to this headline">¶</a></h3>
+<p>From the linearity of <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\mathbb{E}^\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbb{E}^\pi" title="\mathbb{E}^\pi" /></a></span>, the value function can be expressed as:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\gamma\,&space;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^{\tau-1}&space;R_{t&plus;\tau&plus;1}|&space;S_t=s\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\mathbb{E}^\pi&space;\{R_{t&plus;1}&space;|&space;S_t=s\}&plus;\gamma\,&space;\mathbb{E}^\pi&space;\{\sum_{\tau=1}^{\infty}&space;\gamma&space;^{\tau-1}&space;R_{t&plus;\tau&plus;1}|&space;S_t=s\}" title="V^\pi (s)= \mathbb{E}^\pi \{R_{t+1} | S_t=s\}+\gamma\, \mathbb{E}^\pi \{\sum_{\tau=1}^{\infty} \gamma ^{\tau-1} R_{t+\tau+1}| S_t=s\}" /></a>
+</p><p>If we express the expected reward that we receive when starting in state s, taking action a, and moving into state s’ as:</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=\mathfrak{R}(s,s',a)&space;=&space;\mathbb{E}\{R_{t&plus;1}|S_t=s,S_{t&plus;1}=s',A_t=a\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathfrak{R}(s,s',a)&space;=&space;\mathbb{E}\{R_{t&plus;1}|S_t=s,S_{t&plus;1}=s',A_t=a\}" title="\mathfrak{R}(s,s',a) = \mathbb{E}\{R_{t+1}|S_t=s,S_{t+1}=s',A_t=a\}" /></a>
+</p><p>The value function can be therefore expressed as following. This is the Bellman equation for the state value function under a policy <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\pi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\pi" title="\pi" /></a></span>.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V^\pi&space;(s)=&space;\sum_{}{a\in&space;A}\pi(a|s)\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" title="V^\pi (s)= \sum_{}{a\in A}\pi(a|s)\sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma V^\pi(s'))" /></a>
+</p><p>The Bellman equation for the action value function can be derived in a similar way.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;V^\pi(s'))" title="Q^\pi (s,a)= \sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma V^\pi(s'))" /></a>
+</p><p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;\sum_{}{a'\in&space;A}\pi(a'|s')Q^\pi(s',a')&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q^\pi&space;(s,a)=&space;\sum_{}{s'\in&space;S}P(s'|s,a)(\mathfrak{R}(s,s',a)&space;&plus;&space;\gamma&space;\sum_{}{a'\in&space;A}\pi(a'|s')Q^\pi(s',a')&space;)" title="Q^\pi (s,a)= \sum_{}{s'\in S}P(s'|s,a)(\mathfrak{R}(s,s',a) + \gamma \sum_{}{a'\in A}\pi(a'|s')Q^\pi(s',a') )" /></a>
+</p></div>
+<div class="section" id="td-error">
+<h3>1.4.4. TD error<a class="headerlink" href="#td-error" title="Permalink to this headline">¶</a></h3>
+<p>The Bellman equation requires the knowledge of the transition probability P, which is unknown for most tasks, in order to find the value. This can be resolved by utilizing the experience from trial and error.</p>
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;=&space;R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-\delta" title="Q(S_t,A_t) = R_{t+1}+\gamma \, Q(S_{t+1},A_{t+1})-\delta" /></a>
+</p><p>The term <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a></span> is called Temporal Difference (TD) error. When the training converges, the TD error is expected to approach to zero.</p>
+</div>
+<div class="section" id="dopamine-neurons-and-td-error-signal">
+<h3>1.4.5. Dopamine neurons and TD error signal<a class="headerlink" href="#dopamine-neurons-and-td-error-signal" title="Permalink to this headline">¶</a></h3>
+<p align="center">
+  <img src="../assets/TD_error.png" width="500"/>
+  <br>
+  <b> Fig.3: </b> Firing of dopamine neurons and its correspondence with the TD error [1,2].
+</p><p>In the first case, an unpredicted reward (R) occurs, and a burst of dopamine firing follows. In the second case, a predicted reward occurs, and a burst follows the onset of the predictor (CS or conditioned stimulus), but there is no firing after the predicted reward. In the bottom case, a predicted reward is omitted, with a corresponding trough in dopamine responding.</p>
+<p>The feature of TD error matches with the response of dopamine neurons <span class="raw-html-m2r"><a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a></span> in the figure. Therefore, the response of dopamine neurons is thought to be the TD error signal.</p>
+</div>
+<div class="section" id="cartpole-with-dqn">
+<h3>1.4.6. CartPole with DQN<a class="headerlink" href="#cartpole-with-dqn" title="Permalink to this headline">¶</a></h3>
+<p>A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The pendulum starts upright, and the goal is to prevent it from falling over by increasing and reducing the cart’s velocity.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qualia2.rl.envs</span> <span class="kn">import</span> <span class="n">CartPole</span>
+<span class="kn">from</span> <span class="nn">qualia2.rl</span> <span class="kn">import</span> <span class="n">ReplayMemory</span>
+<span class="kn">from</span> <span class="nn">qualia2.rl.agents</span> <span class="kn">import</span> <span class="n">DQNTrainer</span><span class="p">,</span> <span class="n">DQN</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn.modules</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Linear</span>
+<span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">tanh</span>
+<span class="kn">from</span> <span class="nn">qualia2.nn.optim</span> <span class="kn">import</span> <span class="n">Adadelta</span>
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear1</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear2</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear3</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear3</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">CartPole</span><span class="p">()</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">DQN</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">Model</span><span class="p">())</span>
+<span class="n">agent</span><span class="o">.</span><span class="n">set_optim</span><span class="p">(</span><span class="n">Adadelta</span><span class="p">)</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">DQNTrainer</span><span class="p">(</span><span class="n">ReplayMemory</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="c1"># plot rewards</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="c1"># show learned agent</span>
+<span class="n">agent</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reward Plot:</p>
+<p align="center">
+  <img src="../assets/cartpole_loss.png" width=400/>
+</p>
+The obtained result:
+<p align="center">
+  <img src="../assets/cartpole_dqn.gif" width=400/>
+</p><hr class="docutils" />
+<p>[1] A Beginner’s Guide to Neural Networks and Deep Learning Online: <a class="reference external" href="https://skymind.ai/wiki/neural-network">https://skymind.ai/wiki/neural-network</a></p>
+<p>[2] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599</p>
+<p>[3] Doya K. (2007). Reinforcement learning: Computational theory and biological mechanisms. HFSP journal, 1(1), 30–40. doi:10.2976/1.2732246/10.2976/1</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contribution.html" class="btn btn-neutral float-right" title="2. Contribution Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial/tutorial.html" class="btn btn-neutral float-left" title="3. Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Kashu Yamazaki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
