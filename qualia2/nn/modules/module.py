@@ -231,7 +231,7 @@ class Module(object):
             else:
                 self._params[key].data = np.array(h5file[key])
         
-    def save(self, filename, dtype='float32', protocol=-1, version=0):
+    def save(self, filename, dtype='float16', protocol=-1, version=0):
         '''Saves internal parameters of the Module.\n 
         Args: 
             filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename.qla 
