@@ -223,7 +223,7 @@
 <p>Neural networks are a set of algorithms, modeled loosely after the human brain, that are designed to recognize patterns [1].
 The perceptron is a mathematical model of a biological neuron.</p>
 <p align="center">
-  <img src="../assets/neuron_and_nn.png"/>
+  <img src="_images/neuron_and_nn.png"/>
   <br>
   <b> Fig.1: </b> Biological neuron versus artificial neuron (perceptron).
 </p></div>
@@ -231,7 +231,7 @@ The perceptron is a mathematical model of a biological neuron.</p>
 <h3>1.1.2. Learning scheme in Brain and Neural Network<a class="headerlink" href="#learning-scheme-in-brain-and-neural-network" title="Permalink to this headline">¶</a></h3>
 <p>Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.</p>
 <p align="center">
-  <img src="../assets/Brain_DL.PNG"/>
+  <img src="_images/Brain_DL.PNG"/>
   <br>
   <b> Fig.2: </b> Learning scheme in the brain.
 </p></div>
@@ -252,7 +252,7 @@ The perceptron is a mathematical model of a biological neuron.</p>
 <h3>1.2.1. Decision Boundary<a class="headerlink" href="#decision-boundary" title="Permalink to this headline">¶</a></h3>
 <p>Neural networks can be viewed as a universal approximation function. Let’s use a simple dataset called Spiral to see how neural net can obtain a non-linear decision boundary.</p>
 <p align="center">
-  <img src="../assets/spiral.png" width=400/>
+  <img src="_images/spiral.png" width=400/>
 </p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qualia2.data.basic</span> <span class="kn">import</span> <span class="n">Spiral</span>
 <span class="kn">from</span> <span class="nn">qualia2.nn.modules</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Linear</span>
 <span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">tanh</span><span class="p">,</span> <span class="n">mse_loss</span>
@@ -297,11 +297,11 @@ The perceptron is a mathematical model of a biological neuron.</p>
 </div>
 <p>We can see training loss is gradually decreasing.</p>
 <p align="center">
-  <img src="../assets/spiral_loss.png" width=400/>
+  <img src="_images/spiral_loss.png" width=400/>
 </p>
 Here is the obtained decision boundary:
 <p align="center">
-  <img src="../assets/spiral_boundary.png" width=400/>
+  <img src="_images/spiral_boundary.png" width=400/>
 </p></div>
 <div class="section" id="fashionmnist-with-gru">
 <h3>1.2.2. FashionMNIST with GRU<a class="headerlink" href="#fashionmnist-with-gru" title="Permalink to this headline">¶</a></h3>
@@ -309,7 +309,7 @@ Here is the obtained decision boundary:
 The GRU model takes rows of the image assuming the hidden state of GRU will contain a context of the image.
 Below is the visualization for the FashionMNIST dataset.</p>
 <p align="center">
-  <img src="../assets/fashion_mnist_data.png" width=400/>
+  <img src="_images/fashion_mnist_data.png" width=400/>
 </p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qualia2</span>
 <span class="kn">from</span> <span class="nn">qualia2.core</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">qualia2.functions</span> <span class="kn">import</span> <span class="n">tanh</span><span class="p">,</span> <span class="n">softmax_cross_entropy</span><span class="p">,</span> <span class="n">transpose</span>
@@ -348,7 +348,7 @@ Below is the visualization for the FashionMNIST dataset.</p>
 </div>
 <p>Training loss:</p>
 <p align="center">
-  <img src="../assets/fashion_mnist_gru_loss.png" width=400>
+  <img src="_images/fashion_mnist_gru_loss.png" width=400>
 </p><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>*<span class="o">]</span> <span class="nb">test</span> acc: <span class="m">89</span>.33%
 </pre></div>
 </div>
@@ -389,7 +389,7 @@ Below is the visualization for the FashionMNIST dataset.</p>
 </div>
 <p>Here is the top 5 predictions of the pretrained AlexNet on the given image.</p>
 <p align="center">
-  <img src="../assets/dog.jpg" width=400/>
+  <img src="_images/dog.jpg" width=400/>
 </p><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Labrador retriever: <span class="m">53</span>.45%
 Saluki, gazelle hound: <span class="m">18</span>.93%
 golden retriever: <span class="m">15</span>.33%
@@ -432,7 +432,7 @@ kuvasz: <span class="m">1</span>.94%
 <h3>1.3.4. Autoencoders<a class="headerlink" href="#autoencoders" title="Permalink to this headline">¶</a></h3>
 <p>Autoencoders learn a given distribution comparing its input to its output. It is useful for learning hidden representations of the data.</p>
 <p align="center">
-  <img src="../assets/ae_fig.png" width=400>
+  <img src="_images/ae_fig.png" width=400>
 </p><p>To explore the identification of chaotic dynamics evolving on a finite dimensional attractor, let’s consider the nonlinear Lorenz system:</p>
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\dot{x}&space;=&space;10(y-x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\dot{x}&space;=&space;10(y-x)" title="\dot{x} = 10(y-x)" /></a>
@@ -524,13 +524,13 @@ The model will be trained so that the trapezoidal rule is satisfied. LHS will be
 </div>
 <p>Following is the obtained result:</p>
 <p align="center">
-  <img src="../assets/lorenz_compare.png" width=500>
+  <img src="_images/lorenz_compare.png" width=500>
 </p></div>
 <div class="section" id="generative-adversarial-networks-gans">
 <h3>1.3.5. Generative Adversarial Networks (GANs)<a class="headerlink" href="#generative-adversarial-networks-gans" title="Permalink to this headline">¶</a></h3>
 <p>GANs utilize networks called Generator and Discriinator. The Discriminator measures the distance between the generated and the real data. The Generator tries to generate the data that Discriminator cannot distinguish from the real data.</p>
 <p align="center">
-  <img src="../assets/gan_fig.png" width=400>
+  <img src="_images/gan_fig.png" width=400>
 </p><p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z)))\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\underset{G}{min}\:&space;\underset{D}{max}&space;\:&space;V_D(D,G)=\mathbb{E}_{x\sim&space;P(x)}\{log(D(x)))\}&plus;\mathbb{E}_{z\sim&space;P(z)}\{log(1-D(G(z)))\}" title="\underset{G}{min}\: \underset{D}{max} \: V_D(D,G)=\mathbb{E}_{x\sim P(x)}\{log(D(x)))\}+\mathbb{E}_{z\sim P(z)}\{log(1-D(G(z)))\}" /></a>
 </p><p>Here is the example with MNIST:</p>
@@ -625,7 +625,7 @@ The model will be trained so that the trapezoidal rule is satisfied. LHS will be
 </div>
 <p>The obtained result:</p>
 <p align="center">
-  <img src="../assets/gan_mnist.gif" width=400>
+  <img src="_images/gan_mnist.gif" width=400>
 </p></div>
 </div>
 <div class="section" id="reinforcement-learning">
@@ -633,7 +633,7 @@ The model will be trained so that the trapezoidal rule is satisfied. LHS will be
 <p><a class="reference external" href="https://github.com/Kashu7100/Qualia2.0/tree/master/examples/reinforcement_learning">view on github</a></p>
 <p><em>Reinforcement Learning</em> is a machine learning technique that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences assuming Markov Decision Process (MDP). Reinforcement Learning named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner.</p>
 <p align="center">
-  <img src="../assets/rl_fig.png" width="400"/>
+  <img src="_images/rl_fig.png" width="400"/>
   <br>
   <b> Fig.2: </b> Learning scheme for reinforcement learning assuming MDP.
 </p><div class="section" id="markov-property">
@@ -687,7 +687,7 @@ The model will be trained so that the trapezoidal rule is satisfied. LHS will be
 <div class="section" id="dopamine-neurons-and-td-error-signal">
 <h3>1.4.5. Dopamine neurons and TD error signal<a class="headerlink" href="#dopamine-neurons-and-td-error-signal" title="Permalink to this headline">¶</a></h3>
 <p align="center">
-  <img src="../assets/TD_error.png" width="500"/>
+  <img src="_images/TD_error.png" width="500"/>
   <br>
   <b> Fig.3: </b> Firing of dopamine neurons and its correspondence with the TD error [1,2].
 </p><p>In the first case, an unpredicted reward (R) occurs, and a burst of dopamine firing follows. In the second case, a predicted reward occurs, and a burst follows the onset of the predictor (CS or conditioned stimulus), but there is no firing after the predicted reward. In the bottom case, a predicted reward is omitted, with a corresponding trough in dopamine responding.</p>
@@ -730,11 +730,11 @@ The model will be trained so that the trapezoidal rule is satisfied. LHS will be
 </div>
 <p>Reward Plot:</p>
 <p align="center">
-  <img src="../assets/cartpole_loss.png" width=400/>
+  <img src="_images/cartpole_loss.png" width=400/>
 </p>
 The obtained result:
 <p align="center">
-  <img src="../assets/cartpole_dqn.gif" width=400/>
+  <img src="_images/cartpole_dqn.gif" width=400/>
 </p><hr class="docutils" />
 <p>[1] A Beginner’s Guide to Neural Networks and Deep Learning Online: <a class="reference external" href="https://skymind.ai/wiki/neural-network">https://skymind.ai/wiki/neural-network</a></p>
 <p>[2] Schultx, W., et al. (1997) Predictive Reward Signal of Dopamine Neurons Science 275: 1593-1599</p>
