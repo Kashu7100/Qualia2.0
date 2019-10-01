@@ -1,0 +1,37 @@
+qualia2.nn package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   qualia2.nn.modules
+
+Submodules
+----------
+
+qualia2.nn.init module
+----------------------
+
+.. automodule:: qualia2.nn.init
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.optim module
+-----------------------
+
+.. automodule:: qualia2.nn.optim
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.nn
+   :members:
+   :undoc-members:
+   :show-inheritance:

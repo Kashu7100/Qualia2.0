@@ -1,0 +1,30 @@
+qualia2.nlp package
+===================
+
+Submodules
+----------
+
+qualia2.nlp.cbow module
+-----------------------
+
+.. automodule:: qualia2.nlp.cbow
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nlp.util module
+-----------------------
+
+.. automodule:: qualia2.nlp.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.nlp
+   :members:
+   :undoc-members:
+   :show-inheritance:

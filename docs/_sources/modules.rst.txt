@@ -1,0 +1,7 @@
+qualia2
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   qualia2

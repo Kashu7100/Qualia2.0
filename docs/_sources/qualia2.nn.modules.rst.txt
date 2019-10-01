@@ -1,0 +1,86 @@
+qualia2.nn.modules package
+==========================
+
+Submodules
+----------
+
+qualia2.nn.modules.activation module
+------------------------------------
+
+.. automodule:: qualia2.nn.modules.activation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.conv module
+------------------------------
+
+.. automodule:: qualia2.nn.modules.conv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.dropout module
+---------------------------------
+
+.. automodule:: qualia2.nn.modules.dropout
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.linear module
+--------------------------------
+
+.. automodule:: qualia2.nn.modules.linear
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.module module
+--------------------------------
+
+.. automodule:: qualia2.nn.modules.module
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.normalize module
+-----------------------------------
+
+.. automodule:: qualia2.nn.modules.normalize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.pool module
+------------------------------
+
+.. automodule:: qualia2.nn.modules.pool
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.recurrent module
+-----------------------------------
+
+.. automodule:: qualia2.nn.modules.recurrent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.nn.modules.sparse module
+--------------------------------
+
+.. automodule:: qualia2.nn.modules.sparse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.nn.modules
+   :members:
+   :undoc-members:
+   :show-inheritance:

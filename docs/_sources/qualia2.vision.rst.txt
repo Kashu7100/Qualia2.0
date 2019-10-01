@@ -1,0 +1,78 @@
+qualia2.vision package
+======================
+
+Submodules
+----------
+
+qualia2.vision.alexnet module
+-----------------------------
+
+.. automodule:: qualia2.vision.alexnet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.densenet module
+------------------------------
+
+.. automodule:: qualia2.vision.densenet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.imagenet\_labels module
+--------------------------------------
+
+.. automodule:: qualia2.vision.imagenet_labels
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.openpose module
+------------------------------
+
+.. automodule:: qualia2.vision.openpose
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.resnet module
+----------------------------
+
+.. automodule:: qualia2.vision.resnet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.squeezenet module
+--------------------------------
+
+.. automodule:: qualia2.vision.squeezenet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.transforms module
+--------------------------------
+
+.. automodule:: qualia2.vision.transforms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.vision.vgg module
+-------------------------
+
+.. automodule:: qualia2.vision.vgg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.vision
+   :members:
+   :undoc-members:
+   :show-inheritance:

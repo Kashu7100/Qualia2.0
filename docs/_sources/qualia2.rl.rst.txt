@@ -1,0 +1,46 @@
+qualia2.rl package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   qualia2.rl.agents
+   qualia2.rl.envs
+
+Submodules
+----------
+
+qualia2.rl.core module
+----------------------
+
+.. automodule:: qualia2.rl.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.memory module
+------------------------
+
+.. automodule:: qualia2.rl.memory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.util module
+----------------------
+
+.. automodule:: qualia2.rl.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.rl
+   :members:
+   :undoc-members:
+   :show-inheritance:

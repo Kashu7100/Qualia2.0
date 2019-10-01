@@ -1,0 +1,126 @@
+qualia2.functions package
+=========================
+
+Submodules
+----------
+
+qualia2.functions.activation module
+-----------------------------------
+
+.. automodule:: qualia2.functions.activation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.array module
+------------------------------
+
+.. automodule:: qualia2.functions.array
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.conv module
+-----------------------------
+
+.. automodule:: qualia2.functions.conv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.distance module
+---------------------------------
+
+.. automodule:: qualia2.functions.distance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.dropout module
+--------------------------------
+
+.. automodule:: qualia2.functions.dropout
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.linear\_algebra module
+----------------------------------------
+
+.. automodule:: qualia2.functions.linear_algebra
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.loss module
+-----------------------------
+
+.. automodule:: qualia2.functions.loss
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.normalize module
+----------------------------------
+
+.. automodule:: qualia2.functions.normalize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.pool module
+-----------------------------
+
+.. automodule:: qualia2.functions.pool
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.recurrent module
+----------------------------------
+
+.. automodule:: qualia2.functions.recurrent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.sparse module
+-------------------------------
+
+.. automodule:: qualia2.functions.sparse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.trigonometric module
+--------------------------------------
+
+.. automodule:: qualia2.functions.trigonometric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.ufunc module
+------------------------------
+
+.. automodule:: qualia2.functions.ufunc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.functions.vision module
+-------------------------------
+
+.. automodule:: qualia2.functions.vision
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.functions
+   :members:
+   :undoc-members:
+   :show-inheritance:

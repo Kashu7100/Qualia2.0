@@ -1,0 +1,38 @@
+qualia2.rl.agents package
+=========================
+
+Submodules
+----------
+
+qualia2.rl.agents.ddqn module
+-----------------------------
+
+.. automodule:: qualia2.rl.agents.ddqn
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.agents.dqn module
+----------------------------
+
+.. automodule:: qualia2.rl.agents.dqn
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.agents.td3 module
+----------------------------
+
+.. automodule:: qualia2.rl.agents.td3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.rl.agents
+   :members:
+   :undoc-members:
+   :show-inheritance:

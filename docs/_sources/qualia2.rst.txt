@@ -1,0 +1,50 @@
+qualia2 package
+===============
+
+Subpackages
+-----------
+
+.. toctree::
+
+   qualia2.data
+   qualia2.functions
+   qualia2.nlp
+   qualia2.nn
+   qualia2.rl
+   qualia2.vision
+
+Submodules
+----------
+
+qualia2.autograd module
+-----------------------
+
+.. automodule:: qualia2.autograd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.core module
+-------------------
+
+.. automodule:: qualia2.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.util module
+-------------------
+
+.. automodule:: qualia2.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2
+   :members:
+   :undoc-members:
+   :show-inheritance:

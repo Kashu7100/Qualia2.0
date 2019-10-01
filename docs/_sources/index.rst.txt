@@ -1,0 +1,41 @@
+.. qualia documentation master file, created by
+   sphinx-quickstart on Tue Sep 10 11:01:13 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+============================================
+Qualia2.0 -- Dynamic Neural Network
+============================================
+
+This is the `Qualia2.0 <https://github.com/Kashu7100/Qualia2.0>`_ documentation.
+
+.. module:: qualia
+
+.. toctree::
+   :maxdepth: 1
+   :numbered:
+   :caption: Introduction
+
+   overview
+   install
+   tutorial/tutorial
+
+.. toctree::
+   :maxdepth: 1
+   :numbered:
+   :caption: Development
+
+   examples
+   contribution
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Misc Notes
+   
+   license
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`

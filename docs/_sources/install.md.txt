@@ -1,0 +1,136 @@
+# Installation Guide
+## Recommended Environments
+Ubuntu 16.04 or newer is recommended for the installation environment. Some packages fail to build on Windows.
+
+* [Ubuntu Desktop](https://ubuntu.com/download/desktop)
+
+.. note::
+
+   There is no guarantee that Qualia works on other environments including Windows and macOS, 
+   even if Qualia may seem to be running correctly.
+
+## Requirements
+* [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
+* [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2, 10.0, and 10.1.
+* [Python 3.6+](https://www.python.org/)
+
+.. note::
+
+   Qualia2.0 can be used without GPU
+
+## Install Qualia
+Upgrade of setuptools and pip is recommended before the installation:
+```bash
+$ pip install -U setuptools pip
+```
+CUDA Toolkit version can be found by:
+```bash
+$ nvcc --version
+```
+Clone Github repo and cd to Qualia2.0 to install:
+```bash
+$ git clone https://github.com/Kashu7100/Qualia2.0.git
+$ cd Qualia2.0
+```
+Depending on the CUDA version you have installed on your host, choose the best option from following.
+```bash
+(For CUDA 8.0)
+$ python setup.py install --cuda 80
+(For CUDA 9.0)
+$ python setup.py install --cuda 90
+(For CUDA 9.1)
+$ python setup.py install --cuda 91
+(For CUDA 9.2)
+$ python setup.py install --cuda 92
+(For CUDA 10.0)
+$ python setup.py install --cuda 100
+(For CUDA 10.1)
+$ python setup.py install --cuda 101
+(For without CUDA)
+$ python setup.py install
+```
+
+## Uninstall Qualia
+Use pip to uninstall Qualia:
+```bash
+$ pip uninstall qualia2
+```
+
+## Supplemental Information
+Here are some wheel files that might help if there are some errors during the installation:
+
+* [fastrlock](https://www.lfd.uci.edu/~gohlke/pythonlibs/#fastrlock)
+* [atari-py](https://github.com/Kojoley/atari-py/releases)
+* [box2d](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pybox2d)
+
+.. note::
+   You need the wheel package to install libraries from .whl files:
+   
+   ::
+
+      $ pip install wheel
+   
+   Once you installed wheel package, you can install libraries from .whl file as follows:
+
+   ::
+  
+      $ pip install /path/to/the/wheel_file.whl
+
+
+## RL environments
+### MuJoCo
+1. Obtain a 30-day free trial on the [MuJoCo website](https://www.roboti.us/license.html)
+   or free license if you are a student.
+   The license key will arrive in an email with your username and password.
+
+2. Download the MuJoCo version 2.0 binaries.
+
+3. Unzip the downloaded `mujoco200` directory into `~/.mujoco/mujoco200`,
+   and place your license key (the `mjkey.txt` file from your email)
+   at `~/.mujoco/mjkey.txt`.
+
+4. Install mujoco-py
+
+```bash
+$ git clone https://github.com/openai/mujoco-py.git
+$ cd mujoco-py
+$ pip install -r requirements.txt
+$ pip install -r requirements.dev.txt
+$ python setup.py install
+```
+
+.. note::
+   To run `mujoco-py`, `MuJoCo` needs to be installed on the machine.
+
+### PyBullet 
+Open source physics simulation, robotics and deep reinforcement learning based on the Bullet Physics SDK
+
+1. Install PyBullet
+
+```bash
+pip install pybullet
+```
+
+### [SenseAct](https://www.kindred.ai/senseact)
+Reinforcement learning tasks with multiple real-world robots
+
+1. Install SenseAct
+
+```bash
+git clone https://github.com/kindredresearch/SenseAct.git
+cd SenseAct
+pip install -e .
+```
+
+### [OpenSim RL](http://osim-rl.stanford.edu/)
+Reinforcement learning tasks with musculoskeletal models
+
+1. Install OpenSim RL
+
+```bash
+conda install -c kidzik opensim
+conda install -c conda-forge lapack git
+pip install git+https://github.com/stanfordnmbl/osim-rl.git
+```
+
+

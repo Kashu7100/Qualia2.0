@@ -1,0 +1,54 @@
+qualia2.rl.envs package
+=======================
+
+Submodules
+----------
+
+qualia2.rl.envs.atari module
+----------------------------
+
+.. automodule:: qualia2.rl.envs.atari
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.envs.box2d module
+----------------------------
+
+.. automodule:: qualia2.rl.envs.box2d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.envs.classic\_control module
+---------------------------------------
+
+.. automodule:: qualia2.rl.envs.classic_control
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.envs.roboschool module
+---------------------------------
+
+.. automodule:: qualia2.rl.envs.roboschool
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.envs.toy\_text module
+--------------------------------
+
+.. automodule:: qualia2.rl.envs.toy_text
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.rl.envs
+   :members:
+   :undoc-members:
+   :show-inheritance:

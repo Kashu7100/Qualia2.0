@@ -1,0 +1,78 @@
+qualia2.data package
+====================
+
+Submodules
+----------
+
+qualia2.data.basic module
+-------------------------
+
+.. automodule:: qualia2.data.basic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.cifar module
+-------------------------
+
+.. automodule:: qualia2.data.cifar
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.dataloader module
+------------------------------
+
+.. automodule:: qualia2.data.dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.fashion\_mnist module
+----------------------------------
+
+.. automodule:: qualia2.data.fashion_mnist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.fimlp module
+-------------------------
+
+.. automodule:: qualia2.data.fimlp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.kuzushi\_mnist module
+----------------------------------
+
+.. automodule:: qualia2.data.kuzushi_mnist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.mnist module
+-------------------------
+
+.. automodule:: qualia2.data.mnist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.stl10 module
+-------------------------
+
+.. automodule:: qualia2.data.stl10
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
