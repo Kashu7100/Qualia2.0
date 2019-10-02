@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*- 
 from ...core import *
+from ...util import download_progress
 from ...autograd import Tensor
 from collections import OrderedDict 
 from itertools import chain, islice
 import h5py as h5
 import _pickle as pickle
 import gzip
+import os, sys
 from logging import getLogger
 logger = getLogger('QualiaLogger').getChild('module')
 
