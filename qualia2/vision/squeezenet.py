@@ -46,7 +46,7 @@ class SqueezeNet(Module):
         )
 
         if pretrained:
-            pass
+            self.load_state_dict_from_url('https://www.dropbox.com/s/pdau0c4aekzkr32/squeezenet.qla?dl=1', version=1)
         else:
             for m in self._modules['features'].modules():
                 if isinstance(m, Conv2d):
