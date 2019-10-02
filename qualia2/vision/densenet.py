@@ -88,8 +88,8 @@ class DenseNet(Module):
 
         self.classifier = Linear(num_features, num_classes)
 
-        if pretrained:
-            pass
+        if pretrained is not None:
+            self.load_state_dict_from_url(pretrained, version=1)
         else:
             for m in self.modules():
                 if isinstance(m, Conv2d):
@@ -107,19 +107,23 @@ class DenseNet(Module):
 
     @classmethod
     def densenet121(cls, pretrained=False):
-        return cls(32, (6, 12, 24, 16), 64, pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/0j66lvm1sfmymxc/densenet121.qla?dl=1'
+        return cls(32, (6, 12, 24, 16), 64, pretrained=url if pretrained else None)
 
     @classmethod
     def densenet161(cls, pretrained=False):
-        return cls(48, (6, 12, 36, 24), 96, pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/z29jka21emtiojn/densenet161.qla?dl=1'
+        return cls(48, (6, 12, 36, 24), 96, pretrained=url if pretrained else None)
 
     @classmethod
     def densenet169(cls, pretrained=False):
-        return cls(32, (6, 12, 32, 32), 64, pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/k1yqfhb4wvlv9rx/densenet169.qla?dl=1'
+        return cls(32, (6, 12, 32, 32), 64, pretrained=url if pretrained else None)
 
     @classmethod
     def densenet201(cls, pretrained=False):
-        return cls(32, (6, 12, 48, 32), 64, pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/fs8t4l7p09dkyln/densenet201.qla?dl=1'
+        return cls(32, (6, 12, 48, 32), 64, pretrained=url if pretrained else None)
 
 DenseNet121 = DenseNet.densenet121
 DenseNet161 = DenseNet.densenet161
