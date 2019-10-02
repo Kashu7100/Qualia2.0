@@ -69,27 +69,7 @@ class OpenPoseBody(Module):
         self.model6_2 = OpenPoseBody.create_block(block2)
 
         if pretrained:
-            if not os.path.exists(path+'/weights/'):
-                os.makedirs(path+'/weights/')
-            if not os.path.exists(path+'/weights/openpose_body.hdf5'):
-                print('[*] downloading weights...')
-                self.download(path+'/weights/')
-                print('[*] extracting...')
-                self.unzip(path+'/weights/')
-            self.load(path+'/weights/openpose_body')
-    
-    def download(self, path): 
-        import urllib.request 
-        url = 'https://www.dropbox.com/s/o4gakw0lw7pfzc4/openpose_body.zip?dl=1'
-        with urllib.request.urlopen(url) as u:
-            data = u.read()
-        with open(path+'openpose_body.zip', 'wb') as file:
-            file.write(data)
-
-    def unzip(self, path):
-        from zipfile import ZipFile
-        with ZipFile(path+'openpose_body.zip', 'r') as zip:
-            zip.extractall(path)
+            self.load_state_dict_from_url('https://www.dropbox.com/s/mo1namsapx5ifns/openpose_body.qla?dl=1')
     
     @staticmethod
     def create_block(block):
@@ -167,28 +147,8 @@ class OpenPoseHand(Module):
         self.model6 = OpenPoseHand.create_block(block)  
 
         if pretrained:
-            if not os.path.exists(path+'/weights/'):
-                os.makedirs(path+'/weights/')
-            if not os.path.exists(path+'/weights/openpose_hand.hdf5'):
-                print('[*] downloading weights...')
-                self.download(path+'/weights/')
-                print('[*] extracting...')
-                self.unzip(path+'/weights/')
-            self.load(path+'/weights/openpose_hand')
-    
-    def download(self, path): 
-        import urllib.request 
-        url = 'https://www.dropbox.com/s/u4x41wnaznptjpx/openpose_hand.zip?dl=1'
-        with urllib.request.urlopen(url) as u:
-            data = u.read()
-        with open(path+'openpose_hand.zip', 'wb') as file:
-            file.write(data)
-
-    def unzip(self, path):
-        from zipfile import ZipFile
-        with ZipFile(path+'openpose_hand.zip', 'r') as zip:
-            zip.extractall(path)
-    
+            self.load_state_dict_from_url('https://www.dropbox.com/s/kugt485exy21ta0/openpose_hand.qla?dl=1')
+  
     @staticmethod
     def create_block(block):
         layers = []
