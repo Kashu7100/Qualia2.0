@@ -39,7 +39,7 @@ class AlexNet(Module):
         )
 
         if pretrained:
-            self.load_state_dict_from_url('https://www.dropbox.com/s/uadgtyfq5t5zuiq/alexnet.zip?dl=1', version=0)
+            self.load_state_dict_from_url('https://www.dropbox.com/s/2lgr0q2h6wyxkjg/alexnet.qla?dl=1', version=1)
             
     def forward(self, x):
         x = self.features(x)
