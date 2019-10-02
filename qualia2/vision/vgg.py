@@ -35,17 +35,17 @@ class VGG(Module):
 
         if pretrained:
             url = {
-                'vgg11': 'https://www.dropbox.com/s/ea93ty84gos9eau/vgg11.zip?dl=1',
-                'vgg13': 'https://www.dropbox.com/s/ex4f98rlwp9tra4/vgg13.zip?dl=1',
-                'vgg16': 'https://www.dropbox.com/s/3pms8tx02xa0hhx/vgg16.zip?dl=1',
-                'vgg19': 'https://www.dropbox.com/s/itg947agiwi69nq/vgg19.zip?dl=1',
+                'vgg11': 'https://www.dropbox.com/s/zax0up21ks8c16i/vgg11.qla?dl=1',
+                'vgg13': 'https://www.dropbox.com/s/vabk0hatr4zjogl/vgg13.qla?dl=1',
+                'vgg16': 'https://www.dropbox.com/s/7zy4cnv7shwdvnw/vgg16.qla?dl=1',
+                'vgg19': 'https://www.dropbox.com/s/5b8lu6uiqu1xl96/vgg19.qla?dl=1',
                 'vgg11_bn': '',
                 'vgg13_bn': '',
                 'vgg16_bn': '',
                 'vgg19_bn': '',
             }
             if not batch_norm:
-                self.load_state_dict_from_url(url['vgg{}'.format(ver)])
+                self.load_state_dict_from_url(url['vgg{}'.format(ver)], version=1)
             else:
                 raise FileNotFoundError
 
