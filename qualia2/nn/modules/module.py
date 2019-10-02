@@ -207,6 +207,7 @@ class Module(object):
         if not os.path.exists(cache): 
             from urllib.request import urlretrieve
             urlretrieve(url, cache, reporthook=download_progress) 
+            print('\n')
         self.load(cache, version)
     
     def __save__(self, h5file):
