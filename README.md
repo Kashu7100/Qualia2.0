@@ -35,19 +35,8 @@ The main components of Qualia2.0 is listed below:
 >   *Note: Qualia2.0 is also available for CPU use*
 
 ## Installation
-Upgrade of setuptools and pip is recommended before the installation:
-```bash
-$ pip install -U setuptools pip
-```
-CUDA Toolkit version can be found by:
-```bash
-$ nvcc --version
-```
-Clone Github repo and cd to Qualia2.0 to install:
-```bash
-$ git clone https://github.com/Kashu7100/Qualia2.0.git
-$ cd Qualia2.0
-```
+For detailed instructions on installing Qualia, see the [installation guide](https://kashu7100.github.io/Qualia2.0/install.html).
+
 Depending on the CUDA version you have installed on your host, choose the best option from following.
 ```bash
 (For CUDA 8.0)
@@ -65,7 +54,6 @@ $ python setup.py install --cuda 100
 (For without CUDA)
 $ python setup.py install
 ```
-See [more](https://kashu7100.github.io/Qualia2.0/install.html) in docs.
 
 ## Docs
 Online document is available [here](https://kashu7100.github.io/Qualia2.0). 
