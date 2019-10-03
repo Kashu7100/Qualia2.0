@@ -95,8 +95,8 @@ class ResNet(Module):
 
         self.classifier = Linear(512 * block.expansion, num_classes)
 
-        if pretrained:
-            pass
+        if pretrained is not None:
+            self.load_state_dict_from_url(pretrained, version=1)
         else:
             for m in self.modules():
                 if isinstance(m, Conv2d):
@@ -139,23 +139,28 @@ class ResNet(Module):
 
     @classmethod
     def resnet18(cls, pretrained=False):
-        return cls(Basic, [2, 2, 2, 2], pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/04eoanqbitl9qe7/resnet18.qla?dl=1'
+        return cls(Basic, [2, 2, 2, 2], pretrained=url if pretrained else None)
 
     @classmethod
     def resnet34(cls, pretrained=False):
-        return cls(Basic, [3, 4, 6, 3], pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/w75rn7i9i8ovew9/resnet34.qla?dl=1'
+        return cls(Basic, [3, 4, 6, 3], pretrained=url if pretrained else None)
 
     @classmethod
     def resnet50(cls, pretrained=False):
-        return cls(Bottleneck, [3, 4, 6, 3], pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/ho4qo0z0p9wl8hi/resnet50.qla?dl=1'
+        return cls(Bottleneck, [3, 4, 6, 3], pretrained=url if pretrained else None)
 
     @classmethod
     def resnet101(cls, pretrained=False):
-        return cls(Bottleneck, [3, 4, 23, 3], pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/4nt8ss126b47x82/resnet101.qla?dl=1'
+        return cls(Bottleneck, [3, 4, 23, 3], pretrained=url if pretrained else None)
     
     @classmethod
     def resnet152(cls, pretrained=False):
-        return cls(Bottleneck, [3, 8, 36, 3], pretrained=pretrained)
+        url = 'https://www.dropbox.com/s/678ukzdrk0x0kf2/resnet152.qla?dl=1'
+        return cls(Bottleneck, [3, 8, 36, 3], pretrained=url if pretrained else None)
 
 ResNet18 = ResNet.resnet18
 ResNet34 = ResNet.resnet34
