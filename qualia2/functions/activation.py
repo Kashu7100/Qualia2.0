@@ -66,23 +66,23 @@ class CReLU(Function):
         return dx
     
 crelu = CReLU(None)
-    
+
 class LeakyReLU(Function):
     '''
     Leaky rectified linear unit 
     '''
     @staticmethod
-    def forward(a):
+    def forward(a, negative_slope):
         mask = (a.data < 0) 
         tmp = a.data.copy() 
-        tmp[mask] = np.multiply(0.01,tmp[mask]) 
+        tmp[mask] = np.multiply(negative_slope,tmp[mask]) 
         result = Tensor(tmp) 
-        result.set_creator(LeakyReLU.prepare(result.shape, a, mask=mask))
+        result.set_creator(LeakyReLU.prepare(result.shape, a, mask=mask, negative_slope=negative_slope))
         return result
 
     def calc_grad(self, dx):
         dx = dx.copy()
-        dx[self.kwargs['mask']] = np.multiply(0.01, dx[self.kwargs['mask']])
+        dx[self.kwargs['mask']] = np.multiply(self.kwargs['negative_slope'], dx[self.kwargs['mask']])
         return dx
 
 leakyrelu = LeakyReLU(None)
