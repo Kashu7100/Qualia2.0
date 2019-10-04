@@ -23,17 +23,21 @@ class ReLU(Module):
         if self.output_shape is None:
             self.output_shape = x.shape
         return relu(x)
-
+    
 class LeakyReLU(Module):
+    def __init__(self, negative_slope=0.01):
+        super().__init__() 
+        self.negative_slope = negative_slope
+        
     def __repr__(self):
-        return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
+        return '{}(negative_slope={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.negative_slope, id(self), 16)
 
     def forward(self, x):
         if self.input_shape is None:
             self.input_shape = x.shape
         if self.output_shape is None:
             self.output_shape = x.shape
-        return leakyrelu(x)
+        return leakyrelu(x, self.negative_slope)
 
 class ELU(Module):
     def __init__(self, alpha=1.0):
