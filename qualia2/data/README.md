@@ -7,6 +7,15 @@ The MNIST database of handwritten digits, available from this page, has a traini
   <img src="/assets/mnist_data.png">
 </p>
 
+### EMNIST
+[[site]](https://www.nist.gov/node/1298471/emnist-dataset)
+
+The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19 and converted to a 28x28 pixel image format and dataset. It has 61 classes with 697,932 training examples and 116323 testing examples.
+
+<p align="center">
+  <img src="/assets/emnist_data.png">
+</p>
+
 ### FashionMNIST
 [[site]](https://github.com/zalandoresearch/fashion-mnist)
 
@@ -87,8 +96,7 @@ The Chest X-Ray Images dataset is organized into 3 folders (train, test, val) an
 ### LFWcrop
 LFWcrop is a cropped version of the Labeled Faces in the Wild (LFW) dataset. LFWcrop was created due to concern about the misuse of the original LFW dataset, where face matching accuracy can be unrealistically boosted through the use of background parts of images (i.e. exploitation of possible correlations between faces and backgrounds).
 
-### EMNIST
-The EMNIST dataset is a set of handwritten character digits derived from the NIST Special Database 19  and converted to a 28x28 pixel image format and dataset.
+
 
 ### [Speech Commands Dataset](https://storage.cloud.google.com/download.tensorflow.org/data/speech_commands_v0.02.tar.gz)
 Speech Commands Dataset consists of over 105,000 WAVE audio files of people saying thirty different words. This data was collected by Google and released under a CC BY license.
