@@ -34,7 +34,22 @@ class MNIST(ImageLoader):
         if flatten:
             self.train_data = self.train_data.reshape(-1, 28*28) 
             self.test_data = self.test_data.reshape(-1, 28*28) 
-
+    
+    @property
+    def label_dict(self):
+        return {
+            0: '0', 
+            1: '1', 
+            2: '2', 
+            3: '3', 
+            4: '4', 
+            5: '5', 
+            6: '6', 
+            7: '7', 
+            8: '8', 
+            9: '9'
+        }
+    
     def download(self):
         url = 'http://yann.lecun.com/exdb/mnist/' 
         files = { 
@@ -64,13 +79,16 @@ class MNIST(ImageLoader):
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
 
-    def show(self):
+    def show(self, label=None):
         for i in range(10):
             for j in range(10):
                 plt.subplot(10,10,i+j*10+1)
                 plt.xticks([]) 
                 plt.yticks([]) 
                 plt.grid(False)
-                img = self.train_data[(self.train_label[:,j]>0)][i*10+j].reshape(28,28)
+                if label is None:
+                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, 300)].reshape(28,28)
+                else:
+                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, 300)].reshape(28,28)
                 plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()        
