@@ -85,9 +85,9 @@ class KuzushiMNIST(ImageLoader):
                 plt.yticks([]) 
                 plt.grid(False)
                 if label is None:
-                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, 100)].reshape(28,28)
                 else:
-                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, 100)].reshape(28,28)
                 plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()
 
@@ -205,8 +205,8 @@ class Kuzushi49(ImageLoader):
             plt.yticks([]) 
             plt.grid(False)
             if label is None:
-                img = self.train_data[(self.train_label[:,i]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+                img = self.train_data[(self.train_label[:,i]>0)][random.randint(0, 100)].reshape(28,28)
             else:
-                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(28,28)
+                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, 100)].reshape(28,28)
             plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.show()
