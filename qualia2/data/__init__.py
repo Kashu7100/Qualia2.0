@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- 
 from .dataloader import *
 from .basic import *
+from .emnist import *
 from .mnist import *
 from .fashion_mnist import *
 from .kuzushi_mnist import *
