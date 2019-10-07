@@ -78,7 +78,7 @@ class MaxPool2d(Function):
         batch, channel, height, width = x.shape
         kernel_height, kernel_width = kernel_size
 
-        oh = int((height-2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
+        oh = int((height+2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
         ow = int((width+2*padding[1]-dilation[1]*(kernel_width-1)-1)/stride[1]+1)
 
         padded = np.zeros((batch, channel, height+2*padding[0], width+2*padding[1]))
@@ -142,7 +142,7 @@ class MaxPool3d(Function):
         batch, channel, height, width, depth = x.shape
         kernel_height, kernel_width, kernel_depth = kernel_size
 
-        oh = int((height-2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
+        oh = int((height+2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
         ow = int((width+2*padding[1]-dilation[1]*(kernel_width-1)-1)/stride[1]+1)
         od = int((depth+2*padding[2]-dilation[2]*(kernel_depth-1)-1)/stride[2]+1)
 
@@ -260,7 +260,7 @@ class AvePool2d(Function):
         batch, channel, height, width = x.shape
         kernel_height, kernel_width = kernel_size
 
-        oh = int((height-2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
+        oh = int((height+2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
         ow = int((width+2*padding[1]-dilation[1]*(kernel_width-1)-1)/stride[1]+1)
 
         padded = np.zeros((batch, channel, height+2*padding[0], width+2*padding[1]))
@@ -319,7 +319,7 @@ class AvePool3d(Function):
         batch, channel, height, width, depth = x.shape
         kernel_height, kernel_width, kernel_depth = kernel_size
 
-        oh = int((height-2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
+        oh = int((height+2*padding[0]-dilation[0]*(kernel_height-1)-1)/stride[0]+1) 
         ow = int((width+2*padding[1]-dilation[1]*(kernel_width-1)-1)/stride[1]+1)
         od = int((depth+2*padding[2]-dilation[2]*(kernel_depth-1)-1)/stride[2]+1)
 
