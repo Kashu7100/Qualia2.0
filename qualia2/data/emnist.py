@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 from ..core import *
 from ..autograd import Tensor
-from .dataloader import ImageLoader
+from .dataloader import *
 import matplotlib.pyplot as plt
 import gzip
 import random
