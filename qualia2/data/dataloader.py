@@ -3,6 +3,7 @@ from ..core import *
 from ..util import download_progress
 from ..autograd import Tensor
 import os
+import random
 
 class DataLoader(object):
     ''' DataLoader \n
