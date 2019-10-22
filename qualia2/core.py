@@ -36,7 +36,7 @@ try:
     import cupy as np
     if np.cuda.is_available():
         gpu = True
-        np.cuda.set_allocator(np.cuda.MemoryPool().malloc)
+        np.cuda.set_allocator(np.cuda.MemoryPool(np.cuda.malloc_managed).malloc)
         logger.info('[*] GPU acceleration enabled.')
         logger.info('-'*71)
         nvcc = subprocess.check_output('nvcc --version', shell=True)
