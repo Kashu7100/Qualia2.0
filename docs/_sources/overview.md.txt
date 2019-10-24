@@ -1,7 +1,7 @@
 # Overview
 
 <p align="center">
-  <img src="../assets/qualia.png" alt="Qualia Logo"/>
+  <img src="_images/qualia.png" alt="Qualia Logo"/>
 </p>
 
 Qualia is a deep learning framework deeply integrated with automatic differentiation and dynamic graphing with CUDA acceleration. Thanks to the define-by-run API, the code written with Qualia enjoys high modularity.

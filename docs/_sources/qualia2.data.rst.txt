@@ -28,6 +28,14 @@ qualia2.data.dataloader module
    :undoc-members:
    :show-inheritance:
 
+qualia2.data.emnist module
+--------------------------
+
+.. automodule:: qualia2.data.emnist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 qualia2.data.fashion\_mnist module
 ----------------------------------
 

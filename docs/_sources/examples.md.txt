@@ -4,7 +4,7 @@
 Neural networks are a set of algorithms, modeled loosely after the human brain, that are designed to recognize patterns [1].
 The perceptron is a mathematical model of a biological neuron.
 <p align="center">
-  <img src="../assets/neuron_and_nn.png"/>
+  <img src="_images/neuron_and_nn.png"/>
   <br>
   <b> Fig.1: </b> Biological neuron versus artificial neuron (perceptron).
 </p>
@@ -13,7 +13,7 @@ The perceptron is a mathematical model of a biological neuron.
 Animals, including humans, change their behavior through experience. It is said that the brain has three types of leaning system: supervised learning, reinforcement learning, and unsupervised leaning.
 
 <p align="center">
-  <img src="../assets/Brain_DL.PNG"/>
+  <img src="_images/Brain_DL.PNG"/>
   <br>
   <b> Fig.2: </b> Learning scheme in the brain.
 </p>
@@ -44,7 +44,7 @@ This is done by minimizing the error between <a href="https://www.codecogs.com/e
 Neural networks can be viewed as a universal approximation function. Let's use a simple dataset called Spiral to see how neural net can obtain a non-linear decision boundary.
 
 <p align="center">
-  <img src="../assets/spiral.png" width=400/>
+  <img src="_images/spiral.png" width=400/>
 </p>
 
 ```python
@@ -91,11 +91,11 @@ data.plot_decision_boundary(mlp)
 ```
 We can see training loss is gradually decreasing.
 <p align="center">
-  <img src="../assets/spiral_loss.png" width=400/>
+  <img src="_images/spiral_loss.png" width=400/>
 </p>
 Here is the obtained decision boundary:
 <p align="center">
-  <img src="../assets/spiral_boundary.png" width=400/>
+  <img src="_images/spiral_boundary.png" width=400/>
 </p>
 
 ### FashionMNIST with GRU
@@ -104,7 +104,7 @@ The GRU model takes rows of the image assuming the hidden state of GRU will cont
 Below is the visualization for the FashionMNIST dataset.
 
 <p align="center">
-  <img src="../assets/fashion_mnist_data.png" width=400/>
+  <img src="_images/fashion_mnist_data.png" width=400/>
 </p>
 
 ```python 
@@ -146,7 +146,7 @@ trainer.train(model, mnist, optim, softmax_cross_entropy, 100)
 
 Training loss:
 <p align="center">
-  <img src="../assets/fashion_mnist_gru_loss.png" width=400>
+  <img src="_images/fashion_mnist_gru_loss.png" width=400>
 </p>
 
 ```bash
@@ -164,7 +164,7 @@ import qualia2.vision.transforms as transforms
 import PIL
 import numpy
 
-img = PIL.Image.open(../assets/dog.jpg)
+img = PIL.Image.open("./dog.jpg")
 
 preprocess = transforms.Compose([
    transforms.Resize(256),
@@ -187,7 +187,7 @@ for i, candidates in enumerate(sorted):
 ```
 Here is the top 5 predictions of the pretrained AlexNet on the given image.
 <p align="center">
-  <img src="../assets/dog.jpg" width=400/>
+  <img src="_images/dog.jpg" width=400/>
 </p>
 
 ```bash
@@ -235,7 +235,7 @@ This is similar to Oja's rule in its formulation and stability, except it can be
 ### Autoencoders
 Autoencoders learn a given distribution comparing its input to its output. It is useful for learning hidden representations of the data.
 <p align="center">
-  <img src="../assets/ae_fig.png" width=400>
+  <img src="_images/ae_fig.png" width=400>
 </p>
 
 To explore the identification of chaotic dynamics evolving on a finite dimensional attractor, let's consider the nonlinear Lorenz system:
@@ -336,13 +336,13 @@ learned_u = odeint(f, u0, t)
 
 Following is the obtained result:
 <p align="center">
-  <img src="../assets/lorenz_compare.png" width=500>
+  <img src="_images/lorenz_compare.png" width=500>
 </p>
 
 ### Generative Adversarial Networks (GANs)
 GANs utilize networks called Generator and Discriinator. The Discriminator measures the distance between the generated and the real data. The Generator tries to generate the data that Discriminator cannot distinguish from the real data.
 <p align="center">
-  <img src="../assets/gan_fig.png" width=400>
+  <img src="_images/gan_fig.png" width=400>
 </p>
 
 <p align="center">
@@ -442,7 +442,7 @@ for epoch in range(epochs):
 
 The obtained result:
 <p align="center">
-  <img src="../assets/gan_mnist.gif" width=400>
+  <img src="_images/gan_mnist.gif" width=400>
 </p>
 
 ## Reinforcement Learning
@@ -451,7 +451,7 @@ The obtained result:
 *Reinforcement Learning* is a machine learning technique that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences assuming Markov Decision Process (MDP). Reinforcement Learning named after operant conditioning, a method of learning that occurs through rewards and punishments for behavior, presented by B. F. Skinner.
 
 <p align="center">
-  <img src="../assets/rl_fig.png" width="400"/>
+  <img src="_images/rl_fig.png" width="400"/>
   <br>
   <b> Fig.2: </b> Learning scheme for reinforcement learning assuming MDP.
 </p>
@@ -532,7 +532,7 @@ The term <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_bl
 ### Dopamine neurons and TD error signal
 
 <p align="center">
-  <img src="../assets/TD_error.png" width="500"/>
+  <img src="_images/TD_error.png" width="500"/>
   <br>
   <b> Fig.3: </b> Firing of dopamine neurons and its correspondence with the TD error [1,2]. 
 </p>
@@ -542,6 +542,29 @@ In the first case, an unpredicted reward (R) occurs, and a burst of dopamine fir
 The feature of TD error matches with the response of dopamine neurons <a href="https://www.codecogs.com/eqnedit.php?latex=\delta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta" title="\delta" /></a> in the figure. Therefore, the response of dopamine neurons is thought to be the TD error signal.
 
 ### CartPole with DQN
+Q-learning updates the action value according to the following equation:
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;1},a')-Q(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q(S_{t&plus;1},a')-Q(S_t,A_t))" title="Q(S_t,A_t) \leftarrow Q(S_t,A_t)+\alpha (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q(S_{t+1},a')-Q(S_t,A_t))" /></a>
+</p>
+
+When the learning converges, the second term of the equation above approaches to zero.
+Note that when the policy that never takes some of the pairs of state and action, the action value function for the pair will never be learned, and learning will not properly converge. 
+
+DQN is Q-Learning with a deep neural network as a Q function approximator. DQN learns to minimize the TD error with some evaluation function <a href="https://www.codecogs.com/eqnedit.php?latex=J" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J" title="J" /></a>. 
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a'),Q_\theta(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a'),Q_\theta(S_t,A_t))" title="J(R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a'),Q_\theta(S_t,A_t))" /></a>
+</p>
+
+Generally, the following error is used as the evaluation function.
+
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=J(\theta)&space;=&space;\left\{&space;\begin{matrix}&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2&space;\;&space;\;&space;\;&space;\;&space;\;&space;|\delta&space;|\leq&space;1&space;\\&space;|R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t)|\;&space;\;&space;\;&space;\;&space;\;\;\;\;\;&space;|\delta&space;|>&space;1&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\theta)&space;=&space;\left\{&space;\begin{matrix}&space;\frac{1}{2}&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t))^2&space;\;&space;\;&space;\;&space;\;&space;\;&space;|\delta&space;|\leq&space;1&space;\\&space;|R_{t&plus;1}&plus;\gamma&space;\,&space;\underset{a'\in&space;A}{max}\:&space;Q_\theta(S_{t&plus;1},a')-Q_\theta(S_t,A_t)|\;&space;\;&space;\;&space;\;&space;\;\;\;\;\;&space;|\delta&space;|>&space;1&space;\end{matrix}\right." title="J(\theta) = \left\{ \begin{matrix} \frac{1}{2} (R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t))^2 \; \; \; \; \; |\delta |\leq 1 \\ |R_{t+1}+\gamma \, \underset{a'\in A}{max}\: Q_\theta(S_{t+1},a')-Q_\theta(S_t,A_t)|\; \; \; \; \;\;\;\;\; |\delta |> 1 \end{matrix}\right." /></a>
+</p>
+
+Qualia2 provides `DQN` (`DQNTrainer`) class and `Env` class for handy testing of DQN. As an example, let's use [CartPole](https://gym.openai.com/envs/CartPole-v1/) task from Gym. One can visualize the environment with `Env.show()` method.
+
 A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The pendulum starts upright, and the goal is to prevent it from falling over by increasing and reducing the cart's velocity.
 
 ```python
@@ -579,11 +602,11 @@ agent.play(env)
 
 Reward Plot:
 <p align="center">
-  <img src="../assets/cartpole_loss.png" width=400/>
+  <img src="_images/cartpole_loss.png" width=400/>
 </p>
 The obtained result:
 <p align="center">
-  <img src="../assets/cartpole_dqn.gif" width=400/>
+  <img src="_images/cartpole_dqn.gif" width=400/>
 </p>
 
 ---

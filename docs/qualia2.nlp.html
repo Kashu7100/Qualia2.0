@@ -25,8 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -187,59 +186,14 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-qualia2.nlp.cbow">
-<span id="qualia2-nlp-cbow-module"></span><h2>qualia2.nlp.cbow module<a class="headerlink" href="#module-qualia2.nlp.cbow" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="qualia2.nlp.cbow.CBOW">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.nlp.cbow.</code><code class="sig-name descname">CBOW</code><span class="sig-paren">(</span><em class="sig-param">vocab_size</em>, <em class="sig-param">embedding_dim=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nlp/cbow.html#CBOW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nlp.cbow.CBOW" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="qualia2.nn.modules.html#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
-<p>Continuous Bag of Words (CBOW) Model</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>vocab_size (int): vocabulary size
-embedding_dim (int): embedding size</p>
-</dd>
-</dl>
-<dl class="method">
-<dt id="qualia2.nlp.cbow.CBOW.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">ctx</em>, <em class="sig-param">trg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nlp/cbow.html#CBOW.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nlp.cbow.CBOW.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="qualia2-nlp-cbow-module">
+<h2>qualia2.nlp.cbow module<a class="headerlink" href="#qualia2-nlp-cbow-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-qualia2.nlp.util">
-<span id="qualia2-nlp-util-module"></span><h2>qualia2.nlp.util module<a class="headerlink" href="#module-qualia2.nlp.util" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="qualia2.nlp.util.analogy">
-<code class="sig-prename descclassname">qualia2.nlp.util.</code><code class="sig-name descname">analogy</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">c</em>, <em class="sig-param">word2idx</em>, <em class="sig-param">wordvec</em>, <em class="sig-param">n=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nlp/util.html#analogy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nlp.util.analogy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Predicts word relationship like a:b = c:?
-Args:</p>
-<blockquote>
-<div><p>a (str): input string
-b (str): input string
-c (str): input string
-word2idx (dict): word to index map
-wordvec (Embedding): ector representation of words
-n (int): top n similar words to show</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="qualia2.nlp.util.most_similar">
-<code class="sig-prename descclassname">qualia2.nlp.util.</code><code class="sig-name descname">most_similar</code><span class="sig-paren">(</span><em class="sig-param">query</em>, <em class="sig-param">word2idx</em>, <em class="sig-param">wordvecs</em>, <em class="sig-param">n=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nlp/util.html#most_similar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nlp.util.most_similar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Look up most similar words in the embedding
-Args:</p>
-<blockquote>
-<div><p>query (str): query text
-word2idx (dict): word to index map
-wordvecs (Embedding): vector representation of words
-n (int): top n similar words to show</p>
-</div></blockquote>
-</dd></dl>
-
+<div class="section" id="qualia2-nlp-util-module">
+<h2>qualia2.nlp.util module<a class="headerlink" href="#qualia2-nlp-util-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-qualia2.nlp">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-qualia2.nlp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
