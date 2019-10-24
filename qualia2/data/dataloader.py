@@ -4,6 +4,7 @@ from ..util import download_progress
 from ..autograd import Tensor
 import os
 import random
+import sys
 
 class DataLoader(object):
     ''' DataLoader \n
@@ -72,7 +73,10 @@ class DataLoader(object):
         cache = os.path.join(data_dir, filename)
         if not os.path.exists(cache): 
             from urllib.request import urlretrieve
-            urlretrieve(url, cache, reporthook=download_progress) 
+            urlretrieve(url, cache, reporthook=download_progress)
+        sys.stdout.flush()
+        sys.stdout.write('\r[*] downloading 100.00%')
+        print('\r')
 
     def extract(filename):
         ''' extract the contents in the file

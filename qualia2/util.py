@@ -25,7 +25,7 @@ def check_function(fn, *args, domain=(-1e3,1e3), **kwargs):
     a_grad = x.grad
     n_grad = numerical_grad(fn, x, *args, **kwargs)
     sse = np.sum(np.power(np.subtract(a_grad, n_grad),2))
-    print('[*] measured error: ', sse)
+    logger.info('[*] measured error: ', sse)
     assert sse < 1e-10
 
 def _single(x):
@@ -61,8 +61,8 @@ def progressbar(progress, process, text_before='', text_after=''):
     sys.stdout.write(text)
 
 def download_progress(count, block_size, total_size):
-    sys.stdout.write('\r[*] downloading %.2f%%' % (float(count * block_size) / float(total_size) * 100.0))
     sys.stdout.flush()
+    sys.stdout.write('\r[*] downloading {:.2f}%'.format(float(count * block_size) / float(total_size) * 100.0))
     
 class Trainer(object):
     ''' Trainer base class\n
