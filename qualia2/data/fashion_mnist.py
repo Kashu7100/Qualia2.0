@@ -20,10 +20,10 @@ class FashionMNIST(ImageLoader):
         super().__init__() 
         
         self.download()
-        self.train_data = self._load_data(home_dir + '/data/download/fashion_mnist/train_data.gz')
-        self.train_label = FashionMNIST.to_one_hot(self._load_label(home_dir + '/data/download/fashion_mnist/train_labels.gz'), 10)
-        self.test_data = self._load_data(home_dir + '/data/download/fashion_mnist/test_data.gz')
-        self.test_label = FashionMNIST.to_one_hot(self._load_label(home_dir + '/data/download/fashion_mnist/test_labels.gz'), 10)
+        self.train_data = self._load_data(home_dir + '/data/download/fashionmnist/train_data.gz')
+        self.train_label = FashionMNIST.to_one_hot(self._load_label(home_dir + '/data/download/fashionmnist/train_labels.gz'), 10)
+        self.test_data = self._load_data(home_dir + '/data/download/fashionmnist/test_data.gz')
+        self.test_label = FashionMNIST.to_one_hot(self._load_label(home_dir + '/data/download/fashionmnist/test_labels.gz'), 10)
         print('[*] done.')
 
         if normalize: 
