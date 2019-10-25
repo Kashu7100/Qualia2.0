@@ -19,7 +19,7 @@ class Exp(Function):
         return result
 
     def calc_grad(self, dx):
-        return np.exp(np.multiply(self.var[0].data, dx))
+        return np.multiply(np.exp(self.var[0].data), dx)
 
 exp = Exp(None)
 
