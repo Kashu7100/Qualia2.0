@@ -239,9 +239,7 @@ class Tensor(object):
         return obj
     
     def reshape(self, *args):
-        result = Tensor(np.reshape(self.data, args)) 
-        result.set_creator(Reshape.prepare(result.shape, self))
-        return result
+        return Reshape.forward(self, args)
     
     def transpose(self, *args):
         return Transpose.forward(self, args)

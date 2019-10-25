@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*- 
 from ..core import *
+from collections import OrderedDict 
+from itertools import chain
 
 class Optimizer(object): 
     '''Optimizer base class\n 
@@ -7,21 +9,40 @@ class Optimizer(object):
         parameters (generator): Parameters to optimize
     ''' 
     def __init__(self, parameters): 
-        self.params = parameters
+        self.params = [parameters()]
+        self._state = OrderedDict() 
 
     def __repr__(self):
         return '{}() at 0x{:0{}X}'.format(self.__class__.__name__, id(self), 16)
 
     def __str__(self):
         return self.__class__.__name__
-    
-    @property
-    def defaults(self):
-        raise NotImplementedError
 
-    def load_settings(self, defaults):
-        raise NotImplementedError
-     
+    def __setattr__(self, key, value): 
+        if key == 'params' or isinstance(value, OrderedDict):
+            object.__setattr__(self, key, value) 
+        else:
+            self._state[key] = value 
+    
+    def __getattr__(self, key):
+        if key == 'params':
+            return object.__getattribute__(self, 'params')
+        else:
+            return object.__getattribute__(self, '_state')[key]
+    
+    def add_params(self, parameters):
+        self.params.append(parameters())
+
+    def state_dict(self):
+        return dict(self._state)
+
+    def load_state_dict(self, state_dict):
+        for key, val in state_dict.items():
+            if key in self._state:
+                self._state[key] = val
+            else:
+                raise KeyError('[*] {} not found in parameters.'.format(key))
+         
     def step(self): 
         '''
         Performs a single optimization step (parameter update).
@@ -32,7 +53,7 @@ class Optimizer(object):
         '''
         Clears the all gradients in parameters
         '''
-        for i in self.params(): 
+        for i in chain(*self.params): 
             i.grad = None
 
 class SGD(Optimizer):
@@ -53,21 +74,8 @@ class SGD(Optimizer):
     def __repr__(self):
         return '{}(lr={}, momentum={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.m, self.l2, id(self), 16)
 
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'momentum':0, 
-            'weight_decay':0
-        }
-    
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.m = defaults['momentum']
-        self.l2 = defaults['weight_decay']
-
     def step(self):
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             assert var.data.shape == var.grad.shape
@@ -98,21 +106,8 @@ class Adadelta(Optimizer):
     def __repr__(self):
         return '{}(lr={}, decay_rate={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.rho, self.l2, id(self), 16)
     
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'decay_rate':0, 
-            'weight_decay':0
-        }
-    
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.rho = defaults['decay_rate']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.g:
@@ -143,19 +138,8 @@ class AdaGrad(Optimizer):
     def __repr__(self):
         return '{}(lr={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.l2, id(self), 16)
     
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'weight_decay':0
-        }
-
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.h:  
@@ -184,21 +168,8 @@ class RMSProp(Optimizer):
     def __repr__(self):
         return '{}(lr={}, alpha={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.alpha, self.l2, id(self), 16)
 
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'alpha':0, 
-            'weight_decay':0
-        }
-    
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.alpha = defaults['alpha']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.h:  
@@ -229,22 +200,9 @@ class Adam(Optimizer):
     def __repr__(self):
         return '{}(lr={}, betas={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.betas, self.l2, id(self), 16)
     
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'betas':(0.9, 0.999), 
-            'weight_decay':0
-        }
-    
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.betas = defaults['betas']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
         self.t += 1
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.m:  
@@ -280,22 +238,9 @@ class AdaMax(Optimizer):
     def __repr__(self):
         return '{}(lr={}, betas={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.betas, self.l2, id(self), 16)
     
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'betas':(0.9, 0.999), 
-            'weight_decay':0
-        }
-
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.betas = defaults['betas']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
         self.t += 1
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.m:  
@@ -330,23 +275,10 @@ class Nadam(Optimizer):
     def __repr__(self):
         return '{}(lr={}, betas={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.betas, self.l2, id(self), 16)
     
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'betas':(0.9, 0.999), 
-            'weight_decay':0
-        }
-
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.betas = defaults['betas']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
         self.t += 1
         self.mu.append(self.betas[0]*(1-0.5*(0.96**(0.004*(self.t+1)))))
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.m:  
@@ -385,22 +317,9 @@ class RAdam(Optimizer):
     def __repr__(self):
         return '{}(lr={}, betas={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.betas, self.l2, id(self), 16)
 
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'betas':(0.9, 0.999), 
-            'weight_decay':0
-        }
-    
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.betas = defaults['betas']
-        self.l2 = defaults['weight_decay']
-
     def step(self):
         self.t += 1
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.m:  
@@ -442,22 +361,9 @@ class NovoGrad(Optimizer):
     def __repr__(self):
         return '{}(lr={}, betas={}, weight_decay={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.lr, self.betas, self.l2, id(self), 16)
     
-    @property
-    def defaults(self):
-        return {
-            'lr':0.001, 
-            'betas':(0.95, 0.98), 
-            'weight_decay':0
-        }
-    
-    def load_settings(self, defaults):
-        self.lr = defaults['lr']
-        self.betas = defaults['betas']
-        self.l2 = defaults['weight_decay']
-
     def step(self): 
         self.t += 1
-        for i, var in enumerate(self.params()): 
+        for i, var in enumerate(chain(*self.params)): 
             if not var.requires_grad:
                 continue
             if i not in self.v:  

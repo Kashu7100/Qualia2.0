@@ -232,7 +232,7 @@ class AvePool1d(Function):
         result = np.zeros(padded_shape)
         for j in range(ow): 
             tmp = np.zeros((batch, channel, fw))
-            tmp[:, :, ::dilation] = delta[:,:,j]/kernel_width
+            tmp[:, :, ::dilation] = delta[:,:,j][:,:,np.newaxis]/kernel_width
             result[:, :, j*stride:j*stride+fw] += tmp 
         return result[:,:,int((pw-width)/2):pw-int((pw-width)/2)]
 
@@ -290,7 +290,7 @@ class AvePool2d(Function):
         for i in range(oh): 
             for j in range(ow): 
                 tmp = np.zeros((batch, channel, fh, fw))
-                tmp[:, :, ::dilation[0], ::dilation[1]] = delta[:,:,i,j]/(kernel_height*kernel_width) 
+                tmp[:, :, ::dilation[0], ::dilation[1]] = delta[:,:,i,j][:,:,np.newaxis,np.newaxis]/(kernel_height*kernel_width) 
                 result[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw] += tmp 
         return result[:,:,int((ph-height)/2):ph-int((ph-height)/2),int((pw-width)/2):pw-int((pw-width)/2)]
 
@@ -354,7 +354,7 @@ class AvePool3d(Function):
             for j in range(ow): 
                 for k in range(od):
                     tmp = np.zeros((batch, channel, fh, fw, fd))
-                    tmp[:, :, ::dilation[0], ::dilation[1], ::dilation[2]] = delta[:,:,i,j,k]/(kernel_height*kernel_width*kernel_depth) 
+                    tmp[:, :, ::dilation[0], ::dilation[1], ::dilation[2]] = delta[:,:,i,j,k][:,:,np.newaxis,np.newaxis,np.newaxis]/(kernel_height*kernel_width*kernel_depth) 
                     result[:, :, i*stride[0]:i*stride[0]+fh, j*stride[1]:j*stride[1]+fw, k*stride[2]:k*stride[2]+fd] += tmp 
         return result[:,:,int((ph-height)/2):ph-int((ph-height)/2),int((pw-width)/2):pw-int((pw-width)/2),int((pd-depth)/2):pd-int((pd-depth)/2)]
 
