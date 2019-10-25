@@ -22,7 +22,7 @@ def numel(obj):
     return _mul(*obj.shape)
 
 def array(obj, dtype='float64'):
-    return Tensor(np.array(obj), dtype=dtype)
+    return Tensor(obj, dtype=dtype)
 
 def arange(*args, dtype='float64'):
     return Tensor(np.arange(*args), dtype=dtype)

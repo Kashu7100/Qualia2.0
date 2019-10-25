@@ -234,7 +234,7 @@ class Tensor(object):
         Returns:
             (Tensor)
         '''
-        if type(obj) is not Tensor:
+        if not isinstance(obj, Tensor):
             return Tensor(obj, requires_grad=False)
         return obj
     
@@ -319,7 +319,7 @@ class Function(object):
                 arg = np.sum(arg, axis=tuple(axis))
                 return np.reshape(arg, trg.shape)
             elif arg.ndim > trg.ndim:
-                assert trg.ndim == 1
+                assert trg.ndim == 1, 'arg: {} trg: {}'.format(arg, trg)
                 tmp = [1 for _ in range(len(arg.shape))]
                 for i, s in enumerate(reversed(arg.shape)):
                     if s == trg.shape[0]:
