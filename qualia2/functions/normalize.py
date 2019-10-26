@@ -21,6 +21,9 @@ class BatchNorm(Function):
         tmp = np.divide(np.subtract(x.data, mean), np.add(std, eps))
         result = Tensor(np.add(np.multiply(tmp, weight.data), bias.data))
         result.set_creator(BatchNorm.prepare(result.shape, x, weight, bias, mean=mean, std=std, eps=eps, tmp=tmp, axis=axis))
+        x.child.append(id(result.creator))
+        weight.child.append(id(result.creator))
+        bias.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):

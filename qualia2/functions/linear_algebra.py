@@ -9,6 +9,8 @@ class Dot(Function):
     def forward(a, b):
         result = Tensor(np.dot(a.data, b.data)) 
         result.set_creator(Dot.prepare(result.shape,a,b))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -32,6 +34,8 @@ class Tensordot(Function):
     def forward(a, b, axes=1):
         result = Tensor(np.tensordot(a.data, b.data, axes=axes)) 
         result.set_creator(Tensordot.prepare(result.shape,a,b,axes=axes))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -69,9 +73,14 @@ class Linear(Function):
         if bias is None:
             result = Tensor(np.dot(x.data, weight.data))
             result.set_creator(Dot.prepare(result.shape, x, weight))
+            x.child.append(id(result.creator))
+            weight.child.append(id(result.creator))
         else:
             result = Tensor(np.add(np.dot(x.data, weight.data), bias.data))
             result.set_creator(Linear.prepare(result.shape, x, weight, bias))
+            x.child.append(id(result.creator))
+            weight.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):

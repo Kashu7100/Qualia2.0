@@ -14,6 +14,7 @@ class Tensor(object):
         data (ndarray): Stores data of the Tensor\n
         grad (ndarray): Stores gradients of the Tensor\n  
         creator (Function): Stores the creator of the Tensor, which will be called at the backpropagation.\n 
+        child (list): temp list of child, which will be created in a forward pass\n
         requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros.\n
         shape (tuple): Stores the shape of Tensor's data\n 
         ndim (int): Stores the number of Tensor's data dimentions  
@@ -44,6 +45,7 @@ class Tensor(object):
         self.dtype = dtype
         self.grad = None
         self.creator = None
+        self.child = []
         self.requires_grad = requires_grad
     
     def __str__(self):
@@ -72,11 +74,11 @@ class Tensor(object):
     def __len__(self): 
         return self.ndim
 
-    def __add__(self, other): 
+    def __add__(self, other):
         other = self.handle_const(other)
         return Add.forward(self, other)
     
-    def __radd__(self, other): 
+    def __radd__(self, other):
         other = self.handle_const(other)
         return Add.forward(self, other)
 
@@ -349,13 +351,16 @@ class Function(object):
                 var.grad += dx
         for var in self.var:
             if var.creator is not None:
-                var.backward(var.grad)
+                var.child.remove(id(self))
+                if len(var.child) == 0:
+                    var.backward(var.grad)
 
 class Slice(Function):
     @staticmethod
     def forward(a, slice):
         result = Tensor(a.data[slice]) 
         result.set_creator(Slice.prepare(result.shape, a, slice=slice)) 
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -368,6 +373,7 @@ class Reshape(Function):
     def forward(a, shape):
         result = Tensor(np.reshape(a.data, shape)) 
         result.set_creator(Reshape.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -378,6 +384,7 @@ class Squeeze(Function):
     def forward(a, axis=None):
         result = Tensor(np.squeeze(a.data, axis=axis)) 
         result.set_creator(Squeeze.prepare(result.shape, a, axis=axis))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -388,6 +395,7 @@ class Expand_dims(Function):
     def forward(a, axis):
         result = Tensor(np.expand_dims(a.data, axis=axis)) 
         result.set_creator(Expand_dims.prepare(result.shape, a, axis=axis))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -398,6 +406,7 @@ class Transpose(Function):
     def forward(a, axes):
         result = Tensor(np.transpose(a.data, axes)) 
         result.set_creator(Transpose.prepare(result.shape, a, axes=axes))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -415,6 +424,7 @@ class Gather(Function):
         gathered = np.choose(np.swapaxes(idx, 0, dim), np.swapaxes(a.data, 0, dim))
         result = Tensor(np.swapaxes(gathered, 0, dim))
         result.set_creator(Gather.prepare(result.shape, a, dim=dim, idx=idx))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -444,6 +454,7 @@ class Clamp(Function):
     def forward(x, low, high):
         result = Tensor(np.clip(x.data, low, high))
         result.set_creator(Clamp.prepare(result.shape, x))
+        x.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -457,6 +468,7 @@ class Neg(Function):
     def forward(a):
         result = Tensor(np.negative(a.data)) 
         result.set_creator(Neg.prepare(result.shape, a)) 
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -467,6 +479,7 @@ class Abs(Function):
     def forward(a):
         result = Tensor(np.absolute(a.data))
         result.set_creator(Abs.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -482,6 +495,8 @@ class Add(Function):
     def forward(*args):
         result = Tensor(reduce(np.add, [a.data for a in args])) 
         result.set_creator(Add.prepare(result.shape, *args))
+        for i in args:
+            i.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -495,6 +510,8 @@ class Sub(Function):
     def forward(*args):
         result = Tensor(reduce(np.subtract, [a.data for a in args])) 
         result.set_creator(Sub.prepare(result.shape, *args))
+        for i in args:
+            i.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -510,6 +527,8 @@ class Mul(Function):
     def forward(a, b):
         result = Tensor(np.multiply(a.data, b.data)) 
         result.set_creator(Mul.prepare(result.shape, a, b))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -523,6 +542,8 @@ class Pow(Function):
     def forward(a, b):
         result = Tensor(np.power(a.data, b.data)) 
         result.set_creator(Pow.prepare(result.shape, a, b, tmp=result.data))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -536,6 +557,8 @@ class Div(Function):
     def forward(a, b):
         result = Tensor(np.divide(a.data, b.data)) 
         result.set_creator(Div.prepare(result.shape, a, b))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -546,6 +569,8 @@ class Matmul(Function):
     def forward(a, b):
         result = Tensor(np.matmul(a.data, b.data)) 
         result.set_creator(Matmul.prepare(result.shape, a, b))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):

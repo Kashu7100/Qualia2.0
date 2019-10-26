@@ -27,6 +27,7 @@ class MaxPool1d(Function):
         tmp, idx = map(lambda f: np.reshape(f(reshaped, axis=3),(batch, channel, ow)), [np.max, np.argmax])
         result = Tensor(tmp)
         result.set_creator(MaxPool1d.prepare(result.shape, x, idx=idx, kernel_width=kernel_width, padded_shape=padded.shape, stride=stride, dilation=dilation))
+        x.child.append(id(result.creator))
         if return_indices:
             return result, idx
         else:
@@ -87,6 +88,7 @@ class MaxPool2d(Function):
         tmp, idx = map(lambda f: np.reshape(f(reshaped, axis=3),(batch, channel, oh, ow)), [np.max, np.argmax])
         result = Tensor(tmp)
         result.set_creator(MaxPool2d.prepare(result.shape, x, idx=idx, kernel_size=kernel_size, padded_shape=padded.shape, stride=stride, dilation=dilation))
+        x.child.append(id(result.creator))
         if return_indices:
             return result, idx
         else:
@@ -152,6 +154,7 @@ class MaxPool3d(Function):
         tmp, idx = map(lambda f: np.reshape(f(reshaped, axis=3),(batch, channel, oh, ow, od)), [np.max, np.argmax])
         result = Tensor(tmp)
         result.set_creator(MaxPool3d.prepare(result.shape, x, idx=idx, kernel_size=kernel_size, padded_shape=padded.shape, stride=stride, dilation=dilation))
+        x.child.append(id(result.creator))
         if return_indices:
             return result, idx
         else:
@@ -213,6 +216,7 @@ class AvePool1d(Function):
         reshaped = AvePool1d.unfold(padded, batch, ow, channel, kernel_width, stride, dilation)
         result = Tensor(np.reshape(np.average(reshaped, axis=3),(batch, channel, ow)))
         result.set_creator(AvePool1d.prepare(result.shape, x, kernel_width=kernel_width, padded_shape=padded.shape, stride=stride, dilation=dilation))
+        x.child.append(id(result.creator))
         return result
 
     @staticmethod
@@ -268,6 +272,7 @@ class AvePool2d(Function):
         reshaped = AvePool2d.unfold(padded, batch, oh, ow, channel, kernel_height, kernel_width, stride, dilation)
         result = Tensor(np.reshape(np.average(reshaped, axis=3),(batch, channel, oh, ow)))
         result.set_creator(AvePool2d.prepare(result.shape, x, kernel_size=kernel_size, padded_shape=padded.shape, stride=stride, dilation=dilation))
+        x.child.append(id(result.creator))
         return result
 
     @staticmethod
@@ -329,6 +334,7 @@ class AvePool3d(Function):
 
         result = Tensor(np.reshape(np.average(reshaped, axis=3),(batch, channel, oh, ow, od)))
         result.set_creator(AvePool3d.prepare(result.shape, x, kernel_size=kernel_size, padded_shape=padded.shape, stride=stride, dilation=dilation))
+        x.child.append(id(result.creator))
         return result
 
     @staticmethod
@@ -416,6 +422,7 @@ class MaxUnpool1d(Function):
         padded_shape = (b, c, ow+2*padding)
         result = Tensor(MaxPool1d.fold(x.data, kernel_size, indices, w, out_shape, padded_shape, stride, dilation))
         result.set_creator(MaxUnpool1d.prepare(result.shape, x, idx=indices, padded_shape=padded_shape, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation))
+        x.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -453,6 +460,7 @@ class MaxUnpool2d(Function):
         padded_shape = (b, c, oh+2*padding[0], ow+2*padding[1])
         result = Tensor(MaxPool2d.fold(x.data, kernel_size, indices, h, w, out_shape, padded_shape, stride, dilation))
         result.set_creator(MaxUnpool2d.prepare(result.shape, x, idx=indices, padded_shape=padded_shape, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation))
+        x.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -492,6 +500,7 @@ class MaxUnpool3d(Function):
         padded_shape = (b, c, oh+2*padding[0], ow+2*padding[1], od+2*padding[2])
         result = Tensor(MaxPool3d.fold(x.data, kernel_size, indices, h, w, d, out_shape, padded_shape, stride, dilation))
         result.set_creator(MaxUnpool3d.prepare(result.shape, x, idx=indices, padded_shape=padded_shape, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation))
+        x.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):

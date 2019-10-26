@@ -19,6 +19,8 @@ class ListConcat(Function):
         '''
         result = Tensor(np.concatenate([np.expand_dims(arr.data, axis=0) for arr in list], axis=0))
         result.set_creator(ListConcat.prepare(result.shape, *list))
+        for i in list:
+            i.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -39,6 +41,8 @@ class Concat(Function):
         '''
         result = Tensor(np.concatenate(tuple(i.data for i in args), axis)) 
         result.set_creator(Concat.prepare(result.shape, *args, axis=axis))
+        for i in args:
+            i.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):

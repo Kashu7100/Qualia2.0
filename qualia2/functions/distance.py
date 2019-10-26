@@ -9,6 +9,8 @@ class CosineSimilarity(Function):
         b_hat = b.data / (np.sqrt(np.sum(b.data**2))+eps)
         result = Tensor(np.dot(a_hat,b_hat))
         result.set_creator(CosineSimilarity.prepare(result.shape, a, b, a_hat=a_hat, b_hat=b_hat))
+        a.child.append(id(result.creator))
+        b.child.append(id(result.creator))
         return result
        
     def calc_grad(self, dx):

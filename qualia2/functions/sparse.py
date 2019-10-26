@@ -14,12 +14,15 @@ class Embedding(Function):
         if isinstance(input, Tensor):
             result = Tensor(weight[input.data.astype('int64')].data)
             result.set_creator(Embedding.prepare(result.shape, weight, idx=input.data))
+            weight.child.append(id(result.creator))
         elif isinstance(input, np.ndarray):
             result = Tensor(weight[input.astype('int64')].data)
             result.set_creator(Embedding.prepare(result.shape, weight, idx=input))
+            weight.child.append(id(result.creator))
         elif isinstance(input, int):
             result = Tensor(weight[input].data)
             result.set_creator(Embedding.prepare(result.shape, weight, idx=input))
+            weight.child.append(id(result.creator))
         else:
             raise ValueError
         return result

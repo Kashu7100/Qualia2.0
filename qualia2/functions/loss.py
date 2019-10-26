@@ -30,47 +30,14 @@ class MSELoss(Function):
         else:
             result = Tensor(tmp)
         result.set_creator(MSELoss.prepare(result.shape, input, target))
+        input.child.append(id(result.creator))
+        target.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
         return np.subtract(self.var[0].data, self.var[1].data), np.subtract(self.var[1].data, self.var[0].data)
 
 mse_loss = MSELoss(None)
-
-class CMSELoss(Function):
-    '''MSE Loss for complex neural networks\n
-    Args:
-        input (Tensor): output of the network
-        target (Tensor): label of the dataset
-        reduce (bool): the losses are averaged or summed over observations for each minibatch depending on size_average. 
-        size_average (bool): the losses are averaged over each loss element in the batch.
-
-    Model:
-        l_n = sum((y_n - x_n)^2/2)
-    
-    Shape:
-        - Input: [N, C] 
-        - Target: [N, C] 
-        - Output: [1] by default 
-                  [N] if not reduce
-    '''
-    @staticmethod
-    def forward(input, target, reduce=True, size_average=True):
-        tmp = np.sum(np.divide(np.power(np.abs(np.subtract(input.data, target.data)), 2), 2), axis=1)
-        if reduce:
-            if size_average:
-                result = Tensor(np.mean(tmp,axis=0))
-            else:
-                result = Tensor(np.sum(tmp,axis=0))
-        else:
-            result = Tensor(tmp)
-        result.set_creator(CMSELoss.prepare(result.shape, input, target))
-        return result
-
-    def calc_grad(self, dx):
-        return np.subtract(self.var[0].data, self.var[1].data), np.subtract(self.var[1].data, self.var[0].data)
-
-cmse_loss = CMSELoss(None)
 
 class HuberLoss(Function):
     '''
@@ -104,6 +71,8 @@ class HuberLoss(Function):
         else:
             result = Tensor(tmp)
         result.set_creator(HuberLoss.prepare(result.shape, input, target, mask=mask))
+        input.child.append(id(result.creator))
+        target.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -142,6 +111,8 @@ class BinaryCrossEntropy(Function):
         else:
             result = Tensor(tmp)
         result.set_creator(BinaryCrossEntropy.prepare(result.shape, input, target))
+        input.child.append(id(result.creator))
+        target.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -180,6 +151,8 @@ class LogisticBinaryCrossEntropy(Function):
         else:
             result = Tensor(tmp)
         result.set_creator(BinaryCrossEntropy.prepare(result.shape, input, target, tmp=sigmoid))
+        input.child.append(id(result.creator))
+        target.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -215,6 +188,8 @@ class CrossEntropy(Function):
         else:
             result = Tensor(tmp)
         result.set_creator(CrossEntropy.prepare(result.shape, input, target))
+        input.child.append(id(result.creator))
+        target.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -255,6 +230,8 @@ class SoftmaxCrossEntropy(Function):
         else:
             result = Tensor(tmp)
         result.set_creator(SoftmaxCrossEntropy.prepare(result.shape, input, target, tmp=softmax))
+        input.child.append(id(result.creator))
+        target.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):

@@ -20,6 +20,7 @@ class Dropout(Function):
             tmp[mask] = 0
             result = Tensor(tmp)
             result.set_creator(Dropout.prepare(result.shape, x, mask=mask))
+            x.child.append(id(result.creator))
             return result
         else:
             return x        

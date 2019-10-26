@@ -10,6 +10,7 @@ class Sin(Function):
     def forward(a):
         result = Tensor(np.sin(a.data)) 
         result.set_creator(Sin.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -25,6 +26,7 @@ class Cos(Function):
     def forward(a):
         result = Tensor(np.cos(a.data)) 
         result.set_creator(Cos.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -40,6 +42,7 @@ class Tan(Function):
     def forward(a):
         result = Tensor(np.tan(a.data)) 
         result.set_creator(Tan.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -55,6 +58,7 @@ class Arcsin(Function):
     def forward(a):
         result = Tensor(np.arcsin(a.data)) 
         result.set_creator(Arcsin.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -70,6 +74,7 @@ class Arccos(Function):
     def forward(a):
         result = Tensor(np.arccos(a.data)) 
         result.set_creator(Arccos.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -85,6 +90,7 @@ class Arctan(Function):
     def forward(a):
         result = Tensor(np.arctan(a.data)) 
         result.set_creator(Arctan.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -101,6 +107,7 @@ class Sinh(Function):
     def forward(a):
         result = Tensor(np.sinh(a.data)) 
         result.set_creator(Sinh.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -116,6 +123,7 @@ class Cosh(Function):
     def forward(a):
         result = Tensor(np.cosh(a.data)) 
         result.set_creator(Cosh.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -131,31 +139,13 @@ class Tanh(Function):
     def forward(a):
         result = Tensor(np.tanh(a.data)) 
         result.set_creator(Tanh.prepare(result.shape, a, tmp=result.data))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
         return np.multiply(dx, np.subtract(1, np.square(self.kwargs['tmp'])))
 
 tanh = Tanh(None)
-
-class CTanh(Function):
-    '''
-    Elementwise hyperbolic tangent function for complex neural networks
-    '''
-    @staticmethod
-    def forward(a):
-        real = np.tanh(a.data.real)
-        imag = np.tanh(a.data.imag)
-        result = Tensor(real+1j*imag) 
-        result.set_creator(CTanh.prepare(result.shape, a, real=real, imag=imag))
-        return result
-
-    def calc_grad(self, dx):
-        real = dx.real*(1-np.square(self.kwargs['real']))
-        imag = dx.imag*(1-np.square(self.kwargs['imag']))
-        return real+1j*imag
-
-ctanh = CTanh(None)
 
 class Arcsinh(Function):
     '''
@@ -165,6 +155,7 @@ class Arcsinh(Function):
     def forward(a):
         result = Tensor(np.arcsinh(a.data)) 
         result.set_creator(Arcsinh.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -180,6 +171,7 @@ class Arccosh(Function):
     def forward(a):
         result = Tensor(np.arccosh(a.data)) 
         result.set_creator(Arccosh.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -195,6 +187,7 @@ class Arctanh(Function):
     def forward(a):
         result = Tensor(np.arctanh(a.data)) 
         result.set_creator(Arctanh.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -211,6 +204,7 @@ class Sinc(Function):
         tmp[np.logical_not(mask)] = np.divide(np.sin(a.data[np.logical_not(mask)]), a.data[np.logical_not(mask)]) 
         result = Tensor(tmp) 
         result.set_creator(Sinc.prepare(result.shape, a, mask=mask))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):

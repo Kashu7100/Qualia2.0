@@ -20,6 +20,7 @@ class ReLU(Function):
     def forward(a):
         result = Tensor(np.maximum(0,a.data)) 
         result.set_creator(ReLU.prepare(result.shape, a, mask=(a.data < 0)))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -37,6 +38,7 @@ class BReLU(Function):
     def forward(a):
         result = Tensor(np.minimum(0,a.data)) 
         result.set_creator(BReLU.prepare(result.shape, a, mask=(a.data > 0)))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -45,27 +47,6 @@ class BReLU(Function):
         return result
 
 brelu = BReLU(None)
-
-class CReLU(Function):
-    @staticmethod
-    def forward(a):
-        mask_real = (a.data.real < 0) 
-        tmp_real = a.data.real.copy() 
-        tmp_real[mask_real] = 0
-        mask_imag = (a.data.imag < 0) 
-        tmp_imag = a.data.imag.copy() 
-        tmp_imag[mask_imag] = 0
-        result = Tensor(tmp_real+1j*tmp_imag) 
-        result.set_creator(CReLU.prepare(result.shape, a, mask_real=mask_real, mask_imag=mask_imag))
-        return result
-    
-    def calc_grad(self, dx):
-        dx = dx.copy()
-        dx.real[self.kwargs['mask_real']] = 0
-        dx.imag[self.kwargs['mask_imag']] = 0
-        return dx
-    
-crelu = CReLU(None)
 
 class LeakyReLU(Function):
     '''
@@ -78,6 +59,7 @@ class LeakyReLU(Function):
         tmp[mask] = np.multiply(negative_slope,tmp[mask]) 
         result = Tensor(tmp) 
         result.set_creator(LeakyReLU.prepare(result.shape, a, mask=mask, negative_slope=negative_slope))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -98,6 +80,7 @@ class ELU(Function):
         tmp[mask] = np.multiply(k, (np.exp(tmp[mask])-1)) 
         result = Tensor(tmp) 
         result.set_creator(ELU.prepare(result.shape, a, tmp=tmp, mask=mask, const=k))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -115,6 +98,7 @@ class Sigmoid(Function):
     def forward(a):
         result = Tensor(np.divide(1, np.add(1, np.exp(np.negative(a.data))))) 
         result.set_creator(Sigmoid.prepare(result.shape, a, tmp=result.data))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -131,6 +115,7 @@ class SoftPlus(Function):
     def forward(a):
         result = Tensor(np.log(np.add(1, np.exp(a.data)))) 
         result.set_creator(SoftPlus.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -146,6 +131,7 @@ class SoftSign(Function):
     def forward(a):
         result = Tensor(np.divide(a.data, np.add(1, np.absolute(a.data))))
         result.set_creator(SoftSign.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -165,6 +151,7 @@ class SoftMax(Function):
         exp = np.exp(np.subtract(a.data, const))
         result = Tensor(np.divide(exp, np.sum(exp, axis=1, keepdims=True)))
         result.set_creator(SoftMax.prepare(result.shape, a, tmp=result.data))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -184,6 +171,7 @@ class Tanhshrink(Function):
         tmp = np.tanh(a.data)
         result = Tensor(a.data-tmp) 
         result.set_creator(Tanhshrink.prepare(result.shape, a, tmp=tmp))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -199,6 +187,7 @@ class Gaussian(Function):
     def forward(a):
         result = Tensor(np.exp(-np.square(a.data)))
         result.set_creator(Gaussian.prepare(result.shape, a, tmp=result.data))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):

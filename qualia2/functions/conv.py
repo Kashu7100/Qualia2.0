@@ -35,9 +35,14 @@ class Conv1d(Function):
         if bias is None:
             result = Tensor(np.tensordot(reshaped, kernel.data, ((2,3),(1,2))).transpose(0,2,1))
             result.set_creator(Conv1d.prepare(result.shape, x, kernel, bias=False, reshaped=reshaped, stride=stride, padded_shape=padded.shape, dilation=dilation, ow=ow))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
         else:
             result = Tensor(np.add(np.tensordot(reshaped, kernel.data, ((2,3),(1,2))).transpose(0,2,1), np.reshape(bias.data, (1,-1,1))))
             result.set_creator(Conv1d.prepare(result.shape, x, kernel, bias, bias=True, reshaped=reshaped, stride=stride, padded_shape=padded.shape, dilation=dilation, ow=ow))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result
 
     @staticmethod
@@ -116,9 +121,14 @@ class Conv2d(Function):
         if bias is None: 
             result = Tensor(np.tensordot(reshaped, kernel.data, ((2,3,4),(1,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow)) 
             result.set_creator(Conv2d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, stride=stride, dilation=dilation)) 
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
         else: 
             result = Tensor(np.add(np.tensordot(reshaped, kernel.data, ((2,3,4),(1,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow), np.reshape(bias.data, (1,-1,1,1)))) 
             result.set_creator(Conv2d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, stride=stride, dilation=dilation))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result 
     
     @staticmethod
@@ -201,9 +211,14 @@ class Conv3d(Function):
         if bias is None: 
             result = Tensor(np.tensordot(reshaped, kernel.data, ((2,3,4,5),(1,2,3,4))).transpose(0,2,1).reshape(-1,patch,oh,ow,od)) 
             result.set_creator(Conv3d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, stride=stride, dilation=dilation)) 
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
         else: 
             result = Tensor(np.add(np.tensordot(reshaped, kernel.data, ((2,3,4,5),(1,2,3,4))).transpose(0,2,1).reshape(-1,patch,oh,ow,od), np.reshape(bias.data, (1,-1,1,1,1)))) 
             result.set_creator(Conv3d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, stride=stride, dilation=dilation))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result 
 
     @staticmethod
@@ -290,12 +305,17 @@ class ConvTranspose1d(Function):
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias=False, oh=oh, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
         else:
             tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data, 2, axes=(1,2)), ((2,3),(0,2))).transpose(0,2,1).reshape(-1,patch,oh), np.reshape(bias.data, (1,-1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding))
             out[:,:,output_padding:oh+output_padding] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose1d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result 
 
     def calc_grad(self, dx):
@@ -355,12 +375,17 @@ class ConvTranspose2d(Function):
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1]] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
         else:
             tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data ,2, axes=(2,3)), ((2,3,4),(0,2,3))).transpose(0,2,1).reshape(-1,patch,oh,ow), np.reshape(bias.data, (1,-1,1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1]] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose2d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -423,12 +448,17 @@ class ConvTranspose3d(Function):
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1],output_padding[2]:od+output_padding[2]] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose3d.prepare(result.shape, x, kernel, bias=False, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation)) 
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
         else:
             tmp = np.add(np.tensordot(reshaped, np.rot90(kernel.data.reshape(*kernel.shape[:-2],-1), k=2, axes=(2,3)).reshape(*kernel.shape), ((2,3,4,5),(0,2,3,4))).transpose(0,2,1).reshape(-1,patch,oh,ow,od), np.reshape(bias.data, (1,-1,1,1,1)))
             out = np.zeros((batch, patch, oh+2*output_padding[0], ow+2*output_padding[1], od+2*output_padding[2]))
             out[:,:,output_padding[0]:oh+output_padding[0],output_padding[1]:ow+output_padding[1],output_padding[2]:od+output_padding[2]] = tmp
             result = Tensor(out) 
             result.set_creator(ConvTranspose3d.prepare(result.shape, x, kernel, bias, bias=True, oh=oh, ow=ow, od=od, reshaped=reshaped, padded_shape=padded.shape, output_padding=output_padding, dilation=dilation))
+            x.child.append(id(result.creator))
+            kernel.child.append(id(result.creator))
+            bias.child.append(id(result.creator))
         return result 
 
     def calc_grad(self, dx):

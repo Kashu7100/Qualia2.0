@@ -7,6 +7,7 @@ class Upsample(Function):
     def forward(a, scale_factor=2, mode='nearest'):
         result = Tensor(a.data.repeat(scale_factor, axis=2).repeat(scale_factor, axis=3)) 
         result.set_creator(Upsample.prepare(result.shape, a, scale_factor=scale_factor))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):

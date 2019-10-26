@@ -20,10 +20,20 @@ class RNNCell(Function):
             tmp = np.add(np.dot(h.data, weight_h.data), np.dot(x.data, weight_x.data))
             result = Tensor(np.tanh(tmp))
             result.set_creator(RNNCell.prepare(result.shape, x, h, weight_x, weight_h, bias=False, tmp=result.data))
+            x.child.append(id(result.creator))
+            h.child.append(id(result.creator))
+            weight_x.child.append(id(result.creator))
+            weight_h.child.append(id(result.creator))
         else:
             tmp = np.add(np.add(np.dot(h.data, weight_h.data), bias_x.data), np.add(np.dot(x.data, weight_x.data), bias_h.data))
             result = Tensor(np.tanh(tmp))
             result.set_creator(RNNCell.prepare(result.shape, x, h, weight_x, weight_h, bias_x, bias_h, bias=True, tmp=result.data))
+            x.child.append(id(result.creator))
+            h.child.append(id(result.creator))
+            weight_x.child.append(id(result.creator))
+            weight_h.child.append(id(result.creator))
+            bias_x.child.append(id(result.creator))
+            bias_h.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dh_next):
@@ -42,6 +52,7 @@ class RNNCell(Function):
 
 rnncell = RNNCell(None)
 
+# TODO: optimize backprop
 class RNN(Function):
     @staticmethod
     def forward(x, h, weight_x, weight_h, bias_x, bias_h, num_layers):
@@ -106,8 +117,20 @@ class LSTMCell(Function):
         h_next = Tensor(h_next)
         if bias_x is None or bias_h is None:
             parent = LSTMCell.prepare(h_next.shape, c_next.shape, x, h, c, weight_x, weight_h, bias=False, f=f, g=g, i=i, o=o, c_next=c_next.data, hidden_size=hidden_size)
+            x.child.append(id(parent))
+            h.child.append(id(parent))
+            c.child.append(id(parent))
+            weight_x.child.append(id(parent))
+            weight_h.child.append(id(parent))
         else:
             parent = LSTMCell.prepare(h_next.shape, c_next.shape, x, h, c, weight_x, weight_h, bias_x, bias_h, bias=True, f=f, g=g, i=i, o=o, c_next=c_next.data, hidden_size=hidden_size)
+            x.child.append(id(parent))
+            h.child.append(id(parent))
+            c.child.append(id(parent))
+            weight_x.child.append(id(parent))
+            weight_h.child.append(id(parent))
+            bias_x.child.append(id(parent))
+            bias_h.child.append(id(parent))
         c_next.set_creator(parent)
         h_next.set_creator(parent)
         return h_next, c_next
@@ -143,14 +166,13 @@ class LSTMCell(Function):
             db_h = LSTMCell.handle_broadcast(dtmp, self.var[6])
             return dx, dh, dc, dw_x, dw_h, db_x, db_h
 
+    # TODO: fix backward pass
     def backward(self, dh_next, dc_next=None):
         if dc_next is None:
             dc_next = np.zeros_like(self.kwargs['c_next'])
         grads = self.calc_grad(dh_next, dc_next)
         if type(grads) is list:
             grads = tuple(grads)
-        if type(grads) is not tuple:
-            grads = (grads,)
         for dx, var in zip(grads, self.var):
             if not var.requires_grad:
                 continue
@@ -172,6 +194,7 @@ class LSTMCell(Function):
 
 lstmcell = LSTMCell(None, None)
 
+# TODO: optimize backprop
 class LSTM(Function):
     @staticmethod
     def forward(x, h, c, weight_x, weight_h, bias_x, bias_h, num_layers):
@@ -233,10 +256,20 @@ class GRUCell(Function):
             n = np.tanh(np.add(np.multiply(r, np.dot(h.data, weight_h.data[:, 2*hidden_size:])), np.dot(x.data, weight_x.data[:, 2*hidden_size:])))            
             h_next = Tensor(np.add(np.multiply(np.subtract(1, z), n), np.multiply(z, h.data)))
             h_next.set_creator(GRUCell.prepare(h_next.shape, x, h, weight_x, weight_h, bias=False, r=r, z=z, n=n, tmp=tmp, hidden_size=hidden_size))
+            x.child.append(id(h_next.creator))
+            h.child.append(id(h_next.creator))
+            weight_x.child.append(id(h_next.creator))
+            weight_h.child.append(id(h_next.creator))
         else:
             n = np.tanh(np.add(np.add(np.multiply(r, np.dot(h.data, weight_h.data[:, 2*hidden_size:])), bias_x.data[2*hidden_size:]), np.add(np.dot(x.data, weight_x.data[:, 2*hidden_size:]), bias_h.data[2*hidden_size:])))
             h_next = Tensor(np.add(np.multiply(np.subtract(1, z), n), np.multiply(z, h.data)))
             h_next.set_creator(GRUCell.prepare(h_next.shape, x, h, weight_x, weight_h, bias_x, bias_h, bias=True, r=r, z=z, n=n, tmp=tmp, hidden_size=hidden_size))
+            x.child.append(id(h_next.creator))
+            h.child.append(id(h_next.creator))
+            weight_x.child.append(id(h_next.creator))
+            weight_h.child.append(id(h_next.creator))
+            bias_x.child.append(id(h_next.creator))
+            bias_h.child.append(id(h_next.creator))
         return h_next
 
     def calc_grad(self, dh_next):
@@ -275,6 +308,7 @@ class GRUCell(Function):
 
 grucell = GRUCell(None)
 
+# TODO: optimize backprop
 class GRU(Function):
     @staticmethod
     def forward(x, h, weight_x, weight_h, bias_x, bias_h, num_layers):

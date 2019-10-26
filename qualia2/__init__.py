@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*- 
+import gzip
 from .core import * 
 from .autograd import *
 from .functions import * 
@@ -11,6 +12,24 @@ from .rl import *
 
 pi = np.pi
 e = np.e
+
+def save(state_dict, filename, protocol=-1):
+    '''Saves parameters to qla format.\n 
+    Args: 
+        state_dict (dict): state dict to save
+        filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename 
+        protocol (int): pickle protocol
+    ''' 
+    with gzip.open(filename+'.qla', 'wb') as f:
+        pickle.dump(state_dict, f, protocol)
+
+def load(filename):
+    '''Loads parameters saved in qla format.\n 
+    Args: 
+        filename (str): specify the filename as well as the path to the file without the file extension. (ex) path/to/filename
+    ''' 
+    with gzip.open(filename+'.qla', 'rb') as f:
+        return pickle.load(f)
 
 def seed(seed=None):
     np.random.seed(seed)
@@ -77,6 +96,3 @@ def randint_like(obj, low, high=None, dtype='float64'):
 
 def linspace(start, stop, num=50, endpoint=True, retstep=False, dtype='float64'):
     return Tensor(np.linspace(start, stop, num, endpoint, retstep), dtype=dtype)
-
-def meshgrid(*tensors, **kwargs):
-    return Tensor(np.meshgrid(*[t.data for t in tensors], **kwargs))

@@ -16,6 +16,7 @@ class Exp(Function):
     def forward(a):
         result = Tensor(np.exp(a.data)) 
         result.set_creator(Exp.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -28,6 +29,7 @@ class Log(Function):
     def forward(a):
         result = Tensor(np.log(a.data)) 
         result.set_creator(Log.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -41,6 +43,7 @@ class Log10(Function):
     def forward(a):
         result = Tensor(np.log10(a.data)) 
         result.set_creator(Log10.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -53,6 +56,7 @@ class Sqrt(Function):
     def forward(a):
         result = Tensor(np.sqrt(a.data)) 
         result.set_creator(Sqrt.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -65,6 +69,7 @@ class Cbrt(Function):
     def forward(a):
         result = Tensor(np.cbrt(a.data)) 
         result.set_creator(Cbrt.prepare(result.shape, a))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -77,6 +82,7 @@ class Mean(Function):
     def forward(a, axis=1):
         result = Tensor(np.mean(a.data, axis=axis)) 
         result.set_creator(Mean.prepare(result.shape, a, axis=axis))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -98,6 +104,7 @@ class Sum(Function):
     def forward(a, axis=1):
         result = Tensor(np.sum(a.data, axis=axis)) 
         result.set_creator(Sum.prepare(result.shape, a, axis=axis))
+        a.child.append(id(result.creator))
         return result
 
     def calc_grad(self, dx):
@@ -118,6 +125,7 @@ class Amax(Function):
     def forward(a, axis=1):
         result = Tensor(np.amax(a.data, axis=axis, keepdims=True))
         result.set_creator(Amax.prepare(result.shape, a, axis=axis))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -150,6 +158,7 @@ class Amin(Function):
     def forward(a, axis=1):
         result = Tensor(np.amin(a.data, axis=axis, keepdims=True))
         result.set_creator(Amin.prepare(result.shape, a, axis=axis))
+        a.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -182,6 +191,8 @@ class Maximum(Function):
     def forward(input, other):
         result = Tensor(np.maximum(input.data, other.data))
         result.set_creator(Maximum.prepare(result.shape, input, other, mask1=input.data>other.data, mask2=input.data==other.data))
+        input.child.append(id(result.creator))
+        other.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
@@ -200,6 +211,8 @@ class Minimum(Function):
     def forward(input, other):
         result = Tensor(np.minimum(input.data, other.data))
         result.set_creator(Minimum.prepare(result.shape, input, other, mask1=input.data<other.data, mask2=input.data==other.data))
+        input.child.append(id(result.creator))
+        other.child.append(id(result.creator))
         return result
     
     def calc_grad(self, dx):
