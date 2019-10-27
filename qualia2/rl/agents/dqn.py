@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
-from ..core import ValueAgent
-from ..util import Trainer
+from ..rl_core import ValueAgent
+from ..rl_util import Trainer
 
 class DQN(ValueAgent):
     '''DQN 2013 implementation\n

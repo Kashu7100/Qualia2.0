@@ -20,6 +20,14 @@ qualia2.functions.array module
    :undoc-members:
    :show-inheritance:
 
+qualia2.functions.complex module
+--------------------------------
+
+.. automodule:: qualia2.functions.complex
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 qualia2.functions.conv module
 -----------------------------
 

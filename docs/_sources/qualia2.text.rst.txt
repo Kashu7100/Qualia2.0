@@ -1,0 +1,30 @@
+qualia2.text package
+====================
+
+Submodules
+----------
+
+qualia2.text.cbow module
+------------------------
+
+.. automodule:: qualia2.text.cbow
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.text.text\_util module
+------------------------------
+
+.. automodule:: qualia2.text.text_util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: qualia2.text
+   :members:
+   :undoc-members:
+   :show-inheritance:

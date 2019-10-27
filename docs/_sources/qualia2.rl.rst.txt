@@ -12,14 +12,6 @@ Subpackages
 Submodules
 ----------
 
-qualia2.rl.core module
-----------------------
-
-.. automodule:: qualia2.rl.core
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 qualia2.rl.memory module
 ------------------------
 
@@ -28,10 +20,18 @@ qualia2.rl.memory module
    :undoc-members:
    :show-inheritance:
 
-qualia2.rl.util module
-----------------------
+qualia2.rl.rl\_core module
+--------------------------
 
-.. automodule:: qualia2.rl.util
+.. automodule:: qualia2.rl.rl_core
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.rl.rl\_util module
+--------------------------
+
+.. automodule:: qualia2.rl.rl_util
    :members:
    :undoc-members:
    :show-inheritance:

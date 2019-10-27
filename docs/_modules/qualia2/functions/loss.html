@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
@@ -191,47 +192,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">MSELoss</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
+        <span class="nb">input</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="MSELoss.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.MSELoss.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div></div>
 
 <span class="n">mse_loss</span> <span class="o">=</span> <span class="n">MSELoss</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-
-<div class="viewcode-block" id="CMSELoss"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.CMSELoss">[docs]</a><span class="k">class</span> <span class="nc">CMSELoss</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;MSE Loss for complex neural networks\n</span>
-<span class="sd">    Args:</span>
-<span class="sd">        input (Tensor): output of the network</span>
-<span class="sd">        target (Tensor): label of the dataset</span>
-<span class="sd">        reduce (bool): the losses are averaged or summed over observations for each minibatch depending on size_average. </span>
-<span class="sd">        size_average (bool): the losses are averaged over each loss element in the batch.</span>
-
-<span class="sd">    Model:</span>
-<span class="sd">        l_n = sum((y_n - x_n)^2/2)</span>
-<span class="sd">    </span>
-<span class="sd">    Shape:</span>
-<span class="sd">        - Input: [N, C] </span>
-<span class="sd">        - Target: [N, C] </span>
-<span class="sd">        - Output: [1] by default </span>
-<span class="sd">                  [N] if not reduce</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="CMSELoss.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.CMSELoss.forward">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">reduce</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size_average</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">reduce</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">size_average</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">CMSELoss</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">result</span></div>
-
-<div class="viewcode-block" id="CMSELoss.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.CMSELoss.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div></div>
-
-<span class="n">cmse_loss</span> <span class="o">=</span> <span class="n">CMSELoss</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 
 <div class="viewcode-block" id="HuberLoss"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.HuberLoss">[docs]</a><span class="k">class</span> <span class="nc">HuberLoss</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -265,6 +233,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">HuberLoss</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">))</span>
+        <span class="nb">input</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="HuberLoss.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.HuberLoss.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -303,6 +273,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">BinaryCrossEntropy</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
+        <span class="nb">input</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="BinaryCrossEntropy.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.BinaryCrossEntropy.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -341,6 +313,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">BinaryCrossEntropy</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tmp</span><span class="o">=</span><span class="n">sigmoid</span><span class="p">))</span>
+        <span class="nb">input</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="LogisticBinaryCrossEntropy.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.LogisticBinaryCrossEntropy.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -376,6 +350,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">CrossEntropy</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
+        <span class="nb">input</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="CrossEntropy.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.CrossEntropy.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -416,6 +392,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">SoftmaxCrossEntropy</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tmp</span><span class="o">=</span><span class="n">softmax</span><span class="p">))</span>
+        <span class="nb">input</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="SoftmaxCrossEntropy.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.loss.SoftmaxCrossEntropy.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>

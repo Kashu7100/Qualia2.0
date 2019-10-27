@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. Overview &mdash; Qualia2  documentation</title>
+  <title>qualia2.text package &mdash; Qualia2  documentation</title>
   
 
   
@@ -37,9 +37,7 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2. Installation Guide" href="install.html" />
-    <link rel="prev" title="Qualia2.0 – Dynamic Neural Network" href="index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,11 +82,8 @@
             
             
               <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">1.1. Introduction</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">2. Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/tutorial.html">3. Tutorial</a></li>
 </ul>
@@ -145,13 +140,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>1. Overview</li>
+      <li>qualia2.text package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/overview.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/qualia2.text.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -188,14 +183,64 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="overview">
-<h1>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p align="center">
-  <img src="_images/qualia.png" alt="Qualia Logo"/>
-</p><p>Qualia is a deep learning framework deeply integrated with automatic differentiation and dynamic graphing with CUDA acceleration. Thanks to the define-by-run API, the code written with Qualia enjoys high modularity.</p>
-<div class="section" id="introduction">
-<h2>1.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>David J. Chalmers, an Australian philosopher and cognitive scientist, onece argued that if a system reproduces the functional organization of the brain, it will also reproduce the qualia associated with the brain in the paper “<a class="reference external" href="http://consc.net/papers/qualia.html">Absent Qualia, Fading Qualia, Dancing Qualia</a>.” This library “Qualia” named after the series of arguments in philosophy of mind associated with the qualia, hoping for the creation of a system with subjective consciousness.</p>
+<div class="section" id="qualia2-text-package">
+<h1>qualia2.text package<a class="headerlink" href="#qualia2-text-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-qualia2.text.cbow">
+<span id="qualia2-text-cbow-module"></span><h2>qualia2.text.cbow module<a class="headerlink" href="#module-qualia2.text.cbow" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.text.cbow.CBOW">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.text.cbow.</code><code class="sig-name descname">CBOW</code><span class="sig-paren">(</span><em class="sig-param">vocab_size</em>, <em class="sig-param">embedding_dim=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/text/cbow.html#CBOW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.text.cbow.CBOW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="qualia2.nn.modules.html#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Continuous Bag of Words (CBOW) Model</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>vocab_size (int): vocabulary size
+embedding_dim (int): embedding size</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.text.cbow.CBOW.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">ctx</em>, <em class="sig-param">trg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/text/cbow.html#CBOW.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.text.cbow.CBOW.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.text.text_util">
+<span id="qualia2-text-text-util-module"></span><h2>qualia2.text.text_util module<a class="headerlink" href="#module-qualia2.text.text_util" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="qualia2.text.text_util.analogy">
+<code class="sig-prename descclassname">qualia2.text.text_util.</code><code class="sig-name descname">analogy</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">c</em>, <em class="sig-param">word2idx</em>, <em class="sig-param">wordvec</em>, <em class="sig-param">n=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/text/text_util.html#analogy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.text.text_util.analogy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predicts word relationship like a:b = c:?
+Args:</p>
+<blockquote>
+<div><p>a (str): input string
+b (str): input string
+c (str): input string
+word2idx (dict): word to index map
+wordvec (Embedding): ector representation of words
+n (int): top n similar words to show</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="qualia2.text.text_util.most_similar">
+<code class="sig-prename descclassname">qualia2.text.text_util.</code><code class="sig-name descname">most_similar</code><span class="sig-paren">(</span><em class="sig-param">query</em>, <em class="sig-param">word2idx</em>, <em class="sig-param">wordvecs</em>, <em class="sig-param">n=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/text/text_util.html#most_similar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.text.text_util.most_similar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look up most similar words in the embedding
+Args:</p>
+<blockquote>
+<div><p>query (str): query text
+word2idx (dict): word to index map
+wordvecs (Embedding): vector representation of words
+n (int): top n similar words to show</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.text">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-qualia2.text" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -204,15 +249,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="install.html" class="btn btn-neutral float-right" title="2. Installation Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="Qualia2.0 – Dynamic Neural Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

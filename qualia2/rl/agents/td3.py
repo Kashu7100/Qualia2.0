@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
-from ..core import ActorCriticAgent, np, Tensor
+from ..rl_core import ActorCriticAgent, np, Tensor
 from ...functions import minimum, mse_loss, mean
-from ..util import Trainer, Experience
+from ..rl_util import Trainer, Experience
 import numpy
 
 class TD3(ActorCriticAgent):

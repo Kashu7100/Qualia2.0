@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qualia2.functions.vision &mdash; Qualia2  documentation</title>
+  <title>qualia2.text.cbow &mdash; Qualia2  documentation</title>
   
 
   
@@ -144,7 +144,7 @@
         
           <li><a href="../../qualia2.html">qualia2</a> &raquo;</li>
         
-      <li>qualia2.functions.vision</li>
+      <li>qualia2.text.cbow</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,26 +159,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for qualia2.functions.vision</h1><div class="highlight"><pre>
+  <h1>Source code for qualia2.text.cbow</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*- </span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">..autograd</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..functions</span> <span class="k">import</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">mean</span>
+<span class="kn">from</span> <span class="nn">..nn.modules</span> <span class="k">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Embedding</span>
 
-<div class="viewcode-block" id="Upsample"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.vision.Upsample">[docs]</a><span class="k">class</span> <span class="nc">Upsample</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
-<div class="viewcode-block" id="Upsample.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.vision.Upsample.forward">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span> 
-        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Upsample</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="n">scale_factor</span><span class="p">))</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">result</span></div>
+<div class="viewcode-block" id="CBOW"><a class="viewcode-back" href="../../../qualia2.text.html#qualia2.text.cbow.CBOW">[docs]</a><span class="k">class</span> <span class="nc">CBOW</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Continuous Bag of Words (CBOW) Model\n</span>
+<span class="sd">    Args:</span>
+<span class="sd">        vocab_size (int): vocabulary size</span>
+<span class="sd">        embedding_dim (int): embedding size</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_vec</span> <span class="o">=</span> <span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Upsample.calc_grad"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.vision.Upsample.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
-        <span class="n">batch</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">dx</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">sf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;scale_factor&#39;</span><span class="p">]</span>
-        <span class="n">th</span><span class="p">,</span> <span class="n">tw</span> <span class="o">=</span> <span class="n">height</span><span class="o">//</span><span class="n">sf</span><span class="p">,</span> <span class="n">width</span><span class="o">//</span><span class="n">sf</span>
-        <span class="k">return</span> <span class="n">dx</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="n">dx</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span><span class="n">th</span><span class="p">,</span><span class="n">sf</span><span class="p">,</span><span class="n">tw</span><span class="p">,</span><span class="n">sf</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span></div></div>
-
-<span class="n">upsample</span> <span class="o">=</span> <span class="n">Upsample</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<div class="viewcode-block" id="CBOW.forward"><a class="viewcode-back" href="../../../qualia2.text.html#qualia2.text.cbow.CBOW.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">trg</span><span class="p">):</span>
+        <span class="n">embed</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">word_vec</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">embed</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">trg</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">score</span><span class="p">,</span> <span class="n">trg</span></div></div>
 </pre></div>
 
            </div>

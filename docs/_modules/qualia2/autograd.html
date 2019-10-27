@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
@@ -175,6 +176,7 @@
 <span class="sd">        data (ndarray): Stores data of the Tensor\n</span>
 <span class="sd">        grad (ndarray): Stores gradients of the Tensor\n  </span>
 <span class="sd">        creator (Function): Stores the creator of the Tensor, which will be called at the backpropagation.\n </span>
+<span class="sd">        child (list): temp list of child, which will be created in a forward pass\n</span>
 <span class="sd">        requires_grad (bool): Whether to store grads. If False is set, grad of the Tensor will be zeros.\n</span>
 <span class="sd">        shape (tuple): Stores the shape of Tensor&#39;s data\n </span>
 <span class="sd">        ndim (int): Stores the number of Tensor&#39;s data dimentions  </span>
@@ -183,20 +185,20 @@
 
 <span class="sd">        &gt;&gt;&gt; # The following example will compute the dy/dx</span>
 <span class="sd">        &gt;&gt;&gt; # Create Tensor objects </span>
-<span class="sd">        &gt;&gt;&gt; x = qualia2.array([5])</span>
+<span class="sd">        &gt;&gt;&gt; x = qualia2.array(5)</span>
 <span class="sd">        &gt;&gt;&gt; # Write an equation </span>
 <span class="sd">        &gt;&gt;&gt; y = x**2 - 2*x + 1</span>
 <span class="sd">        &gt;&gt;&gt; print(y)</span>
 <span class="sd">        &gt;&gt;&gt; # Calclate gradiant </span>
 <span class="sd">        &gt;&gt;&gt; y.backward()</span>
-<span class="sd">        &gt;&gt;&gt; # Print gradient </span>
+<span class="sd">        &gt;&gt;&gt; # Print `dy/dx`</span>
 <span class="sd">        &gt;&gt;&gt; print(x.grad)</span>
 <span class="sd">    &#39;&#39;&#39;</span> 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s1">&#39;hook&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> 
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span> 
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="kn">import</span> <span class="nn">numpy</span>
-            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">is</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span> 
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
@@ -205,13 +207,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">creator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="n">requires_grad</span>
     
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{self.data}</span><span class="s1"> shape=</span><span class="si">{self.shape}</span><span class="s1">&#39;</span>
     
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, requires_grad=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">__debug__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, requires_grad=</span><span class="si">{}</span><span class="s1">) at 0x{:0</span><span class="si">{}</span><span class="s1">X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">, requires_grad=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>   
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -233,13 +239,13 @@
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
 
-    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> 
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_const</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Add</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
     
-    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> 
+    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_const</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Add</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Add</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> 
         <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_const</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
@@ -255,7 +261,7 @@
  
     <span class="k">def</span> <span class="nf">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> 
         <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_const</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> 
-        <span class="k">return</span> <span class="n">Mul</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="n">Mul</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>  
      
     <span class="k">def</span> <span class="nf">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Matmul</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> 
@@ -279,15 +285,21 @@
         <span class="k">return</span> <span class="n">Pow</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
      
     <span class="k">def</span> <span class="nf">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> 
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;__rpow__ is not defined.&#39;</span><span class="p">)</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_const</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Pow</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">T</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;transpose of the Tensor </span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (Tensor): transpose of the tensor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Transpose</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">))]))</span>
 
 <div class="viewcode-block" id="Tensor.backward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.backward">[docs]</a>    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;calculates all the gradients in the graph</span>
-
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            *args (ndarray): seed of the reverse accumulation AD; optional</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -300,7 +312,7 @@
 
 <div class="viewcode-block" id="Tensor.set_creator"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.set_creator">[docs]</a>    <span class="k">def</span> <span class="nf">set_creator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;sets the creator of the Tensor</span>
-
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            obj (Function): the function that created the Tensor</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -308,6 +320,9 @@
         
 <div class="viewcode-block" id="Tensor.asnumpy"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.asnumpy">[docs]</a>    <span class="k">def</span> <span class="nf">asnumpy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;aquire Tensor data as numpy ndarray</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (ndarray): numpy array</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">gpu</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
@@ -316,6 +331,9 @@
         
 <div class="viewcode-block" id="Tensor.gradasnumpy"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.gradasnumpy">[docs]</a>    <span class="k">def</span> <span class="nf">gradasnumpy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;aquire Tensor grad as numpy ndarray</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (ndarray): numpy array</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">gpu</span><span class="p">:</span>
@@ -325,7 +343,7 @@
     
 <div class="viewcode-block" id="Tensor.uniform"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.uniform">[docs]</a>    <span class="k">def</span> <span class="nf">uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;initialize the Tensor data with uniform distribution</span>
-
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            low (float): lower limit of the uniform distribution.\n</span>
 <span class="sd">            high (float): upper limit of the uniform distribution.\n</span>
@@ -357,9 +375,9 @@
     
 <div class="viewcode-block" id="Tensor.fill"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;initialize the Tensor data with a constant value</span>
-
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            val (Union[int,float]): a value to fill the Tensor data </span>
+<span class="sd">            val (float|int): a value to fill the Tensor data </span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">creator</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -375,14 +393,20 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span></div>
     
 <div class="viewcode-block" id="Tensor.handle_const"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.handle_const">[docs]</a>    <span class="k">def</span> <span class="nf">handle_const</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;handles the constant object such as int or float</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            obj (Union[Tensor,int,float]): constant</span>
+<span class="sd">           </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (Tensor)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">obj</span></div>
     
 <div class="viewcode-block" id="Tensor.reshape"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.reshape">[docs]</a>    <span class="k">def</span> <span class="nf">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span> 
-        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Reshape</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">result</span></div>
+        <span class="k">return</span> <span class="n">Reshape</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="Tensor.transpose"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Transpose</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div>
@@ -401,23 +425,35 @@
     
 <div class="viewcode-block" id="Tensor.detach"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.detach">[docs]</a>    <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;returns a new Tensor, detached from the current graph.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (Tensor): a new Tensor, detached from the current graph.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="Tensor.clamp"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.clamp">[docs]</a>    <span class="k">def</span> <span class="nf">clamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;clamp the data</span>
+<span class="sd">        </span>
+<span class="sd">        Args: </span>
+<span class="sd">            low (float): lower limit of the data.\n</span>
+<span class="sd">            high (float): upper limit of the data.\n</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (Tensor): clamped Tensor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">Clamp</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="Tensor.register_hook"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Tensor.register_hook">[docs]</a>    <span class="k">def</span> <span class="nf">register_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hook</span> <span class="o">=</span> <span class="n">hook</span></div></div>
 
 <div class="viewcode-block" id="Function"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Function">[docs]</a><span class="k">class</span> <span class="nc">Function</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    All function should inherit this class. </span>
+    <span class="sd">&#39;&#39;&#39;All function should inherit this class. \n</span>
+<span class="sd">    `forward` and `calc_grad` methods should be overwritten.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        output_shape (tuple of int): output shape of a function</span>
-<span class="sd">        var (tuple of Tensor): Tensor(s) that was feeded</span>
-<span class="sd">        kwargs (dict): some useful data for backward calculation</span>
+<span class="sd">        output_shape (tuple(int)): output shape of a function\n</span>
+<span class="sd">        var (tuple(:class:`Tensor`)): Tensor(s) that was feeded\n</span>
+<span class="sd">        kwargs (dict): some useful data for backward calculation\n</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_shape</span> <span class="o">=</span> <span class="n">output_shape</span>
@@ -433,9 +469,13 @@
 
 <div class="viewcode-block" id="Function.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Function.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;calculates forward propagation</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
     
 <div class="viewcode-block" id="Function.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Function.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;calculates gradients for backpropagation</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="Function.handle_broadcast"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Function.handle_broadcast">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -446,7 +486,7 @@
                 <span class="n">arg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">trg</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="n">trg</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="n">trg</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="k">assert</span> <span class="n">trg</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;arg: </span><span class="si">{}</span><span class="s1"> trg: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">trg</span><span class="p">)</span>
                 <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">shape</span><span class="p">))]</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">shape</span><span class="p">)):</span>
                     <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">trg</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
@@ -460,6 +500,8 @@
         <span class="k">return</span> <span class="n">arg</span>    </div>
 
 <div class="viewcode-block" id="Function.backward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Function.backward">[docs]</a>    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;executes backpropagation</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">grads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_grad</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">grads</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">grads</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grads</span><span class="p">)</span>
@@ -469,18 +511,21 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">var</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">dx</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">dx</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">var</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="n">dx</span>
         <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">creator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">var</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span></div></div>
+                <span class="n">var</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">child</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="Slice"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Slice">[docs]</a><span class="k">class</span> <span class="nc">Slice</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
 <div class="viewcode-block" id="Slice.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Slice.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">slice</span><span class="p">])</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Slice</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="nb">slice</span><span class="p">))</span> 
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="Slice.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Slice.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -493,6 +538,7 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">shape</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Reshape</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Reshape.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Reshape.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -503,6 +549,7 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Squeeze</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="Squeeze.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Squeeze.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -513,6 +560,7 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Expand_dims</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="Expand_dims.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Expand_dims.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -523,14 +571,14 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">axes</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Transpose</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Transpose.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Transpose.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]))])</span> </div></div>
     
 <div class="viewcode-block" id="Gather"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Gather">[docs]</a><span class="k">class</span> <span class="nc">Gather</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Gathers values along an axis specified by dim.</span>
+    <span class="sd">&#39;&#39;&#39;Gathers values along an axis specified by dim.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="Gather.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Gather.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
@@ -541,6 +589,7 @@
         <span class="n">gathered</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">choose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">gathered</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Gather</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="n">idx</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="Gather.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Gather.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -570,6 +619,7 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">))</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Clamp</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="Clamp.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Clamp.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -583,6 +633,7 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Neg</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span> 
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
     
 <div class="viewcode-block" id="Neg.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Neg.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -593,6 +644,7 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Abs</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Abs.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Abs.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -602,29 +654,35 @@
     
 <div class="viewcode-block" id="Add"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Add">[docs]</a><span class="k">class</span> <span class="nc">Add</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Adds two arrays elementwise.</span>
+<span class="sd">    Adds arrays elementwise.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="Add.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Add.forward">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
-        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Add</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Add</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
-    
+
 <div class="viewcode-block" id="Add.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Add.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Add</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Add</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div></div>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Add</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">]</span></div></div>
     
 <div class="viewcode-block" id="Sub"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Sub">[docs]</a><span class="k">class</span> <span class="nc">Sub</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Subtracts arguments elementwise.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="Sub.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Sub.forward">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
-        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Sub</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">,</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]))</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Sub</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Sub.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Sub.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Sub</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">Sub</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div></div>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">Sub</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">var</span><span class="p">))</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">]</span>
+        <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
 
 <div class="viewcode-block" id="Mul"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Mul">[docs]</a><span class="k">class</span> <span class="nc">Mul</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -634,6 +692,8 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Mul</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Mul.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Mul.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
@@ -641,16 +701,18 @@
     
 <div class="viewcode-block" id="Pow"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Pow">[docs]</a><span class="k">class</span> <span class="nc">Pow</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Computes x1 ** x2 elementwise.</span>
+<span class="sd">    Computes a ** b elementwise.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="Pow.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Pow.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
-        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Pow</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Pow</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">tmp</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Pow.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Pow.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))),</span> <span class="n">dx</span><span class="p">)),</span> <span class="kc">None</span></div></div>
+        <span class="k">return</span> <span class="n">Pow</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))),</span> <span class="n">dx</span><span class="p">)),</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Pow</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tmp&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">dx</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div></div>
 
 <div class="viewcode-block" id="Div"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Div">[docs]</a><span class="k">class</span> <span class="nc">Div</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -660,16 +722,20 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Div</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Div.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Div.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Div</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">Div</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))))</span></div></div>
+        <span class="k">return</span> <span class="n">Div</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Div</span><span class="o">.</span><span class="n">handle_broadcast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))),</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div></div>
 
 <div class="viewcode-block" id="Matmul"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Matmul">[docs]</a><span class="k">class</span> <span class="nc">Matmul</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
 <div class="viewcode-block" id="Matmul.forward"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Matmul.forward">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">))</span> 
         <span class="n">result</span><span class="o">.</span><span class="n">set_creator</span><span class="p">(</span><span class="n">Matmul</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">creator</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Matmul.calc_grad"><a class="viewcode-back" href="../../qualia2.html#qualia2.autograd.Matmul.calc_grad">[docs]</a>    <span class="k">def</span> <span class="nf">calc_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>

@@ -26,6 +26,8 @@
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -186,23 +188,535 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="qualia2-rl-envs-atari-module">
-<h2>qualia2.rl.envs.atari module<a class="headerlink" href="#qualia2-rl-envs-atari-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.rl.envs.atari">
+<span id="qualia2-rl-envs-atari-module"></span><h2>qualia2.rl.envs.atari module<a class="headerlink" href="#module-qualia2.rl.envs.atari" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.envs.atari.AtariBase">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.atari.</code><code class="sig-name descname">AtariBase</code><span class="sig-paren">(</span><em class="sig-param">env</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#AtariBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.AtariBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.AtariBase.actions">
+<em class="property">property </em><code class="sig-name descname">actions</code><a class="headerlink" href="#qualia2.rl.envs.atari.AtariBase.actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.AtariBase.normalize">
+<em class="property">static </em><code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#AtariBase.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.AtariBase.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.AtariBase.resize">
+<em class="property">static </em><code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">width</em>, <em class="sig-param">height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#AtariBase.resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.AtariBase.resize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.AtariBase.state_to_image">
+<em class="property">static </em><code class="sig-name descname">state_to_image</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#AtariBase.state_to_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.AtariBase.state_to_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.AtariBase.to_gray">
+<em class="property">static </em><code class="sig-name descname">to_gray</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#AtariBase.to_gray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.AtariBase.to_gray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.atari.BreakOut">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.atari.</code><code class="sig-name descname">BreakOut</code><span class="sig-paren">(</span><em class="sig-param">width=84</em>, <em class="sig-param">height=84</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#BreakOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.BreakOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.atari.AtariBase" title="qualia2.rl.envs.atari.AtariBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.atari.AtariBase</span></code></a></p>
+<p>Maximize your score in the Atari 2600 game Breakout.</p>
+<p>Observation:
+Gym Default:</p>
+<blockquote>
+<div><p>Type: Box(210, 160, 3) 
+RGB image</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Transformed:</dt><dd><p>(1, 84, 84)
+BW image</p>
+</dd>
+<dt>Actions:</dt><dd><p>Discrete(4)
+Num     Action
+0       no operation
+1       fire
+2       move right
+3   move left</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.BreakOut.state_transformer">
+<code class="sig-name descname">state_transformer</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#BreakOut.state_transformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.BreakOut.state_transformer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.atari.BreakOutRAM">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.atari.</code><code class="sig-name descname">BreakOutRAM</code><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#BreakOutRAM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.BreakOutRAM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.atari.AtariBase" title="qualia2.rl.envs.atari.AtariBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.atari.AtariBase</span></code></a></p>
+<p>Maximize your score in the Atari 2600 game Breakout.</p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Box(128,)
+the RAM of the Atari machine</p>
+</dd>
+<dt>Actions:</dt><dd><p>Discrete(4)
+Num     Action
+0       no operation
+1       fire
+2       move right
+3   move left</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.atari.Pong">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.atari.</code><code class="sig-name descname">Pong</code><span class="sig-paren">(</span><em class="sig-param">width=84</em>, <em class="sig-param">height=84</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#Pong"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.Pong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.atari.AtariBase" title="qualia2.rl.envs.atari.AtariBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.atari.AtariBase</span></code></a></p>
+<p>Maximize your score in the Atari 2600 game Pong.</p>
+<p>Observation:
+Gym Default:</p>
+<blockquote>
+<div><p>Type: Box(210, 160, 3) 
+RGB image</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Transformed:</dt><dd><p>(1, 84, 84)
+BW image</p>
+</dd>
+<dt>Actions:</dt><dd><p>Discrete(6)
+Num     Action
+0       no operation
+1       fire
+2       move right
+3   move left
+4   RIGHTFIRE
+5   RIGHTFIRE</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.atari.Pong.state_transformer">
+<code class="sig-name descname">state_transformer</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#Pong.state_transformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.Pong.state_transformer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.atari.PongRAM">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.atari.</code><code class="sig-name descname">PongRAM</code><a class="reference internal" href="_modules/qualia2/rl/envs/atari.html#PongRAM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.atari.PongRAM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.atari.AtariBase" title="qualia2.rl.envs.atari.AtariBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.atari.AtariBase</span></code></a></p>
+<p>Pong</p>
+<p>Maximize your score in the Atari 2600 game Pong.</p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Box(128,)
+the RAM of the Atari machine</p>
+</dd>
+<dt>Actions:</dt><dd><p>Discrete(6)
+Num     Action
+0       no operation
+1       fire
+2       move right
+3   move left
+4   RIGHTFIRE
+5   RIGHTFIRE</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-rl-envs-box2d-module">
-<h2>qualia2.rl.envs.box2d module<a class="headerlink" href="#qualia2-rl-envs-box2d-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.rl.envs.box2d">
+<span id="qualia2-rl-envs-box2d-module"></span><h2>qualia2.rl.envs.box2d module<a class="headerlink" href="#module-qualia2.rl.envs.box2d" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.envs.box2d.BipedalWalker">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.box2d.</code><code class="sig-name descname">BipedalWalker</code><a class="reference internal" href="_modules/qualia2/rl/envs/box2d.html#BipedalWalker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.box2d.BipedalWalker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>Get a 2D biped walker to walk through rough terrain.
+Observation:</p>
+<blockquote>
+<div><p>Type: Box(24)
+Num     Observation                 Min         Max     Mean
+0           hull_angle                  0           2*pi        0.5
+1           hull_angularVelocity            -inf        +inf    -
+2           vel_x                           -1      +1      -
+3           vel_y                           -1      +1      -
+4       hip_joint_1_angle               -inf    +inf    -
+5       hip_joint_1_speed               -inf    +inf    -
+6       knee_joint_1_angle              -inf    +inf    -
+7       knee_joint_1_speed              -inf    +inf    -
+8       leg_1_ground_contact_flag       0           1       -
+9       hip_joint_2_angle               -inf    +inf    -
+10      hip_joint_2_speed               -inf    +inf    -
+11      knee_joint_2_angle              -inf    +inf    -
+12      knee_joint_2_speed              -inf    +inf    -
+13          leg_2_ground_contact_flag   0           1       -
+14-23   10 lidar readings               -inf    +inf    -</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Actions:</dt><dd><p>Type: Box(4) - Torque control(default)
+Num     Name                            Min     Max
+0           Hip_1 (Torque / Velocity)   -1          +1
+1           Knee_1 (Torque / Velocity)  -1          +1
+2           Hip_2 (Torque / Velocity)   -1          +1
+3           Knee_2 (Torque / Velocity)  -1          +1</p>
+</dd>
+<dt>Rewards:</dt><dd><p>Reward is given for moving forward, total 300+ points up to the far end. If the robot falls, it gets -100. 
+Applying motor torque costs a small amount of points, more optimal agent will get better score.</p>
+</dd>
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://github.com/openai/gym/wiki/BipedalWalker-v2">https://github.com/openai/gym/wiki/BipedalWalker-v2</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.box2d.BipedalWalkerHardcore">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.box2d.</code><code class="sig-name descname">BipedalWalkerHardcore</code><a class="reference internal" href="_modules/qualia2/rl/envs/box2d.html#BipedalWalkerHardcore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.box2d.BipedalWalkerHardcore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>BipedalWalker</p>
+<p>Get a 2D biped walker to walk through rough terrain.
+Observation:</p>
+<blockquote>
+<div><p>Type: Box(24)
+Num     Observation                 Min         Max     Mean
+0           hull_angle                  0           2*pi        0.5
+1           hull_angularVelocity            -inf        +inf    -
+2           vel_x                           -1      +1      -
+3           vel_y                           -1      +1      -
+4       hip_joint_1_angle               -inf    +inf    -
+5       hip_joint_1_speed               -inf    +inf    -
+6       knee_joint_1_angle              -inf    +inf    -
+7       knee_joint_1_speed              -inf    +inf    -
+8       leg_1_ground_contact_flag       0           1       -
+9       hip_joint_2_angle               -inf    +inf    -
+10      hip_joint_2_speed               -inf    +inf    -
+11      knee_joint_2_angle              -inf    +inf    -
+12      knee_joint_2_speed              -inf    +inf    -
+13          leg_2_ground_contact_flag   0           1       -
+14-23   10 lidar readings               -inf    +inf    -</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Actions:</dt><dd><p>Type: Box(4) - Torque control(default)
+Num     Name                            Min     Max
+0           Hip_1 (Torque / Velocity)   -1          +1
+1           Knee_1 (Torque / Velocity)  -1          +1
+2           Hip_2 (Torque / Velocity)   -1          +1
+3           Knee_2 (Torque / Velocity)  -1          +1</p>
+</dd>
+<dt>Rewards:</dt><dd><p>Reward is given for moving forward, total 300+ points up to the far end. If the robot falls, it gets -100. 
+Applying motor torque costs a small amount of points, more optimal agent will get better score.</p>
+</dd>
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://github.com/openai/gym/wiki/BipedalWalker-v2">https://github.com/openai/gym/wiki/BipedalWalker-v2</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.box2d.CarRacing">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.box2d.</code><code class="sig-name descname">CarRacing</code><a class="reference internal" href="_modules/qualia2/rl/envs/box2d.html#CarRacing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.box2d.CarRacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(96,96,3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.box2d.LunarLander">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.box2d.</code><code class="sig-name descname">LunarLander</code><a class="reference internal" href="_modules/qualia2/rl/envs/box2d.html#LunarLander"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.box2d.LunarLander" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(8)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Discrete(4)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.box2d.LunarLanderContinuous">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.box2d.</code><code class="sig-name descname">LunarLanderContinuous</code><a class="reference internal" href="_modules/qualia2/rl/envs/box2d.html#LunarLanderContinuous"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.box2d.LunarLanderContinuous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(8)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(2)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-rl-envs-classic-control-module">
-<h2>qualia2.rl.envs.classic_control module<a class="headerlink" href="#qualia2-rl-envs-classic-control-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.rl.envs.classic_control">
+<span id="qualia2-rl-envs-classic-control-module"></span><h2>qualia2.rl.envs.classic_control module<a class="headerlink" href="#module-qualia2.rl.envs.classic_control" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.envs.classic_control.Acrobot">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.classic_control.</code><code class="sig-name descname">Acrobot</code><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#Acrobot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.Acrobot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>The acrobot system includes two joints and two links, where the joint between the two links is actuated.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.classic_control.CartPole">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.classic_control.</code><code class="sig-name descname">CartPole</code><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#CartPole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.CartPole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. 
+The pendulum starts upright, and the goal is to prevent it from falling over by increasing and reducing the cart’s velocity.</p>
+<dl class="simple">
+<dt>Observation: </dt><dd><p>Type: Box(4)
+Num     Observation               Min           Max
+0       Cart Position             -4.8          4.8
+1       Cart Velocity             -Inf          Inf
+2       Pole Angle                -24 deg       24 deg
+3       Pole Velocity At Tip      -Inf          Inf</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Discrete(2)
+Num     Action
+0       Push cart to the left
+1       Push cart to the right</p>
+</dd>
+<dt>Reward:</dt><dd><p>0 for each step
+-1 if terminate condition meet before max_steps-5
+1 if terminate condition meet after max_steps-5
+(Note: original reward with the gym environment is not used)</p>
+</dd>
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://github.com/openai/gym/wiki/CartPole-v0">https://github.com/openai/gym/wiki/CartPole-v0</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.classic_control.CartPole.reward_transformer">
+<code class="sig-name descname">reward_transformer</code><span class="sig-paren">(</span><em class="sig-param">reward</em>, <em class="sig-param">done</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#CartPole.reward_transformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.CartPole.reward_transformer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.classic_control.CartPole.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#CartPole.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.CartPole.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.classic_control.MountainCar">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.classic_control.</code><code class="sig-name descname">MountainCar</code><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#MountainCar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.MountainCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>Get an under powered car to the top of a hill (top = 0.5 position)</p>
+<dl class="simple">
+<dt>Observation: </dt><dd><p>Type: Box(2)
+Num     Observation    Min      Max
+0       position          -1.2          0.6
+1       velocity      -0.07     0.07</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Discrete(3)
+Num     Action
+0       push left
+1       no push
+2       push right</p>
+</dd>
+<dt>Reward:</dt><dd><p>-1 for each step</p>
+</dd>
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://github.com/openai/gym/wiki/MountainCar-v0">https://github.com/openai/gym/wiki/MountainCar-v0</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.classic_control.MountainCar.reward_transformer">
+<code class="sig-name descname">reward_transformer</code><span class="sig-paren">(</span><em class="sig-param">reward</em>, <em class="sig-param">done</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#MountainCar.reward_transformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.MountainCar.reward_transformer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.classic_control.MountainCar.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#MountainCar.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.MountainCar.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.classic_control.MountainCarContinuous">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.classic_control.</code><code class="sig-name descname">MountainCarContinuous</code><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#MountainCarContinuous"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.MountainCarContinuous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>MountainCar</p>
+<p>Get an under powered car to the top of a hill (top = 0.5 position)</p>
+<dl class="simple">
+<dt>Observation: </dt><dd><p>Type: Box(2)
+Num     Observation    Min      Max
+0       position          -1.2          0.6
+1       velocity      -0.07     0.07</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(1)
+Num     Action
+0       Push car to the left (negative value) or to the right (positive value)</p>
+</dd>
+<dt>Reward:</dt><dd><p>Reward is 100 for reaching the target of the hill on the right hand side, minus the squared sum of actions from start to goal.</p>
+</dd>
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://github.com/openai/gym/wiki/MountainCarContinuous-v0">https://github.com/openai/gym/wiki/MountainCarContinuous-v0</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.classic_control.MountainCarContinuous.reward_transformer">
+<code class="sig-name descname">reward_transformer</code><span class="sig-paren">(</span><em class="sig-param">reward</em>, <em class="sig-param">done</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#MountainCarContinuous.reward_transformer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.MountainCarContinuous.reward_transformer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.rl.envs.classic_control.MountainCarContinuous.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">action</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#MountainCarContinuous.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.MountainCarContinuous.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.classic_control.Pendulum">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.classic_control.</code><code class="sig-name descname">Pendulum</code><a class="reference internal" href="_modules/qualia2/rl/envs/classic_control.html#Pendulum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.classic_control.Pendulum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>Try to keep a frictionless pendulum standing up.</p>
+<dl class="simple">
+<dt>Observation: </dt><dd><p>Type: Box(3)
+Num     Observation               Min           Max
+0       cos(theta)               -1.0           1.0
+1       sin(theta)               -1.0           1.0
+2       theta dot                -8.0           8.0</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(1)
+Num     Action                    Min           Max
+0       Joint effort             -2.0           2.0</p>
+</dd>
+<dt>Reward:</dt><dd><p>The precise equation for reward: -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
+Theta is normalized between -pi and pi. Therefore, the lowest cost is -(pi^2 + 0.1*8^2 + 0.001*2^2) = -16.2736044, and the highest cost is 0. 
+In essence, the goal is to remain at zero angle (vertical), with the least rotational velocity, and the least effort.</p>
+</dd>
+<dt>Starting State:</dt><dd><p>Random angle from -pi to pi, and random velocity between -1 and 1</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-rl-envs-roboschool-module">
-<h2>qualia2.rl.envs.roboschool module<a class="headerlink" href="#qualia2-rl-envs-roboschool-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.rl.envs.roboschool">
+<span id="qualia2-rl-envs-roboschool-module"></span><h2>qualia2.rl.envs.roboschool module<a class="headerlink" href="#module-qualia2.rl.envs.roboschool" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.envs.roboschool.RoboSchoolBase">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.roboschool.</code><code class="sig-name descname">RoboSchoolBase</code><span class="sig-paren">(</span><em class="sig-param">env</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboSchoolBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboSchoolBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<dl class="method">
+<dt id="qualia2.rl.envs.roboschool.RoboSchoolBase.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboSchoolBase.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboSchoolBase.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.roboschool.RoboschoolAnt">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.roboschool.</code><code class="sig-name descname">RoboschoolAnt</code><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboschoolAnt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboschoolAnt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.roboschool.RoboSchoolBase" title="qualia2.rl.envs.roboschool.RoboSchoolBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.roboschool.RoboSchoolBase</span></code></a></p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(28,)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(8,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.roboschool.RoboschoolHalfCheetah">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.roboschool.</code><code class="sig-name descname">RoboschoolHalfCheetah</code><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboschoolHalfCheetah"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboschoolHalfCheetah" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.roboschool.RoboSchoolBase" title="qualia2.rl.envs.roboschool.RoboSchoolBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.roboschool.RoboSchoolBase</span></code></a></p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(26,)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(6,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.roboschool.RoboschoolHopper">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.roboschool.</code><code class="sig-name descname">RoboschoolHopper</code><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboschoolHopper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboschoolHopper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.roboschool.RoboSchoolBase" title="qualia2.rl.envs.roboschool.RoboSchoolBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.roboschool.RoboSchoolBase</span></code></a></p>
+<p>RoboschoolHumanoid</p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(15,)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(3,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.roboschool.RoboschoolHumanoid">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.roboschool.</code><code class="sig-name descname">RoboschoolHumanoid</code><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboschoolHumanoid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboschoolHumanoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.roboschool.RoboSchoolBase" title="qualia2.rl.envs.roboschool.RoboSchoolBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.roboschool.RoboSchoolBase</span></code></a></p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(44,)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(17,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.roboschool.RoboschoolWalker2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.roboschool.</code><code class="sig-name descname">RoboschoolWalker2d</code><a class="reference internal" href="_modules/qualia2/rl/envs/roboschool.html#RoboschoolWalker2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.roboschool.RoboschoolWalker2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.rl.envs.roboschool.RoboSchoolBase" title="qualia2.rl.envs.roboschool.RoboSchoolBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.envs.roboschool.RoboSchoolBase</span></code></a></p>
+<p>RoboschoolHumanoid</p>
+<dl class="simple">
+<dt>Observation:</dt><dd><p>Type: Box(22,)</p>
+</dd>
+<dt>Actions:</dt><dd><p>Type: Box(6,)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-rl-envs-toy-text-module">
-<h2>qualia2.rl.envs.toy_text module<a class="headerlink" href="#qualia2-rl-envs-toy-text-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.rl.envs.toy_text">
+<span id="qualia2-rl-envs-toy-text-module"></span><h2>qualia2.rl.envs.toy_text module<a class="headerlink" href="#module-qualia2.rl.envs.toy_text" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.rl.envs.toy_text.FrozenLake">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.toy_text.</code><code class="sig-name descname">FrozenLake</code><a class="reference internal" href="_modules/qualia2/rl/envs/toy_text.html#FrozenLake"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.toy_text.FrozenLake" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>The agent controls the movement of a character in a grid world. 
+Some tiles of the grid are walkable, and others lead to the agent falling into the water. 
+Additionally, the movement direction of the agent is uncertain and only partially depends on the chosen direction. 
+The agent is rewarded for finding a walkable path to a goal tile.</p>
+<blockquote>
+<div><p>SFFF       (S: starting point, safe)
+FHFH       (F: frozen surface, safe)
+FFFH       (H: hole, fall to your doom)
+HFFG       (G: goal, where the frisbee is located)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://gym.openai.com/envs/FrozenLake-v0/">https://gym.openai.com/envs/FrozenLake-v0/</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.toy_text.FrozenLake.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/toy_text.html#FrozenLake.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.toy_text.FrozenLake.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.rl.envs.toy_text.FrozenLake8x8">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.rl.envs.toy_text.</code><code class="sig-name descname">FrozenLake8x8</code><a class="reference internal" href="_modules/qualia2/rl/envs/toy_text.html#FrozenLake8x8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.toy_text.FrozenLake8x8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.rl.core.Env</span></code></p>
+<p>The agent controls the movement of a character in a grid world. 
+Some tiles of the grid are walkable, and others lead to the agent falling into the water. 
+Additionally, the movement direction of the agent is uncertain and only partially depends on the chosen direction. 
+The agent is rewarded for finding a walkable path to a goal tile.</p>
+<blockquote>
+<div><p>SFFF       (S: starting point, safe)
+FHFH       (F: frozen surface, safe)
+FFFH       (H: hole, fall to your doom)
+HFFG       (G: goal, where the frisbee is located)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://gym.openai.com/envs/FrozenLake8x8-v0/">https://gym.openai.com/envs/FrozenLake8x8-v0/</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.rl.envs.toy_text.FrozenLake8x8.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/rl/envs/toy_text.html#FrozenLake8x8.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.rl.envs.toy_text.FrozenLake8x8.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.rl.envs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-qualia2.rl.envs" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

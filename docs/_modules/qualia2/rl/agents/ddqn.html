@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
@@ -160,8 +161,8 @@
             
   <h1>Source code for qualia2.rl.agents.ddqn</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*- </span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">ValueAgent</span><span class="p">,</span> <span class="n">np</span>
-<span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">..rl_core</span> <span class="k">import</span> <span class="n">ValueAgent</span><span class="p">,</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">..rl_util</span> <span class="k">import</span> <span class="n">Trainer</span>
 
 <div class="viewcode-block" id="DDQN"><a class="viewcode-back" href="../../../../qualia2.rl.agents.html#qualia2.rl.agents.ddqn.DDQN">[docs]</a><span class="k">class</span> <span class="nc">DDQN</span><span class="p">(</span><span class="n">ValueAgent</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;DQN 2015 implementation\n</span>

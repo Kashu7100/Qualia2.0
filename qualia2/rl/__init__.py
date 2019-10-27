@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
-from .core import *
+from .rl_core import *
 from .memory import *
-from .util import *
+from .rl_util import *
 from .agents import *
 from .envs import *

@@ -23,20 +23,20 @@ class Tensor(object):
 
         >>> # The following example will compute the dy/dx
         >>> # Create Tensor objects 
-        >>> x = qualia2.array([5])
+        >>> x = qualia2.array(5)
         >>> # Write an equation 
         >>> y = x**2 - 2*x + 1
         >>> print(y)
         >>> # Calclate gradiant 
         >>> y.backward()
-        >>> # Print gradient 
+        >>> # Print `dy/dx`
         >>> print(x.grad)
     ''' 
     def __init__(self, data, requires_grad=True, dtype='float64'):
         super().__setattr__('hook', None) 
-        if type(data) is not np.ndarray: 
+        if not isinstance(data, np.ndarray):
             import numpy
-            if type(data) is list or type(data) is numpy.ndarray:
+            if isinstance(data, list) or isinstance(data, numpy.ndarray):
                 self.data = np.array(data).astype(dtype)
             else: 
                 self.data = np.array([data], dtype=dtype)
@@ -52,7 +52,10 @@ class Tensor(object):
         return f'{self.data} shape={self.shape}'
     
     def __repr__(self):
-        return '{}({}, requires_grad={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.data, self.requires_grad, id(self), 16)
+        if __debug__:
+            return '{}({}, requires_grad={}) at 0x{:0{}X}'.format(self.__class__.__name__, self.data, self.requires_grad, id(self), 16)
+        else:
+            return '{}({}, requires_grad={})'.format(self.__class__.__name__, self.data, self.requires_grad)
 
     def __setattr__(self, key, value):   
         super().__setattr__(key, value)
@@ -80,7 +83,7 @@ class Tensor(object):
     
     def __radd__(self, other):
         other = self.handle_const(other)
-        return Add.forward(self, other)
+        return Add.forward(other, self)
 
     def __sub__(self, other): 
         other = self.handle_const(other)
@@ -96,7 +99,7 @@ class Tensor(object):
  
     def __rmul__(self, other): 
         other = self.handle_const(other) 
-        return Mul.forward(self, other)  
+        return Mul.forward(other, self)  
      
     def __matmul__(self, other):
         return Matmul.forward(self, other) 
@@ -346,7 +349,7 @@ class Function(object):
             if not var.requires_grad:
                 continue
             if var.grad is None:
-                var.grad = dx
+                var.grad = dx.copy()
             else:
                 var.grad += dx
         for var in self.var:

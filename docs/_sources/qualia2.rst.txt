@@ -8,9 +8,9 @@ Subpackages
 
    qualia2.data
    qualia2.functions
-   qualia2.nlp
    qualia2.nn
    qualia2.rl
+   qualia2.text
    qualia2.vision
 
 Submodules

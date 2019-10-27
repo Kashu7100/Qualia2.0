@@ -26,6 +26,8 @@
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -186,35 +188,1145 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="qualia2-nn-modules-activation-module">
-<h2>qualia2.nn.modules.activation module<a class="headerlink" href="#qualia2-nn-modules-activation-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.activation">
+<span id="qualia2-nn-modules-activation-module"></span><h2>qualia2.nn.modules.activation module<a class="headerlink" href="#module-qualia2.nn.modules.activation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.ELU">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">ELU</code><span class="sig-paren">(</span><em class="sig-param">alpha=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#ELU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.ELU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.ELU.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#ELU.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.ELU.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.Flatten">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">Flatten</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.Flatten.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Flatten.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Flatten.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.Identity">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">Identity</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Identity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.Identity.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Identity.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Identity.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.LeakyReLU">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">LeakyReLU</code><span class="sig-paren">(</span><em class="sig-param">negative_slope=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#LeakyReLU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.LeakyReLU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.LeakyReLU.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#LeakyReLU.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.LeakyReLU.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.ReLU">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">ReLU</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#ReLU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.ReLU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.ReLU.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#ReLU.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.ReLU.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.Sigmoid">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">Sigmoid</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Sigmoid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Sigmoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.Sigmoid.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Sigmoid.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Sigmoid.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.SoftMax">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">SoftMax</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#SoftMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.SoftMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.SoftMax.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#SoftMax.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.SoftMax.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.SoftPuls">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">SoftPuls</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#SoftPuls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.SoftPuls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.SoftPuls.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#SoftPuls.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.SoftPuls.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.SoftSign">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">SoftSign</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#SoftSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.SoftSign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.SoftSign.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#SoftSign.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.SoftSign.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.activation.Tanh">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.activation.</code><code class="sig-name descname">Tanh</code><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Tanh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Tanh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<dl class="method">
+<dt id="qualia2.nn.modules.activation.Tanh.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/activation.html#Tanh.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.activation.Tanh.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-nn-modules-conv-module">
-<h2>qualia2.nn.modules.conv module<a class="headerlink" href="#qualia2-nn-modules-conv-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.conv">
+<span id="qualia2-nn-modules-conv-module"></span><h2>qualia2.nn.modules.conv module<a class="headerlink" href="#module-qualia2.nn.modules.conv" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.conv.Conv1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.conv.</code><code class="sig-name descname">Conv1d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#Conv1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.Conv1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>‘Applies a 1D convolution over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>in_channels (int): Number of channels in the input image 
+out_channels (int): Number of channels produced by the convolution 
+kernel_size (int): Size of the convolving kernel 
+stride (int): Stride of the convolution. Default: 1 
+padding (int):  Zero-padding added to both sides of the input. Default: 0 
+dilation (int): Spacing between kernel elements. Default: 1 
+bias (bool):  adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, in_channels, W]</p></li>
+<li><p>Output: [N, out_channels, W_out]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.conv.Conv1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#Conv1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.Conv1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.conv.Conv2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.conv.</code><code class="sig-name descname">Conv2d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#Conv2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.Conv2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 2D convolution over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args: </dt><dd><p>in_channels (int): Number of channels in the input image 
+out_channels (int): Number of channels produced by the convolution 
+kernel_size (tuple of int): Size of the convolving kernel 
+stride (tuple of int): Stride of the convolution. Default: 1 
+padding (tuple of int):  Zero-padding added to both sides of the input. Default: 0 
+dilation (tuple of int): Spacing between kernel elements. Default: 1 
+bias (bool): adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, in_channels, H, W]</p></li>
+<li><p>Output: [N, out_channels, H_out, W_out]</p></li>
+</ul>
+<p>H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0]+1 
+W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1]+1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.conv.Conv2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#Conv2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.Conv2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.conv.Conv3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.conv.</code><code class="sig-name descname">Conv3d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#Conv3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.Conv3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 3D convolution over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>in_channels (int): Number of channels in the input image 
+out_channels (int): Number of channels produced by the convolution 
+kernel_size (tuple of int): Size of the convolving kernel 
+stride (tuple of int): Stride of the convolution. Default: 1 
+padding (tuple of int):  Zero-padding added to both sides of the input. Default: 0 
+dilation (tuple of int): Spacing between kernel elements. Default: 1 
+bias (bool):  adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, in_channels, D, H, W]</p></li>
+<li><p>Output: [N, out_channels, D_out, H_out, W_out]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.conv.Conv3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#Conv3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.Conv3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.conv.ConvTranspose1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.conv.</code><code class="sig-name descname">ConvTranspose1d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">output_padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#ConvTranspose1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.ConvTranspose1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 1D transposed convolution over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>in_channels (int): Number of channels in the input image 
+out_channels (int): Number of channels produced by the convolution 
+kernel_size (tuple of int): Size of the convolving kernel 
+stride (tuple of int): Stride of the convolution. Default: 1 
+padding (tuple of int):  Zero-padding added to both sides of the input. Default: 1 
+output_padding (tuple of int): Zero-padding added to both sides of the output. Default: 0
+dilation (tuple of int): Spacing between kernel elements. Default: 1 
+bias (bool):  adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, in_channels, W]</p></li>
+<li><p>Output: [N, out_channels, W_out]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.conv.ConvTranspose1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#ConvTranspose1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.ConvTranspose1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.conv.ConvTranspose2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.conv.</code><code class="sig-name descname">ConvTranspose2d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">output_padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#ConvTranspose2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.ConvTranspose2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 2D transposed convolution over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args: </dt><dd><p>in_channels (int): Number of channels in the input image 
+out_channels (int): Number of channels produced by the convolution 
+kernel_size (tuple of int): Size of the convolving kernel 
+stride (tuple of int): Stride of the convolution. Default: 1 
+padding (tuple of int):  Zero-padding added to both sides of the input. Default: 1 
+output_padding (tuple of int): Zero-padding added to both sides of the output. Default: 0
+dilation (tuple of int): Spacing between kernel elements. Default: 1 
+bias (bool):  adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, in_channels, H, W]</p></li>
+<li><p>Output: [N, out_channels, H_out, W_out]</p></li>
+</ul>
+<p>H_out = (H-1)*stride[0]-2*padding[0]+dilation[0]*(kernel_size[0]-1)+1+output_padding[0]
+W_out = (W-1)*stride[1]-2*padding[1]+dilation[1]*(kernel_size[1]-1)+1+output_padding[1]</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.conv.ConvTranspose2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#ConvTranspose2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.ConvTranspose2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.conv.ConvTranspose3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.conv.</code><code class="sig-name descname">ConvTranspose3d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=1</em>, <em class="sig-param">output_padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#ConvTranspose3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.ConvTranspose3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 3D transposed convolution over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>in_channels (int): Number of channels in the input image 
+out_channels (int): Number of channels produced by the convolution 
+kernel_size (tuple of int): Size of the convolving kernel 
+stride (tuple of int): Stride of the convolution. Default: 1 
+padding (tuple of int):  Zero-padding added to both sides of the input. Default: 1 
+output_padding (tuple of int): Zero-padding added to both sides of the output. Default: 0
+dilation (tuple of int): Spacing between kernel elements. Default: 1 
+bias (bool):  adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, in_channels, D, H, W]</p></li>
+<li><p>Output: [N, out_channels, D_out, H_out, W_out]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.conv.ConvTranspose3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/conv.html#ConvTranspose3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.conv.ConvTranspose3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-nn-modules-dropout-module">
-<h2>qualia2.nn.modules.dropout module<a class="headerlink" href="#qualia2-nn-modules-dropout-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.dropout">
+<span id="qualia2-nn-modules-dropout-module"></span><h2>qualia2.nn.modules.dropout module<a class="headerlink" href="#module-qualia2.nn.modules.dropout" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.dropout.Dropout">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.dropout.</code><code class="sig-name descname">Dropout</code><span class="sig-paren">(</span><em class="sig-param">p=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/dropout.html#Dropout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.dropout.Dropout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>During training, randomly zeroes some of the elements of the input tensor with probability p using samples from a Bernoulli distribution. 
+Each channel will be zeroed out independently on every forward call.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>p (float): probability of an element to be zeroed. Default: 0.5</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: Any</p></li>
+<li><p>Output: same as input</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.dropout.Dropout.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/dropout.html#Dropout.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.dropout.Dropout.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-nn-modules-linear-module">
-<h2>qualia2.nn.modules.linear module<a class="headerlink" href="#qualia2-nn-modules-linear-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.linear">
+<span id="qualia2-nn-modules-linear-module"></span><h2>qualia2.nn.modules.linear module<a class="headerlink" href="#module-qualia2.nn.modules.linear" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.linear.Bilinear">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.linear.</code><code class="sig-name descname">Bilinear</code><span class="sig-paren">(</span><em class="sig-param">in_features1</em>, <em class="sig-param">in_features2</em>, <em class="sig-param">out_features</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#Bilinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.Bilinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a bilinear transformation to the incoming data</p>
+<dl class="simple">
+<dt>Model: </dt><dd><p>y = x1*w*x2 + b</p>
+</dd>
+<dt>Args: </dt><dd><p>in_features1 (int): size of each input sample 
+in_features2 (int): size of each second input sample 
+out_features (int): size of each output sample 
+bias (bool): whether to use bias. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input1: [N, <a href="#id1"><span class="problematic" id="id2">*</span></a>, in_features1] where ‘∗’ means any number of additional dimensions.</p></li>
+<li><p>Input2: [N, <a href="#id3"><span class="problematic" id="id4">*</span></a>, in_features2] where ‘∗’ means any number of additional dimensions.</p></li>
+<li><p>Output: [N, <a href="#id5"><span class="problematic" id="id6">*</span></a>, out_features] where ‘∗’ means any number of additional dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.linear.Bilinear.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x1</em>, <em class="sig-param">x2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#Bilinear.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.Bilinear.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.linear.CLinear">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.linear.</code><code class="sig-name descname">CLinear</code><span class="sig-paren">(</span><em class="sig-param">in_features</em>, <em class="sig-param">out_features</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#CLinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.CLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a complex linear transformation to the incoming data</p>
+<dl class="simple">
+<dt>Model: </dt><dd><p>y = x*w.T + b</p>
+</dd>
+<dt>Args: </dt><dd><p>in_features (int): size of each input sample 
+out_features (int): size of each output sample 
+bias (bool): whether to use bias. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, <a href="#id7"><span class="problematic" id="id8">*</span></a>, in_features] where ‘∗’ means any number of additional dimensions.</p></li>
+<li><p>Output: [N, <a href="#id9"><span class="problematic" id="id10">*</span></a>, out_features] where ‘∗’ means any number of additional dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.linear.CLinear.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#CLinear.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.CLinear.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.linear.Linear">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.linear.</code><code class="sig-name descname">Linear</code><span class="sig-paren">(</span><em class="sig-param">in_features</em>, <em class="sig-param">out_features</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#Linear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.Linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a linear transformation to the incoming data</p>
+<dl class="simple">
+<dt>Model: </dt><dd><p>y = x*w.T + b</p>
+</dd>
+<dt>Args: </dt><dd><p>in_features (int): size of each input sample 
+out_features (int): size of each output sample 
+bias (bool): whether to use bias. Default: True</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, <a href="#id11"><span class="problematic" id="id12">*</span></a>, in_features] where ‘∗’ means any number of additional dimensions.</p></li>
+<li><p>Output: [N, <a href="#id13"><span class="problematic" id="id14">*</span></a>, out_features] where ‘∗’ means any number of additional dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.linear.Linear.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#Linear.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.Linear.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.linear.NoisyLinear">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.linear.</code><code class="sig-name descname">NoisyLinear</code><span class="sig-paren">(</span><em class="sig-param">in_features</em>, <em class="sig-param">out_features</em>, <em class="sig-param">std_init=0.4</em>, <em class="sig-param">factorised_noise=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#NoisyLinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.NoisyLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a linear transformation with parametric noise added to its weights</p>
+<dl class="simple">
+<dt>Model:</dt><dd><p>y = (w+sig_w*eps_w)*x+(b+sig_b*eps_b)</p>
+</dd>
+<dt>Args:</dt><dd><p>in_features (int): size of each input sample 
+out_features (int): size of each output sample 
+std_init (float): std for initializing weights
+factorised_noise (bool):</p>
+</dd>
+<dt>Shape: </dt><dd><ul class="simple">
+<li><p>Input: [N, <a href="#id15"><span class="problematic" id="id16">*</span></a>, in_features] where ‘∗’ means any number of additional dimensions.</p></li>
+<li><p>Output: [N, <a href="#id17"><span class="problematic" id="id18">*</span></a>, out_features] where ‘∗’ means any number of additional dimensions.</p></li>
+</ul>
+</dd>
+<dt>Reference:</dt><dd><p><a class="reference external" href="https://arxiv.org/abs/1706.10295">https://arxiv.org/abs/1706.10295</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.linear.NoisyLinear.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">inp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#NoisyLinear.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.NoisyLinear.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.linear.NoisyLinear.reset_params">
+<code class="sig-name descname">reset_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#NoisyLinear.reset_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.NoisyLinear.reset_params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.linear.NoisyLinear.sample_noise">
+<code class="sig-name descname">sample_noise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/linear.html#NoisyLinear.sample_noise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.linear.NoisyLinear.sample_noise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-nn-modules-module-module">
-<h2>qualia2.nn.modules.module module<a class="headerlink" href="#qualia2-nn-modules-module-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.module">
+<span id="qualia2-nn-modules-module-module"></span><h2>qualia2.nn.modules.module module<a class="headerlink" href="#module-qualia2.nn.modules.module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.module.Module">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.module.</code><code class="sig-name descname">Module</code><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for all neural network modules in qualia.</p>
+<p>Module can incoporate Modules, allowing to nest them in a tree structure.  
+Note that a user-defined model must have super().__init__() in the __init__ of the model.</p>
+<dl>
+<dt>Examples::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># define a module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">maxpool2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">maxpool2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
 </div>
-<div class="section" id="qualia2-nn-modules-normalize-module">
-<h2>qualia2.nn.modules.normalize module<a class="headerlink" href="#qualia2-nn-modules-normalize-module" title="Permalink to this headline">¶</a></h2>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.add_module">
+<code class="sig-name descname">add_module</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">module</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.add_module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.add_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.apply">
+<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">version=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads parameters saved in HDF5 format to the Module.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>filename (str): specify the filename as well as the path to the file with the file extension. (ex) path/to/filename.qla 
+version (int): version for the way of saving.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.load_state_dict">
+<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param">state_dict</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.load_state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.load_state_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies parameters from the state_dict into this module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.load_state_dict_from_url">
+<code class="sig-name descname">load_state_dict_from_url</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">version=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.load_state_dict_from_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.load_state_dict_from_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads and copies parameters from the state_dict at the url into this module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.modules">
+<code class="sig-name descname">modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.modules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.modules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.params">
+<code class="sig-name descname">params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">dtype='float16'</em>, <em class="sig-param">protocol=-1</em>, <em class="sig-param">version=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves internal parameters of the Module.</p>
+<dl class="simple">
+<dt>Args: </dt><dd><p>filename (str): specify the filename as well as the saving path without the file extension. (ex) path/to/filename 
+dtype (str): data type to save
+protocol (int): pickle protocol
+version (int): version for the way of saving. version 1 takes less disk space.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><em class="sig-param">dtype='float64'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary containing a whole state of the module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Module.zero_grad">
+<code class="sig-name descname">zero_grad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Module.zero_grad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Module.zero_grad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.module.Sequential">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.module.</code><code class="sig-name descname">Sequential</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Sequential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Sequential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>A sequential container.n 
+Modules will be added to it in the order they are passed in the constructor.</p>
+<dl>
+<dt>Examples:: </dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># model can be defiened by adding Modules </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># name for each layers can also be specified </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">relu1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">relu2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span> 
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span> 
+</pre></div>
 </div>
-<div class="section" id="qualia2-nn-modules-pool-module">
-<h2>qualia2.nn.modules.pool module<a class="headerlink" href="#qualia2-nn-modules-pool-module" title="Permalink to this headline">¶</a></h2>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Sequential.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param">*arg</em>, <em class="sig-param">**kwarg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Sequential.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Sequential.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.nn.modules.module.Sequential.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/module.html#Sequential.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.module.Sequential.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-nn-modules-recurrent-module">
-<h2>qualia2.nn.modules.recurrent module<a class="headerlink" href="#qualia2-nn-modules-recurrent-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.normalize">
+<span id="qualia2-nn-modules-normalize-module"></span><h2>qualia2.nn.modules.normalize module<a class="headerlink" href="#module-qualia2.nn.modules.normalize" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.normalize.BatchNorm1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.normalize.</code><code class="sig-name descname">BatchNorm1d</code><span class="sig-paren">(</span><em class="sig-param">num_features</em>, <em class="sig-param">eps=1e-05</em>, <em class="sig-param">momentum=0.1</em>, <em class="sig-param">track_running_stats=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/normalize.html#BatchNorm1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.normalize.BatchNorm1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies Batch Normalization over a 2D or 3D input.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num_features (int): C from an expected input of size [N,C] or [N,C,L]
+eps (float): a value added to the denominator for numerical stability. Default: 1e-5
+momentum (float): the value used for the running_mean and running_std computation. Default:0.1
+track_running_stats (bool): if True, this module tracks the running mean and std, else this module always uses batch statistics in both training and eval modes.</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C] or [N,C,L]</p></li>
+<li><p>Output: same as input</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.normalize.BatchNorm1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/normalize.html#BatchNorm1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.normalize.BatchNorm1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.normalize.BatchNorm2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.normalize.</code><code class="sig-name descname">BatchNorm2d</code><span class="sig-paren">(</span><em class="sig-param">num_features</em>, <em class="sig-param">eps=1e-05</em>, <em class="sig-param">momentum=0.1</em>, <em class="sig-param">track_running_stats=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/normalize.html#BatchNorm2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.normalize.BatchNorm2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies Batch Normalization over a 4D input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num_features (int): C from an expected input of size [N,C,H,W]
+eps (float): a value added to the denominator for numerical stability. Default: 1e-5
+momentum (float): the value used for the running_mean and running_std computation. Default:0.1
+track_running_stats (bool): if True, this module tracks the running mean and std, else this module always uses batch statistics in both training and eval modes.</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W]</p></li>
+<li><p>Output: same as input</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.normalize.BatchNorm2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/normalize.html#BatchNorm2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.normalize.BatchNorm2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.normalize.BatchNorm3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.normalize.</code><code class="sig-name descname">BatchNorm3d</code><span class="sig-paren">(</span><em class="sig-param">num_features</em>, <em class="sig-param">eps=1e-05</em>, <em class="sig-param">momentum=0.1</em>, <em class="sig-param">track_running_stats=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/normalize.html#BatchNorm3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.normalize.BatchNorm3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies Batch Normalization over a 5D input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num_features (int): C from an expected input of size [N,C,D,H,W]
+eps (float): a value added to the denominator for numerical stability. Default: 1e-5
+momentum (float): the value used for the running_mean and running_std computation. Default:0.1
+track_running_stats (bool): if True, this module tracks the running mean and std, else this module always uses batch statistics in both training and eval modes.</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,D,H,W]</p></li>
+<li><p>Output: same as input</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.normalize.BatchNorm3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/normalize.html#BatchNorm3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.normalize.BatchNorm3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="qualia2-nn-modules-sparse-module">
-<h2>qualia2.nn.modules.sparse module<a class="headerlink" href="#qualia2-nn-modules-sparse-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.pool">
+<span id="qualia2-nn-modules-pool-module"></span><h2>qualia2.nn.modules.pool module<a class="headerlink" href="#module-qualia2.nn.modules.pool" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.AvgPool1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">AvgPool1d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=2</em>, <em class="sig-param">stride=2</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#AvgPool1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.AvgPool1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 1D average pooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (int): the size of the window to take a max over
+stride (int): the stride of the window. Default value is kernel_size
+padding (int): implicit zero padding to be added on all three sides
+dilation (int): a parameter that controls the stride of elements in the window</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,W]</p></li>
+<li><p>Output: [N,C,W_out]</p></li>
+</ul>
+<p>W_out = (W+2*padding-dilation*(kernel_size-1)-1)/stride + 1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.AvgPool1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#AvgPool1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.AvgPool1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.AvgPool2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">AvgPool2d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=(2</em>, <em class="sig-param">2)</em>, <em class="sig-param">stride=(2</em>, <em class="sig-param">2)</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#AvgPool2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.AvgPool2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 2D average pooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (tuple of int): the size of the window to take a max over
+stride (tuple of int): the stride of the window. Default value is kernel_size
+padding (tuple of int): implicit zero padding to be added on all three sides
+dilation (tuple of int): a parameter that controls the stride of elements in the window</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W]</p></li>
+<li><p>Output: [N,C,H_out,W_out]</p></li>
+</ul>
+<p>H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1
+W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.AvgPool2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#AvgPool2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.AvgPool2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.AvgPool3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">AvgPool3d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=(2</em>, <em class="sig-param">2</em>, <em class="sig-param">2)</em>, <em class="sig-param">stride=(2</em>, <em class="sig-param">2</em>, <em class="sig-param">2)</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#AvgPool3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.AvgPool3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 3D average pooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (tuple of int): the size of the window to take a max over
+stride (tuple of int): the stride of the window. Default value is kernel_size
+padding (tuple of int): implicit zero padding to be added on all three sides
+dilation (tuple of int): a parameter that controls the stride of elements in the window</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W,D]</p></li>
+<li><p>Output: [N,C,H_out,W_out,D_out]</p></li>
+</ul>
+<p>H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1
+W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1
+D_out = (D+2*padding[2]-dilation[2]*(kernel_size[2]-1)-1)/stride[2] + 1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.AvgPool3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#AvgPool3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.AvgPool3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.GlobalAvgPool1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">GlobalAvgPool1d</code><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#GlobalAvgPool1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.GlobalAvgPool1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 1D globl average pooling over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,W]</p></li>
+<li><p>Output: [N,C,1]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.GlobalAvgPool1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#GlobalAvgPool1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.GlobalAvgPool1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.GlobalAvgPool2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">GlobalAvgPool2d</code><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#GlobalAvgPool2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.GlobalAvgPool2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 2D globl average pooling over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W]</p></li>
+<li><p>Output: [N,C,1,1]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.GlobalAvgPool2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#GlobalAvgPool2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.GlobalAvgPool2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.GlobalAvgPool3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">GlobalAvgPool3d</code><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#GlobalAvgPool3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.GlobalAvgPool3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 3D globl average pooling over an input signal composed of several input planes.</p>
+<dl class="simple">
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W,D]</p></li>
+<li><p>Output: [N,C,1,1,1]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.GlobalAvgPool3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#GlobalAvgPool3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.GlobalAvgPool3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.MaxPool1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">MaxPool1d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=2</em>, <em class="sig-param">stride=2</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">return_indices=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxPool1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxPool1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 1D max pooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (int): the size of the window to take a max over
+stride (int): the stride of the window. Default value is kernel_size
+padding (int): implicit zero padding to be added on all three sides
+dilation (int): a parameter that controls the stride of elements in the window
+return_indices (bool): if True, will return the max indices along with the outputs.</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,W]</p></li>
+<li><p>Output: [N,C,W_out]</p></li>
+</ul>
+<p>W_out = (W+2*padding-dilation*(kernel_size-1)-1)/stride + 1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.MaxPool1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxPool1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxPool1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.MaxPool2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">MaxPool2d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=(2</em>, <em class="sig-param">2)</em>, <em class="sig-param">stride=(2</em>, <em class="sig-param">2)</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">return_indices=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxPool2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxPool2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 2D max pooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (tuple of int): the size of the window to take a max over
+stride (tuple of int): the stride of the window. Default value is kernel_size
+padding (tuple of int): implicit zero padding to be added on all three sides
+dilation (tuple of int): a parameter that controls the stride of elements in the window
+return_indices (bool): if True, will return the max indices along with the outputs.</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W]</p></li>
+<li><p>Output: [N,C,H_out,W_out]</p></li>
+</ul>
+<p>H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1
+W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.MaxPool2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxPool2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxPool2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.MaxPool3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">MaxPool3d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=(2</em>, <em class="sig-param">2</em>, <em class="sig-param">2)</em>, <em class="sig-param">stride=(2</em>, <em class="sig-param">2</em>, <em class="sig-param">2)</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">return_indices=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxPool3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxPool3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 3D max pooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (tuple of int): the size of the window to take a max over
+stride (tuple of int): the stride of the window. Default value is kernel_size
+padding (tuple of int): implicit zero padding to be added on all three sides
+dilation (tuple of int): a parameter that controls the stride of elements in the window
+return_indices (bool): if True, will return the max indices along with the outputs.</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W,D]</p></li>
+<li><p>Output: [N,C,H_out,W_out,D_out]</p></li>
+</ul>
+<p>H_out = (H+2*padding[0]-dilation[0]*(kernel_size[0]-1)-1)/stride[0] + 1
+W_out = (W+2*padding[1]-dilation[1]*(kernel_size[1]-1)-1)/stride[1] + 1
+D_out = (D+2*padding[2]-dilation[2]*(kernel_size[2]-1)-1)/stride[2] + 1</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.MaxPool3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxPool3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxPool3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.MaxUnpool1d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">MaxUnpool1d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=2</em>, <em class="sig-param">stride=2</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxUnpool1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxUnpool1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 1D max unpooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (int): the size of the window to take a max over
+stride (int): the stride of the window. Default value is kernel_size
+padding (int): implicit zero padding to be added on all three sides
+dilation (int): a parameter that controls the stride of elements in the window</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,W]</p></li>
+<li><p>Output: [N,C,W_out]</p></li>
+</ul>
+<p>W_out = (W-1)*stride+dilation*(kernel_size-1)+1-2*padding</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.MaxUnpool1d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxUnpool1d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxUnpool1d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.MaxUnpool2d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">MaxUnpool2d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=(2</em>, <em class="sig-param">2)</em>, <em class="sig-param">stride=(2</em>, <em class="sig-param">2)</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxUnpool2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxUnpool2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 2D max unpooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (tuple of int): the size of the window to take a max over
+stride (tuple of int): the stride of the window. Default value is kernel_size
+padding (tuple of int): implicit zero padding to be added on all three sides
+dilation (tuple of int): a parameter that controls the stride of elements in the window</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N,C,H,W]</p></li>
+<li><p>Output: [N,C,H_out,W_out]</p></li>
+</ul>
+<p>H_out = (H-1)*stride[0]+dilation[0]*(kernel_size[0]-1)+1-2*padding[0]
+W_out = (W-1)*stride[1]+dilation[1]*(kernel_size[1]-1)+1-2*padding[1]</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.MaxUnpool2d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxUnpool2d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxUnpool2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.pool.MaxUnpool3d">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.pool.</code><code class="sig-name descname">MaxUnpool3d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size=(2</em>, <em class="sig-param">2</em>, <em class="sig-param">2)</em>, <em class="sig-param">stride=(2</em>, <em class="sig-param">2</em>, <em class="sig-param">2)</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxUnpool3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxUnpool3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a 3D max unpooling over an input signal composed of several input planes.</p>
+<dl>
+<dt>Args:</dt><dd><p>kernel_size (tuple of int): the size of the window to take a max over
+stride (tuple of int): the stride of the window. Default value is kernel_size
+padding (tuple of int): implicit zero padding to be added on all three sides
+dilation (tuple of int): a parameter that controls the stride of elements in the window</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: Input: [N,C,H,W,D]</p></li>
+<li><p>Output: [N,C,H_out,W_out,D_out]</p></li>
+</ul>
+<p>H_out = (H-1)*stride[0]+dilation[0]*(kernel_size[0]-1)+1-2*padding[0]
+W_out = (W-1)*stride[1]+dilation[1]*(kernel_size[1]-1)+1-2*padding[1]
+D_out = (D-1)*stride[2]+dilation[2]*(kernel_size[2]-1)+1-2*padding[2]</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.pool.MaxUnpool3d.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/pool.html#MaxUnpool3d.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.pool.MaxUnpool3d.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-qualia2.nn.modules.recurrent">
+<span id="qualia2-nn-modules-recurrent-module"></span><h2>qualia2.nn.modules.recurrent module<a class="headerlink" href="#module-qualia2.nn.modules.recurrent" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.recurrent.GRU">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.recurrent.</code><code class="sig-name descname">GRU</code><span class="sig-paren">(</span><em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">num_layers</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#GRU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.GRU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a multi-layer gated recurrent unit (GRU) RNN to an input sequence.
+Args:</p>
+<blockquote>
+<div><p>input_size (int): The number of expected features in the input
+hidden_size (int): The number of features in the hidden state
+num_layers (int): Number of recurrent layers.
+bias (bool):adds a learnable bias to the output. Default: True</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [seq_len, N, input_size]</p></li>
+<li><p>Hidden: [num_layers, N, hidden_size]</p></li>
+<li><p>Output: [seq_len, N, hidden_size]</p></li>
+<li><p>Hidden: [num_layers, N, hidden_size]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.recurrent.GRU.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">h0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#GRU.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.GRU.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.recurrent.GRUCell">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.recurrent.</code><code class="sig-name descname">GRUCell</code><span class="sig-paren">(</span><em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#GRUCell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.GRUCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>A gated recurrent unit</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input_size (int): The number of expected features in the input
+hidden_size (int): The number of features in the hidden state
+bias (bool):adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N, input_size]</p></li>
+<li><p>Hidden: [N, hidden_size]</p></li>
+<li><p>Output: [N, hidden_size]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.recurrent.GRUCell.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">h</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#GRUCell.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.GRUCell.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.recurrent.LSTM">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.recurrent.</code><code class="sig-name descname">LSTM</code><span class="sig-paren">(</span><em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">num_layers</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#LSTM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.LSTM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Long Short Term Memoty</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input_size (int): The number of expected features in the input
+hidden_size (int): The number of features in the hidden state
+num_layers (int): Number of recurrent layers.
+bias (bool):adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [seq_len, N, input_size]</p></li>
+<li><p>Hidden_h: [num_layers, N, hidden_size]</p></li>
+<li><p>Hidden_c: [num_layers, N, hidden_size]</p></li>
+<li><p>Output: [seq_len, N, hidden_size]</p></li>
+<li><p>Hidden_h: [num_layers, N, hidden_size]</p></li>
+<li><p>Hidden_c: [num_layers, N, hidden_size]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.recurrent.LSTM.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">h0</em>, <em class="sig-param">c0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#LSTM.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.LSTM.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.recurrent.LSTMCell">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.recurrent.</code><code class="sig-name descname">LSTMCell</code><span class="sig-paren">(</span><em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#LSTMCell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.LSTMCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>A Long Short Term Memoty cell</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input_size (int): The number of expected features in the input
+hidden_size (int): The number of features in the hidden state
+bias (bool):adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N, input_size]</p></li>
+<li><p>Hidden_h: [N, hidden_size]</p></li>
+<li><p>Hidden_c: [N, hidden_size]</p></li>
+<li><p>Output_h: [N, hidden_size]</p></li>
+<li><p>Output_c: [N, hidden_size]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.recurrent.LSTMCell.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">h</em>, <em class="sig-param">c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#LSTMCell.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.LSTMCell.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.recurrent.RNN">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.recurrent.</code><code class="sig-name descname">RNN</code><span class="sig-paren">(</span><em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">num_layers</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#RNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.RNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>Applies a multi-layer Elman RNN with tanh
+Args:</p>
+<blockquote>
+<div><p>input_size (int): The number of expected features in the input
+hidden_size (int): The number of features in the hidden state
+num_layers (int): Number of recurrent layers.
+bias (bool):adds a learnable bias to the output. Default: True</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [seq_len, N, input_size]</p></li>
+<li><p>Hidden: [num_layers, N, hidden_size]</p></li>
+<li><p>Output: [seq_len, N, hidden_size]</p></li>
+<li><p>Hidden: [num_layers, N, hidden_size]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.recurrent.RNN.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">h0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#RNN.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.RNN.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.nn.modules.recurrent.RNNCell">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.recurrent.</code><code class="sig-name descname">RNNCell</code><span class="sig-paren">(</span><em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#RNNCell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.RNNCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>An Elman RNN cell with tanh</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input_size (int): The number of expected features in the input
+hidden_size (int): The number of features in the hidden state
+bias (bool):adds a learnable bias to the output. Default: True</p>
+</dd>
+<dt>Shape:</dt><dd><ul class="simple">
+<li><p>Input: [N, input_size]</p></li>
+<li><p>Hidden: [N, hidden_size]</p></li>
+<li><p>Output: [N, hidden_size]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="qualia2.nn.modules.recurrent.RNNCell.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">h</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/recurrent.html#RNNCell.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.recurrent.RNNCell.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.nn.modules.sparse">
+<span id="qualia2-nn-modules-sparse-module"></span><h2>qualia2.nn.modules.sparse module<a class="headerlink" href="#module-qualia2.nn.modules.sparse" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.nn.modules.sparse.Embedding">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.nn.modules.sparse.</code><code class="sig-name descname">Embedding</code><span class="sig-paren">(</span><em class="sig-param">num_embeddings</em>, <em class="sig-param">embedding_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/sparse.html#Embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.sparse.Embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.nn.modules.module.Module" title="qualia2.nn.modules.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.nn.modules.module.Module</span></code></a></p>
+<p>A simple lookup table that stores embeddings of a fixed dictionary and size.
+Args:</p>
+<blockquote>
+<div><p>num_embeddings (int): size of the dictionary of embeddings
+embedding_dim (int): the size of each embedding vector</p>
+</div></blockquote>
+<dl class="method">
+<dt id="qualia2.nn.modules.sparse.Embedding.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/nn/modules/sparse.html#Embedding.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.nn.modules.sparse.Embedding.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-qualia2.nn.modules">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-qualia2.nn.modules" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

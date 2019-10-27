@@ -17,16 +17,18 @@ def numerical_grad(fn, tensor, *args, **kwargs):
     h2 = fn(tensor - delta, *args, **kwargs)
     return np.divide(np.subtract(h1.data, h2.data), 2*delta)
 
-def check_function(fn, *args, domain=(-1e3,1e3), **kwargs):
-    arr = np.random.random_sample((100,100))
-    x = Tensor(domain[0]*arr+domain[1]*(1-arr))
+def check_function(fn, *args, x=None, domain=(-1e3,1e3), **kwargs):
+    if x is None:
+        arr = np.random.random_sample((100,100))
+        x = Tensor((domain[1]-domain[0])*arr+domain[0])
     out = fn(x, *args, **kwargs)
     out.backward()
     a_grad = x.grad
     n_grad = numerical_grad(fn, x, *args, **kwargs)
     sse = np.sum(np.power(np.subtract(a_grad, n_grad),2))
-    logger.info('[*] measured error: ', sse)
+    logger.info('[*] measured error: {}'.format(sse))
     assert sse < 1e-10
+    return a_grad, n_grad
 
 def _single(x):
     assert type(x) is int
@@ -127,8 +129,8 @@ class Trainer(object):
                 optim.zero_grad()
                 loss.backward()
                 optim.step()
-                progressbar(i, len(dataloader), 'epoch: {}/{} train loss:{:.4f} '.format(epoch+1, epochs, to_cpu(loss.data) if gpu else loss.data), '(time: {})'.format(str(timedelta(seconds=time.time()-start))))
-                tmp_loss.append(to_cpu(loss.data) if gpu else loss.data)
+                progressbar(i, len(dataloader), 'epoch: {}/{} train loss:{:.4f} '.format(epoch+1, epochs, loss.asnumpy()), '(time: {})'.format(str(timedelta(seconds=time.time()-start))))
+                tmp_loss.append(loss.asnumpy())
             self.after_episode(epoch+1, model, tmp_loss)
 
     def after_episode(self, epoch, model, loss):
