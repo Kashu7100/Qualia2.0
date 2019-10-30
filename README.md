@@ -30,7 +30,7 @@ The main components of Qualia2.0 is listed below:
 
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
 * [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2, 10.0, and 10.1. 
-* [Python 3.6](https://www.python.org/)
+* [Python 3.6 +](https://www.python.org/)
 
 >   *Note: Qualia2.0 is also available for CPU use*
 
