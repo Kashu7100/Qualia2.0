@@ -27,8 +27,7 @@ def check_function(fn, *args, x=None, domain=(-1e3,1e3), **kwargs):
     n_grad = numerical_grad(fn, x, *args, **kwargs)
     sse = np.sum(np.power(np.subtract(a_grad, n_grad),2))
     logger.info('[*] measured error: {}'.format(sse))
-    assert sse < 1e-10
-    return a_grad, n_grad
+    return (a_grad, n_grad), sse
 
 def _single(x):
     assert type(x) is int

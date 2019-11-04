@@ -1,61 +1,63 @@
 # -*- coding: utf-8 -*- 
 from .. import to_cpu
 from ..core import *
-from ..autograd import Tensor
-from .dataloader import *
+from .dataset import *
+from .transforms import Compose, ToTensor, Normalize
 import matplotlib.pyplot as plt
 import tarfile
 import pickle
 import random
 
-class CIFAR10(ImageLoader):
+class CIFAR10(Dataset):
     '''CIFAR10 Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
         flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False 
 
     Shape: 
-        - data: [N, 3, 32, 32] if flatten [N, 3*32*32]
+        - data: [N, 3, 32, 32]
     '''
-    def __init__(self, normalize=True, flatten=False):
-        super().__init__() 
-        self.download()
-        self.train_data = np.empty((50000,3*32*32))
-        self.train_label = np.empty((50000,10))
-        for i in range(5):
-            self.train_data[i*10000:(i+1)*10000] = self._load_data(home_dir + '/data/download/cifar10/cifar-10.tar.gz', i+1, 'train')
-            self.train_label[i*10000:(i+1)*10000] = CIFAR10.to_one_hot(self._load_label(home_dir + '/data/download/cifar10/cifar-10.tar.gz', i+1, 'train'), 10)
+    def __init__(self, train=True, 
+                transforms=Compose([ToTensor(), Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])]), 
+                target_transforms=None):
+        super().__init__(train, transforms, target_transforms)
+    
+    def __len__(self):
+        if self.train:
+            return 50000
+        else:
+            return 10000
 
-        self.test_data = self._load_data(home_dir + '/data/download/cifar10/cifar-10.tar.gz', i+1, 'test')
-        self.test_label = CIFAR10.to_one_hot(self._load_label(home_dir + '/data/download/cifar10/cifar-10.tar.gz', i+1, 'test'), 10)
-        print('[*] done.')
-
-        if normalize: 
-            self.train_data = np.divide(self.train_data, 255.0)
-            self.test_data = np.divide(self.test_data, 255.0)
-        if not flatten:
-            self.train_data = self.train_data.reshape(-1,3,32,32) 
-            self.test_data = self.test_data.reshape(-1,3,32,32) 
-
-    @property
-    def label_dict(self):
+    def state_dict(self):
         return {
-            0: 'airplane', 
-            1: 'automobile', 
-            2: 'bird', 
-            3: 'cat', 
-            4: 'deer', 
-            5: 'dog', 
-            6: 'frog', 
-            7: 'horse', 
-            8: 'ship', 
-            9: 'truck'
+            'label_map':{
+                0: 'airplane', 
+                1: 'automobile', 
+                2: 'bird', 
+                3: 'cat', 
+                4: 'deer', 
+                5: 'dog', 
+                6: 'frog', 
+                7: 'horse', 
+                8: 'ship', 
+                9: 'truck'
+            }
         }
 
-    def download(self): 
+    def prepare(self): 
         url = 'https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz' 
-        super().download(url, 'cifar-10.tar.gz')
-    
+        self._download(url, 'cifar-10.tar.gz')
+        if self.train:
+            self.data = np.empty((50000,3*32*32))
+            self.label = np.empty((50000,10))
+            for i in range(5):
+                self.data[i*10000:(i+1)*10000] = self._load_data(self.root+'/cifar-10.tar.gz', i+1, 'train')
+                self.label[i*10000:(i+1)*10000] = CIFAR10.to_one_hot(self._load_label(self.root+'/cifar-10.tar.gz', i+1, 'train'), 10)
+        else:
+            self.data = self._load_data(self.root+'/cifar-10.tar.gz', i+1, 'test')
+            self.label = CIFAR10.to_one_hot(self._load_label(self.root+'/cifar-10.tar.gz', i+1, 'test'), 10)
+        self.data = self.train_data.reshape(-1,3,32,32)
+
     def _load_data(self, filename, idx, data_type='train'):
         assert data_type in ['train', 'test']
         with tarfile.open(filename, 'r:gz') as file:
@@ -77,52 +79,43 @@ class CIFAR10(ImageLoader):
                     data_dict = pickle.load(file.extractfile(item), encoding='bytes')
                     return np.array(data_dict[b'labels'])
 
-    def show(self, label=None):
-        for i in range(10):
-            for j in range(10):
-                plt.subplot(10,10,i+j*10+1)
-                plt.xticks([]) 
-                plt.yticks([]) 
-                plt.grid(False)
-                if label is None:
-                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(3,32,32).transpose(1,2,0)
-                else:
-                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(3,32,32).transpose(1,2,0)
-                plt.imshow(to_cpu(img) if gpu else img, interpolation='nearest') 
-        plt.show()        
+    def show(self, row=10, col=10):
+        H, W = 32, 32
+        img = np.zeros((H*row, W*col, 3))
+        for r in range(row):
+            for c in range(col):
+                img[r*H:(r+1)*H, c*W:(c+1)*W] = self.data[random.randint(0, len(self.data)-1)].reshape(3,H,W).transpose(1,2,0)/255
+        plt.imshow(to_cpu(img) if gpu else img, interpolation='nearest') 
+        plt.axis('off')
+        plt.show()  
 
-class CIFAR100(ImageLoader):
+class CIFAR100(Dataset):
     '''CIFAR100 Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
         flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False 
         label_type (str): "fine" label (the class to which it belongs) or "coarse" label (the superclass to which it belongs)
     Shape: 
-        - data: [N, 3, 32, 32] if flatten [N, 3*32*32]
+        - data: [N, 3, 32, 32]
     '''
-    def __init__(self, normalize=True, flatten=False, label_type='coarse'):
-        super().__init__()         
+    def __init__(self, train=True, 
+                transforms=Compose([ToTensor(), Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])]), 
+                target_transforms=None, 
+                label_type='fine'):
         assert label_type in ['fine', 'coarse']
-        self.label_type = label_type
-        self.download()        
-        self.train_data = self._load_data(home_dir + '/data/download/cifar100/cifar-100.tar.gz', 'train')
-        self.train_label = CIFAR100.to_one_hot(self._load_label(home_dir + '/data/download/cifar100/cifar-100.tar.gz', 'train'), 100)
-
-        self.test_data = self._load_data(home_dir + '/data/download/cifar100/cifar-100.tar.gz', 'test')
-        self.test_label = CIFAR100.to_one_hot(self._load_label(home_dir + '/data/download/cifar100/cifar-100.tar.gz', 'test'), 100)
-        print('[*] done.')
-
-        if normalize: 
-            self.train_data = np.divide(self.train_data, 255.0)
-            self.test_data = np.divide(self.test_data, 255.0)
-        if not flatten:
-            self.train_data = self.train_data.reshape(-1,3,32,32) 
-            self.test_data = self.test_data.reshape(-1,3,32,32) 
+        self.label_type = label_type   
+        super().__init__(train, transforms, target_transforms)  
     
-    @property
-    def label_dict(self):
+    def __len__(self):
+        if self.train:
+            return 50000
+        else:
+            return 10000
+            
+    def state_dict(self):
         if self.label_type == 'fine':
-            return dict(enumerate([
+            return {
+            'label_map':dict(enumerate([
                 'apple',
                 'aquarium_fish',
                 'baby',
@@ -222,10 +215,11 @@ class CIFAR100(ImageLoader):
                 'willow_tree',
                 'wolf',
                 'woman',
-                'worm',
-            ]))
+                'worm']))
+            }
         elif self.label_type == 'coarse':
-            return dict(enumerate([
+            return {
+            'label_map':dict(enumerate([
                 'aquatic mammals',
                 'fish',
                 'flowers',
@@ -245,12 +239,19 @@ class CIFAR100(ImageLoader):
                 'small mammals',
                 'trees',
                 'vehicles 1',
-                'vehicles 2',
-            ]))
+                'vehicles 2']))
+            }
             
-    def download(self): 
+    def prepare(self): 
         url = 'https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz' 
-        super().download(url, 'cifar-100.tar.gz')
+        self._download(url, 'cifar-100.tar.gz')
+        if self.train:
+            self.data = self._load_data(self.root+'/cifar-100.tar.gz', 'train')
+            self.label = CIFAR100.to_one_hot(self._load_label(self.root+'/cifar-100.tar.gz', 'train'), 100 if self.label_type=='fine' else 20)
+        else:
+            self.data = self._load_data(self.root+'/cifar-100.tar.gz', 'test')
+            self.label = CIFAR100.to_one_hot(self._load_label(self.root+'/cifar-100.tar.gz', 'test'), 100 if self.label_type=='fine' else 20)
+        self.data = self.data.reshape(-1,3,32,32) 
         
     def _load_data(self, filename, data_type='train'):
         assert data_type in ['train', 'test']
@@ -276,15 +277,12 @@ class CIFAR100(ImageLoader):
                     elif self.label_type == 'coarse':
                         return np.array(data_dict[b'coarse_labels'])
 
-    def show(self, label=None):
-        for i in range(len(self.label_dict)):
-            plt.subplot(len(self.label_dict)//10,10,i+1)
-            plt.xticks([]) 
-            plt.yticks([]) 
-            plt.grid(False)
-            if label is None:
-                img = self.train_data[(self.train_label[:,i]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(3,32,32).transpose(1,2,0)
-            else:
-                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, self.train_data.shape[0]//len(self.label_dict)-1)].reshape(3,32,32).transpose(1,2,0)
-            plt.imshow(to_cpu(img) if gpu else img, interpolation='nearest') 
-        plt.show()
+    def show(self, row=10, col=10):
+        H, W = 32, 32
+        img = np.zeros((H*row, W*col, 3))
+        for r in range(row):
+            for c in range(col):
+                img[r*H:(r+1)*H, c*W:(c+1)*W] = self.data[random.randint(0, len(self.data)-1)].reshape(3,H,W).transpose(1,2,0)/255
+        plt.imshow(to_cpu(img) if gpu else img, interpolation='nearest') 
+        plt.axis('off')
+        plt.show() 

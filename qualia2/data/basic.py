@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*- 
 from .. import to_cpu
 from ..core import *
-from ..autograd import Tensor
-from .dataloader import *
+from .dataset import *
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-class Spiral(DataLoader):
+class Spiral(Dataset):
     '''Spiral Dataset\n
     Args:
         num_class (int): number of classes
@@ -20,27 +19,28 @@ class Spiral(DataLoader):
         super().__init__()
         self.num_class = num_class
         self.num_data = num_data
-        self.train_data = np.zeros((num_data*num_class, 2))
-        self.train_label = np.zeros((num_data*num_class, num_class))
+        self.data = np.zeros((num_data*num_class, 2))
+        self.label = np.zeros((num_data*num_class, num_class))
 
         for c in range(num_class):
             for i in range(num_data):
                 rate = i / num_data
                 radius = 1.0*rate
                 theta = c*4.0 + 4.0*rate + np.random.randn()*0.2
-                self.train_data[num_data*c+i,0] = radius*np.sin(theta)
-                self.train_data[num_data*c+i,1] = radius*np.cos(theta)
-                self.train_label[num_data*c+i,c] = 1
+                self.data[num_data*c+i,0] = radius*np.sin(theta)
+                self.data[num_data*c+i,1] = radius*np.cos(theta)
+                self.label[num_data*c+i,c] = 1
 
     def show(self, label=None):
         fig, ax = plt.subplots()
         for c in range(self.num_class):
             if gpu:
-                ax.scatter(to_cpu(self.train_data[(self.train_label[:,c]>0)][:,0]),to_cpu(self.train_data[(self.train_label[:,c]>0)][:,1]))
+                ax.scatter(to_cpu(self.data[(self.label[:,c]>0)][:,0]),to_cpu(self.data[(self.label[:,c]>0)][:,1]))
             else:
-                ax.scatter(self.train_data[(self.train_label[:,c]>0)][:,0],self.train_data[(self.train_label[:,c]>0)][:,1])
+                ax.scatter(self.data[(self.label[:,c]>0)][:,0],self.data[(self.label[:,c]>0)][:,1])
         plt.xlim(-1,1)
         plt.ylim(-1,1)
+        plt.axis('off')
         plt.show()
     
     def show_decision_boundary(self, model):
@@ -51,16 +51,17 @@ class Spiral(DataLoader):
         if gpu:
             plt.contourf(to_cpu(x), to_cpu(y), to_cpu(pred.reshape(x.shape)))
             for c in range(self.num_class):
-                plt.scatter(to_cpu(self.train_data[(self.train_label[:,c]>0)][:,0]),to_cpu(self.train_data[(self.train_label[:,c]>0)][:,1]))
+                plt.scatter(to_cpu(self.data[(self.label[:,c]>0)][:,0]),to_cpu(self.data[(self.label[:,c]>0)][:,1]))
         else:
             plt.contourf(x, y, pred.reshape(x.shape))
             for c in range(self.num_class):
-                plt.scatter(self.train_data[(self.train_label[:,c]>0)][:,0],self.train_data[(self.train_label[:,c]>0)][:,1])
+                plt.scatter(self.data[(self.label[:,c]>0)][:,0],self.data[(self.label[:,c]>0)][:,1])
         plt.xlim(-1,1)
         plt.ylim(-1,1)
+        plt.axis('off')
         plt.show()
 
-class SwissRoll(DataLoader):
+class SwissRoll(Dataset):
     '''Swiss roll dataset\n
     Args:
         num_class (int): number of classes
@@ -74,31 +75,31 @@ class SwissRoll(DataLoader):
         assert num_data % num_class == 0
         self.num_class = num_class
         self.num_data = num_data
-        self.train_data = np.zeros((self.num_data, 3))
+        self.data = np.zeros((self.num_data, 3))
 
         theta = 2*np.pi*(1+2*np.random.rand(self.num_data,1))
         x = theta*np.cos(theta)  
         y = 21*np.random.rand(self.num_data,1)
         z = theta * np.sin(theta)
-        self.train_data = np.concatenate((x,y,z), axis=1)
-        self.train_data += 0.2*np.random.randn(self.num_data,3)
-        self.train_label = np.zeros((self.num_data, self.num_class))
+        self.data = np.concatenate((x,y,z), axis=1)
+        self.data += 0.2*np.random.randn(self.num_data,3)
+        self.label = np.zeros((self.num_data, self.num_class))
         min = np.min(theta)
         i = (np.max(theta) - min)/self.num_class
         for c in range(self.num_class):
-            self.train_label[:,c][np.logical_and((min+c*i<theta[:,0]),(theta[:,0]<(min+(c+1)*i)))] = 1
+            self.label[:,c][np.logical_and((min+c*i<theta[:,0]),(theta[:,0]<(min+(c+1)*i)))] = 1
         
     def show(self, label=None):
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         if gpu:
             for c in range(self.num_class):
-                ax.scatter(to_cpu(self.train_data[(self.train_label[:,c] > 0)][:,0]),
-                           to_cpu(self.train_data[(self.train_label[:,c] > 0)][:,1]),
-                           to_cpu(self.train_data[(self.train_label[:,c] > 0)][:,2]),)
+                ax.scatter(to_cpu(self.data[(self.label[:,c] > 0)][:,0]),
+                           to_cpu(self.data[(self.label[:,c] > 0)][:,1]),
+                           to_cpu(self.data[(self.label[:,c] > 0)][:,2]),)
         else:
             for c in range(self.num_class):
-                ax.scatter(self.train_data[(self.train_label[:,c] > 0)][:,0],
-                           self.train_data[(self.train_label[:,c] > 0)][:,1],
-                           self.train_data[(self.train_label[:,c] > 0)][:,2],)
+                ax.scatter(self.data[(self.label[:,c] > 0)][:,0],
+                           self.data[(self.label[:,c] > 0)][:,1],
+                           self.data[(self.label[:,c] > 0)][:,2],)
         plt.show()

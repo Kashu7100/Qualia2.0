@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*- 
 from .. import to_cpu
 from ..core import *
-from ..autograd import Tensor
-from .dataloader import *
+from .dataset import *
+from .transforms import Compose, ToTensor, Normalize
 import matplotlib.pyplot as plt
 import gzip
-import random
 
-class KuzushiMNIST(ImageLoader):
+class KuzushiMNIST(Dataset):
     '''KuzushiMNIST Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -16,25 +15,18 @@ class KuzushiMNIST(ImageLoader):
     Shape: 
         - data: [N, 1, 28, 28] if flatten [N, 28*28]
     '''
-    def __init__(self, normalize=True, flatten=False):
-        super().__init__()
- 
-        self.download()
-        self.train_data = self._load_data(home_dir + '/data/download/kuzushimnist/train_data.gz')
-        self.train_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushimnist/train_labels.gz'), 10)
-        self.test_data = self._load_data(home_dir + '/data/download/kuzushimnist/test_data.gz')
-        self.test_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushimnist/test_labels.gz'), 10)
-        print('[*] done.')
+    def __init__(self, train=True, 
+                transforms=Compose([ToTensor(), Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])]), 
+                target_transforms=None):
+        super().__init__(train, transforms, target_transforms)
 
-        if normalize: 
-            self.train_data = np.divide(self.train_data, 255.0)
-            self.test_data = np.divide(self.test_data, 255.0)
-        if flatten:
-            self.train_data = self.train_data.reshape(-1, 28*28) 
-            self.test_data = self.test_data.reshape(-1, 28*28) 
+    def __len__(self):
+        if self.train:
+            return 60000
+        else:
+            return 10000
 
-    @property
-    def label_dict(self):
+    def state_dict(self):
         return {
             0: 'お',
             1: 'き',
@@ -48,7 +40,7 @@ class KuzushiMNIST(ImageLoader):
             9: 'を'
         }
 
-    def download(self): 
+    def prepare(self): 
         url = 'http://codh.rois.ac.jp/kmnist/dataset/kmnist/' 
         files = { 
             'train_data.gz':'train-images-idx3-ubyte.gz', 
@@ -57,7 +49,13 @@ class KuzushiMNIST(ImageLoader):
             'test_labels.gz':'t10k-labels-idx1-ubyte.gz' 
         } 
         for filename, value in files.items():
-            super().download(url+value, filename)
+            self._download(url+value, filename)
+        if self.train:
+            self.data = self._load_data(self.root+'/train_data.gz')
+            self.label = KuzushiMNIST.to_one_hot(self._load_label(self.root+'/train_labels.gz'), 10)
+        else:
+            self.data = self._load_data(self.root+'/test_data.gz')
+            self.label = KuzushiMNIST.to_one_hot(self._load_label(self.root+'/test_labels.gz'), 10)
     
     def _load_data(self, filename):
         with gzip.open(filename, 'rb') as file: 
@@ -77,48 +75,37 @@ class KuzushiMNIST(ImageLoader):
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
 
-    def show(self, label=None):
-        for i in range(10):
-            for j in range(10):
-                plt.subplot(10,10,i+j*10+1)
-                plt.xticks([]) 
-                plt.yticks([]) 
-                plt.grid(False)
-                if label is None:
-                    img = self.train_data[(self.train_label[:,j]>0)][random.randint(0, 100)].reshape(28,28)
-                else:
-                    img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, 100)].reshape(28,28)
-                plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
-        plt.show()
+    def show(self, row=10, col=10):
+        H, W = 28, 28
+        img = np.zeros((H*row, W*col))
+        for r in range(row):
+            for c in range(col):
+                img[r*H:(r+1)*H, c*W:(c+1)*W] = self.data[random.randint(0, len(self.data)-1)].reshape(H,W)
+        plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
+        plt.axis('off')
+        plt.show() 
 
-class Kuzushi49(ImageLoader):
+class Kuzushi49(Dataset):
     '''Kuzushi49 Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
         flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
 
     Shape: 
-        - data: [N, 1, 28, 28] if flatten [N, 28*28]
+        - data: [N, 1, 28, 28]
     '''
-    def __init__(self, normalize=True, flatten=False):
-        super().__init__() 
+    def __init__(self, train=True, 
+                transforms=Compose([ToTensor(), Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])]), 
+                target_transforms=None):
+        super().__init__(train, transforms, target_transforms)
 
-        self.download()
-        self.train_data = self._load_data(home_dir + '/data/download/kuzushi49/train_data.npz')
-        self.train_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushi49/train_labels.npz'), 49)
-        self.test_data = self._load_data(home_dir + '/data/download/kuzushi49/test_data.npz')
-        self.test_label = KuzushiMNIST.to_one_hot(self._load_label(home_dir + '/data/download/kuzushi49/test_labels.npz'), 49)
-        print('[*] done.')
+    def __len__(self):
+        if self.train:
+            return 232365
+        else:
+            return 38547
 
-        if normalize: 
-            self.train_data = np.divide(self.train_data, 255.0)
-            self.test_data = np.divide(self.test_data, 255.0)
-        if flatten:
-            self.train_data = self.train_data.reshape(-1, 28*28) 
-            self.test_data = self.test_data.reshape(-1, 28*28) 
-
-    @property
-    def label_dict(self):
+    def state_dict(self):
         return dict(enumerate([
             'あ',
             'い',
@@ -171,7 +158,7 @@ class Kuzushi49(ImageLoader):
             'ゝ'
         ]))
     
-    def download(self):
+    def prepare(self):
         url = 'http://codh.rois.ac.jp/kmnist/dataset/k49/' 
         files = { 
             'train_data.npz':'k49-train-imgs.npz', 
@@ -180,7 +167,13 @@ class Kuzushi49(ImageLoader):
             'test_labels.npz':'k49-test-labels.npz' 
         } 
         for filename, value in files.items():
-            super().download(url+value, filename)
+            self._download(url+value, filename)
+        if self.train:
+            self.data = self._load_data(self.root+'/train_data.npz')
+            self.label = KuzushiMNIST.to_one_hot(self._load_label(self.root+'/train_labels.npz'), 49)
+        else:
+            self.data = self._load_data(self.root+'/test_data.npz')
+            self.label = KuzushiMNIST.to_one_hot(self._load_label(self.root+'/test_labels.npz'), 49)
     
     def _load_data(self, filename):
         if gpu:
@@ -198,15 +191,12 @@ class Kuzushi49(ImageLoader):
             labels = np.load(filename, 'r')['arr_0']
         return labels
 
-    def show(self, label=None):
-        for i in range(49):
-            plt.subplot(5,10,i+1)
-            plt.xticks([]) 
-            plt.yticks([]) 
-            plt.grid(False)
-            if label is None:
-                img = self.train_data[(self.train_label[:,i]>0)][random.randint(0, 100)].reshape(28,28)
-            else:
-                img = self.train_data[(self.train_label[:,label]>0)][random.randint(0, 100)].reshape(28,28)
-            plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
-        plt.show()
+    def show(self, row=10, col=10):
+        H, W = 28, 28
+        img = np.zeros((H*row, W*col))
+        for r in range(row):
+            for c in range(col):
+                img[r*H:(r+1)*H, c*W:(c+1)*W] = self.data[random.randint(0, len(self.data)-1)].reshape(H,W)
+        plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
+        plt.axis('off')
+        plt.show() 

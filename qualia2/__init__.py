@@ -8,7 +8,7 @@ from .util import _mul
 from .nn import * 
 from .data import *
 from .vision import *
-from .rl import *
+#from .rl import *
 
 pi = np.pi
 e = np.e

@@ -53,7 +53,7 @@ class LeakyReLU(Function):
     Leaky rectified linear unit 
     '''
     @staticmethod
-    def forward(a, negative_slope):
+    def forward(a, negative_slope=0.1):
         mask = (a.data < 0) 
         tmp = a.data.copy() 
         tmp[mask] = np.multiply(negative_slope,tmp[mask]) 
@@ -74,7 +74,7 @@ class ELU(Function):
     Exponential linear unit
     '''
     @staticmethod
-    def forward(a, k):
+    def forward(a, k=1.0):
         mask = (a.data < 0) 
         tmp = a.data.copy() 
         tmp[mask] = np.multiply(k, (np.exp(tmp[mask])-1)) 

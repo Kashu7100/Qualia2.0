@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*- 
 from .dataloader import *
+from .dataset import *
+from .transforms import *
 from .basic import *
 from .emnist import *
 from .mnist import *

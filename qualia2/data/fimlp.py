@@ -1,11 +1,11 @@
+# -*- coding: utf-8 -*- 
 from .. import to_cpu
 from ..core import *
-from ..autograd import Tensor
-from .dataloader import *
+from .dataset import *
+from .transforms import Compose, ToTensor, Normalize
 import matplotlib.pyplot as plt
-import os
 
-class FIMLP(ImageLoader):
+class FIMLP(Dataset):
     '''FIMLP Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -20,71 +20,71 @@ class FIMLP(ImageLoader):
         left_eye_center_y              10
         right_eye_center_x             13
         right_eye_center_y             13
-        left_eye_inner_corner_x      4778
-        left_eye_inner_corner_y      4778
-        left_eye_outer_corner_x      4782
-        left_eye_outer_corner_y      4782
-        right_eye_inner_corner_x     4781
-        right_eye_inner_corner_y     4781
-        right_eye_outer_corner_x     4781
-        right_eye_outer_corner_y     4781
-        left_eyebrow_inner_end_x     4779
-        left_eyebrow_inner_end_y     4779
-        left_eyebrow_outer_end_x     4824
-        left_eyebrow_outer_end_y     4824
-        right_eyebrow_inner_end_x    4779
-        right_eyebrow_inner_end_y    4779
-        right_eyebrow_outer_end_x    4813
-        right_eyebrow_outer_end_y    4813
+        # left_eye_inner_corner_x      4778
+        # left_eye_inner_corner_y      4778
+        # left_eye_outer_corner_x      4782
+        # left_eye_outer_corner_y      4782
+        # right_eye_inner_corner_x     4781
+        # right_eye_inner_corner_y     4781
+        # right_eye_outer_corner_x     4781
+        # right_eye_outer_corner_y     4781
+        # left_eyebrow_inner_end_x     4779
+        # left_eyebrow_inner_end_y     4779
+        # left_eyebrow_outer_end_x     4824
+        # left_eyebrow_outer_end_y     4824
+        # right_eyebrow_inner_end_x    4779
+        # right_eyebrow_inner_end_y    4779
+        # right_eyebrow_outer_end_x    4813
+        # right_eyebrow_outer_end_y    4813
         nose_tip_x                      0
         nose_tip_y                      0
-        mouth_left_corner_x          4780
-        mouth_left_corner_y          4780
-        mouth_right_corner_x         4779
-        mouth_right_corner_y         4779
-        mouth_center_top_lip_x       4774
-        mouth_center_top_lip_y       4774
+        # mouth_left_corner_x          4780
+        # mouth_left_corner_y          4780
+        # mouth_right_corner_x         4779
+        # mouth_right_corner_y         4779
+        # mouth_center_top_lip_x       4774
+        # mouth_center_top_lip_y       4774
         mouth_center_bottom_lip_x      33
         mouth_center_bottom_lip_y      33
     '''
-    def __init__(self, normalize=True, flatten=False):
-        super().__init__() 
-        path = os.path.dirname(os.path.abspath(__file__)) 
-        self.divide = 6000
-
-        print('[*] preparing data...')
-        if not os.path.exists(path + '/download/fimlp/'): 
-            print('    this might take few minutes.') 
-            self.download(path+'/download/')
-        self.train_label, self.test_label = self._load_label(path+ '/download/fimlp/')
-        self.train_data, self.test_data = self._load_data(path+ '/download/fimlp/')
-        print('[*] done.')
-
-        if normalize: 
-            self.train_data = np.divide(self.train_data, 255.0)
-            self.test_data = np.divide(self.test_data, 255.0)
-        if flatten:
-            self.train_data = self.train_data.reshape(-1, 96*96) 
-            self.test_data = self.test_data.reshape(-1, 96*96) 
-
-    def download(self, path): 
+    def __init__(self, train=True, 
+                transforms=Compose([ToTensor(), Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])]), 
+                target_transforms=None):
+        self.divide = 6000      
+        super().__init__(train, transforms, target_transforms)
+        
+    def prepare(self):
+        self._download()
+        if self.train:
+            self.label, _ = self._load_label(self.root)
+            self.data, _ = self._load_data(self.root)
+        else:
+            _, self.label = self._load_label(self.root)
+            _, self.data = self._load_data(self.root)
+            
+            
+    def _download(self): 
+        if not os.path.exists(self.root+'/'):  
+            os.makedirs(self.root+'/') 
+        else:
+            return
         import kaggle
         kaggle.api.authenticate()
-        kaggle.api.dataset_download_files('drgilermo/face-images-with-marked-landmark-points', path=path+'fimlp', unzip=True)
+        kaggle.api.dataset_download_files('drgilermo/face-images-with-marked-landmark-points', path=self.root, unzip=True)
     
     def _load_data(self, path):
         if gpu:
             import numpy
-            data = np.asarray(numpy.moveaxis(numpy.load(path+'face_images.npz', 'r')['face_images'], -1, 0))
+            data = np.asarray(numpy.moveaxis(numpy.load(path+'/face_images.npz', 'r')['face_images'], -1, 0))
         else:
-            data = np.moveaxis(np.load(path+'face_images.npz', 'r')['face_images'], -1, 0) 
+            data = np.moveaxis(np.load(path+'/face_images.npz', 'r')['face_images'], -1, 0) 
         data = data[self.data_mask]
         
         return data[:self.divide].reshape(-1,1,96,96), data[self.divide:].reshape(-1,1,96,96)
 
     def _load_label(self, path):
         import numpy
-        data = numpy.genfromtxt(path+'facial_keypoints.csv', delimiter=',', filling_values=0)[1:]
+        data = numpy.genfromtxt(path+'/facial_keypoints.csv', delimiter=',', filling_values=0)[1:]
         if gpu:
             data = np.asarray(data)
         
@@ -95,21 +95,20 @@ class FIMLP(ImageLoader):
         label[:,6:8] = data[:,28:]
         self.data_mask = np.all(label>0, axis=1)
         label = label[self.data_mask]
-
         return label[:self.divide]/96.0, label[self.divide:]/96.0
 
-    def show(self):
-        import random
-        for i in range(16):
-            plt.subplot(4,4,i+1)
-            plt.xticks([]) 
-            plt.yticks([]) 
-            plt.grid(False)
-            idx = random.choices(range(self.divide))
-            img = self.train_data[idx].reshape(96,96)
-            plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
-            if gpu:
-                plt.scatter(to_cpu(self.train_label[idx,0::2]*96),to_cpu(self.train_label[idx,1::2]*96),marker='o',c='r',s=10)
-            else:
-                plt.scatter(self.train_label[idx,0::2]*96,self.train_label[idx,1::2]*96,marker='o',c='r',s=10)
-        plt.show() 
+    def show(self, row=5, col=5):
+        H, W = 96, 96
+        img = np.zeros((H*row, W*col))
+        label_x = np.zeros((row, col, 4))
+        label_y = np.zeros((row, col, 4))
+        for r in range(row):
+            for c in range(col):
+                idx = random.randint(0, len(self.data)-1)
+                img[r*H:(r+1)*H, c*W:(c+1)*W] = self.data[idx].reshape(H,W)/255
+                label_x[r:(r+1), c:(c+1)] = self.label[idx,0::2]*W + c*W
+                label_y[r:(r+1), c:(c+1)] = self.label[idx,1::2]*H + r*H
+        plt.imshow(to_cpu(img), cmap='gray', interpolation='nearest') 
+        plt.scatter(to_cpu(label_x.reshape(-1)),to_cpu(label_y.reshape(-1)),marker='o',c='r',s=10)
+        plt.axis('off')
+        plt.show()

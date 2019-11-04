@@ -1,39 +1,33 @@
 # -*- coding: utf-8 -*- 
+from .. import to_cpu
 from ..core import *
-from ..autograd import Tensor
-from .dataloader import *
+from .dataset import *
+from .transforms import Compose, ToTensor, Normalize
 import matplotlib.pyplot as plt
 import gzip
-import random
 
-class EMNIST(ImageLoader):
+class EMNIST(Dataset):
     '''EMNIST Dataset\n     
     Args:
         normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
         flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
 
     Shape: 
-        - data: [N, 1, 28, 28] if flatten [N, 28*28]
+        - data: [N, 1, 28, 28]
     '''
-    def __init__(self, normalize=True, flatten=False):
-        super().__init__() 
-        self.download()
-        self.train_data = self._load_data(home_dir + '/data/download/emnist/train_data.gz')
-        self.train_label = EMNIST.to_one_hot(self._load_label(home_dir + '/data/download/emnist/train_labels.gz'), 61)
-        self.test_data = self._load_data(home_dir + '/data/download/emnist/test_data.gz')
-        self.test_label = EMNIST.to_one_hot(self._load_label(home_dir + '/data/download/emnist/test_labels.gz'), 61)
-        print('[*] done.')
-
-        if normalize: 
-            self.train_data = np.divide(self.train_data, 255.0)
-            self.test_data = np.divide(self.test_data, 255.0)
-        if flatten:
-            self.train_data = self.train_data.reshape(-1, 28*28) 
-            self.test_data = self.test_data.reshape(-1, 28*28) 
+    def __init__(self, train=True, 
+                transforms=Compose([ToTensor(), Normalize([0.5,0.5,0.5],[0.5,0.5,0.5])]), 
+                target_transforms=None):
+        super().__init__(train, transforms, target_transforms)
         self.mapping = None
+    
+    def __len__(self):
+        if self.train:
+            return 697932 
+        else:
+            return 116323
 
-    @property
-    def label_dict(self):
+    def state_dict(self):
         if self.mapping is None:
             self.mapping = {}
             with open(home_dir + '/data/download/emnist/mapping.txt', 'r') as f:
@@ -42,7 +36,7 @@ class EMNIST(ImageLoader):
                     self.mapping[int(idx)] = chr(int(description.strip()))
         return self.mapping
 
-    def download(self):
+    def prepare(self):
         files = { 
             'mapping.txt':'https://www.dropbox.com/s/j2pbgp5jrbidgdf/emnist_mapping.txt?dl=1',
             'train_data.gz':'https://www.dropbox.com/s/rz2bpnt59k4zy26/emnist_train_data.gz?dl=1', 
@@ -51,7 +45,13 @@ class EMNIST(ImageLoader):
             'test_labels.gz':'https://www.dropbox.com/s/4zgdxnlcfr3h54x/emnist_test_labels.gz?dl=1' 
         }
         for filename, value in files.items():
-            super().download(value, filename)
+            self._download(value, filename)
+        if self.train:
+            self.data = self._load_data(self.root+'/train_data.gz')
+            self.label = EMNIST.to_one_hot(self._load_label(self.root+'/train_labels.gz'), 61)
+        else:
+            self.data = self._load_data(self.root+'/test_data.gz')
+            self.label = EMNIST.to_one_hot(self._load_label(self.root+'/test_labels.gz'), 61)
     
     def _load_data(self, filename):
         with gzip.open(filename, 'rb') as file: 
@@ -71,16 +71,12 @@ class EMNIST(ImageLoader):
                 labels = np.frombuffer(file.read(), np.uint8, offset=8) 
         return labels
 
-    def show(self, label=None):
-        for i in range(61):
-            plt.subplot(7,10,i+1)
-            plt.xticks([]) 
-            plt.yticks([]) 
-            plt.grid(False)
-            if label is None:
-                mask = self.test_label[:,i]>0
-            else:
-                mask = self.test_label[:,label]>0
-            img = self.test_data[mask][random.randint(0, 100)].reshape(28,28)
-            plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
-        plt.show()        
+    def show(self, row=10, col=10):
+        H, W = 28, 28
+        img = np.zeros((H*row, W*col))
+        for r in range(row):
+            for c in range(col):
+                img[r*H:(r+1)*H, c*W:(c+1)*W] = self.data[random.randint(0, len(self.data)-1)].reshape(H,W)
+        plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
+        plt.axis('off')
+        plt.show()  
