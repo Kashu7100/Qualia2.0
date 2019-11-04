@@ -46,7 +46,7 @@ class Dataset(object):
         raise NotImplementedError
 
     def prepare(self):
-        raise NotImplementedError
+        pass
 
     def _download(self, url, filename=None):
         ''' downloads data from the url
