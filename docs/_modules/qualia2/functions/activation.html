@@ -215,7 +215,7 @@
 <span class="sd">    Leaky rectified linear unit </span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="LeakyReLU.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.activation.LeakyReLU.forward">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">negative_slope</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">negative_slope</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> 
         <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
         <span class="n">tmp</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">negative_slope</span><span class="p">,</span><span class="n">tmp</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span> 
@@ -236,7 +236,7 @@
 <span class="sd">    Exponential linear unit</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="ELU.forward"><a class="viewcode-back" href="../../../qualia2.functions.html#qualia2.functions.activation.ELU.forward">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> 
         <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
         <span class="n">tmp</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> 

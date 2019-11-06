@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from ..core import *
 from ..autograd import Tensor
-import PIL
 import numpy 
+try:
+    import Image
+except ImportError:
+    from PIL import Image
 
 class Compose(object):
     ''' Compose\n
@@ -37,7 +40,7 @@ class Resize(object):
         size (int): Desired output size. (size * height / width, size)
         interpolation (int): Desired interpolation. Default is `PIL.Image.BILINEAR`
     '''
-    def __init__(self, size, interpolation=PIL.Image.BILINEAR):
+    def __init__(self, size, interpolation=Image.BILINEAR):
         self.size = size
         self.interpolation = interpolation
 
@@ -85,7 +88,7 @@ class ToTensor(object):
         return self.__class__.__name__
 
     def __call__(self, image):
-        if isinstance(image, PIL.Image.Image):
+        if isinstance(image, Image.Image):
             image = numpy.asarray(image)
             image = image.transpose(2,0,1)
             image = image.reshape(1,*image.shape) / 255
@@ -108,7 +111,7 @@ class ToPIL(object):
     def __call__(self, tensor):
         data = tensor.asnumpy()
         data = data[0].transpose(1,2,0)
-        return PIL.Image.fromarray(data)
+        return Image.fromarray(data)
     
 class Normalize(object):
     '''
@@ -132,6 +135,54 @@ class Normalize(object):
         else:
             image.data[:,0] = (image.data[:,0]-self.mean[0])/self.std[0]
         return image
+
+class RandomHorizontalFlip(object):
+    '''
+    Horizontally flip the given Image randomly with a given probability.
+    Args:
+        p (float): probability of the image being flipped. Default value is 0.5
+    '''
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def __call__(self, img):
+        '''
+        Args:
+            img (PIL Image): Image to be flipped.
+        '''
+        if random.random() < self.p:
+            if isinstance(img, np.ndarray):
+                return img[:,:,:,::-1]
+            elif isinstance(img, Image.Image):
+                return img.transpose(Image.FLIP_LEFT_RIGHT)
+        return img
+
+    def __repr__(self):
+        return self.__class__.__name__ + '(p={})'.format(self.p)
+
+class RandomVerticalFlip(object):
+    '''
+    Vertically flip the given Image randomly with a given probability.
+    Args:
+        p (float): probability of the image being flipped. Default value is 0.5
+    '''
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def __call__(self, img):
+        '''
+        Args:
+            img (PIL Image): Image to be flipped.
+        '''
+        if random.random() < self.p:
+            if isinstance(img, np.ndarray):
+                return img[:,:,::-1,:]
+            elif isinstance(img, Image.Image):
+                return img.transpose(Image.FLIP_TOP_BOTTOM)
+        return img
+
+    def __repr__(self):
+        return self.__class__.__name__ + '(p={})'.format(self.p)
 
 class Flatten(object):
     '''

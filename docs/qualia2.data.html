@@ -193,7 +193,7 @@
 <dl class="class">
 <dt id="qualia2.data.basic.Spiral">
 <em class="property">class </em><code class="sig-prename descclassname">qualia2.data.basic.</code><code class="sig-name descname">Spiral</code><span class="sig-paren">(</span><em class="sig-param">num_class=3</em>, <em class="sig-param">num_data=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/basic.html#Spiral"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.basic.Spiral" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.DataLoader" title="qualia2.data.dataloader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.DataLoader</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>Spiral Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>num_class (int): number of classes
@@ -208,8 +208,7 @@ num_data (int): number of data for each classes</p>
 <dl class="method">
 <dt id="qualia2.data.basic.Spiral.show">
 <code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/basic.html#Spiral.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.basic.Spiral.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.basic.Spiral.show_decision_boundary">
@@ -221,7 +220,7 @@ num_data (int): number of data for each classes</p>
 <dl class="class">
 <dt id="qualia2.data.basic.SwissRoll">
 <em class="property">class </em><code class="sig-prename descclassname">qualia2.data.basic.</code><code class="sig-name descname">SwissRoll</code><span class="sig-paren">(</span><em class="sig-param">num_class=5</em>, <em class="sig-param">num_data=2000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/basic.html#SwissRoll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.basic.SwissRoll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.DataLoader" title="qualia2.data.dataloader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.DataLoader</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>Swiss roll dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>num_class (int): number of classes
@@ -233,8 +232,7 @@ num_data (int): number of data for each classes</p>
 <dl class="method">
 <dt id="qualia2.data.basic.SwissRoll.show">
 <code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/basic.html#SwissRoll.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.basic.SwissRoll.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -243,46 +241,39 @@ num_data (int): number of data for each classes</p>
 <span id="qualia2-data-cifar-module"></span><h2>qualia2.data.cifar module<a class="headerlink" href="#module-qualia2.data.cifar" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.cifar.CIFAR10">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.cifar.</code><code class="sig-name descname">CIFAR10</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.cifar.</code><code class="sig-name descname">CIFAR10</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>CIFAR10 Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
 flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False</p>
 </dd>
 <dt>Shape: </dt><dd><ul class="simple">
-<li><p>data: [N, 3, 32, 32] if flatten [N, 3*32*32]</p></li>
+<li><p>data: [N, 3, 32, 32]</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.cifar.CIFAR10.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.cifar.CIFAR10.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.cifar.CIFAR10.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.cifar.CIFAR10.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.cifar.CIFAR10.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.cifar.CIFAR10.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR10.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR10.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="qualia2.data.cifar.CIFAR100">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.cifar.</code><code class="sig-name descname">CIFAR100</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em>, <em class="sig-param">label_type='coarse'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.cifar.</code><code class="sig-name descname">CIFAR100</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None, label_type='fine'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>CIFAR100 Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -290,31 +281,24 @@ flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False
 label_type (str): “fine” label (the class to which it belongs) or “coarse” label (the superclass to which it belongs)</p>
 </dd>
 <dt>Shape: </dt><dd><ul class="simple">
-<li><p>data: [N, 3, 32, 32] if flatten [N, 3*32*32]</p></li>
+<li><p>data: [N, 3, 32, 32]</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.cifar.CIFAR100.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.cifar.CIFAR100.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.cifar.CIFAR100.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.cifar.CIFAR100.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.cifar.CIFAR100.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.cifar.CIFAR100.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/cifar.html#CIFAR100.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.cifar.CIFAR100.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -323,44 +307,42 @@ filename (str): filename to save the data</p>
 <span id="qualia2-data-dataloader-module"></span><h2>qualia2.data.dataloader module<a class="headerlink" href="#module-qualia2.data.dataloader" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.dataloader.DataLoader">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.dataloader.</code><code class="sig-name descname">DataLoader</code><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.dataloader.</code><code class="sig-name descname">DataLoader</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">batch_size=1</em>, <em class="sig-param">shuffle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="qualia2.data.dataloader.DataLoader.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.dataloader.DataLoader.extract">
-<code class="sig-name descname">extract</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.extract" title="Permalink to this definition">¶</a></dt>
-<dd><p>extract the contents in the file
-Args:</p>
-<blockquote>
-<div><p>filename (str): name of the file to extract</p>
-</div></blockquote>
-</dd></dl>
-
+<p>provides an iterable over the given dataset.</p>
 <dl class="method">
 <dt id="qualia2.data.dataloader.DataLoader.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.show" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot the samples of the dataset</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="qualia2.data.dataloader.DataLoader.shuffle">
-<code class="sig-name descname">shuffle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.shuffle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.shuffle" title="Permalink to this definition">¶</a></dt>
-<dd><p>shuffle the dataset</p>
 </dd></dl>
 
+</div>
+<div class="section" id="module-qualia2.data.dataset">
+<span id="qualia2-data-dataset-module"></span><h2>qualia2.data.dataset module<a class="headerlink" href="#module-qualia2.data.dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.data.dataset.Dataset">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.dataset.</code><code class="sig-name descname">Dataset</code><span class="sig-paren">(</span><em class="sig-param">train=True</em>, <em class="sig-param">transforms=None</em>, <em class="sig-param">target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataset.html#Dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="qualia2.data.dataloader.DataLoader.to_one_hot">
-<em class="property">static </em><code class="sig-name descname">to_one_hot</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">num_class</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.to_one_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.to_one_hot" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.dataset.Dataset.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataset.html#Dataset.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataset.Dataset.prepare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.dataset.Dataset.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataset.html#Dataset.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataset.Dataset.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.dataset.Dataset.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataset.html#Dataset.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataset.Dataset.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.dataset.Dataset.to_one_hot">
+<em class="property">static </em><code class="sig-name descname">to_one_hot</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">num_class</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataset.html#Dataset.to_one_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataset.Dataset.to_one_hot" title="Permalink to this definition">¶</a></dt>
 <dd><p>convert the label to one hot representation
 Args:</p>
 <blockquote>
@@ -370,8 +352,8 @@ num_class (int): number of the class in a dataset</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="qualia2.data.dataloader.DataLoader.to_vector">
-<em class="property">static </em><code class="sig-name descname">to_vector</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#DataLoader.to_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.DataLoader.to_vector" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.dataset.Dataset.to_vector">
+<em class="property">static </em><code class="sig-name descname">to_vector</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataset.html#Dataset.to_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataset.Dataset.to_vector" title="Permalink to this definition">¶</a></dt>
 <dd><p>convert the label to vector representation
 Args:</p>
 <blockquote>
@@ -381,65 +363,37 @@ Args:</p>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="qualia2.data.dataloader.ImageLoader">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.dataloader.</code><code class="sig-name descname">ImageLoader</code><a class="reference internal" href="_modules/qualia2/data/dataloader.html#ImageLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.ImageLoader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.DataLoader" title="qualia2.data.dataloader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.DataLoader</span></code></a></p>
-<dl class="method">
-<dt id="qualia2.data.dataloader.ImageLoader.horizontal_flip">
-<em class="property">static </em><code class="sig-name descname">horizontal_flip</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#ImageLoader.horizontal_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.ImageLoader.horizontal_flip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.dataloader.ImageLoader.shape">
-<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#qualia2.data.dataloader.ImageLoader.shape" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.dataloader.ImageLoader.vertical_flip">
-<em class="property">static </em><code class="sig-name descname">vertical_flip</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/dataloader.html#ImageLoader.vertical_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.dataloader.ImageLoader.vertical_flip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="module-qualia2.data.emnist">
 <span id="qualia2-data-emnist-module"></span><h2>qualia2.data.emnist module<a class="headerlink" href="#module-qualia2.data.emnist" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.emnist.EMNIST">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.emnist.</code><code class="sig-name descname">EMNIST</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.emnist.</code><code class="sig-name descname">EMNIST</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>EMNIST Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
 flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False</p>
 </dd>
 <dt>Shape: </dt><dd><ul class="simple">
-<li><p>data: [N, 1, 28, 28] if flatten [N, 28*28]</p></li>
+<li><p>data: [N, 1, 28, 28]</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.emnist.EMNIST.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.emnist.EMNIST.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.emnist.EMNIST.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.emnist.EMNIST.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.emnist.EMNIST.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.emnist.EMNIST.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/emnist.html#EMNIST.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.emnist.EMNIST.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -448,39 +402,32 @@ filename (str): filename to save the data</p>
 <span id="qualia2-data-fashion-mnist-module"></span><h2>qualia2.data.fashion_mnist module<a class="headerlink" href="#module-qualia2.data.fashion_mnist" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.fashion_mnist.FashionMNIST">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.fashion_mnist.</code><code class="sig-name descname">FashionMNIST</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.fashion_mnist.</code><code class="sig-name descname">FashionMNIST</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>FashionMNIST Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
 flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False</p>
 </dd>
 <dt>Shape: </dt><dd><ul class="simple">
-<li><p>data: [N, 1, 28, 28] if flatten [N, 28*28]</p></li>
+<li><p>data: [N, 1, 28, 28]</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.fashion_mnist.FashionMNIST.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.fashion_mnist.FashionMNIST.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.fashion_mnist.FashionMNIST.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.fashion_mnist.FashionMNIST.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.fashion_mnist.FashionMNIST.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fashion_mnist.html#FashionMNIST.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fashion_mnist.FashionMNIST.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -489,8 +436,8 @@ filename (str): filename to save the data</p>
 <span id="qualia2-data-fimlp-module"></span><h2>qualia2.data.fimlp module<a class="headerlink" href="#module-qualia2.data.fimlp" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.fimlp.FIMLP">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.fimlp.</code><code class="sig-name descname">FIMLP</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fimlp.html#FIMLP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fimlp.FIMLP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.fimlp.</code><code class="sig-name descname">FIMLP</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fimlp.html#FIMLP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fimlp.FIMLP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>FIMLP Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -506,50 +453,43 @@ left_eye_center_x              10
 left_eye_center_y              10
 right_eye_center_x             13
 right_eye_center_y             13
-left_eye_inner_corner_x      4778
-left_eye_inner_corner_y      4778
-left_eye_outer_corner_x      4782
-left_eye_outer_corner_y      4782
-right_eye_inner_corner_x     4781
-right_eye_inner_corner_y     4781
-right_eye_outer_corner_x     4781
-right_eye_outer_corner_y     4781
-left_eyebrow_inner_end_x     4779
-left_eyebrow_inner_end_y     4779
-left_eyebrow_outer_end_x     4824
-left_eyebrow_outer_end_y     4824
-right_eyebrow_inner_end_x    4779
-right_eyebrow_inner_end_y    4779
-right_eyebrow_outer_end_x    4813
-right_eyebrow_outer_end_y    4813
+# left_eye_inner_corner_x      4778
+# left_eye_inner_corner_y      4778
+# left_eye_outer_corner_x      4782
+# left_eye_outer_corner_y      4782
+# right_eye_inner_corner_x     4781
+# right_eye_inner_corner_y     4781
+# right_eye_outer_corner_x     4781
+# right_eye_outer_corner_y     4781
+# left_eyebrow_inner_end_x     4779
+# left_eyebrow_inner_end_y     4779
+# left_eyebrow_outer_end_x     4824
+# left_eyebrow_outer_end_y     4824
+# right_eyebrow_inner_end_x    4779
+# right_eyebrow_inner_end_y    4779
+# right_eyebrow_outer_end_x    4813
+# right_eyebrow_outer_end_y    4813
 nose_tip_x                      0
 nose_tip_y                      0
-mouth_left_corner_x          4780
-mouth_left_corner_y          4780
-mouth_right_corner_x         4779
-mouth_right_corner_y         4779
-mouth_center_top_lip_x       4774
-mouth_center_top_lip_y       4774
+# mouth_left_corner_x          4780
+# mouth_left_corner_y          4780
+# mouth_right_corner_x         4779
+# mouth_right_corner_y         4779
+# mouth_center_top_lip_x       4774
+# mouth_center_top_lip_y       4774
 mouth_center_bottom_lip_x      33
 mouth_center_bottom_lip_y      33</p>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.fimlp.FIMLP.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fimlp.html#FIMLP.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fimlp.FIMLP.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
+<dt id="qualia2.data.fimlp.FIMLP.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fimlp.html#FIMLP.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fimlp.FIMLP.prepare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.fimlp.FIMLP.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fimlp.html#FIMLP.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fimlp.FIMLP.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=5</em>, <em class="sig-param">col=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/fimlp.html#FIMLP.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.fimlp.FIMLP.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -558,46 +498,39 @@ filename (str): filename to save the data</p>
 <span id="qualia2-data-kuzushi-mnist-module"></span><h2>qualia2.data.kuzushi_mnist module<a class="headerlink" href="#module-qualia2.data.kuzushi_mnist" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.kuzushi_mnist.Kuzushi49">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.kuzushi_mnist.</code><code class="sig-name descname">Kuzushi49</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.kuzushi_mnist.</code><code class="sig-name descname">Kuzushi49</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>Kuzushi49 Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
 flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False</p>
 </dd>
 <dt>Shape: </dt><dd><ul class="simple">
-<li><p>data: [N, 1, 28, 28] if flatten [N, 28*28]</p></li>
+<li><p>data: [N, 1, 28, 28]</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.kuzushi_mnist.Kuzushi49.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.kuzushi_mnist.Kuzushi49.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.kuzushi_mnist.Kuzushi49.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.kuzushi_mnist.Kuzushi49.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.kuzushi_mnist.Kuzushi49.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#Kuzushi49.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.Kuzushi49.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="qualia2.data.kuzushi_mnist.KuzushiMNIST">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.kuzushi_mnist.</code><code class="sig-name descname">KuzushiMNIST</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.kuzushi_mnist.</code><code class="sig-name descname">KuzushiMNIST</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>KuzushiMNIST Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -609,26 +542,19 @@ flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False</p
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.kuzushi_mnist.KuzushiMNIST.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.kuzushi_mnist.KuzushiMNIST.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.kuzushi_mnist.KuzushiMNIST.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.kuzushi_mnist.KuzushiMNIST.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.kuzushi_mnist.KuzushiMNIST.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/kuzushi_mnist.html#KuzushiMNIST.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.kuzushi_mnist.KuzushiMNIST.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -637,39 +563,32 @@ filename (str): filename to save the data</p>
 <span id="qualia2-data-mnist-module"></span><h2>qualia2.data.mnist module<a class="headerlink" href="#module-qualia2.data.mnist" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.mnist.MNIST">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.mnist.</code><code class="sig-name descname">MNIST</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.mnist.</code><code class="sig-name descname">MNIST</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>MNIST Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
 flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False</p>
 </dd>
 <dt>Shape: </dt><dd><ul class="simple">
-<li><p>data: [N, 1, 28, 28] if flatten [N, 28*28]</p></li>
+<li><p>data: [N, 1, 28, 28]</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.mnist.MNIST.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.mnist.MNIST.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.mnist.MNIST.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.mnist.MNIST.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.mnist.MNIST.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
-</dd></dl>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=10</em>, <em class="sig-param">col=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.mnist.MNIST.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/mnist.html#MNIST.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.mnist.MNIST.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -678,8 +597,8 @@ filename (str): filename to save the data</p>
 <span id="qualia2-data-stl10-module"></span><h2>qualia2.data.stl10 module<a class="headerlink" href="#module-qualia2.data.stl10" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="qualia2.data.stl10.STL10">
-<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.stl10.</code><code class="sig-name descname">STL10</code><span class="sig-paren">(</span><em class="sig-param">normalize=True</em>, <em class="sig-param">flatten=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataloader.ImageLoader" title="qualia2.data.dataloader.ImageLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataloader.ImageLoader</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.stl10.</code><code class="sig-name descname">STL10</code><span class="sig-paren">(</span><em class="sig-param">train=True, transforms=Compose(transforms=[ToTensor(), Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])]), target_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qualia2.data.dataset.Dataset" title="qualia2.data.dataset.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">qualia2.data.dataset.Dataset</span></code></a></p>
 <p>STL10 Dataset</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
@@ -691,27 +610,90 @@ flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False</p
 </dd>
 </dl>
 <dl class="method">
-<dt id="qualia2.data.stl10.STL10.download">
-<code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>downloads data from the url
-Args:</p>
-<blockquote>
-<div><p>url (str): url of the data
-filename (str): filename to save the data</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="qualia2.data.stl10.STL10.label_dict">
-<em class="property">property </em><code class="sig-name descname">label_dict</code><a class="headerlink" href="#qualia2.data.stl10.STL10.label_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="qualia2.data.stl10.STL10.prepare">
+<code class="sig-name descname">prepare</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10.prepare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10.prepare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="qualia2.data.stl10.STL10.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10.show" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot the samples of the dataset</p>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">row=5</em>, <em class="sig-param">col=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="qualia2.data.stl10.STL10.state_dict">
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/stl10.html#STL10.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.stl10.STL10.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
+</div>
+<div class="section" id="module-qualia2.data.transforms">
+<span id="qualia2-data-transforms-module"></span><h2>qualia2.data.transforms module<a class="headerlink" href="#module-qualia2.data.transforms" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="qualia2.data.transforms.CenterCrop">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">CenterCrop</code><span class="sig-paren">(</span><em class="sig-param">size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/transforms.html#CenterCrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.CenterCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Crops the given PIL Image at the center.
+Args:</p>
+<blockquote>
+<div><p>size (int): Desired output size of the crop.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.data.transforms.Compose">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">Compose</code><span class="sig-paren">(</span><em class="sig-param">transforms=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/transforms.html#Compose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.Compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Composes several transforms together.
+Args:</p>
+<blockquote>
+<div><p>transforms (list): list of transforms</p>
+</div></blockquote>
+<dl class="method">
+<dt id="qualia2.data.transforms.Compose.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param">transform</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/transforms.html#Compose.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.Compose.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.data.transforms.Flatten">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">Flatten</code><a class="reference internal" href="_modules/qualia2/data/transforms.html#Flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.Flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Flatten a image</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.data.transforms.Normalize">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">Normalize</code><span class="sig-paren">(</span><em class="sig-param">mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/transforms.html#Normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.Normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Normalize a tensor image with mean and standard deviation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.data.transforms.Resize">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">Resize</code><span class="sig-paren">(</span><em class="sig-param">size</em>, <em class="sig-param">interpolation=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qualia2/data/transforms.html#Resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.Resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Resize the input PIL Image to the given size.
+Args:</p>
+<blockquote>
+<div><p>size (int): Desired output size. (size * height / width, size)
+interpolation (int): Desired interpolation. Default is <cite>PIL.Image.BILINEAR</cite></p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.data.transforms.ToPIL">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">ToPIL</code><a class="reference internal" href="_modules/qualia2/data/transforms.html#ToPIL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.ToPIL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convert Tensor to PIL Image.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="qualia2.data.transforms.ToTensor">
+<em class="property">class </em><code class="sig-prename descclassname">qualia2.data.transforms.</code><code class="sig-name descname">ToTensor</code><a class="reference internal" href="_modules/qualia2/data/transforms.html#ToTensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qualia2.data.transforms.ToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convert a PIL Image or numpy array to Tensor.</p>
 </dd></dl>
 
 </div>

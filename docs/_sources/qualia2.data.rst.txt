@@ -28,6 +28,14 @@ qualia2.data.dataloader module
    :undoc-members:
    :show-inheritance:
 
+qualia2.data.dataset module
+---------------------------
+
+.. automodule:: qualia2.data.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 qualia2.data.emnist module
 --------------------------
 
@@ -72,6 +80,14 @@ qualia2.data.stl10 module
 -------------------------
 
 .. automodule:: qualia2.data.stl10
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qualia2.data.transforms module
+------------------------------
+
+.. automodule:: qualia2.data.transforms
    :members:
    :undoc-members:
    :show-inheritance:

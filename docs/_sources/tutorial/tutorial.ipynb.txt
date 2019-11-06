@@ -25,7 +25,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {
     "scrolled": true
    },
@@ -117,7 +117,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -145,7 +145,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -192,19 +192,20 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "One can use `util.check_function()` to validate the gradient caluclation of a function. `util.check_function()` internally calculates the gradient using numerical method and compares the result with automatic differentiation. \n"
+    "One can use `util.check_function()` to validate the gradient caluclation of a function. `util.check_function()` internally calculates the gradient using numerical method and compares the result with automatic differentiation. \n",
+    "One can specify the domain to avoid null value for the function that has not defined region."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
+     "name": "stderr",
      "output_type": "stream",
      "text": [
-      "[*] measured error:  7.808416552423754e-18\n"
+      "[*] measured error: 1.073802239416379e-12\n"
      ]
     }
    ],
@@ -212,31 +213,41 @@
     "from qualia2.functions import *\n",
     "from qualia2.util import check_function\n",
     "\n",
-    "check_function(sinc)"
+    "grad, sse = check_function(tan, domain=(-np.pi/4, np.pi/4))"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "One can specify the domain to avoid null value for the function that has not defined region."
+    "One can use `util.check_function()` to validate the user defined function. Also, one can specify the input `x` to check the gradient at given `x`."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "[*] measured error: 2.8106903877255435e-18\n"
+     ]
+    },
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "[*] measured error:  1.0834724541670098e-12\n"
+      "auto_grad:[-19.83229367], numerical_grad:[-19.83229367]\n"
      ]
     }
    ],
    "source": [
-    "check_function(tan, domain=(-np.pi/4, np.pi/4))"
+    "def func(x):\n",
+    "    return x*sin(x)-5*x**2+cos(x)+x\n",
+    "\n",
+    "print('auto_grad:{}, numerical_grad:{}'.format(*check_function(func, x=qualia2.array(2))[0]))"
    ]
   },
   {
@@ -492,7 +503,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -527,7 +538,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -563,7 +574,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [
     {
@@ -575,10 +586,10 @@
       "----------------------------------------------------------------------------\n",
       "| layers              |    input shape     |    output shape    | params # |\n",
       "============================================================================\n",
-      "| Conv2d-0            |   (1, 1, 28, 28)   |  (1, 10, 26, 26)   |   260    |\n",
-      "| Conv2d-1            |  (1, 10, 13, 13)   |  (1, 20, 11, 11)   |   5020   |\n",
-      "| Linear-2            |      (1, 500)      |      (1, 50)       |  25050   |\n",
-      "| Linear-3            |      (1, 50)       |      (1, 10)       |   510    |\n",
+      "| Conv2d              |   (1, 1, 28, 28)   |  (1, 10, 26, 26)   |   260    |\n",
+      "| Conv2d              |  (1, 10, 13, 13)   |  (1, 20, 11, 11)   |   5020   |\n",
+      "| Linear              |      (1, 500)      |      (1, 50)       |  25050   |\n",
+      "| Linear              |      (1, 50)       |      (1, 10)       |   510    |\n",
       "============================================================================\n",
       "total params: 30840\n",
       "training mode: True\n",
@@ -635,7 +646,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -670,27 +681,27 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "You can gat the default parameters as:"
+    "You can gat the parameters as:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "{'lr': 0.001, 'momentum': 0, 'weight_decay': 0}"
+       "{'lr': 0.001, 'm': 0, 'l2': 0, 'v': {}}"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 17,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "optim.defaults"
+    "optim.state_dict()"
    ]
   },
   {
@@ -702,11 +713,23 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 20,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'lr': 0.01, 'm': 0.1, 'l2': 0.9, 'v': {}}"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
-    "optim.load_settings({'lr':0.01, 'momentum': 0.1, 'weight_decay': 0.9})"
+    "optim.load_state_dict({'lr':0.01, 'm': 0.1, 'l2': 0.9})\n",
+    "optim.state_dict()"
    ]
   },
   {
