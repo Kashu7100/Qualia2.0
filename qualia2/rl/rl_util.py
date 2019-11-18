@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 from ..core import *
+from ..util import Trainer
 from .memory import Experience, PrioritizedMemory
 import matplotlib.pyplot as plt
 from logging import getLogger
 import os
 
 logger = getLogger('QualiaLogger').getChild('rl')
+
+class RLTrainer(Trainer):
+    '''
+    '''
+    def __init__(model, optim, criterion, scheduler=None):
 
 class Trainer(object):
     ''' Trainer for RL agent\n

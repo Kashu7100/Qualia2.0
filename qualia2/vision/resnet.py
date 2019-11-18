@@ -3,9 +3,6 @@ from ..nn.modules.module import Module, Sequential
 from ..nn.modules import Linear, Conv2d, MaxPool2d, GlobalAvgPool2d, Dropout, BatchNorm2d, Flatten, ReLU
 from ..functions import reshape, relu
 from ..nn  import init
-import os
-
-path = os.path.dirname(os.path.abspath(__file__))
 
 def conv3x3(in_planes, out_planes, stride=1, dilation=1):
     ''' 3x3 convolution with padding

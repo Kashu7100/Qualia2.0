@@ -14,6 +14,10 @@ class Checkpointer(object):
         self.save_period = save_period
         self.save_dir = save_dir
 
+    def __call__(self, trainer, *args, **kwargs):
+        if kwargs['epoch'] % checkpoint.save_period == 0 and kwargs['epoch'] > 0:
+            self.save('checkpoint_epoch{}'.format(kwargs['epoch']))
+
     def save(self, name, **kwargs):
         if not self.save_dir:
             return

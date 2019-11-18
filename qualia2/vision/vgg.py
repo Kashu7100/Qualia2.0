@@ -2,9 +2,6 @@
 from ..nn.modules.module import Module, Sequential
 from ..nn.modules import Linear, Conv2d, MaxPool2d, ReLU, Dropout, BatchNorm2d
 from ..functions import reshape
-import os
-
-path = os.path.dirname(os.path.abspath(__file__))
 
 cfg = {
     '11': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],

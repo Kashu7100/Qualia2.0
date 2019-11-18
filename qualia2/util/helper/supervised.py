@@ -12,7 +12,7 @@ def supervised_trainer(model, optim, criterion, scheduler=None, checkpoint=None)
         loss = trainer.criterion(output, label)
         loss.backward()
         trainer.optim.step()
-        return loss
+        return loss.asnumpy()
     
     if scheduler is not None:
         @trainer.event(Events.EPOCH_COMPLETED)
@@ -20,9 +20,6 @@ def supervised_trainer(model, optim, criterion, scheduler=None, checkpoint=None)
             trainer.scheduler.step()
 
     if checkpoint is not None:
-        @trainer.event(Events.EPOCH_COMPLETED)
-        def _checkpoint(trainer, epoch):
-            if epoch % checkpoint.save_period == 0 and epoch > 0:
-                checkpoint.save('checkpoint_epoch{}'.format(epoch))
+        trainer.add_handler(Events.EPOCH_COMPLETED, checkpoint)
 
     return trainer

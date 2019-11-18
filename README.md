@@ -26,6 +26,9 @@ The main components of Qualia2.0 is listed below:
 | **qualia2.util** | utility functions for convenience |
 | [**qualia2.vision**](/qualia2/vision) | pretrained model architectures for computer vision |
 
+## Docs
+Online document is available [here](https://kashu7100.github.io/Qualia2.0). 
+
 ## Requirements
 
 * [NVIDIA CUDA GPU](https://developer.nvidia.com/cuda-gpus): Compute Capability of the GPU must be at least 3.0.
@@ -55,10 +58,7 @@ $ python setup.py install --cuda 100
 $ python setup.py install
 ```
 
-## Docs
-Online document is available [here](https://kashu7100.github.io/Qualia2.0). 
-
-## Examples
+## Demo
 More examples can be found [here](/examples).
 
 ### [Supervised learning](/examples/supervised_learning)

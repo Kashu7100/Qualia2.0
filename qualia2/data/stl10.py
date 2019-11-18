@@ -8,9 +8,11 @@ import tarfile
 
 class STL10(Dataset):
     '''STL10 Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
 
     Shape: 
         - data: [N, 3, 96, 96] if flatten [N, 3*96*96]
@@ -28,16 +30,7 @@ class STL10(Dataset):
 
     def state_dict(self):
         return {
-            0: 'airplane',
-            1: 'bird',
-            2: 'car',
-            3: 'cat',
-            4: 'deer',
-            5: 'dog',
-            6: 'horse',
-            7: 'monkey',
-            8: 'ship',
-            9: 'truck',
+            'label_map': stl10_labels
         }
 
     def prepare(self): 
@@ -78,3 +71,16 @@ class STL10(Dataset):
         plt.imshow(to_cpu(img), interpolation='nearest') 
         plt.axis('off')
         plt.show()         
+
+stl10_labels = {
+    0: 'airplane',
+    1: 'bird',
+    2: 'car',
+    3: 'cat',
+    4: 'deer',
+    5: 'dog',
+    6: 'horse',
+    7: 'monkey',
+    8: 'ship',
+    9: 'truck',
+}

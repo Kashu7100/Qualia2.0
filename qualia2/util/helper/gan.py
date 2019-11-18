@@ -30,3 +30,6 @@ def gan_trainer(model, optim, criterion, scheduler=None):
         optim_g.step()
 
     return trainer
+
+def conditional_gan_trainer(model, optim, criterion, scheduler=None):
+    pass

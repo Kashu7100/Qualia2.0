@@ -3,9 +3,6 @@ from ..nn.modules.module import Module, Sequential
 from ..nn.modules import Conv2d, MaxPool2d, GlobalAvgPool2d, ReLU, Dropout
 from ..nn import init
 from ..functions import reshape, relu, concat
-import os
-
-path = os.path.dirname(os.path.abspath(__file__))
 
 class Fire(Module):
     def __init__(self, inplanes, squeeze_planes, expand1x1_planes, expand3x3_planes):

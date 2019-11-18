@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 from ..nn.modules.module import Sequential, Module
-from ..nn.modules import Linear, Conv2d, MaxPool2d, SoftMax, ReLU, Flatten, Dropout
-import os
-
-path = os.path.dirname(os.path.abspath(__file__))
+from ..nn.modules import Linear, Conv2d, MaxPool2d, SoftMax, ReLU, Dropout
 
 class AlexNet(Module):
     ''' AlexNet \n

@@ -8,9 +8,11 @@ import gzip
 
 class MNIST(Dataset):
     '''MNIST Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
 
     Shape: 
         - data: [N, 1, 28, 28]
@@ -28,7 +30,7 @@ class MNIST(Dataset):
         
     def state_dict(self):
         return {
-            'label_map': {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9'}
+            'label_map': mnist_labels
         } 
        
     def prepare(self):
@@ -77,3 +79,16 @@ class MNIST(Dataset):
         plt.imshow(to_cpu(img), cmap='gray', interpolation='nearest') 
         plt.axis('off')
         plt.show()   
+
+mnist_labels = {
+    0: '0', 
+    1: '1', 
+    2: '2', 
+    3: '3', 
+    4: '4', 
+    5: '5', 
+    6: '6', 
+    7: '7', 
+    8: '8', 
+    9: '9'
+}

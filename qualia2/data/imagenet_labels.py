@@ -1000,4 +1000,4 @@ imagenet_labels = {
     997: 'bolete',
     998: 'ear, spike, capitulum',
     999: 'toilet tissue, toilet paper, bathroom tissue'
- }
+}

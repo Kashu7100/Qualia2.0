@@ -59,14 +59,23 @@ class Tensor(object):
 
     def __setattr__(self, key, value):   
         super().__setattr__(key, value)
-        if key == 'data':
-            super().__setattr__('shape', self.data.shape)
-            super().__setattr__('ndim', self.data.ndim) 
         if key == 'dtype':
             super().__setattr__('data', self.data.astype(value)) 
         if self.hook is not None:
             if key == 'grad':
                 super().__setattr__('grad', self.hook(value))
+
+    @property
+    def shape(self):
+        return self.data.shape
+    
+    @property
+    def ndim(self):
+        return self.data.ndim
+    
+    @property
+    def size(self):
+        return self.data.size
 
     def __getitem__(self, slice):
         return Slice.forward(self, slice)
@@ -75,7 +84,7 @@ class Tensor(object):
         self.data[idx] = obj
 
     def __len__(self): 
-        return self.ndim
+        return len(self.data)
 
     def __add__(self, other):
         other = self.handle_const(other)

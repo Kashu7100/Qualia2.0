@@ -10,9 +10,11 @@ import random
 
 class CIFAR10(Dataset):
     '''CIFAR10 Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
 
     Shape: 
         - data: [N, 3, 32, 32]
@@ -30,18 +32,7 @@ class CIFAR10(Dataset):
 
     def state_dict(self):
         return {
-            'label_map':{
-                0: 'airplane', 
-                1: 'automobile', 
-                2: 'bird', 
-                3: 'cat', 
-                4: 'deer', 
-                5: 'dog', 
-                6: 'frog', 
-                7: 'horse', 
-                8: 'ship', 
-                9: 'truck'
-            }
+            'label_map': cifar10_labels
         }
 
     def prepare(self): 
@@ -91,10 +82,13 @@ class CIFAR10(Dataset):
 
 class CIFAR100(Dataset):
     '''CIFAR100 Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 3*32*32]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
         label_type (str): "fine" label (the class to which it belongs) or "coarse" label (the superclass to which it belongs)
+        
     Shape: 
         - data: [N, 3, 32, 32]
     '''
@@ -115,131 +109,11 @@ class CIFAR100(Dataset):
     def state_dict(self):
         if self.label_type == 'fine':
             return {
-            'label_map':dict(enumerate([
-                'apple',
-                'aquarium_fish',
-                'baby',
-                'bear',
-                'beaver',
-                'bed',
-                'bee',
-                'beetle',
-                'bicycle',
-                'bottle',
-                'bowl',
-                'boy',
-                'bridge',
-                'bus',
-                'butterfly',
-                'camel',
-                'can',
-                'castle',
-                'caterpillar',
-                'cattle',
-                'chair',
-                'chimpanzee',
-                'clock',
-                'cloud',
-                'cockroach',
-                'couch',
-                'crab',
-                'crocodile',
-                'cup',
-                'dinosaur',
-                'dolphin',
-                'elephant',
-                'flatfish',
-                'forest',
-                'fox',
-                'girl',
-                'hamster',
-                'house',
-                'kangaroo',
-                'computer_keyboard',
-                'lamp',
-                'lawn_mower',
-                'leopard',
-                'lion',
-                'lizard',
-                'lobster',
-                'man',
-                'maple_tree',
-                'motorcycle',
-                'mountain',
-                'mouse',
-                'mushroom',
-                'oak_tree',
-                'orange',
-                'orchid',
-                'otter',
-                'palm_tree',
-                'pear',
-                'pickup_truck',
-                'pine_tree',
-                'plain',
-                'plate',
-                'poppy',
-                'porcupine',
-                'possum',
-                'rabbit',
-                'raccoon',
-                'ray',
-                'road',
-                'rocket',
-                'rose',
-                'sea',
-                'seal',
-                'shark',
-                'shrew',
-                'skunk',
-                'skyscraper',
-                'snail',
-                'snake',
-                'spider',
-                'squirrel',
-                'streetcar',
-                'sunflower',
-                'sweet_pepper',
-                'table',
-                'tank',
-                'telephone',
-                'television',
-                'tiger',
-                'tractor',
-                'train',
-                'trout',
-                'tulip',
-                'turtle',
-                'wardrobe',
-                'whale',
-                'willow_tree',
-                'wolf',
-                'woman',
-                'worm']))
+            'label_map': cifar100_fine_labels
             }
         elif self.label_type == 'coarse':
             return {
-            'label_map':dict(enumerate([
-                'aquatic mammals',
-                'fish',
-                'flowers',
-                'food containers',
-                'fruit and vegetables',
-                'household electrical device',
-                'household furniture',
-                'insects',
-                'large carnivores',
-                'large man-made outdoor things',
-                'large natural outdoor scenes',
-                'large omnivores and herbivores',
-                'medium-sized mammals',
-                'non-insect invertebrates',
-                'people',
-                'reptiles',
-                'small mammals',
-                'trees',
-                'vehicles 1',
-                'vehicles 2']))
+            'label_map': cifar100_coarse_labels
             }
             
     def prepare(self): 
@@ -286,3 +160,142 @@ class CIFAR100(Dataset):
         plt.imshow(to_cpu(img) if gpu else img, interpolation='nearest') 
         plt.axis('off')
         plt.show() 
+
+cifar10_labels = {
+    0: 'airplane', 
+    1: 'automobile', 
+    2: 'bird', 
+    3: 'cat', 
+    4: 'deer', 
+    5: 'dog', 
+    6: 'frog', 
+    7: 'horse', 
+    8: 'ship', 
+    9: 'truck'
+}
+
+cifar100_fine_labels = dict(enumerate([
+    'apple',
+    'aquarium_fish',
+    'baby',
+    'bear',
+    'beaver',
+    'bed',
+    'bee',
+    'beetle',
+    'bicycle',
+    'bottle',
+    'bowl',
+    'boy',
+    'bridge',
+    'bus',
+    'butterfly',
+    'camel',
+    'can',
+    'castle',
+    'caterpillar',
+    'cattle',
+    'chair',
+    'chimpanzee',
+    'clock',
+    'cloud',
+    'cockroach',
+    'couch',
+    'crab',
+    'crocodile',
+    'cup',
+    'dinosaur',
+    'dolphin',
+    'elephant',
+    'flatfish',
+    'forest',
+    'fox',
+    'girl',
+    'hamster',
+    'house',
+    'kangaroo',
+    'computer_keyboard',
+    'lamp',
+    'lawn_mower',
+    'leopard',
+    'lion',
+    'lizard',
+    'lobster',
+    'man',
+    'maple_tree',
+    'motorcycle',
+    'mountain',
+    'mouse',
+    'mushroom',
+    'oak_tree',
+    'orange',
+    'orchid',
+    'otter',
+    'palm_tree',
+    'pear',
+    'pickup_truck',
+    'pine_tree',
+    'plain',
+    'plate',
+    'poppy',
+    'porcupine',
+    'possum',
+    'rabbit',
+    'raccoon',
+    'ray',
+    'road',
+    'rocket',
+    'rose',
+    'sea',
+    'seal',
+    'shark',
+    'shrew',
+    'skunk',
+    'skyscraper',
+    'snail',
+    'snake',
+    'spider',
+    'squirrel',
+    'streetcar',
+    'sunflower',
+    'sweet_pepper',
+    'table',
+    'tank',
+    'telephone',
+    'television',
+    'tiger',
+    'tractor',
+    'train',
+    'trout',
+    'tulip',
+    'turtle',
+    'wardrobe',
+    'whale',
+    'willow_tree',
+    'wolf',
+    'woman',
+    'worm'
+]))
+
+cifar100_coarse_labels = dict(enumerate([
+    'aquatic mammals',
+    'fish',
+    'flowers',
+    'food containers',
+    'fruit and vegetables',
+    'household electrical device',
+    'household furniture',
+    'insects',
+    'large carnivores',
+    'large man-made outdoor things',
+    'large natural outdoor scenes',
+    'large omnivores and herbivores',
+    'medium-sized mammals',
+    'non-insect invertebrates',
+    'people',
+    'reptiles',
+    'small mammals',
+    'trees',
+    'vehicles 1',
+    'vehicles 2'
+]))

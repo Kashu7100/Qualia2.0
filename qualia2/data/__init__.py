@@ -10,3 +10,4 @@ from .kuzushi_mnist import *
 from .cifar import *
 from .fimlp import *
 from .stl10 import*
+from .imagenet_labels import *

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 from .helper import *
-from .checkpoint import *
+from .handlers import *
 
 from .. import to_cpu
 from ..core import *

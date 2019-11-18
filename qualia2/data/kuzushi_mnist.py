@@ -8,9 +8,11 @@ import gzip
 
 class KuzushiMNIST(Dataset):
     '''KuzushiMNIST Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
 
     Shape: 
         - data: [N, 1, 28, 28] if flatten [N, 28*28]
@@ -28,16 +30,7 @@ class KuzushiMNIST(Dataset):
 
     def state_dict(self):
         return {
-            0: 'お',
-            1: 'き',
-            2: 'す',
-            3: 'つ',
-            4: 'な',
-            5: 'は',
-            6: 'ま',
-            7: 'や',
-            8: 'れ',
-            9: 'を'
+            'label_map': kuzushi_mnist_labels
         }
 
     def prepare(self): 
@@ -87,9 +80,11 @@ class KuzushiMNIST(Dataset):
 
 class Kuzushi49(Dataset):
     '''Kuzushi49 Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
 
     Shape: 
         - data: [N, 1, 28, 28]
@@ -106,57 +101,9 @@ class Kuzushi49(Dataset):
             return 38547
 
     def state_dict(self):
-        return dict(enumerate([
-            'あ',
-            'い',
-            'う',
-            'え',
-            'お',
-            'か',
-            'き',
-            'く',
-            'け',
-            'こ',
-            'さ',
-            'し',
-            'す',
-            'せ',
-            'そ',
-            'た',
-            'ち',
-            'つ',
-            'て',
-            'と',
-            'な',
-            'に',
-            'ぬ',
-            'ね',
-            'の',
-            'は',
-            'ひ',
-            'ふ',
-            'へ',
-            'ほ',
-            'ま',
-            'み',
-            'む',
-            'め',
-            'も',
-            'や',
-            'ゆ',
-            'よ',
-            'ら',
-            'り',
-            'る',
-            'れ',
-            'ろ',
-            'わ',
-            'ゐ',
-            'ゑ',
-            'を',
-            'ん',
-            'ゝ'
-        ]))
+        return {
+            'label_map': kuzushi49_labels
+        }
     
     def prepare(self):
         url = 'http://codh.rois.ac.jp/kmnist/dataset/k49/' 
@@ -200,3 +147,68 @@ class Kuzushi49(Dataset):
         plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.axis('off')
         plt.show() 
+
+kuzushi_mnist_labels = {
+    0: 'お',
+    1: 'き',
+    2: 'す',
+    3: 'つ',
+    4: 'な',
+    5: 'は',
+    6: 'ま',
+    7: 'や',
+    8: 'れ',
+    9: 'を'
+}
+
+kuzushi49_labels = dict(enumerate([
+    'あ',
+    'い',
+    'う',
+    'え',
+    'お',
+    'か',
+    'き',
+    'く',
+    'け',
+    'こ',
+    'さ',
+    'し',
+    'す',
+    'せ',
+    'そ',
+    'た',
+    'ち',
+    'つ',
+    'て',
+    'と',
+    'な',
+    'に',
+    'ぬ',
+    'ね',
+    'の',
+    'は',
+    'ひ',
+    'ふ',
+    'へ',
+    'ほ',
+    'ま',
+    'み',
+    'む',
+    'め',
+    'も',
+    'や',
+    'ゆ',
+    'よ',
+    'ら',
+    'り',
+    'る',
+    'れ',
+    'ろ',
+    'わ',
+    'ゐ',
+    'ゑ',
+    'を',
+    'ん',
+    'ゝ'
+]))

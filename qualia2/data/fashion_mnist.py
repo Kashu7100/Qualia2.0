@@ -8,9 +8,11 @@ import gzip
 
 class FashionMNIST(Dataset):
     '''FashionMNIST Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 28*28]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
 
     Shape: 
         - data: [N, 1, 28, 28]
@@ -28,16 +30,7 @@ class FashionMNIST(Dataset):
         
     def state_dict(self):
         return {
-            0: 'T-shirt/top',
-            1: 'Trouser',
-            2: 'Pullover',
-            3: 'Dress',
-            4: 'Coat',
-            5: 'Sandal',
-            6: 'Shirt',
-            7: 'Sneaker',
-            8: 'Bag',
-            9: 'Ankle boot'
+            'label_map': fashion_mnist_labels
         }
 
     def prepare(self):
@@ -84,3 +77,16 @@ class FashionMNIST(Dataset):
         plt.imshow(to_cpu(img) if gpu else img, cmap='gray', interpolation='nearest') 
         plt.axis('off')
         plt.show() 
+
+fashion_mnist_labels = {
+    0: 'T-shirt/top',
+    1: 'Trouser',
+    2: 'Pullover',
+    3: 'Dress',
+    4: 'Coat',
+    5: 'Sandal',
+    6: 'Shirt',
+    7: 'Sneaker',
+    8: 'Bag',
+    9: 'Ankle boot'
+}

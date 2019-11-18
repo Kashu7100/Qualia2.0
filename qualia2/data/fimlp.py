@@ -7,9 +7,12 @@ import matplotlib.pyplot as plt
 
 class FIMLP(Dataset):
     '''FIMLP Dataset\n     
+    
     Args:
-        normalize (bool): If true, the intensity value of a specific pixel in a specific image will be rescaled from [0, 255] to [0, 1]. Default: True 
-        flatten (bool): If true, data will have a shape of [N, 96*96]. Default: False 
+        train (bool): if True, load training dataset
+        transforms (transforms): transforms to apply on the features
+        target_transforms (transforms): transforms to apply on the labels
+        
     Shape: 
         - data: [N, 1, 96, 96] if flatten [N, 96*96]
 

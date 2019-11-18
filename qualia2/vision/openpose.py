@@ -3,9 +3,6 @@ from ..nn.modules.module import Module, Sequential
 from ..nn.modules import Conv2d, ReLU
 from ..functions import reshape, concat
 from .vgg import VGG19
-import os
-
-path = os.path.dirname(os.path.abspath(__file__))
 
 class OpenPoseBody(Module):
     def __init__(self, pretrained=False):
