@@ -28,8 +28,8 @@ if '--cuda' in sys.argv:
       requires.append('cupy-cuda{}'.format(cuda))            
 
 setup(name='qualia2',
-      version='0.0.1',
-      description='Qualia2.0 is a deep learning framework deeply integrated with automatic differentiation and dynamic graphing with CUDA acceleration. ',
+      version='2.0.1',
+      description='Qualia is a deep learning framework deeply integrated with automatic differentiation and dynamic graphing with CUDA acceleration. ',
       author='Kashu',
       author_email='echo_six0566 {at} yahoo.co.jp',
       url='https://github.com/Kashu7100/Qualia2.0',
