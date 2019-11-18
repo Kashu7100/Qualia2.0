@@ -10,11 +10,11 @@ David J. Chalmers, an Australian philosopher and cognitive scientist, once argue
 ## Overview
 
 [![Build](https://img.shields.io/badge/build-passing-success.svg)](https://github.com/Kashu7100/Qualia2.0/)
-[![Version](https://img.shields.io/badge/package-v0.0.1-informational.svg)](https://github.com/Kashu7100/Qualia2.0/)
+[![Version](https://img.shields.io/badge/package-2.0.1-informational.svg)](https://github.com/Kashu7100/Qualia2.0/)
 [![Size](https://img.shields.io/github/repo-size/Kashu7100/Qualia2.0.svg)](https://github.com/Kashu7100/Qualia2.0/)
 [![License: MIT](https://img.shields.io/github/license/Kashu7100/Qualia2.0.svg)](/LICENSE)
 
-The main components of Qualia2.0 is listed below:
+The main components of Qualia is listed below:
 
 | Component | Description |
 | ---- | --- |
@@ -35,7 +35,7 @@ Online document is available [here](https://kashu7100.github.io/Qualia2.0).
 * [CUDA Toolkit](https://developer.nvidia.com/cuda-zone): Supported Versions: 8.0, 9.0, 9.1, 9.2, 10.0, and 10.1. 
 * [Python 3.6 +](https://www.python.org/)
 
->   *Note: Qualia2.0 is also available for CPU use*
+>   *Note: Qualia is also available for CPU use*
 
 ## Installation
 For detailed instructions on installing Qualia, see the [installation guide](https://kashu7100.github.io/Qualia2.0/install.html).
@@ -77,13 +77,13 @@ More examples can be found [here](/examples).
 ## Citation
 Please cite **Qualia** if you use the contents in this repository for your research or in a scientific publication.
 ```
-Y. Kashu, Qualia2.0 - Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application, (2019), GitHub repository, https://github.com/Kashu7100/Qualia2.0
+Y. Kashu, Qualia - Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application, (2019), GitHub repository, https://github.com/Kashu7100/Qualia2.0
 ```
 BibTex
 ```bibtex
 @misc{qualia,
   author = {Kashu Yamazaki},
-  title = {{Q}ualia2.0 - Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application},
+  title = {{Q}ualia - Automatic Differentiation and Dynamic Graphing with CUDA for Deep Learning Application},
   year = {2019},
   publisher = {GitHub},
   journal = {GitHub repository},
