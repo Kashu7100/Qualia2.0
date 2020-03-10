@@ -16,18 +16,8 @@ class Dropout(Function):
         if training:
             np.random.seed()
             mask = (np.random.binomial(1,p,x.shape) == 1)
-            tmp = x.data.copy()
-            tmp[mask] = 0
-            result = Tensor(tmp)
-            result.set_creator(Dropout.prepare(result.shape, x, mask=mask))
-            x.child.append(id(result.creator))
-            return result
+            return x*Tensor(mask, requires_grad=False)
         else:
-            return x        
-    
-    def calc_grad(self, dx):
-        tmp = dx.copy()
-        tmp[self.kwargs['mask']] = 0
-        return tmp
+            return x
 
 dropout = Dropout(None)
