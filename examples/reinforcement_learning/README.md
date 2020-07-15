@@ -7,12 +7,6 @@
 # Value Based
 The value iteration algorithm tries to find an optimal policy by finding the optimal value function.
 
-## SARSA
-Sarsa updates the action value according to the following equation:
-<p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-Q(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-Q(S_t,A_t))" title="Q(S_t,A_t) \leftarrow Q(S_t,A_t)+\alpha (R_{t+1}+\gamma \, Q(S_{t+1},A_{t+1})-Q(S_t,A_t))" /></a>
-</p>
-
 ## Q-learning
 Q-learning updates the action value according to the following equation:
 
@@ -183,6 +177,13 @@ Then the policy is learned just by maximizing <a href="https://www.codecogs.com/
 
 # Policy Based
 The policy iteration algorithm manipulates the policy directly, rather than finding it indirectly via the optimal value function.
+
+
+## SARSA
+Sarsa updates the action value according to the following equation:
+<p align="center">
+<a href="https://www.codecogs.com/eqnedit.php?latex=Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-Q(S_t,A_t))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Q(S_t,A_t)&space;\leftarrow&space;Q(S_t,A_t)&plus;\alpha&space;(R_{t&plus;1}&plus;\gamma&space;\,&space;Q(S_{t&plus;1},A_{t&plus;1})-Q(S_t,A_t))" title="Q(S_t,A_t) \leftarrow Q(S_t,A_t)+\alpha (R_{t+1}+\gamma \, Q(S_{t+1},A_{t+1})-Q(S_t,A_t))" /></a>
+</p>
 
 ## TRPO
 [[paper]](https://arxiv.org/pdf/1502.05477.pdf)
