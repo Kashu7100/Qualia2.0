@@ -81,7 +81,7 @@ class SGD(Optimizer):
             assert var.data.shape == var.grad.shape
             if i not in self.v:  
                 self.v[i] = np.zeros_like(var.grad) 
-            self.v[i] = self.m * self.v[i] + (1 - self.m) * var.grad 
+            self.v[i] = self.m * self.v[i] + var.grad 
             var.data -= self.l2 * var.data
             var.data -= self.lr * self.v[i]
 
